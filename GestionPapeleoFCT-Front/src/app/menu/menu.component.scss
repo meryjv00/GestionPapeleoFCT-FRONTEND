@@ -1,0 +1,52 @@
+$borde-lateral: #21262d;
+$color-main: rgb(122, 75, 114);
+$enlaces: #414a4c;
+$enlaces-active: white;
+aside {
+    padding-right: 1rem;
+    padding-top: 1rem;
+    border-right: 0.4px solid $borde-lateral;
+    height: 100vh;
+    div.user {
+        padding: 0 1rem;
+        img {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            width: 80px;
+            border-radius: 50px;
+        }
+        p,
+        h4 {
+            margin: 0;
+            margin-left: 15px;
+            padding: 0 1rem;
+            color: $enlaces;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        p {
+            margin: aut;
+        }
+    }
+    div.enlaces {
+        margin-top: 20px;
+        a {
+            margin: 15px;
+            padding: 1rem;
+            display: block;
+            text-decoration: none;
+            color: $enlaces;
+            font-size: 18px;
+            &.active {
+                background-color: $color-main;
+                border-radius: 15px;
+                color: $enlaces-active;
+            }
+            i {
+                font-size: 25px;
+                margin: 0 1rem;
+            }
+        }
+    }
+}
