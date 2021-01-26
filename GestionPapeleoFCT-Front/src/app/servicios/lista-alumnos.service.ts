@@ -11,7 +11,7 @@ export class ListaAlumnosService {
 
   constructor(private http: HttpClient, private loginService: LoginService, private router: Router) {
     if (!loginService.isUserSignedIn()) {
-      router.navigate(['/listaCursos']);
+      router.navigate(['/login']);
     }
   }
 

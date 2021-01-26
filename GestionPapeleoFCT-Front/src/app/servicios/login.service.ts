@@ -49,7 +49,7 @@ export class LoginService {
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
         sessionStorage.setItem(LoginService.SESSION_STORAGE_KEY, JSON.stringify(this.user));
-        this.router.navigate(['/listaCursos']);
+        this.router.navigate(['listaCursos']);
       },
       (error) => {
         this.message = error.error.message;

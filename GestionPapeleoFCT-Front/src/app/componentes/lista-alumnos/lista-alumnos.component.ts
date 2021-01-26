@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListaAlumnosService } from 'src/app/servicios/lista-alumnos.service';
-//import { LoginService } from 'src/app/servicios/login.service';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
   selector: 'app-lista-alumnos',
@@ -14,14 +14,12 @@ export class ListaAlumnosComponent implements OnInit {
   id: any; tutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any; cursoAcademico: any; nHoras: any;
   alumnos: any[];
 
-  //private loginService: LoginService
-  constructor(private route: ActivatedRoute,private listaAlumnosService: ListaAlumnosService,private router: Router) {
-    /**
-     *     if (!loginService.isUserSignedIn()){
+  //
+  constructor(private route: ActivatedRoute,private listaAlumnosService: ListaAlumnosService,private router: Router,private loginService: LoginService) {
+    if (!loginService.isUserSignedIn()){
       this.router.navigate(['/login']);
     }
-     */
-     
+    
     this.alumnos = [];
     this.id = this.route.snapshot.paramMap.get('id');
     this.tutor = this.route.snapshot.paramMap.get('tutor');
@@ -33,24 +31,26 @@ export class ListaAlumnosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAlumnos2();
+    this.getAlumnos();
   }
 
   //Cargar alumnos con el id del curso
   getAlumnos() {
     this.listaAlumnosService.getAlumnos(this.id).subscribe(
       (response: any) => {
-        const alumnos = response;
-        alumnos.forEach((element: { dni: any; nombre: any; apellidos: any; localidad: any; residencia: any;
-          correo: any; tlf: any; }) => {
+        //console.log(response.message);
+        const datos = response.message;
+        datos.forEach((element: { alumnos: any}) => {
+          let alumn0 = element.alumnos[0];
+          //console.log(alumn0);
           let alumno = {
-            'dni': element.dni,
-            'nombre': element.nombre,
-            'apellidos': element.apellidos,
-            'localidad': element.localidad,
-            'residencia': element.residencia,
-            'correo': element.correo,
-            'telefono': element.tlf
+            'dni': alumn0.dni,
+            'nombre': alumn0.nombre,
+            'apellidos': alumn0.apellidos,
+            'localidad': alumn0.localidad,
+            'residencia': alumn0.residencia,
+            'correo': alumn0.correo,
+            'telefono': alumn0.tlf
           };
           this.alumnos.push(alumno);
         });
@@ -59,28 +59,5 @@ export class ListaAlumnosComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  getAlumnos2() {
-    let alumno = {
-      'dni': '1A',
-      'nombre': 'Pepa',
-      'apellidos': 'Gonzales Jimenez',
-      'localidad': 'Ciudad Real',
-      'residencia': 'Argamasilla',
-      'correo': 'pepa@gmail.com',
-      'telefono': '66666666'
-    };
-    this.alumnos.push(alumno);
-    let alumno2 = {
-      'dni': '2B',
-      'nombre': 'Luisa',
-      'apellidos': 'Perez Sanchez',
-      'localidad': 'Ciudad Real',
-      'residencia': 'Almodovar',
-      'correo': 'luisilla@gmail.com',
-      'telefono': '888888888'
-    };
-    this.alumnos.push(alumno2);
   }
 }

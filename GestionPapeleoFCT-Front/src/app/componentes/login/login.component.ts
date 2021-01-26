@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Si ya hemos hecho login vamos a /lista cursos provisional
+    //Si ya hemos hecho login vamos a vista home
     if (this.loginService.isUserSignedIn()) {
-      this.router.navigate(['/nuevoAlumno']);
+      this.router.navigate(['']);
     }
   }
 

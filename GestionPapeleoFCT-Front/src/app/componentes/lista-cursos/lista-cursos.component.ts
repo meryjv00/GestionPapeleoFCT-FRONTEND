@@ -12,28 +12,26 @@ export class ListaCursosComponent implements OnInit {
 
   cursos: any[];
   constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router) {
-    /**
-     *if (!loginService.isUserSignedIn()){
+    if (!loginService.isUserSignedIn()){
       this.router.navigate(['/login']);
     }
-     */
-
     this.cursos = [];
   }
 
   ngOnInit(): void {
-    this.getCursos2();
+    this.getCursos();
   }
 
   getCursos() {
     this.listaCursosService.getCursos().subscribe(
       (response: any) => {
-        const cursos = response;
-        cursos.forEach((element: { id: any; tutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+        console.log(response.message);
+        const cursos = response.message;
+        cursos.forEach((element: { id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
           cursoAcademico: any; nHoras: any; }) => {
           let curso = {
             'id': element.id,
-            'tutor': element.tutor,
+            'tutor': element.dniTutor,
             'familiaProfesional': element.familiaProfesional,
             'cicloFormativo': element.cicloFormativo,
             'cicloFormativoA': element.cicloFormativoA,
@@ -47,28 +45,5 @@ export class ListaCursosComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  getCursos2(){
-    let curso = {
-      'id': 1,
-      'tutor': 'Fernando',
-      'familiaProfesional': 'Informática',
-      'cicloFormativo': 'Desarrollo de aplicaciones web',
-      'cicloFormativoA': 'DAW',
-      'cursoAcademico': '2020/2021',
-      'nHoras': '400'
-    };
-    this.cursos.push(curso);
-    let curso2 = {
-      'id': 2,
-      'tutor': 'Inma',
-      'familiaProfesional': 'Informática',
-      'cicloFormativo': 'Desarrollo de aplicaciones web',
-      'cicloFormativoA': 'DAW',
-      'cursoAcademico': '2020/2021',
-      'nHoras': '412'
-    };
-    this.cursos.push(curso2);
   }
 }
