@@ -59,8 +59,7 @@ export class LoginService {
 
   /**
    * Comprueba si está logeado y si es así almacena los datos para poder hacer peticiones
-   */
-  
+   */  
   public isUserSignedIn(): boolean {
     let isSignedIn = false;
     let userAux: any|null;
