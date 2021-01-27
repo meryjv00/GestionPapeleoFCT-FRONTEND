@@ -11,23 +11,22 @@ import { LoginService } from 'src/app/servicios/login.service';
 
 
 export class ListaAlumnosComponent implements OnInit {
-  id: any; tutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any; cursoAcademico: any; nHoras: any;
   alumnos: any[];
-
-  //
+  curso: any;
   constructor(private route: ActivatedRoute,private listaAlumnosService: ListaAlumnosService,private router: Router,private loginService: LoginService) {
     if (!loginService.isUserSignedIn()){
       this.router.navigate(['/login']);
     }
-    
     this.alumnos = [];
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.tutor = this.route.snapshot.paramMap.get('tutor');
-    this.familiaProfesional = this.route.snapshot.paramMap.get('familiaProfesional');
-    this.cicloFormativo = this.route.snapshot.paramMap.get('cicloFormativo');
-    this.cicloFormativoA = this.route.snapshot.paramMap.get('cicloFormativoA');
-    this.cursoAcademico = this.route.snapshot.paramMap.get('cursoAcademico');
-    this.nHoras = this.route.snapshot.paramMap.get('nHoras');
+    this.curso = {
+      'id': this.route.snapshot.paramMap.get('id'),
+      'tutor': this.route.snapshot.paramMap.get('tutor'),
+      'familiaProfesional': this.route.snapshot.paramMap.get('familiaProfesional'),
+      'cicloFormativo':  this.route.snapshot.paramMap.get('cicloFormativo'),
+      'cicloFormativoA':  this.route.snapshot.paramMap.get('cicloFormativoA'),
+      'cursoAcademico': this.route.snapshot.paramMap.get('cursoAcademico'),
+      'nHoras': this.route.snapshot.paramMap.get('nHoras')
+    };
   }
 
   ngOnInit(): void {
@@ -36,14 +35,13 @@ export class ListaAlumnosComponent implements OnInit {
 
   //Cargar alumnos con el id del curso
   getAlumnos() {
-    this.listaAlumnosService.getAlumnos(this.id).subscribe(
+    this.listaAlumnosService.getAlumnos(this.curso.id).subscribe(
       (response: any) => {
-        //console.log(response.message);
         const datos = response.message;
         datos.forEach((element: { alumnos: any}) => {
           let alumn0 = element.alumnos[0];
-          //console.log(alumn0);
           let alumno = {
+            'id': alumn0.id,
             'dni': alumn0.dni,
             'nombre': alumn0.nombre,
             'apellidos': alumn0.apellidos,

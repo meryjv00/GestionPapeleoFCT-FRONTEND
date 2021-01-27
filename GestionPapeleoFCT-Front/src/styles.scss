@@ -6,7 +6,7 @@
 $color-main: rgb(122, 75, 114);
 //Temas oscuro
 $oscuroFondo: #06090f;
-$oscuro1: #21262d;
+$oscuro1: #1c2129;
 $oscuro2: #0d1117;
 //Tema claro
 $claroFondo: #FEFEFE;
@@ -14,19 +14,10 @@ $claro1: #C8C8C8;
 $claro2: #ACABAB;
 body {
     background: $claroFondo;
-    color: white;
     min-height: 100vh;
+    color: white;
     transition: .3s ease all;
     &.dark {
-        background: $oscuro2;
-    }
-}
-
-div.opciones {
-    button {
-        border-radius: 20px;
-        i {
-            color: white;
-        }
+        background: $oscuro1;
     }
 }

@@ -10,31 +10,73 @@
                     <button class="btn btn-primary" name="cerrarSesion"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
 
+                <h1>Añadir alumno a curso: {{curso.id}}</h1>
+                <h5>Tutor: {{curso.tutor}}</h5>
+                <h5>Familia profesional: {{curso.familiaProfesional}}</h5>
+                <h5>Ciclo formativo: {{curso.cicloFormativo}} ({{curso.cicloFormativoA}})</h5>
+                <h5>Cuso académico: {{curso.cursoAcademico}}</h5>
+                <h5>Número de horas: {{curso.nHoras}}</h5>
+                <hr class="bg-white">
+                <form [formGroup]="nuevoAlumno" (ngSubmit)="onSubmit()" novalidate class="n">
+                    <div>
+                        dni
+                        <input type="text" formControlName="dni" pattern="[0-9]{8}[A-Za-z]{1}" class="form-control" />
+                        <div *ngIf="submitted && formulario.dni.errors">
+                            <div *ngIf="formulario.dni.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.dni.errors.pattern">No cumple patron dni</div>
+                        </div>
+                    </div>
+                    <div>
+                        nombre
+                        <input type="text" formControlName="nombre" pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})" />
+                        <div *ngIf="submitted && formulario.nombre.errors">
+                            <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.nombre.errors.pattern">Nombre valido min 2 caract</div>
+                        </div>
+                    </div>
+                    <div>
+                        apellidos
+                        <input type="text" formControlName="apellidos" pattern="([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})" />
+                        <div *ngIf="submitted && formulario.apellidos.errors">
+                            <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.apellidos.errors.pattern">Apellidos validos</div>
+                        </div>
+                    </div>
+                    <div>
+                        localidad
+                        <input type="text " formControlName="localidad" pattern="" minlength="5" />
+                        <div *ngIf="submitted && formulario.localidad.errors">
+                            <div *ngIf="formulario.localidad.errors.required ">No puede estar vacío</div>
+                            <div *ngIf="formulario.localidad.errors.minlength">Localidad min 5</div>
 
-                <form [formGroup]="nuevoAlumno" (ngSubmit)="onSubmit()">
-                    <div>
-                        <input type="email" formControlName="a" />
-                        <div *ngIf="submitted && formulario.a.errors">
-                            <div *ngIf="formulario.a.errors.required">No puede estar vacío</div>
-                            <div *ngIf="formulario.a.errors.email">Debe ser email valido</div>
                         </div>
                     </div>
                     <div>
-                        <input type="text" formControlName="b" />
-                        <div *ngIf="submitted && formulario.b.errors">
-                            <div *ngIf="formulario.b.errors.required">No puede estar vacío</div>
-                            <div *ngIf="formulario.b.errors.minlength">Debe contener + d 4 caracteres</div>
+                        residencia
+                        <input type="text " formControlName="residencia" pattern="" minlength="5" />
+                        <div *ngIf="submitted && formulario.residencia.errors">
+                            <div *ngIf="formulario.residencia.errors.required ">No puede estar vacío</div>
+                            <div *ngIf="formulario.residencia.errors.minlength">+5</div>
                         </div>
                     </div>
                     <div>
-                        <input type="text" formControlName="c" />
-                        <div *ngIf="submitted && formulario.c.errors">
-                            <div *ngIf="formulario.c.errors.required">No puede estar vacío</div>
-                            <div *ngIf="formulario.c.errors.minlength">Debe contener + d 5 caracteres</div>
+                        correo
+                        <input type="email" formControlName="correo" />
+                        <div *ngIf="submitted && formulario.correo.errors ">
+                            <div *ngIf="formulario.correo.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.correo.errors.email">Debe ser un email</div>
+                        </div>
+                    </div>
+                    <div>
+                        telefono
+                        <input type="text" formControlName="telefono" pattern="^[9|8|7|6]\d{8}$" />
+                        <div *ngIf="submitted && formulario.telefono.errors">
+                            <div *ngIf="formulario.telefono.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.telefono.errors.pattern">Introduce telefono valido</div>
                         </div>
                     </div>
                     <button>Añadir</button>
-                    <button type="reset" (click)="onReset()">Cancelar</button>
+                    <button type="reset " (click)="onReset() ">Cancelar</button>
                 </form>
             </div>
         </main>

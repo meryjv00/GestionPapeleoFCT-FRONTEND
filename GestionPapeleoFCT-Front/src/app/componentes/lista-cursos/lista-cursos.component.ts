@@ -28,10 +28,10 @@ export class ListaCursosComponent implements OnInit {
         console.log(response.message);
         const cursos = response.message;
         cursos.forEach((element: { id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
-          cursoAcademico: any; nHoras: any; }) => {
+          cursoAcademico: any; nHoras: any; cursos: any}) => {
           let curso = {
             'id': element.id,
-            'tutor': element.dniTutor,
+            'tutor': element.cursos.nombre + ' ' + element.cursos.apellidos,
             'familiaProfesional': element.familiaProfesional,
             'cicloFormativo': element.cicloFormativo,
             'cicloFormativoA': element.cicloFormativoA,

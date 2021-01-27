@@ -1,6 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
+import { LoginService } from 'src/app/servicios/login.service';
+
 @Component({
   selector: 'app-nuevo-alumno',
   templateUrl: './nuevo-alumno.component.html',
@@ -9,12 +13,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class NuevoAlumnoComponent implements OnInit {
   nuevoAlumno: FormGroup;
   submitted = false;
+  curso: any;
+  constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,private router: Router,private adminAlumnosService: AdminAlumnosService,private loginService: LoginService) {
+    if (!loginService.isUserSignedIn()){
+      this.router.navigate(['/login']);
+    }
+    this.curso = {
+      'id': this.route.snapshot.paramMap.get('id'),
+      'tutor': this.route.snapshot.paramMap.get('tutor'),
+      'familiaProfesional': this.route.snapshot.paramMap.get('familiaProfesional'),
+      'cicloFormativo':  this.route.snapshot.paramMap.get('cicloFormativo'),
+      'cicloFormativoA':  this.route.snapshot.paramMap.get('cicloFormativoA'),
+      'cursoAcademico': this.route.snapshot.paramMap.get('cursoAcademico'),
+      'nHoras': this.route.snapshot.paramMap.get('nHoras')
+    };
 
-  constructor(private formBuilder: FormBuilder) {
     this.nuevoAlumno = this.formBuilder.group({
-      a: ['', [Validators.required, Validators.email]],
-      b: ['', [Validators.required, Validators.minLength(4)]],
-      c: ['', [Validators.required, Validators.minLength(5)]]
+      dni: ['', [Validators.required, Validators.pattern]],
+      nombre: ['', [Validators.required, Validators.pattern]],
+      apellidos: ['', [Validators.required, Validators.pattern]],
+      localidad: ['', [Validators.required, Validators.minLength]],
+      residencia: ['', [Validators.required, Validators.minLength]],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.required, Validators.pattern]]
     });
   }
 
@@ -28,9 +49,8 @@ export class NuevoAlumnoComponent implements OnInit {
     if (this.nuevoAlumno.invalid) {
       return;
     }
-
-    
-    alert("Alumno añadido");
+    //console.log(this.nuevoAlumno.value);
+    this.adminAlumnosService.insertAlumnoSuscription(this.nuevoAlumno.value, this.curso);
     this.onReset();
   }
   onReset() {

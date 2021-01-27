@@ -34,6 +34,7 @@ export class LoginService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+    console.log(this.http.post(url, { 'email': email, 'password': password }, { headers: headers }));
     return this.http.post(url, { 'email': email, 'password': password }, { headers: headers });
   };
 
