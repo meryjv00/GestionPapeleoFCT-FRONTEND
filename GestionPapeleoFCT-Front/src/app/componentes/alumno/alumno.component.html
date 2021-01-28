@@ -21,16 +21,18 @@
                     <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()">
                         <div class="black">
                             localidad
-                            <input type="text" formControlName="localidad" [(ngModel)]="alumno.localidad" />
+                            <input type="text" formControlName="localidad" [(ngModel)]="alumno.localidad" minlength="5" />
                             <div *ngIf="submitted && formulario.localidad.errors">
                                 <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
+                                <div *ngIf="formulario.localidad.errors.minlength">+5</div>
                             </div>
                         </div>
                         <div>
                             residencia
-                            <input type="text" formControlName="residencia" [(ngModel)]="alumno.residencia" />
+                            <input type="text" formControlName="residencia" [(ngModel)]="alumno.residencia" minlength="5" />
                             <div *ngIf="submitted && formulario.residencia.errors">
                                 <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
+                                <div *ngIf="formulario.residencia.errors.minlength">+5</div>
                             </div>
                         </div>
                         <div>
@@ -43,9 +45,10 @@
                         </div>
                         <div>
                             telefono
-                            <input type="text" formControlName="telefono" [(ngModel)]="alumno.telefono" />
+                            <input type="text" formControlName="telefono" [(ngModel)]="alumno.telefono" pattern="^[9|8|7|6]\d{8}$" />
                             <div *ngIf="submitted && formulario.telefono.errors">
                                 <div *ngIf="formulario.telefono.errors.required">No puede estar vacío</div>
+                                <div *ngIf="formulario.telefono.errors.required">Número valido</div>
                             </div>
                         </div>
                         <button class="btn btn-primary mt-2">Editar alumno</button>

@@ -30,10 +30,10 @@ export class AlumnoComponent implements OnInit {
     }
 
     this.modificarAlumno = this.formBuilder.group({
-      localidad: ['', [Validators.required]],
-      residencia: ['', [Validators.required]],
+      localidad: ['', [Validators.required,Validators.minLength]],
+      residencia: ['', [Validators.required,Validators.minLength]],
       correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required]]
+      telefono: ['', [Validators.required, Validators.pattern]]
     });
   }
 

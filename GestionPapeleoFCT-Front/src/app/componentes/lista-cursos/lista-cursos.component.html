@@ -11,29 +11,14 @@
                 </div>
                 <div class="mt-4">
                     <h1>Lista cursos</h1>
-                    <table style="width: 100%; border: 1px solid black;">
-                        <tr>
-                            <th>Id</th>
-                            <th>Tutor</th>
-                            <th>Familia Profesional</th>
-                            <th>Ciclo Formativo</th>
-                            <th>Ciclo Formativo Abreviado</th>
-                            <th>Curso académico</th>
-                            <th>Número horas</th>
-                        </tr>
-                        <ng-container *ngFor="let curso of cursos; index as i;">
-                            <tr>
-                                <td>{{curso.id}}</td>
-                                <td>{{curso.tutor}}</td>
-                                <td>{{curso.familiaProfesional}}</td>
-                                <td>{{curso.cicloFormativo}}</td>
-                                <td>{{curso.cicloFormativoA}}</td>
-                                <td>{{curso.cursoAcademico}}</td>
-                                <td>{{curso.nHoras}}</td>
-                                <td><a [routerLink]="['/listaAlumnos',curso]"><button class="btn btn-primary">Ver</button></a></td>
-                            </tr>
-                        </ng-container>
-                    </table>
+
+                    <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
+                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativo}}</option>
+                    </select>
+
+                    <div *ngIf="activado">
+                        <app-lista-alumnos [cursoSeleccionado]="cursoSeleccionado"></app-lista-alumnos>
+                    </div>
                 </div>
             </div>
         </main>

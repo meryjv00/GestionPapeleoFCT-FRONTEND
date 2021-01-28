@@ -1,48 +1,32 @@
-<body class="dark">
-    <div class="container-fluid">
-        <main class="row">
-            <div class="col-md-3">
-                <app-menu></app-menu>
-            </div>
-            <div class="col-md-9">
-                <div class="opciones mt-2 float-right">
-                    <button class="btn btn-primary mr-2" name="avisos"><i class="far fa-bell"></i></button>
-                    <button class="btn btn-primary" name="cerrarSesion"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
-                <div class="mt-4">
-                    <h1>Curso: {{curso.id}}</h1>
-                    <h5>Tutor: {{curso.tutor}}</h5>
-                    <h5>Familia profesional: {{curso.familiaProfesional}}</h5>
-                    <h5>Ciclo formativo: {{curso.cicloFormativo}} ({{curso.cicloFormativoA}})</h5>
-                    <h5>Cuso académico: {{curso.cursoAcademico}}</h5>
-                    <h5>Número de horas: {{curso.nHoras}}</h5>
-                    <hr class="bg-white">
-                    <!--!!-->
-                    <h1>Lista alumnos<button [routerLink]="['/nuevoAlumno',curso]" class="btn btn-primary ml-3 mb-1">Add alumno</button></h1>
-                    <table style="width: 100%; border: 1px solid black;">
-                        <tr>
-                            <th>Dni</th>
-                            <th>Nombre completo</th>
-                            <th>Localidad</th>
-                            <th>Residencia</th>
-                            <th>Correo</th>
-                            <th>Teléfono</th>
-                        </tr>
-                        <ng-container *ngFor="let alumno of alumnos; index as i;">
-                            <tr>
-                                <td>{{alumno.dni}}</td>
-                                <td>{{alumno.nombre}}{{alumno.apellidos}}</td>
-                                <td>{{alumno.localidad}}</td>
-                                <td>{{alumno.residencia}}</td>
-                                <td>{{alumno.correo}}</td>
-                                <td>{{alumno.telefono}}</td>
-                                <td><a [routerLink]="['/alumno',alumno]"><button class="btn btn-primary">Ver</button></a></td>
-                            </tr>
-                        </ng-container>
-                    </table>
-                </div>
-
-            </div>
-        </main>
-    </div>
-</body>
+<div class="mt-4">
+    <h1>Curso: {{curso.id}}</h1>
+    <h5>Tutor: {{curso.tutor}}</h5>
+    <h5>Familia profesional: {{curso.familiaProfesional}}</h5>
+    <h5>Ciclo formativo: {{curso.cicloFormativo}} ({{curso.cicloFormativoA}})</h5>
+    <h5>Cuso académico: {{curso.cursoAcademico}}</h5>
+    <h5>Número de horas: {{curso.nHoras}}</h5>
+    <hr class="bg-white">
+    <!--!!-->
+    <h1>Lista alumnos<button [routerLink]="['/nuevoAlumno',curso]" class="btn btn-primary ml-3 mb-1">Add alumno</button></h1>
+    <table style="width: 100%; border: 1px solid black;">
+        <tr>
+            <th>Dni</th>
+            <th>Nombre completo</th>
+            <th>Localidad</th>
+            <th>Residencia</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+        </tr>
+        <ng-container *ngFor="let alumno of alumnos; index as i;">
+            <tr>
+                <td>{{alumno.dni}}</td>
+                <td>{{alumno.nombre}}{{alumno.apellidos}}</td>
+                <td>{{alumno.localidad}}</td>
+                <td>{{alumno.residencia}}</td>
+                <td>{{alumno.correo}}</td>
+                <td>{{alumno.telefono}}</td>
+                <td><a [routerLink]="['/alumno',alumno]"><button class="btn btn-primary">Ver</button></a></td>
+            </tr>
+        </ng-container>
+    </table>
+</div>

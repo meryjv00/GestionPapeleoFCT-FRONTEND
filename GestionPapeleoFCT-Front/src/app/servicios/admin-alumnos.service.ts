@@ -27,7 +27,7 @@ export class AdminAlumnosService {
       (response: any) => {
         console.log(response);
         this.message = "Inserción correcta";
-        this.router.navigate(['/listaAlumnos',curso]);
+        this.router.navigate(['/listaCursos']);
       },
       (error) => {
         this.message = error.error.message;
