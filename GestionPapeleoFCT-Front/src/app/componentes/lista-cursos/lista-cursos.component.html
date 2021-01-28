@@ -12,8 +12,8 @@
                 <div class="mt-4">
                     <h1>Lista cursos</h1>
 
-                    <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
-                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativo}}</option>
+                    <select #selectCursos (change)="onChange($event.value)" class="form-control">
+                        <option *ngFor="let curso of cursos" [ngValue]="curso">{{curso.cicloFormativo}}</option>
                     </select>
 
                     <div *ngIf="activado">

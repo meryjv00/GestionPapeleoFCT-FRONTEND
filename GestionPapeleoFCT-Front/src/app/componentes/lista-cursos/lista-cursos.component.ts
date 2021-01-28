@@ -46,9 +46,10 @@ export class ListaCursosComponent implements OnInit {
           };
           this.cursos.push(curso);
         });
-        this.onChange(this.cursos[0].id);
+        this.onChange(this.cursos[0]);
       },
       (error) => {
+
         console.log(error);
       }
     );
@@ -58,12 +59,15 @@ export class ListaCursosComponent implements OnInit {
   onChange(value: any) {
     console.log(value);
     this.activado = true;
+    /*
     this.cursos.forEach((curso: { id: any; }) => {
       if (value == curso.id) {
         this.cursoSeleccionado = curso;
       }
     });
-    console.log(this.cursoSeleccionado);
+    */
+    this.cursoSeleccionado = value;
+    //console.log(this.cursoSeleccionado);
   }
 
 }
