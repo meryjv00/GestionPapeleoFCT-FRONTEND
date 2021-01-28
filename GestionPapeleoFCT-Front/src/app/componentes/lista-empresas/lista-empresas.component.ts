@@ -12,6 +12,8 @@ export class ListaEmpresasComponent implements OnInit {
   id: any; nombre: any; provincia: any; localidad: any; calle: any; cp: any; cif: any; tlf: any; email: any;
   empresas: any;
 
+  crearNueva: boolean;
+
   constructor(private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
     /**
      *     if (!loginService.isUserSignedIn()){
@@ -28,18 +30,24 @@ export class ListaEmpresasComponent implements OnInit {
     this.cif = this.route.snapshot.paramMap.get('cif');
     this.tlf = this.route.snapshot.paramMap.get('tlf');
     this.email = this.route.snapshot.paramMap.get('email');
+
+    this.crearNueva = false;
   }
 
   ngOnInit(): void {
-    this.getEmpresasTest();
+    this.getEmpresas();
+  }
+
+  clickCrearNueva() {
+    this.crearNueva = !this.crearNueva;
   }
 
   getEmpresas() {
     this.listaEmpresasService.getEmpresas().subscribe(
       (response: any) => {
-        const empresas = response;
-        console.log(empresas);
-       
+        console.log(response);
+        const empresas = response.message;
+
         empresas.forEach((element: { id: any; nombre: any; provincia: any; localidad: any; calle: any;
           cp: any; cif: any; tlf: any; email: any; }) => {
           let empresa = {
@@ -58,6 +66,8 @@ export class ListaEmpresasComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
+      
+
     );
   }
 

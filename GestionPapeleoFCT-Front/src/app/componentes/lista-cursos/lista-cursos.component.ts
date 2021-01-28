@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -8,6 +8,7 @@ import { LoginService } from 'src/app/servicios/login.service';
   templateUrl: './lista-cursos.component.html',
   styleUrls: ['./lista-cursos.component.scss']
 })
+
 export class ListaCursosComponent implements OnInit {
 
   cursos: any[];

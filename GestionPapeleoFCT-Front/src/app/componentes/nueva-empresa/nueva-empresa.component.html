@@ -1,0 +1,31 @@
+<form [formGroup]="nuevaEmpresa" (ngSubmit)="onSubmit()">
+    <div>
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre"/>
+        <br>
+        <label>Provincia</label>
+        <input type="text" formControlName="provincia"/>
+        <br>
+        <label>Localidad</label>
+        <input type="text" formControlName="localidad"/>
+        <br>
+        <label>Dirección</label>
+        <input type="text" formControlName="calle"/>
+        <br>
+        <label>Código postal</label>
+        <input type="text" formControlName="cp"/>
+        <br>
+        <label>CIF</label>
+        <input type="text" formControlName="cif"/>
+        <br>
+        <label>Nº de teléfono</label>
+        <input type="text" formControlName="tlf"/>
+        <br>
+        <label>Correo electrónico</label>
+        <input type="email" formControlName="email"/>
+        <br>
+        <button class="btn btn-primary">Guardar</button>
+        <br>
+        <button type="reset" (click)="cancel()">Cancelar</button>
+    </div>
+</form>

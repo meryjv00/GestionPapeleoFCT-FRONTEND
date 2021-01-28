@@ -13,6 +13,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { ListaAlumnosComponent } from './componentes/lista-alumnos/lista-alumnos.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { ListaEmpresasComponent } from './componentes/lista-empresas/lista-empresas.component';
+import { NuevaEmpresaComponent } from './componentes/nueva-empresa/nueva-empresa.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ListaEmpresasComponent } from './componentes/lista-empresas/lista-empre
     LoginComponent,
     ListaAlumnosComponent,
     AlumnoComponent,
-    ListaEmpresasComponent
+    ListaEmpresasComponent,
+    NuevaEmpresaComponent
   ],
   imports: [
     BrowserModule,
