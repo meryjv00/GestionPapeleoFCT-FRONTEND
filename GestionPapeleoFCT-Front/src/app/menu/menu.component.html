@@ -1,38 +1,25 @@
 <aside>
-    <!--
     <div class="user">
-        <a routerLink="/nuevoAlumno" class="">
-            <img src="../../assets/img/guest.png" />
-        </a>
-        <h4 name="nombre">Fernando D.</h4>
-        <p name="rol">Jefe de estudios</p>
+        <img routerLink="/" src="../../assets/img/avatar1.png" />
+        <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
+        <p name="rol">{{user.rol}}</p>
     </div>
-    -->
-    <span class="">Menu</span>
-    <div class="enlaces ">
-        <div class="cursos active">
-            <a routerLink="/listaCursos">
-                <button class="btn cursos"><i class="fas fa-users"></i></button>
-                <span class="ml-3">Cursos</span>
-            </a>
-        </div>
-        <div class="empresas">
-            <a routerLink="/login">
-                <button class="btn empresas"><i class="fas fa-briefcase"></i></button>
-                <span class="ml-3">Empresas</span>
-            </a>
-        </div>
-        <div class="fct">
-            <a routerLink="/">
-                <button class="btn fct"><i class="fas fa-business-time"></i></button>
-                <span class="ml-3">Organizar FCT</span>
-            </a>
-        </div>
-        <div class="centro ">
-            <a routerLink="/">
-                <button class="btn centro"><i class="fas fa-building"></i></button>
-                <span class="ml-3">Centro</span>
-            </a>
-        </div>
+    <div class="enlaces">
+        <button name="cursos" routerLink="/listaCursos" class="btn active">
+            <i class="fas fa-users"></i>
+            <span class="ml-3">Cursos</span>
+        </button>
+        <button name="empresas" routerLink="/login" class="btn ">
+            <i class="fas fa-briefcase"></i>
+            <span class="ml-3">Empresas</span>
+        </button>
+        <button name="fct" routerLink="/" class="btn ">
+            <i class="fas fa-business-time"></i> 
+            <span class="ml-3">Organizar FCT</span>
+        </button>
+        <button name="centro" routerLink="/" class="btn ">
+            <i class="fas fa-building"></i>
+            <span class="ml-3">Centro</span>
+        </button>
     </div>
 </aside>

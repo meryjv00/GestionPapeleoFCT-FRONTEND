@@ -10,8 +10,8 @@ import { MenuComponent } from './menu/menu.component';
 import { NuevoAlumnoComponent } from './componentes/nuevo-alumno/nuevo-alumno.component';
 import { ListaCursosComponent } from './componentes/lista-cursos/lista-cursos.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { ListaAlumnosComponent } from './componentes/lista-alumnos/lista-alumnos.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
+import { OpcionesComponent } from './opciones/opciones.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +20,8 @@ import { AlumnoComponent } from './componentes/alumno/alumno.component';
     MenuComponent,
     ListaCursosComponent,
     LoginComponent,
-    ListaAlumnosComponent,
-    AlumnoComponent
+    AlumnoComponent,
+    OpcionesComponent
   ],
   imports: [
     BrowserModule,

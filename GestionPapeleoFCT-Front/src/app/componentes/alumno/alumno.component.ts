@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 
 @Component({
   selector: 'app-alumno',
@@ -13,21 +14,13 @@ export class AlumnoComponent implements OnInit {
   alumno: any;
   modificarAlumno: FormGroup;
   submitted = false;
-  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService,
-    private formBuilder: FormBuilder) {
+  
+  constructor(private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,private CompartirDatos: CompartirDatosService) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
-    this.alumno = {
-      'id': this.route.snapshot.paramMap.get('id'),
-      'dni': this.route.snapshot.paramMap.get('dni'),
-      'nombre': this.route.snapshot.paramMap.get('nombre'),
-      'apellidos': this.route.snapshot.paramMap.get('apellidos'),
-      'localidad': this.route.snapshot.paramMap.get('localidad'),
-      'residencia': this.route.snapshot.paramMap.get('residencia'),
-      'correo': this.route.snapshot.paramMap.get('correo'),
-      'telefono': this.route.snapshot.paramMap.get('telefono')
-    }
+    //Obtiene los datos del alumno seleccionado
+    this.alumno = this.CompartirDatos.getAlumno();
 
     this.modificarAlumno = this.formBuilder.group({
       localidad: ['', [Validators.required,Validators.minLength]],
@@ -42,17 +35,42 @@ export class AlumnoComponent implements OnInit {
 
   get formulario() { return this.modificarAlumno.controls; }
 
-  //Editar alumno
+  /**
+   * Editar alumno
+   */
   updateAlumno() {
     this.submitted = true;
     if (this.modificarAlumno.invalid) {
       return;
-    }
-    //Modificar datos del alumno
-    this.adminAlumnosService.updateAlumnoSuscription(this.alumno);
+    }   
+    this.updateAlumn0();
   }
-  //Eliminar alumno
+  
+  updateAlumn0(){
+    this.adminAlumnosService.updateAlumno(this.alumno).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.router.navigate(['/alumno',this.alumno]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  /**
+   * Eliminar alumno
+   */
   deleteAlumno() {
-    this.adminAlumnosService.deleteAlumnoSuscription(this.alumno);
+    this.adminAlumnosService.deleteAlumno(this.alumno).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.router.navigate(['/listaCursos']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

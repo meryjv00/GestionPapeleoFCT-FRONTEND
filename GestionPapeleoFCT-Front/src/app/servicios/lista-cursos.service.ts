@@ -16,9 +16,31 @@ export class ListaCursosService {
   public getCursos = () => {
     const url = "http://localhost:8000/api/cursos";
 
-    console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    //console.log(this.loginService.user.access_token);
+    
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
 
     return this.http.get(url, { headers: headers });
   };
+
+  public getMisCursos = (dni: any) => {
+    const url = "http://localhost:8000/api/cursos/" + dni;
+
+    //console.log(this.loginService.user.access_token);
+    
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+
+    return this.http.get(url, { headers: headers });
+  };
+
+
+  public getAlumnos = (id: any) => {
+    const url = "http://localhost:8000/api/alumnos/" + id;
+
+    //console.log(this.loginService.user.access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+
+    return this.http.get(url, { headers: headers });
+  };
+  
 }

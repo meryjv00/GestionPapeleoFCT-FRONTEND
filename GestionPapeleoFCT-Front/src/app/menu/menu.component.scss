@@ -1,94 +1,47 @@
-$color-main: rgb(122, 75, 114);
-$color-gris: #636c6e;
-$color-pagina: #1c2129;
-$color-menu: #0f141b;
-//Opciones menu
-$color-cursos: rgb(59, 65, 133);
-$color-empresas: rgb(89, 135, 199);
-$color-fct: rgb(136, 37, 133);
-$color-centro: rgb(194, 99, 55);
-aside {
-    padding-top: 1rem;
-    padding-right: 1rem;
-    height: 100vh;
-    background-color: $color-menu;
-    div.enlaces {
-        a {
-            padding: 1rem;
-            width: 17rem;
-            display: block;
-            text-decoration: none;
-            color: $color-gris;
-            font-size: 18px;
-            color: $color-gris;
-            border-bottom: 1px solid $color-pagina;
+    //Colores principales
+    $blanco-menu: #FDFEFE;
+    //Otros
+    $color-main: #1c2129;
+    $color-gris: #636c6e;
+    $color-gris2: #636c6e;
+    $color-menu: #080000;
+    //Opciones menu
+    aside {
+        padding-top: 1rem;
+        padding-right: 1rem;
+        height: 100vh;
+        background-color: $blanco-menu;
+        div.user {
+            margin: 0.4rem;
+            img {
+                display: block;
+                margin: auto;
+                height: 80px;
+                border-radius: 50px;
+            }
+        }
+        div.enlaces {
             button {
-                margin-left: 1rem;
-                width: 3rem;
-                border-radius: 15px;
+                margin: 0.4rem;
+                width: 12.8rem;
+                height: 3rem;
+                text-align: left;
                 i {
-                    margin: auto;
-                    font-size: 20px;
+                    font-size: 18px;
+                    width: 1.20rem;
+                    margin-left: 1rem;
+                }
+                span {
+                    color: $color-gris2;
+                }
+            }
+            //Boton seleccionado
+            button.active {
+                background-color: black;
+                span,
+                i {
                     color: white;
-                }
-            }
-            button.cursos {
-                background-color: $color-cursos;
-            }
-            button.empresas {
-                background-color: $color-empresas;
-            }
-            button.fct {
-                background-color: $color-fct;
-            }
-            button.centro {
-                background-color: $color-centro;
-            }
-        }
-        //Vista seleccionada
-        div.cursos.active {
-            background-color: $color-pagina;
-            border-left: 4px solid $color-cursos;
-            width: 30rem;
-            a {
-                color: white;
-                button {
-                    margin-left: 0.70rem;
-                }
-            }
-        }
-        div.empresas.active {
-            background-color: $color-pagina;
-            border-left: 4px solid $color-empresas;
-            width: 30rem;
-            a {
-                color: white;
-                button {
-                    margin-left: 0.70rem;
-                }
-            }
-        }
-        div.fct.active {
-            background-color: $color-pagina;
-            border-left: 4px solid $color-fct;
-            width: 30rem;
-            a {
-                color: white;
-                button {
-                    margin-left: 0.70rem;
-                }
-            }
-        }
-        div.centro.active {
-            background-color: $color-pagina;
-            border-left: 4px solid $color-centro;
-            width: 30rem;
-            a {
-                color: white;
-                button {
-                    margin-left: 0.70rem;
                 }
             }
         }
     }
-}

@@ -1,62 +1,70 @@
-<body class="dark">
-    <div class="container-fluid">
-        <main class="row">
-            <div class="col-md-3">
-                <app-menu></app-menu>
-            </div>
-            <div class="col-md-9">
-                <div class="opciones mt-2 float-right">
-                    <button class="btn btn-primary mr-2" name="avisos"><i class="far fa-bell"></i></button>
-                    <button class="btn btn-primary" name="cerrarSesion"><i class="fas fa-sign-out-alt"></i></button>
+<div class="container-fluid">
+    <main class="row">
+        <div id="menu" class="col-md-2">
+            <app-menu></app-menu>
+        </div>
+        <div class="col-md-10">
+            <div class="row mt-2 ml-1">
+                <h1>Información alumno</h1>
+                <div class="ml-auto">
+                    <app-opciones></app-opciones>
                 </div>
-                <div class="mt-4">
-                    <h1>Información alumno</h1>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h3>Información personal</h3>
                     <h5>Dni: {{alumno.dni}} </h5>
                     <h5>Nombre completo: {{alumno.nombre}} {{alumno.apellidos}}</h5>
                     <h5>Localidad: {{alumno.localidad}}</h5>
                     <h5>Residencia: {{alumno.residencia}}</h5>
                     <h5>Correo: {{alumno.correo}}</h5>
                     <h5>Teléfono: {{alumno.telefono}}</h5>
-                    <hr class="bg-white">
-                    <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()">
-                        <div class="black">
-                            localidad
-                            <input type="text" formControlName="localidad" [(ngModel)]="alumno.localidad" minlength="5" />
-                            <div *ngIf="submitted && formulario.localidad.errors">
-                                <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
-                                <div *ngIf="formulario.localidad.errors.minlength">+5</div>
-                            </div>
-                        </div>
-                        <div>
-                            residencia
-                            <input type="text" formControlName="residencia" [(ngModel)]="alumno.residencia" minlength="5" />
-                            <div *ngIf="submitted && formulario.residencia.errors">
-                                <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
-                                <div *ngIf="formulario.residencia.errors.minlength">+5</div>
-                            </div>
-                        </div>
-                        <div>
-                            correo
-                            <input type="email" formControlName="correo" [(ngModel)]="alumno.correo" />
-                            <div *ngIf="submitted && formulario.correo.errors">
-                                <div *ngIf="formulario.correo.errors.required">No puede estar vacío</div>
-                                <div *ngIf="formulario.correo.errors.email">Debe ser un email</div>
-                            </div>
-                        </div>
-                        <div>
-                            telefono
-                            <input type="text" formControlName="telefono" [(ngModel)]="alumno.telefono" pattern="^[9|8|7|6]\d{8}$" />
-                            <div *ngIf="submitted && formulario.telefono.errors">
-                                <div *ngIf="formulario.telefono.errors.required">No puede estar vacío</div>
-                                <div *ngIf="formulario.telefono.errors.required">Número valido</div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary mt-2">Editar alumno</button>
-                    </form>
-                    <button (click)="deleteAlumno()" class="btn btn-primary mt-2">Eliminar alumno</button>
+                    <hr>
+                    <h3>Información relacionada con la FCT</h3>
+                    <h5>Empresa:</h5>
+                    <h5>Desplazamiento: ?</h5>
+                    <h5>Anexos: ?</h5>
+                    <button (click)="deleteAlumno()" class="btn btn-primary mt-2 boton-estilo">Eliminar alumno</button>
                 </div>
-
+                <div class="col-md-6">
+                    <h3 class="mt-3">Editar información personal</h3>
+                    <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()">
+                        <div>
+                            <label for="localidad">Localidad:</label>
+                            <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="alumno.localidad" minlength="5" />
+                            <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                                <div *ngIf="formulario.localidad.errors.required">Este campo es obligatorio</div>
+                                <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="residencia">Residencia:</label>
+                            <input type="text" formControlName="residencia" id="residencia" class="form-control" [(ngModel)]="alumno.residencia" minlength="5" />
+                            <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
+                                <div *ngIf="formulario.residencia.errors.required">Este campo es obligatorio</div>
+                                <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="correo">Correo:</label>
+                            <input type="email" formControlName="correo" id="correo" class="form-control" [(ngModel)]="alumno.correo" />
+                            <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors">
+                                <div *ngIf="formulario.correo.errors.required">Este campo es obligatorio</div>
+                                <div *ngIf="formulario.correo.errors.email">Introduce un email válido</div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="telefono">Telefono:</label>
+                            <input type="text" formControlName="telefono" id="telefono" class="form-control" [(ngModel)]="alumno.telefono" pattern="^[9|8|7|6]\d{8}$" />
+                            <div class="error" *ngIf="(submitted || formulario.telefono.touched) && formulario.telefono.errors">
+                                <div *ngIf="formulario.telefono.errors.required">Este campo es obligatorio</div>
+                                <div *ngIf="formulario.telefono.errors.pattern">Introduce teléfono válido</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-2 boton-estilo">Editar alumno</button>
+                    </form>
+                </div>
             </div>
-        </main>
-    </div>
-</body>
+        </div>
+    </main>
+</div>

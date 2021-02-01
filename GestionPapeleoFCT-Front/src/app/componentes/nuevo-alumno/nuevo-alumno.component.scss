@@ -1,0 +1,16 @@
+.boton-estilo {
+    padding: 0.70rem;
+    width: 18rem;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+.error {
+    color: tomato;
+}
