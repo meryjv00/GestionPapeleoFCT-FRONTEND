@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListaEmpresasService } from 'src/app/servicios/lista-empresas.service';
+import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 
 @Component({
   selector: 'app-lista-empresas',
@@ -14,23 +16,8 @@ export class ListaEmpresasComponent implements OnInit {
 
   crearNueva: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
-    /**
-     *     if (!loginService.isUserSignedIn()){
-      this.router.navigate(['/login']);
-    }
-     */
+  constructor(private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
     this.empresas = [];
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.nombre = this.route.snapshot.paramMap.get('nombre');
-    this.provincia = this.route.snapshot.paramMap.get('provincia');
-    this.localidad = this.route.snapshot.paramMap.get('localidad');
-    this.calle = this.route.snapshot.paramMap.get('calle');
-    this.cp = this.route.snapshot.paramMap.get('cp');
-    this.cif = this.route.snapshot.paramMap.get('cif');
-    this.tlf = this.route.snapshot.paramMap.get('tlf');
-    this.email = this.route.snapshot.paramMap.get('email');
-
     this.crearNueva = false;
   }
 
@@ -42,9 +29,22 @@ export class ListaEmpresasComponent implements OnInit {
     this.crearNueva = !this.crearNueva;
   }
 
+  eliminarEmpresa(empresa: any){
+    let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar la empresa de la Base de datos?");
+    if (seguroEliminar) {
+      console.log("Ahora eliminaríamos el registro, ID: " + empresa.id);
+      this.adminEmpresasService.deleteEmpresaSuscription(empresa.id);
+      alert("Empresa eliminada.");
+      this.getEmpresas();
+    }
+  }
+
+  clickEditar(){}
+
   getEmpresas() {
     this.listaEmpresasService.getEmpresas().subscribe(
       (response: any) => {
+        this.empresas = [];
         console.log(response);
         const empresas = response.message;
 

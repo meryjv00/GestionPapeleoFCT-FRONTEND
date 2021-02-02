@@ -55,7 +55,6 @@ export class NuevaEmpresaComponent implements OnInit {
       return;
     }
 
-
     this.adminEmpresasService.insertEmpresaSuscription(this.nuevaEmpresa.value);
     
     alert("Empresa añadida");

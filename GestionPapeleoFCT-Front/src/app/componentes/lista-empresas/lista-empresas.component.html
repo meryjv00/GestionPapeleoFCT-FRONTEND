@@ -22,6 +22,7 @@
                             <th>Dirección</th>
                             <th>Teléfono</th>
                             <th>Email</th>
+                            <th colspan="2"></th>
                         </tr>
                         <ng-container *ngFor="let empresa of empresas; index as i;">
                             <tr>
@@ -32,6 +33,10 @@
                                 <td>{{empresa.calle}}</td>
                                 <td>{{empresa.tlf}}</td>
                                 <td>{{empresa.email}}</td>
+                                <td><button class="btn btn-primary" (click) = clickEditar()>Editar</button></td>
+                                <td>
+                                    <button class="btn btn-warning" (click)="eliminarEmpresa(empresa)">Eliminar</button>
+                                </td>
                             </tr>
                         </ng-container>
                     </table>

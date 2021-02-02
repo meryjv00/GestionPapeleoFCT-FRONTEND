@@ -38,6 +38,26 @@ export class AdminEmpresasService {
     );
   };
 
+  //Eliminar empresa
+  public deleteEmpresa = (id: any) => {
+    const url = "http://localhost:8000/api/deleteEmpresa/" + id;
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    return this.http.post(url,{ 'id': id }, { headers: headers });
+  };
+
+  public deleteEmpresaSuscription = (id: any) => {
+    this.deleteEmpresa(id).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.message = "Se ha eliminado la empresa";
+        this.router.navigate(['listaEmpresas']);
+      },
+      (error) => {
+        this.message = error.error.message;
+      }
+    );
+  };
+
   //Actualizar empresa
   public updateEmpresa = (empresa: any) => {
     console.log(empresa);
