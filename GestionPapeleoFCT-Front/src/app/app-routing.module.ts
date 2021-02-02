@@ -6,6 +6,7 @@ import { ListaCursosComponent } from './componentes/lista-cursos/lista-cursos.co
 import { LoginComponent } from './componentes/login/login.component';
 import { NuevoAlumnoComponent } from './componentes/nuevo-alumno/nuevo-alumno.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
+import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'alumno/:alumno', component: AlumnoComponent},
   {path: 'alumno', component: AlumnoComponent},
   {path: 'listaCursos', component: ListaCursosComponent},
-  {path: 'registroUsuario', component: RegistroUserComponent}
+  {path: 'registroUsuario', component: RegistroUserComponent},
+  {path: 'registroPersona', component: RegistroPersonaComponent}
 ];
 
 @NgModule({

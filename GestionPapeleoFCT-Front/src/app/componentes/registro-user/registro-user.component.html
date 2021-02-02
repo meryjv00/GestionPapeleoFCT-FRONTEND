@@ -27,7 +27,7 @@
                 <label>Rol</label>
                 <select formControlName="rol">
                     <option value="2">Jefe Estudios</option>
-                    <option value="3" selected>Tutor</option>
+                    <option value="3" selected="true">Tutor</option>
                 </select>
                 <div *ngIf="submitted && formulario.rol.errors">
                     <div *ngIf="formulario.rol.errors.required">No puede estar vacío</div>

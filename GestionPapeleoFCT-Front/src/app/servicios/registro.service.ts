@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
+import { ArrayUsService } from 'src/app/servicios/array-us.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class RegistroService {
   message: string;
   user: any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private ArrayUsService: ArrayUsService, private router: Router, private http: HttpClient) {
     this.user = {
       access_token: "",
       email: ""
@@ -42,7 +43,8 @@ export class RegistroService {
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
         sessionStorage.setItem(RegistroService.SESSION_STORAGE_KEY, JSON.stringify(this.user));
-        this.router.navigate(['listaAlumnos']);
+        this.ArrayUsService.setArray(email,dni);
+        this.router.navigate(['registroPersona']);
       },
       (error) => {
         this.message = error.error.message;

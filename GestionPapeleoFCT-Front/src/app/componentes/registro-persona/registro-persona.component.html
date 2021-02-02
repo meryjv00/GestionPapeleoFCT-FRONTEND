@@ -1,0 +1,47 @@
+<body class="dark">
+    <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+        <div>
+            <h1>registro persona</h1>
+            <div>
+                <label>nombre</label>
+                <input type="text" formControlName="nombre" />
+                <div *ngIf="submitted && formulario.nombre.errors">
+                    <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
+                <label>apellidos</label>
+                <input type="text" formControlName="apellidos" />
+                <div *ngIf="submitted && formulario.apellidos.errors">
+                    <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
+                <label>localidad</label>
+                <input type="text" formControlName="localidad"/>
+                <div *ngIf="submitted && formulario.localidad.errors">
+                    <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
+                <label>residencia</label>
+                <input type="text" formControlName="residencia"/>
+                <div *ngIf="submitted && formulario.residencia.errors">
+                    <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
+                <label>Telefono</label>
+                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}" placeholder="123-45-67-89">
+                <div *ngIf="submitted && formulario.tlf.errors">
+                    <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button>Enviar</button>
+            <button type="reset" (click)="onReset()">Cancelar</button>
+        </div>
+        <div>{{message}}</div>
+    </form>
+</body>

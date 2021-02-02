@@ -13,6 +13,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { ListaAlumnosComponent } from './componentes/lista-alumnos/lista-alumnos.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
+import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegistroUserComponent } from './componentes/registro-user/registro-user
     LoginComponent,
     ListaAlumnosComponent,
     AlumnoComponent,
-    RegistroUserComponent
+    RegistroUserComponent,
+    RegistroPersonaComponent
   ],
   imports: [
     BrowserModule,
