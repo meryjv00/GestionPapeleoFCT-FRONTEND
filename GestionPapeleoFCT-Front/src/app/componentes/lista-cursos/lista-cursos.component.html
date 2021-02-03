@@ -5,97 +5,127 @@
         </div>
         <div id="contenido" class="col-md-9 col-lg-10">
             <div name="opciones" class="row mt-2">
-                <div class="col-md-4 form-group-0 ml-2 p-0">
+                <div class="col-lg-4 col-md-8 col-sm-6 col-12 form-group-0 px-2">
                     <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
                         <option *ngFor="let curso of cursos " [value]="curso.id">{{curso.cicloFormativo}}</option>
                     </select>
                 </div>
-                <div *ngIf="this.user.rol  === 'Jefe de estudios'" class="col-md-3 input-group p-0 ml-1">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0 bg-white shadow-sm" id="search-addon">
-                    <i class="fas fa-search"></i>
-                  </span>
+                <div id="buscador" *ngIf="this.user.rol  === 'Jefe de estudios'" class="col-lg-3 col-md-8 col-sm-6 col-12 px-2">
+                    <form class="d-flex align-items-center">
+                        <input class="form-control  form-control-borderless" type="search" placeholder="Busca aquí..." name="searchbar">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
                 </div>
-                <div class="ml-auto">
+                <div id="opciones" class="ml-auto">
                     <app-opciones></app-opciones>
                 </div>
             </div>
-            <h1 *ngIf="this.user.rol  === 'Jefe de estudios'" class="mt-3">Cursos</h1>
-            <h1 *ngIf="this.user.rol  === 'Tutor'" class="mt-3">Mis cursos</h1>
             <h5>{{mensaje}}</h5>
             <div *ngIf="haCambiado" class="row">
-                <div class="col-sm-6 col-md-6 col-lg-4 px-3">
-                    <div name="curso" class="bg-white shadow-sm">
-                        <div class="row">
-                            <span class="col-md-10 col-sm-10 ml-2">Información curso: {{cursoSeleccionado.cicloFormativoA}} </span>
-                            <button (click)="addAlumno()" class="btn"><i class="fas fa-user-plus"></i></button>
+                <div id="curso" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-3">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5>{{cursoSeleccionado.cicloFormativo}}</h5>
                         </div>
-                        <div>
-                            <div>{{cursoSeleccionado.familiaProfesional}}</div>
-                            <div>{{cursoSeleccionado.cicloFormativo}}</div>
-                            <div>Tutor: {{cursoSeleccionado.tutor}}</div>
-                            <div>Curso: {{cursoSeleccionado.cursoAcademico}}</div>
-                            <div>Horas: {{cursoSeleccionado.nHoras}}</div>
+                        <div class="col-md-2">
+                            <button (click)="addAlumno()" class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 px-3">
-                    <div name="anexos1" class="bg-white shadow-sm">
-                        <div>
-                            <span class="ml-2">Anexos generales</span>
-                        </div>
-                        <div>
-                            <button class="btn bg-white mt-1"><i class="fas fa-file-excel"></i></button>
-                            <span>Anexo VI. - Resumen de Gastos de alumnos. (Formato Excel)</span>
-                        </div>
-                        <div id="word">
-                            <button class="btn bg-white mt-1"><i class="fas fa-file-word"></i></button>
-                            <span>Anexo VII.- Autorización para desplazamientos.</span>
+                        <div class="col-md-12">
+                            <h5>{{cursoSeleccionado.familiaProfesional}}</h5>
+                            <h5>Tutor: {{cursoSeleccionado.tutor}}</h5>
+                            <h5>Curso: {{cursoSeleccionado.cursoAcademico}}</h5>
+                            <h5>Horas: {{cursoSeleccionado.nHoras}}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 px-3">
-                    <div name="anexos2" class="bg-white shadow-sm">
-                        <div>
-                            <span class="ml-2">Anexos individuales</span>
+                <div id="anexos" class="col-lg-11 col-md-11 col-sm-11 col-11  mx-auto shadow-sm mt-2">
+                    <div class="row py-3">
+                        <div class="col-md-4">
+                            <div class="bg-light py-2 mb-3">
+                                <button class="btn"><i class="fas fa-file-word "></i></button>
+                                <span class="">Anexo III.- Hoja semanal del alumno.</span>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn bg-white mt-1"><i class="fas fa-file-word"></i></button>
-                            <span>Anexo III.- Hoja semanal del alumno.</span>
+                        <div class="col-md-4">
+                            <div class="bg-light py-2 mb-3">
+                                <button class="btn"><i class="fas fa-file-word "></i></button>
+                                <span class="">Anexo IV.- Informe valorativo y de evaluación individual.</span>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn bg-white mt-1"><i class="fas fa-file-word"></i></button>
-                            <span>Anexo IV.- Informe valorativo y de evaluación individual.</span>
+                        <div class="col-md-4">
+                            <div class="bg-light py-2 mb-3">
+                                <button class="btn"><i class="fas fa-file-word "></i></button>
+                                <span class="">Anexo V.- Recibí del alumno.</span>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn bg-white mt-1"><i class="fas fa-file-word"></i></button>
-                            <span>Anexo V.- Recibí del alumno.</span>
+                        <div class="col-md-4">
+                            <div class="bg-light py-2 mb-3">
+                                <button class="btn "><i class="fas fa-file-excel"></i></button>
+                                <span class="">Anexo VI. - Resumen de Gastos de alumnos. (Formato Excel)</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light py-2 mb-3">
+                                <button class="btn"><i class="fas fa-file-word"></i></button>
+                                <span class="">Anexo VII.- Autorización para desplazamientos.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="haCambiado">
-                <div class="mt-4">
-                    <h1>Listado alumnos</h1>
-                    <div class="row mb-3">
-                        <ng-container *ngFor="let alumno of alumnos; index as i;">
-                            <div class="col-sm-6 col-md-6 col-lg-4 px-3">
-                                <div name="alumno" class="bg-white shadow-sm">
-                                    <div class="row">
-                                        <span class="col-md-10 col-sm-10 col-xs-10 ml-2"> {{alumno.nombre}} {{alumno.apellidos}}</span>
-                                        <button (click)="updateAlumno(alumno)" class="btn"><i class="fas fa-user-edit"></i></button>
-                                    </div>
-                                    <div>
-                                        <div>Correo: {{alumno.correo}}</div>
-                                        <div>Dni: {{alumno.dni}}</div>
-                                        <div>Localidad: {{alumno.localidad}}</div>
-                                        <div>Residencia: {{alumno.residencia}}</div>
-                                        <div>Telefono: {{alumno.telefono}}</div>
+                <div id="carousel" class="w-100 mx-5 bg-light carousel shadow-lg slide my-4" data-ride="carousel">
+                    <ol class="carousel-indicators ">
+                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel" data-slide-to="1"></li>
+                        <li data-target="#carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div *ngIf="haCambiado">
+                            <ng-container *ngFor="let alumno of alumnos; index as i; ">
+                                <div *ngIf="i==0 " class="carousel-item active">
+                                    <div *ngIf="i % 3 == 0" class="row">
+                                        <div class="col-md-4 bg-warning">
+                                            <div class="row">
+                                                {{ alumno.nombre }}
+                                                <button (click)="updateAlumno(alumno) " class="btn btn-primary "><i class="fas fa-user-edit "></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 bg-dark" *ngIf="i + 1 < alumnos.length">
+                                            <div class="row">
+                                                {{ alumnos[i + 1].nombre }}
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 bg-success" *ngIf="i + 2 < alumnos.length">
+                                            <div class="row">
+                                                {{ alumnos[i + 2].nombre }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </ng-container>
+                                <div *ngIf="i >= 3" class="carousel-item">
+                                    <div *ngIf="i % 3 == 0" class="row">
+                                        <div class="col-md-4 bg-warning">
+                                            {{ alumno.nombre }}
+                                        </div>
+                                        <div class="col-md-4 bg-dark" *ngIf="i + 1 < alumnos.length">
+                                            {{ alumnos[i + 1].nombre }}
+                                        </div>
+                                        <div class="col-md-4 bg-success" *ngIf="i + 2 < alumnos.length">
+                                            {{ alumnos[i + 2].nombre }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
+                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </div>

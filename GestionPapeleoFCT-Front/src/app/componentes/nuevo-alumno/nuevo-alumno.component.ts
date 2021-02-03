@@ -22,6 +22,7 @@ export class NuevoAlumnoComponent implements OnInit {
     }
     //Obtiene los datos del curso seleccionado
     this.curso = this.CompartirDatos.getCurso();
+    //Formulario nuevo alumno
     this.nuevoAlumno = this.formBuilder.group({
       dni: ['', [Validators.required, Validators.pattern]],
       nombre: ['', [Validators.required, Validators.pattern]],

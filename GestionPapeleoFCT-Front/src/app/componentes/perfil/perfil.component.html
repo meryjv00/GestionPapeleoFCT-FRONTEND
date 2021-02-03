@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <main class="row">
+        <div id="menu" class="col-md-3 col-lg-2">
+            <app-menu></app-menu>
+        </div>
+        <div id="contenido" class="col-md-9 col-lg-10">
+            <div class="row mt-2 ml-1">
+                <div class="ml-auto">
+                    <app-opciones></app-opciones>
+                </div>
+            </div>
+            <div>
+                <h5>{{user.nombre}} {{user.apellidos}}</h5>
+                <h5>{{user.rol}}</h5>
+                <h5>{{user.email}}</h5>
+                <h5>{{user.dni}}</h5>
+                <h5>{{user.localidad}}</h5>
+                <h5>{{user.residencia}}</h5>
+                <h5>{{user.telefono}}</h5>
+            </div>
+        </div>
+    </main>
+</div>

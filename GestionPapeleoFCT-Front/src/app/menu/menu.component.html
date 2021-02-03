@@ -1,23 +1,24 @@
 <aside>
     <div class="user">
-        <img routerLink="/" src="../../assets/img/avatar1.png" />
+        <img routerLink="/perfil" class="rounded-circle" src="../../assets/img/avatar1.png" />
         <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
         <p name="rol">{{user.rol}}</p>
+
     </div>
-    <div class="enlaces">
-        <button name="cursos" routerLink="/listaCursos" class="btn active">
+    <div class="row enlaces">
+        <button name="cursos" routerLink="/listaCursos" class="col-md-11 col-sm-3 col-3 mx-auto btn active">
             <i class="fas fa-users"></i>
             <span class="ml-3">Cursos</span>
         </button>
-        <button name="empresas" routerLink="/login" class="btn ">
+        <button name="empresas" routerLink="/login" class="col-md-11 col-sm-3 col-3 mx-auto btn">
             <i class="fas fa-briefcase"></i>
             <span class="ml-3">Empresas</span>
         </button>
-        <button name="fct" routerLink="/" class="btn ">
+        <button name="fct" routerLink="/" class="col-md-11 mx-auto col-sm-3 col-3 btn ">
             <i class="fas fa-business-time"></i> 
             <span class="ml-3">Organizar FCT</span>
         </button>
-        <button name="centro" routerLink="/" class="btn ">
+        <button name="centro" routerLink="/" class="col-md-11 col-sm-3 col-3 mx-auto btn ">
             <i class="fas fa-building"></i>
             <span class="ml-3">Centro</span>
         </button>

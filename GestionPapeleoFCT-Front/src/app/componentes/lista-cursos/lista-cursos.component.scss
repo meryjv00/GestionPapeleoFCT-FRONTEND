@@ -2,51 +2,74 @@
 $color-word: #e3f4fb;
 $color-excel: #e6faf5;
 $color-curso: #ecebfa;
-$color-alumno: #fff8ed;
-$opciones-color1: ( "anexos1": $color-excel, "anexos2": $color-word);
-$opciones-color2: ( "curso": $color-curso, "alumno": $color-alumno);
-$tam-targ: 18rem;
-//Estilo
-@each $nombre,
-$color in $opciones-color1 {
-    div[name=#{$nombre}] {
-        border-radius: 18px;
-        padding: 1rem;
-        height: $tam-targ;
-        margin-top: 1rem;
-        div:not(:first-of-type) {
-            margin: 0.60rem;
-            padding: 0.50rem;
-            border-radius: 6px;
-            background-color: $color;
-            display: flex;
-            button {
-                height: 2.20rem;
-            }
-            span {
-                margin-left: 1rem;
-                margin-top: 0.40rem;
-            }
-        }
-        #word {
-            background-color: $color-word;
-        }
+$blanco-menu: #FFFF;
+$letra: #323232;
+//Breakpoints
+$breakpoint-movil: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-ordenador: 992px;
+$breakpoint-ordenadorl: 1200px;
+//--------------------------------------
+//--------------------------------------
+//MOVIL
+@media (max-width: $breakpoint-movil) {
+    #opciones,
+    #buscador {
+        margin-top: 0.40rem;
     }
 }
 
-@each $nombre,
-$color in $opciones-color2 {
-    div[name=#{$nombre}] {
-        border-radius: 18px;
-        padding: 1rem;
-        height: $tam-targ;
-        margin-top: 1rem;
-        div:nth-child(2) {
-            background-color: $color;
-            border-radius: 18px;
-            div {
-                padding: 0.50rem;
-            }
+//TABLET
+@media (max-width: $breakpoint-tablet) {
+    #opciones {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR
+@media (max-width: $breakpoint-ordenador) and (min-width: $breakpoint-tablet) {
+    #buscador {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR L
+@media (max-width: $breakpoint-ordenadorl) {}
+
+#curso,
+#anexos {
+    background-color: $blanco-menu;
+}
+
+#carousel {
+    height: 20rem;
+    //background-color: $color-alumno;
+    img {
+        display: block;
+        height: 200px;
+        margin-left: auto;
+    }
+    a {
+        text-decoration: underline;
+    }
+}
+
+#anexos {
+    div>div>div {
+        height: 5rem;
+        border-radius: 17px;
+    }
+    button {
+        display: inline-block;
+        width: 20%;
+        vertical-align: top;
+        i {
+            font-size: 1.50rem;
         }
+    }
+    span {
+        display: inline-block;
+        width: 80%;
+        padding-top: 0.2rem;
     }
 }

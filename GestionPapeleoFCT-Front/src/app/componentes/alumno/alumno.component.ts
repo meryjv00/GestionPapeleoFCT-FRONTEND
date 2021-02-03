@@ -14,6 +14,8 @@ export class AlumnoComponent implements OnInit {
   alumno: any;
   modificarAlumno: FormGroup;
   submitted = false;
+  activados = false;
+  textoBoton: any;
   
   constructor(private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,private CompartirDatos: CompartirDatosService) {
     if (!loginService.isUserSignedIn()) {
@@ -23,11 +25,16 @@ export class AlumnoComponent implements OnInit {
     this.alumno = this.CompartirDatos.getAlumno();
 
     this.modificarAlumno = this.formBuilder.group({
-      localidad: ['', [Validators.required,Validators.minLength]],
-      residencia: ['', [Validators.required,Validators.minLength]],
+      dni: ['', [Validators.required, Validators.pattern]],
+      nombre: ['', [Validators.required, Validators.pattern]],
+      apellidos: ['', [Validators.required, Validators.pattern]],
+      localidad: ['', [Validators.required, Validators.minLength]],
+      residencia: ['', [Validators.required, Validators.minLength]],
       correo: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern]]
     });
+    this.modificarAlumno?.disable();
+    this.textoBoton = "Editar";
   }
 
   ngOnInit(): void {
@@ -73,4 +80,20 @@ export class AlumnoComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * Activa los inputs del formulario para editarlos o en caso de que esten 
+   * activados los desactiva
+   */
+ activarEdicion(){
+  if(!this.activados){
+    this.modificarAlumno?.enable();
+    this.activados = true;
+    this.textoBoton = "Cancelar";
+  }else{
+    this.modificarAlumno?.disable();
+    this.activados = false;
+    this.textoBoton = "Editar";
+  }
+ } 
 }

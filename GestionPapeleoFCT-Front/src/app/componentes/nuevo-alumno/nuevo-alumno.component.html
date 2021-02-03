@@ -1,18 +1,18 @@
 <div class="container-fluid">
     <main class="row">
-        <div id="menu" class="col-md-2">
+        <div id="menu" class="col-md-3 col-lg-2">
             <app-menu></app-menu>
         </div>
-        <div class="col-md-10">
-            <div class="row mt-2 ml-1">
-                <h1>{{curso.cicloFormativo}} </h1>
+        <div class="col-md-9 col-lg-10">
+            <div class="row mt-2 ml-4">
                 <div class="ml-auto">
                     <app-opciones></app-opciones>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <h5>Añadir nuevo alumno:</h5>
+                <div class="col-lg-8 col-md-12 px-5">
+                    <h1>Añadir nuevo alumno</h1>
+                    <h4>{{curso.cicloFormativo}}</h4>
                     <form [formGroup]="nuevoAlumno" (ngSubmit)="onSubmit()">
                         <div class="form-row">
                             <div class="col">
@@ -78,16 +78,12 @@
                         </div>
                         <hr>
                         <div class="row mt-2">
-                            <div class="col-md-6">
-                                <button type="reset" (click)="onReset()" class="btn border boton-estilo">Cancelar</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="btn btn-primary boton-estilo">Añadir</button>
-                            </div>
+                            <button class="col-md-5 btn btn-primary mx-auto">Añadir</button>
+                            <button type="reset" (click)="onReset()" class="col-md-5 mx-auto btn border">Cancelar</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-4 col-md-12 col-sm-12 px-5 mt-5">
                     <h5>Familia profesional: {{curso.familiaProfesional}}</h5>
                     <h5>Ciclo formativo: {{curso.cicloFormativo}} {{curso.cicloFormativoA}}</h5>
                     <h5>Tutor: {{curso.tutor}}</h5>

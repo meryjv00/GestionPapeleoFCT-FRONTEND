@@ -1,46 +1,90 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
+import * as _ from "lodash";
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class CompartirDatosService {
   curso: any;
   alumno: any;
-  constructor() {
-    this.curso = {
-      'id': "",
-      'tutor': "",
-      'familiaProfesional': "",
-      'cicloFormativo': "",
-      'cicloFormativoA': "",
-      'cursoAcademico': "",
-      'nHoras': ""
-    }
-    this.alumno = {
-      'id': "",
-      'dni': "",
-      'nombre': "",
-      'apellidos': "",
-      'localidad': "",
-      'residencia': "",
-      'correo': "",
-      'telefono': ""
+  //Almacenará mediante esta key los datos de login en session storage
+  public static readonly SESSION_STORAGE_KEY_AL: string = "alumnoSeleccionado";
+  public static readonly SESSION_STORAGE_KEY_CUR: string = "cursoSeleccionado";
+
+  constructor() { }
+
+  //----------------------------------------------------------------------------------
+  //--------------------------------------CURSO---------------------------------------
+  //----------------------------------------------------------------------------------
+  setCurso(curso: any) {
+    sessionStorage.setItem(CompartirDatosService.SESSION_STORAGE_KEY_CUR, JSON.stringify(curso));
+  }
+
+  getCurso() {
+    let curso: any | null = {
+      cicloFormativo: "",
+      cicloFormativoA: "",
+      cursoAcademico: "",
+      familiaProfesional: "",
+      id: "",
+      nHoras: "",
+      tutor: ""
     };
-   }
-
-  setCurso(curso: any){
-    this.curso = curso;
+    if (this.isCursoSeleccionado()) {
+      curso = sessionStorage.getItem(CompartirDatosService.SESSION_STORAGE_KEY_CUR);
+      curso = JSON.parse(curso);
+    }
+    return curso;
   }
 
-  getCurso(){
-    return this.curso;
+  /**
+   * Devuelve si en session storage está almacenado o no el curso seleccionado
+   */
+  public isCursoSeleccionado(): boolean {
+    return !_.isEmpty(sessionStorage.getItem(CompartirDatosService.SESSION_STORAGE_KEY_CUR));
   }
 
-  setAlumno(alumno: any){
-    this.alumno = alumno;
+  //----------------------------------------------------------------------------------
+  //--------------------------------------ALUMNO---------------------------------------
+  //----------------------------------------------------------------------------------
+  /**
+   * Guarda el alumno seleccionado en session storage oara poder cargarlo en la vista alumno
+   * cada vez que se recarga el componente
+   * @param alumno 
+   */
+  setAlumno(alumno: any) {
+    sessionStorage.setItem(CompartirDatosService.SESSION_STORAGE_KEY_AL, JSON.stringify(alumno));
   }
 
-  getAlumno(){
-    return this.alumno;
+  /**
+   * Obtiene del session storage el alumno seleccionado
+   */
+  getAlumno() {
+    let alumno: any | null = {
+      apellidos: "",
+      correo: "",
+      dni: "",
+      id: "",
+      localidad: "",
+      nombre: "",
+      residencia: "",
+      telefono: ""
+    };
+    if (this.isAlumnoSeleccionado()) {
+      alumno = sessionStorage.getItem(CompartirDatosService.SESSION_STORAGE_KEY_AL);
+      alumno = JSON.parse(alumno);
+    }
+    return alumno;
+  }
+
+
+  /**
+   * Devuelve si en session storage está almacenado o no el alumno seleccionado
+   */
+  public isAlumnoSeleccionado(): boolean {
+    return !_.isEmpty(sessionStorage.getItem(CompartirDatosService.SESSION_STORAGE_KEY_AL));
   }
 }

@@ -4,13 +4,14 @@ import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { ListaCursosComponent } from './componentes/lista-cursos/lista-cursos.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NuevoAlumnoComponent } from './componentes/nuevo-alumno/nuevo-alumno.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'listaCursos', component: ListaCursosComponent},
-  {path: 'alumno/:alumno', component: AlumnoComponent},
   {path: 'alumno', component: AlumnoComponent},
-  {path: 'nuevoAlumno', component: NuevoAlumnoComponent}
+  {path: 'nuevoAlumno', component: NuevoAlumnoComponent},
+  {path: 'perfil', component: PerfilComponent}
 ];
 
 @NgModule({

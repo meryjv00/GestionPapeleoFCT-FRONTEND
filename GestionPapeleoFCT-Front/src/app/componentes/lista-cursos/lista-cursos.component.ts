@@ -165,4 +165,5 @@ export class ListaCursosComponent implements OnInit {
     this.CompartirDatos.setAlumno(alumno);
     this.router.navigate(['/alumno']);
   }
+
 }
