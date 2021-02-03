@@ -62,7 +62,7 @@ export class AdminEmpresasService {
   public updateEmpresa = (empresa: any) => {
     console.log(empresa);
     const url = "http://localhost:8000/api/updateEmpresa/" + empresa.id;
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url,{'empresa': empresa}, { headers: headers });
   };
 

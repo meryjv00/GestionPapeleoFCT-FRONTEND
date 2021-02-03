@@ -75,4 +75,26 @@ export class LoginService {
     }
     return isSignedIn;
   }
+
+
+  /**Si el usuario está loggeado obtenemos la información de dicho usuario */
+  public getUser(): any {
+    let user: any | null = {
+      access_token: "",
+      apellidos: "",
+      dni: "",
+      email: "",
+      localidad: "",
+      nombre: "",
+      residencia: "",
+      rol: "",
+      telefono: ""
+    };
+    if (this.isUserSignedIn()) {
+      user = sessionStorage.getItem(LoginService.SESSION_STORAGE_KEY);
+      user = JSON.parse(user);
+    }
+    return user;
+  }
+
 }

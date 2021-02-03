@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListaEmpresasService } from 'src/app/servicios/lista-empresas.service';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
+import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 
 @Component({
   selector: 'app-lista-empresas',
@@ -16,7 +17,7 @@ export class ListaEmpresasComponent implements OnInit {
 
   crearNueva: boolean;
 
-  constructor(private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
+  constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
     this.empresas = [];
     this.crearNueva = false;
   }
@@ -39,7 +40,10 @@ export class ListaEmpresasComponent implements OnInit {
     }
   }
 
-  clickEditar(){}
+  clickEditar(empresa: any){
+    this.CompartirDatos.setEmpresa(empresa);
+    this.router.navigate(['/empresa']);
+  }
 
   getEmpresas() {
     this.listaEmpresasService.getEmpresas().subscribe(
@@ -54,7 +58,7 @@ export class ListaEmpresasComponent implements OnInit {
             'id': element.id,
             'nombre': element.nombre,
             'provincia': element.provincia,
-            'localidad': element.localidad,
+            'localidad': element.localidad, 
             'calle': element.calle,
             'cp': element.cp,
             'cif': element.cif,

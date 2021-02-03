@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <main class="row">
+        <div id="menu" class="col-md-2">
+            <app-menu></app-menu>
+        </div>
+        <div class="col-md-10">
+            <div class="row mt-2 ml-1">
+                <h1>Empresa: {{empresa.nombre}}</h1>
+                <div class="ml-auto">
+                    
+                </div>
+            </div>
+            <div class="row mt-4"> 
+                <div class="col-md-6">
+                    <h3>Información general:</h3>
+                    <h5>Nombre: {{empresa.nombre}}</h5>
+                    <h5>Provincia: {{empresa.provincia}}</h5>
+                    <h5>Localidad: {{empresa.localidad}}</h5>
+                    <h5>Dirección: {{empresa.calle}}</h5>
+                    <h5>Código Postal: {{empresa.cp}}</h5>
+                    <h5>CIF: {{empresa.cif}}</h5>
+                    <h5>Teléfono: {{empresa.tlf}}</h5>
+                    <h5>Correo electrónico: {{empresa.email}}</h5>
+                    <hr>
+                    <h3>Información relacionada con la FCT</h3>
+                    <h5>Curso: ?</h5>
+                    <h5>Anexos: ?</h5>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mt-3">Editar información personal</h3>
+                    <form [formGroup]="editarEmpresa" (ngSubmit)="actualizar()">
+                        <div>
+                            <label for="localidad">Nombre:</label>
+                            <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="empresa.nombre" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Provincia:</label>
+                            <input type="text" formControlName="provincia" id="provincia" class="form-control" [(ngModel)]="empresa.provincia" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Localidad:</label>
+                            <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="empresa.localidad" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Dirección:</label>
+                            <input type="text" formControlName="calle" id="calle" class="form-control" [(ngModel)]="empresa.calle" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Código postal:</label>
+                            <input type="text" formControlName="cp" id="cp" class="form-control" [(ngModel)]="empresa.cp" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">CIF:</label>
+                            <input type="text" formControlName="cif" id="cif" class="form-control" [(ngModel)]="empresa.cif" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Nº de teléfono:</label>
+                            <input type="text" formControlName="tlf" id="tlf" class="form-control" [(ngModel)]="empresa.tlf" minlength="5" />
+                        </div>
+                        <div>
+                            <label for="localidad">Correo electrónico:</label>
+                            <input type="text" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
+                        </div>
+                        <button class="btn btn-primary mt-2 boton-estilo">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
