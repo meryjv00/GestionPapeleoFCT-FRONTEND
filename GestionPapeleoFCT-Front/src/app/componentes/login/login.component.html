@@ -1,0 +1,26 @@
+<body class="dark">
+    <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
+        <div>
+            <div>
+                <label>Usuario</label>
+                <input type="email" formControlName="email" />
+                <div *ngIf="submitted && formulario.email.errors">
+                    <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
+                    <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
+                </div>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" formControlName="password" />
+                <div *ngIf="submitted && formulario.password.errors">
+                    <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button>Enviar</button>
+            <button type="reset" (click)="onReset()">Cancelar</button>
+        </div>
+        <div>{{message}}</div>
+    </form>
+</body>

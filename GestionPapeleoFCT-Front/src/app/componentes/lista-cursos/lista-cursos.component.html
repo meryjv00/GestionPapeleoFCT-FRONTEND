@@ -1,0 +1,41 @@
+<body class="dark">
+    <div class="container-fluid">
+        <main class="row">
+            <div class="col-md-3">
+                <app-menu></app-menu>
+            </div>
+            <div class="col-md-9">
+                <div class="opciones mt-2 float-right">
+                    <button class="btn btn-primary mr-2" name="avisos"><i class="far fa-bell"></i></button>
+                    <button class="btn btn-primary" name="cerrarSesion"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+                <div class="mt-4">
+                    <h1>Lista cursos</h1>
+                    <table style="width: 100%; border: 1px solid black;">
+                        <tr>
+                            <th>Id</th>
+                            <th>Tutor</th>
+                            <th>Familia Profesional</th>
+                            <th>Ciclo Formativo</th>
+                            <th>Ciclo Formativo Abreviado</th>
+                            <th>Curso académico</th>
+                            <th>Número horas</th>
+                        </tr>
+                        <ng-container *ngFor="let curso of cursos; index as i;">
+                            <tr>
+                                <td>{{curso.id}}</td>
+                                <td>{{curso.tutor}}</td>
+                                <td>{{curso.familiaProfesional}}</td>
+                                <td>{{curso.cicloFormativo}}</td>
+                                <td>{{curso.cicloFormativoA}}</td>
+                                <td>{{curso.cursoAcademico}}</td>
+                                <td>{{curso.nHoras}}</td>
+                                <td><a [routerLink]="['/listaAlumnos',curso]"><button class="btn btn-primary">Ver</button></a></td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
