@@ -1,31 +1,26 @@
 <aside>
-    <!--
     <div class="user">
-        <a routerLink="/nuevoAlumno" class="">
-            <img src="../../assets/img/guest.png" />
-        </a>
-        <h4 name="nombre">Fernando D.</h4>
-        <p name="rol">Jefe de estudios</p>
+        <img routerLink="/perfil" class="rounded-circle" src="../../assets/img/avatar1.png" />
+        <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
+        <p name="rol">{{user.rol}}</p>
+
     </div>
-    -->
-    <div class="enlaces">
-        <a routerLink="/login" class="">
-            <i class="fas fa-users"></i><span>Cursos</span>
-        </a>
-        <a routerLink="/listaEmpresas" class="">
-            <i class="fas fa-briefcase"></i><span>Empresas</span>
-        </a>
-        <a routerLink="/" class="">
-            <i class="fas fa-business-time"></i><span>Organizar FCT</span>
-        </a>
-        <a routerLink="/listaCursos" class="active">
-            <i class="fas fa-cog"></i><span>Administración cursos</span>
-        </a>
-        <a routerLink="/" class="">
-            <i class="fas fa-cog"></i><span>Administración empresas</span>
-        </a>
-        <a routerLink="/" class="">
-            <i class="fas fa-building"></i><span>Centro</span>
-        </a>
+    <div class="row enlaces">
+        <button name="cursos" routerLink="/listaCursos" class="col-md-11 col-sm-3 col-3 mx-auto btn active">
+            <i class="fas fa-users"></i>
+            <span class="ml-3">Cursos</span>
+        </button>
+        <button name="empresas" routerLink="/listaEmpresas" class="col-md-11 col-sm-3 col-3 mx-auto btn">
+            <i class="fas fa-briefcase"></i>
+            <span class="ml-3">Empresas</span>
+        </button>
+        <button name="fct" routerLink="/" class="col-md-11 mx-auto col-sm-3 col-3 btn ">
+            <i class="fas fa-business-time"></i> 
+            <span class="ml-3">Organizar FCT</span>
+        </button>
+        <button name="centro" routerLink="/" class="col-md-11 col-sm-3 col-3 mx-auto btn ">
+            <i class="fas fa-building"></i>
+            <span class="ml-3">Centro</span>
+        </button>
     </div>
 </aside>
