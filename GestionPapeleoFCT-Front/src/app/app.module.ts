@@ -18,6 +18,8 @@ import { EmpresaComponent } from './componentes/empresa/empresa.component';
 
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
+import { OpcionesComponent } from './opciones/opciones.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,13 +27,14 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
     MenuComponent,
     ListaCursosComponent,
     LoginComponent,
-    ListaAlumnosComponent,
     AlumnoComponent,
     ListaEmpresasComponent,
     NuevaEmpresaComponent,
     EmpresaComponent
     RegistroUserComponent,
     RegistroPersonaComponent
+    OpcionesComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

@@ -9,13 +9,11 @@ import { ListaEmpresasComponent } from './componentes/lista-empresas/lista-empre
 import { EmpresaComponent } from './componentes/empresa/empresa.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'nuevoAlumno', component: NuevoAlumnoComponent},
-  {path: 'listaAlumnos', component: ListaAlumnosComponent},
-  {path: 'listaAlumnos/:curso', component: ListaAlumnosComponent},
-  {path: 'alumno/:alumno', component: AlumnoComponent},
   {path: 'alumno', component: AlumnoComponent},
   {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'listaEmpresas', component: ListaEmpresasComponent},
@@ -23,6 +21,8 @@ const routes: Routes = [
   {path: 'empresa', component: EmpresaComponent}
   {path: 'registroPersona', component: RegistroPersonaComponent}
   {path: 'registroUsuario', component: RegistroUserComponent},
+  {path: '', component: LoginComponent},
+  {path: 'perfil', component: PerfilComponent}
 ];
 
 @NgModule({
