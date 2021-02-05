@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { ArrayUsService } from 'src/app/servicios/array-us.service';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class RegistroService {
   message: string;
   user: any;
 
-  constructor(private ArrayUsService: ArrayUsService, private router: Router, private http: HttpClient) {
+  constructor(private ArrayUsService: ArrayUsService, private router: Router, private http: HttpClient,private loginService: LoginService) {
     this.user = {
       access_token: "",
-      email: ""
+      email: "",rol:""
     }
     this.message = "";
   }
@@ -39,11 +40,11 @@ export class RegistroService {
     this.Registro(dni, email, password, rol).subscribe(
       (response: any) => {
         console.log(response);
+        this.ArrayUsService.setArray(email,dni,rol);
         this.message = "Registro correcto";
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
-        sessionStorage.setItem(RegistroService.SESSION_STORAGE_KEY, JSON.stringify(this.user));
-        this.ArrayUsService.setArray(email,dni);
+        this.user.rol = this.ArrayUsService.getRol();
         this.router.navigate(['registroPersona']);
       },
       (error) => {

@@ -34,7 +34,7 @@ export class RegistroPersonaComponent implements OnInit {
     if (this.nuevoRegistro.invalid) {
       return;
     }
-     
+
     let datosUsuario = this.nuevoRegistro.value;
     const email = this.ArrayUsService.getEmail();
     const dni = this.ArrayUsService.getDni();
@@ -43,11 +43,24 @@ export class RegistroPersonaComponent implements OnInit {
     const localidad = datosUsuario.localidad;
     const residencia = datosUsuario.residencia;
     const tlf = datosUsuario.tlf;
-    this.registroPersonaService.registroSuscription(email,dni,nombre,apellidos,localidad, residencia, tlf);
+    this.registro(email, dni, nombre, apellidos, localidad, residencia, tlf)
     this.onReset();
     this.message = this.registroPersonaService.message;
   }
 
+  registro(email: any, nombre: any, apellidos: any, dni: any, localidad: any, residencia: any, tlf: any) {
+    this.registroPersonaService.Registro(email, dni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.message = "Registro correcto";
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        this.message = error.error.message;
+      }
+    );
+
+  }
   onReset() {
     this.submitted = false;
     this.nuevoRegistro.reset();
