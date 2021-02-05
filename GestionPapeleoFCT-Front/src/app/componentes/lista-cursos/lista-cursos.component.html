@@ -81,7 +81,7 @@
                                         <div class="col-md-3 offset-md-1">
                                             <div class="px-2 bg-light shadow pb-4 mb-2 alumno">
                                                 <img src="../../../assets/img/wjpg.jpg" alt=""> {{ alumno.nombre }} {{alumno.apellidos}}
-                                                <button (click)="updateAlumno(alumno)" class="btn btn-primary "><i class="fas fa-user-edit "></i></button>
+                                                <button (click)="updateAlumno(alumno)" class="btn btn-primary "><i class="fas fa-user-edit "></i></button><br>
                                                 <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
                                             </div>
                                         </div>
@@ -95,7 +95,7 @@
                                         <div *ngIf="i + 2 < alumnos.length" class="col-md-3">
                                             <div class="px-2 bg-light shadow pb-4 alumno">
                                                 <img src="../../../assets/img/q.jpg" alt=""> {{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}
-                                                <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary "><i class="fas fa-user-edit "></i></button>
+                                                <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary "><i class="fas fa-user-edit "></i></button><br>
                                                 <a href="mailto:{{alumnos[i + 2].correo}} ">{{alumnos[i + 2].correo}}</a>
                                             </div>
                                         </div>
