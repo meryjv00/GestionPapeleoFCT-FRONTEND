@@ -7,6 +7,7 @@ import { NuevoAlumnoComponent } from './componentes/nuevo-alumno/nuevo-alumno.co
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 const routes: Routes = [
+  {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'alumno', component: AlumnoComponent},

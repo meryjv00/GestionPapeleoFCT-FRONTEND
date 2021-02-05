@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnexosService } from 'src/app/servicios/anexos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -12,16 +13,20 @@ import { LoginService } from 'src/app/servicios/login.service';
 export class ListaCursosComponent implements OnInit {
   cursos: any[];
   alumnos: any[];
+  anexos: any[];
   cursoSeleccionado: any;
   haCambiado = false;
   user: any;
   mensaje: any;
-  constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute, private CompartirDatos: CompartirDatosService) {
+  
+  constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
+    private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
     this.cursos = [];
     this.alumnos = [];
+    this.anexos = [];
     this.mensaje = "";
     this.user = this.loginService.getUser();
   }
@@ -32,6 +37,7 @@ export class ListaCursosComponent implements OnInit {
     }else if (this.user.rol === 'Tutor'){
       this.getMisCursos(this.user.dni);
     }
+    this.getAnexos();
   }
 
   /**
@@ -166,4 +172,35 @@ export class ListaCursosComponent implements OnInit {
     this.router.navigate(['/alumno']);
   }
 
+
+  /**
+   * Obtiene todos los anexos disponibles
+   */
+  getAnexos(){
+    this.AnexosService.getAnexos().subscribe(
+      (response: any) => {
+        let anexos = response.message;
+        anexos.forEach((element: {id: any; nombre: any; tipo: any; ruta: any
+        }) => {
+          let anexo = {
+            'id': element.id,
+            'nombre': element.nombre,
+            'tipo': element.tipo,
+            'ruta': element.ruta
+          };
+          this.anexos.push(anexo);
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+   * Dependiendo del anexo que queramos descargar llamará a una función u otra.
+   */
+  descargarAnexo(id: any){
+    alert('Descargar anexo ' + id);
+  }
 }

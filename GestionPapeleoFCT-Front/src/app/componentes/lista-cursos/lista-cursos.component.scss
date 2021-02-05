@@ -1,8 +1,10 @@
-//Variables
+//Colores
+$blanco-menu: #FFFF;
+$color-curso: #f4e6fa;
+$color-curso2: #c6add1;
+//Otros colores
 $color-word: #e3f4fb;
 $color-excel: #e6faf5;
-$color-curso: #ecebfa;
-$blanco-menu: #FFFF;
 $letra: #323232;
 //Breakpoints
 $breakpoint-movil: 576px;
@@ -36,28 +38,25 @@ $breakpoint-ordenadorl: 1200px;
 //ORDENADOR L
 @media (max-width: $breakpoint-ordenadorl) {}
 
-#curso,
+//--------------------------------------
+//--------------------------------------
+#curso {
+    background-color: $color-curso2;
+    //padding: 20px;
+    padding-bottom: 0;
+    border-radius: 20px;
+    h3 {
+        text-align: center;
+    }
+}
+
 #anexos {
+    border-radius: 20px;
     background-color: $blanco-menu;
-}
-
-#carousel {
-    height: 20rem;
-    //background-color: $color-alumno;
-    img {
-        display: block;
-        height: 200px;
-        margin-left: auto;
-    }
-    a {
-        text-decoration: underline;
-    }
-}
-
-#anexos {
     div>div>div {
-        height: 5rem;
-        border-radius: 17px;
+        height: 4rem;
+        border-radius: 20px;
+        background-color: $color-curso;
     }
     button {
         display: inline-block;
@@ -72,4 +71,27 @@ $breakpoint-ordenadorl: 1200px;
         width: 80%;
         padding-top: 0.2rem;
     }
+}
+
+#carousel {
+    height: 23rem;
+    border-radius: 20px;
+    background-color: $blanco-menu;
+    .alumno {
+        margin-top: 15px;
+        border-radius: 25px;
+        text-align: center;
+        img {
+            display: block;
+            margin: auto;
+            height: 200px;
+        }
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+.bt-curso {
+    position: absolute
 }
