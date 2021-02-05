@@ -10,16 +10,15 @@ import { MenuComponent } from './menu/menu.component';
 import { NuevoAlumnoComponent } from './componentes/nuevo-alumno/nuevo-alumno.component';
 import { ListaCursosComponent } from './componentes/lista-cursos/lista-cursos.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { ListaAlumnosComponent } from './componentes/lista-alumnos/lista-alumnos.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { ListaEmpresasComponent } from './componentes/lista-empresas/lista-empresas.component';
 import { NuevaEmpresaComponent } from './componentes/nueva-empresa/nueva-empresa.component';
 import { EmpresaComponent } from './componentes/empresa/empresa.component';
-
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +29,9 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
     AlumnoComponent,
     ListaEmpresasComponent,
     NuevaEmpresaComponent,
-    EmpresaComponent
+    EmpresaComponent,
     RegistroUserComponent,
-    RegistroPersonaComponent
+    RegistroPersonaComponent,
     OpcionesComponent,
     PerfilComponent
   ],

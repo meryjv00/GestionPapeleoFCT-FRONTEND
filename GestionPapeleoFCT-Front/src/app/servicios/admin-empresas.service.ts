@@ -21,7 +21,7 @@ export class AdminEmpresasService {
   //Insertar empresa
   public insertEmpresa = (empresa: any) => {
     const url = "http://localhost:8000/api/insertEmpresa";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url,{ 'empresa': empresa }, { headers: headers });
   };
 
@@ -41,7 +41,7 @@ export class AdminEmpresasService {
   //Eliminar empresa
   public deleteEmpresa = (id: any) => {
     const url = "http://localhost:8000/api/deleteEmpresa/" + id;
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url,{ 'id': id }, { headers: headers });
   };
 
@@ -60,7 +60,7 @@ export class AdminEmpresasService {
 
   //Actualizar empresa
   public updateEmpresa = (empresa: any) => {
-    console.log(empresa);
+    //console.log(empresa);
     const url = "http://localhost:8000/api/updateEmpresa/" + empresa.id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url,{'empresa': empresa}, { headers: headers });
@@ -70,7 +70,7 @@ export class AdminEmpresasService {
   public anexo0 = (empresa: any) => {
     console.log(empresa);
     const url = "http://localhost:8000/api/getAnexo0/" + empresa.id;
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 

@@ -19,8 +19,8 @@ export class ListaEmpresasService {
   public getEmpresas = () => {
     const url = "http://localhost:8000/api/empresas";
 
-    console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    console.log(this.loginService.getUser().access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
     return this.http.get(url, { headers: headers });
   }

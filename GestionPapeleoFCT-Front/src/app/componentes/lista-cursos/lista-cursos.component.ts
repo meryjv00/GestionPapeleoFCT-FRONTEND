@@ -179,6 +179,7 @@ export class ListaCursosComponent implements OnInit {
   getAnexos(){
     this.AnexosService.getAnexos().subscribe(
       (response: any) => {
+        console.log(response.message);
         let anexos = response.message;
         anexos.forEach((element: {id: any; nombre: any; tipo: any; ruta: any
         }) => {

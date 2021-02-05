@@ -18,8 +18,8 @@ export class ListaAlumnosService {
   public getAlumnos = (id: any) => {
     const url = "http://localhost:8000/api/alumnos/" + id;
 
-    console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    console.log(this.loginService.getUser().access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
     return this.http.get(url, { headers: headers });
   };
