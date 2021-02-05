@@ -36,7 +36,7 @@ export class RegistroPersonaService {
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
         sessionStorage.setItem(RegistroPersonaService.SESSION_STORAGE_KEY, JSON.stringify(this.user));
-        this.router.navigate(['listaAlumnos']);
+        this.router.navigate(['listaCursos']);
       },
       (error) => {
         this.message = error.error.message;

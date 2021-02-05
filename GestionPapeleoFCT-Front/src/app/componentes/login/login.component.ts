@@ -87,4 +87,8 @@ export class LoginComponent implements OnInit {
   cancel() {
     this.onReset();
   }
+
+  irRegistro(){
+    this.router.navigate(['/registroUsuario']);
+  }
 }
