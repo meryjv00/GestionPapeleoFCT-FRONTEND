@@ -2,31 +2,16 @@
 
 @import "estilos.scss";
 @import "~bootstrap/scss/bootstrap";
-//Color principal
-$color-main: rgb(122, 75, 114);
-//Temas oscuro
-$oscuroFondo: #06090f;
-$oscuro1: #21262d;
-$oscuro2: #0d1117;
-//Tema claro
-$claroFondo: #FEFEFE;
-$claro1: #C8C8C8;
-$claro2: #ACABAB;
+//Colores principales
+$blanco-menu: #FFFF;
+$fondo: #d6d6d6;
+$b: #f8f8ff;
+$blanco-fondo: #FBFCFC;
 body {
-    background: $claroFondo;
-    color: white;
     min-height: 100vh;
-    transition: .3s ease all;
-    &.dark {
-        background: $oscuro2;
-    }
+    background-color: $fondo;
 }
 
-div.opciones {
-    button {
-        border-radius: 20px;
-        i {
-            color: white;
-        }
-    }
+#menu {
+    background-color: $blanco-menu;
 }
