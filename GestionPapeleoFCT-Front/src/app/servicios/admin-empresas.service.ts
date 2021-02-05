@@ -66,5 +66,12 @@ export class AdminEmpresasService {
     return this.http.put(url,{'empresa': empresa}, { headers: headers });
   };
 
+  //Manda a generar el anexo 0
+  public anexo0 = (empresa: any) => {
+    console.log(empresa);
+    const url = "http://localhost:8000/api/getAnexo0/" + empresa.id;
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.user.access_token}` });
+    return this.http.get(url, { headers: headers });
+  }
 
 }

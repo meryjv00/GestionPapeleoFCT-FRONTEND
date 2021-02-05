@@ -12,8 +12,10 @@ import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service
 })
 export class EmpresaComponent implements OnInit {
   empresa: any;
-  editarEmpresa: any;
+  editarEmpresa: FormGroup;
   submitted = false;
+  activados = false;
+  textoBoton: any;
 
   constructor(private router: Router, private loginService: LoginService, private adminEmpresasService: AdminEmpresasService, private formBuilder: FormBuilder,private CompartirDatos: CompartirDatosService) {
     if (!loginService.isUserSignedIn()) {
@@ -39,10 +41,16 @@ export class EmpresaComponent implements OnInit {
       tlf: ['', [Validators.required,Validators.minLength]],
       email: ['', [Validators.required,Validators.minLength]]
     });
+
+    this.editarEmpresa?.disable();
+
+    this.textoBoton = "Editar";
   }
 
   ngOnInit(): void {
   }
+
+  get formulario() { return this.editarEmpresa.controls; }
 
   //Actualiza la empresa
   actualizar(){
@@ -50,9 +58,6 @@ export class EmpresaComponent implements OnInit {
     if (this.editarEmpresa.invalid) {
       return
     } else {
-      console.log(this.editarEmpresa);
-      console.log("--------------------------");
-      console.log(this.empresa);
       this.adminEmpresasService.updateEmpresa(this.empresa).subscribe(
         (response: any) => {
           console.log(response);
@@ -64,5 +69,34 @@ export class EmpresaComponent implements OnInit {
       );
     }
   }
+
+  /**
+   * Pide confirmación por confirm() y llama a eliminarla.
+   * @param empresa 
+   */
+  eliminarEmpresa(){
+    let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar la empresa de la Base de datos?");
+    if (seguroEliminar) {
+      this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
+      alert("Empresa eliminada.");
+      this.router.navigate(['/listaEmpresas']);
+    }
+  }
+
+  /**
+   * Activa los inputs del formulario para editarlos o en caso de que esten 
+   * activados los desactiva
+   */
+ activarEdicion(){
+  if(!this.activados){
+    this.editarEmpresa?.enable();
+    this.activados = true;
+    this.textoBoton = "Cancelar";
+  }else{
+    this.editarEmpresa?.disable();
+    this.activados = false;
+    this.textoBoton = "Editar";
+  }
+ }
 
 }

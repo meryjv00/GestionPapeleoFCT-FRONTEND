@@ -1,52 +1,91 @@
-$borde-lateral: #21262d;
-$color-main: rgb(122, 75, 114);
-$enlaces: #414a4c;
-$enlaces-active: white;
+//Colores principales
+//$boton-main2: #ff4f87;
+$boton-main2: black;
+$blanco-menu: #FFFF;
+$color-gris: #636c6e;
+//Breakpoints
+$breakpoint-movil: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-ordenador: 992px;
+$breakpoint-ordenadorl: 1200px;
+//--------------------------------------
+//--------------------------------------
 aside {
-    padding-right: 1rem;
     padding-top: 1rem;
-    border-right: 0.4px solid $borde-lateral;
+    padding-right: 1rem;
     height: 100vh;
+    background-color: $blanco-menu;
     div.user {
-        padding: 0 1rem;
+        margin: 0.4rem;
         img {
             display: block;
-            margin: 0 auto;
-            margin-bottom: 10px;
-            width: 80px;
-            border-radius: 50px;
+            margin: auto;
+            height: 90px;
         }
-        p,
-        h4 {
-            margin: 0;
-            margin-left: 15px;
-            padding: 0 1rem;
-            color: $enlaces;
-            font-weight: 500;
-            opacity: 0.8;
-        }
+        h4,
         p {
-            margin: aut;
+            text-align: center;
         }
     }
     div.enlaces {
-        margin-top: 20px;
-        a {
-            margin: 15px;
-            padding: 1rem;
-            display: block;
-            text-decoration: none;
-            color: $enlaces;
-            font-size: 18px;
-            &.active {
-                background-color: $color-main;
-                border-radius: 15px;
-                color: $enlaces-active;
-            }
+        button {
+            margin: 0.4rem;
+            text-align: left;
+            font-family: Jost_500;
+            padding: .45em 1em;
+            font-weight: 500;
+            letter-spacing: .2px;
+            font-size: 17px;
             i {
-                font-size: 25px;
-                margin: 0 1rem;
+                font-size: 18px;
+                width: 1.20rem;
+                margin-left: 1rem;
             }
+            span {
+                color: $color-gris;
+            }
+            &:hover {
+                transform: translateY(-3px);
+                //box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
+                box-shadow: 0 10px 34px 0 rgba(54, 8, 23, 0.32);
+            }
+        }
+        //Boton seleccionado
+        button.active {
+            background-color: $boton-main2;
+            span,
+            i {
+                color: white;
+            }
+        }
+    }
+}
+
+//--------------------------------------
+//--------------------------------------
+//MOVIL
+@media (max-width: $breakpoint-movil) {
+    #opciones,
+    #buscador {
+        margin-top: 0.40rem;
+    }
+    button {
+        padding: 1rem;
+        i {
+            padding-left: 0.80em;
+        }
+        span {
+            display: none;
+        }
+    }
+}
+
+//TABLET - MÓVIL
+@media (max-width: $breakpoint-tablet) {
+    aside {
+        height: auto;
+        div.enlaces {
+            margin-left: 0.50rem;
         }
     }
 }

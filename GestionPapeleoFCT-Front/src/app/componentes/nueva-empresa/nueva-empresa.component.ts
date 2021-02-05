@@ -59,7 +59,9 @@ export class NuevaEmpresaComponent implements OnInit {
     
     alert("Empresa añadida");
     this.onReset();
+    this.router.navigate(['/listaEmpresas']);
   }
+  
   onReset() {
     this.submitted = false;
     this.nuevaEmpresa.reset();

@@ -14,37 +14,48 @@ export class ListaEmpresasComponent implements OnInit {
 
   id: any; nombre: any; provincia: any; localidad: any; calle: any; cp: any; cif: any; tlf: any; email: any;
   empresas: any;
-
   crearNueva: boolean;
+  mensaje: any;
+  textoAddEmpresa: any;
 
   constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
     this.empresas = [];
     this.crearNueva = false;
+    this.mensaje = "";
+    this.textoAddEmpresa = "Añadir empresa";
   }
 
+  /**
+   * Llama a recuperar todas las empresas de la BD
+   */
   ngOnInit(): void {
     this.getEmpresas();
   }
 
+  /**
+   * Cambia la var. de control para mostrar/ocultar el formulario de 'nueva empresa'
+   */
   clickCrearNueva() {
+    if (this.crearNueva) {
+      this.textoAddEmpresa = "Añadir empresa";
+    } else {
+      this.textoAddEmpresa = "Cancelar";
+    }
     this.crearNueva = !this.crearNueva;
   }
 
-  eliminarEmpresa(empresa: any){
-    let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar la empresa de la Base de datos?");
-    if (seguroEliminar) {
-      console.log("Ahora eliminaríamos el registro, ID: " + empresa.id);
-      this.adminEmpresasService.deleteEmpresaSuscription(empresa.id);
-      alert("Empresa eliminada.");
-      this.getEmpresas();
-    }
-  }
-
+  /**
+   * Guarda la empresa sobre la que se ha hecho click en CompartirDatos y manda a la vista /empresa
+   * @param empresa 
+   */
   clickEditar(empresa: any){
     this.CompartirDatos.setEmpresa(empresa);
     this.router.navigate(['/empresa']);
   }
 
+  /**
+   * Recupera todas las empresas a través del servicio listaEmpresas
+   */
   getEmpresas() {
     this.listaEmpresasService.getEmpresas().subscribe(
       (response: any) => {
@@ -75,31 +86,14 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
-  getEmpresasTest() {
-    let empresa = {
-      'id': 1,
-      'nombre': 'INDRA',
-      'provincia': 'Ciudad Real',
-      'localidad': 'Ciudad Real',
-      'calle': 'Ronda Calatrava s/n',
-      'cp': '13300',
-      'cif': '1234567f',
-      'tlf': '123456789',
-      'email': 'indra@indra.com'
-    };
-    this.empresas.push(empresa);
-    empresa = {
-      'id': 2,
-      'nombre': 'ENOVA',
-      'provincia': 'Ciudad Real',
-      'localidad': 'Ciudad Real',
-      'calle': 'Ronda Toledo s/n',
-      'cp': '13300',
-      'cif': 'p9876532',
-      'tlf': '254167412',
-      'email': 'enova@enova.com'
-    };
-    this.empresas.push(empresa);
+  anexo0(empresa: any) {
+    this.adminEmpresasService.anexo0(empresa).subscribe(
+      (response: any) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }
