@@ -86,10 +86,17 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
+  /**
+   * Manda generar el anexo 0 con el servicio 'adminEmpresas' y lo manda descargar
+   * redirigiendo a la url donde se encuentra el archivo
+   * @param empresa 
+   */
   anexo0(empresa: any) {
     this.adminEmpresasService.anexo0(empresa).subscribe(
       (response: any) => {
         console.log(response);
+        let enlace = 'http://localhost:8000/' + response.message + '.docx';
+        window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
       }
