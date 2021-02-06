@@ -1,0 +1,74 @@
+//Variables
+$color-word: #e3f4fb;
+$color-excel: #e6faf5;
+$color-curso: #ecebfa;
+$blanco-menu: #FFFF;
+$letra: #323232;
+//Breakpoints
+$breakpoint-movil: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-ordenador: 992px;
+$breakpoint-ordenadorl: 1200px;
+//--------------------------------------
+//--------------------------------------
+//MOVIL
+@media (max-width: $breakpoint-movil) {
+    #opciones,
+    #buscador {
+        margin-top: 0.40rem;
+    }
+}
+
+//TABLET
+@media (max-width: $breakpoint-tablet) {
+    #opciones {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR
+@media (max-width: $breakpoint-ordenador) and (min-width: $breakpoint-tablet) {
+    #buscador {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR L
+@media (max-width: $breakpoint-ordenadorl) {}
+
+#empresa,
+#empresas {
+    background-color: $blanco-menu;
+}
+
+#nuevaEmpresa {
+    float: left;
+}
+
+#nombreEmpresa {
+    font-size: 1.4em;
+}
+
+.ver {
+    text-align: center;
+}
+
+#empresas {
+    div>div>div {
+        height: 5rem;
+        border-radius: 17px;
+    }
+    button {
+        display: inline-block;
+        width: 20%;
+        vertical-align: top;
+        i {
+            font-size: 1.50rem;
+        }
+    }
+    span {
+        display: inline-block;
+        width: 80%;
+        padding-top: 0.2rem;
+    }
+}

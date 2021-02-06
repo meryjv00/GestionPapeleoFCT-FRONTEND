@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "estilos.scss";
+@import "~bootstrap/scss/bootstrap";
+//Colores principales
+$blanco-menu: #FFFF;
+$fondo: #d6d6d6;
+$b: #f8f8ff;
+$blanco-fondo: #FBFCFC;
+body {
+    min-height: 100vh;
+    background-color: $b;
+}
+
+#menu {
+    background-color: $blanco-menu;
+}

@@ -1,0 +1,32 @@
+<div id="empresas" class="col-lg-7 col-md-7 col-sm-7 col-7  mx-auto shadow-sm mt-2 bg-white rounded p-4">
+    <p style="text-align: center;"><b>Añadir una nueva empresa</b></p>
+    <form [formGroup]="nuevaEmpresa" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre" />
+            <br>
+            <label>Provincia</label>
+            <input type="text" class="form-control" formControlName="provincia" />
+            <br>
+            <label>Localidad</label>
+            <input type="text" class="form-control" formControlName="localidad" />
+            <br>
+            <label>Dirección</label>
+            <input type="text" class="form-control" formControlName="calle" />
+            <br>
+            <label>Código postal</label>
+            <input type="text" class="form-control" formControlName="cp" />
+            <br>
+            <label>CIF</label>
+            <input type="text" class="form-control" formControlName="cif" />
+            <br>
+            <label>Nº de teléfono</label>
+            <input type="text" class="form-control" formControlName="tlf" />
+            <br>
+            <label>Correo electrónico</label>
+            <input type="email" class="form-control" formControlName="email" />
+            <br>
+            <button class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+</div>

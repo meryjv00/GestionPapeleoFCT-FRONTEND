@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <main class="row">
+        <div class="col-md-4 mx-auto border px-5 py-5 mt-5">
+            <h2 class="text-center">Login</h2>
+            <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <label class="col-md-3">Email</label>
+                    <input class="col-md-6" type="email" formControlName="email" />
+                    <div *ngIf="submitted && formulario.email.errors">
+                        <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <label class="col-md-3">Password</label>
+                    <input class="col-md-6" type="password" formControlName="password" />
+                    <div *ngIf="submitted && formulario.password.errors">
+                        <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <button class="btn btn-primary col-md-3 offset-md-3">Entrar</button>
+                    <button (click)="irRegistro()" class="btn btn-primary col-md-3 ml-1">Registrate</button>
+                    <!--<button class="col-md-3 btn border ml-2" type="reset" (click)="onReset()">Cancelar</button>-->
+                </div>
+                <div class="text-center mt-1">{{message}}</div>
+            </form>
+        </div>
+    </main>
+</div>

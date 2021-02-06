@@ -1,0 +1,97 @@
+//Colores
+$blanco-menu: #FFFF;
+$color-curso: #f4e6fa;
+$color-curso2: #c6add1;
+//Otros colores
+$color-word: #e3f4fb;
+$color-excel: #e6faf5;
+$letra: #323232;
+//Breakpoints
+$breakpoint-movil: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-ordenador: 992px;
+$breakpoint-ordenadorl: 1200px;
+//--------------------------------------
+//--------------------------------------
+//MOVIL
+@media (max-width: $breakpoint-movil) {
+    #opciones,
+    #buscador {
+        margin-top: 0.40rem;
+    }
+}
+
+//TABLET
+@media (max-width: $breakpoint-tablet) {
+    #opciones {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR
+@media (max-width: $breakpoint-ordenador) and (min-width: $breakpoint-tablet) {
+    #buscador {
+        margin-top: 0.40rem;
+    }
+}
+
+//ORDENADOR L
+@media (max-width: $breakpoint-ordenadorl) {}
+
+//--------------------------------------
+//--------------------------------------
+#curso {
+    background-color: $color-curso2;
+    //padding: 20px;
+    padding-bottom: 0;
+    border-radius: 20px;
+    h3 {
+        text-align: center;
+    }
+}
+
+#anexos {
+    border-radius: 20px;
+    background-color: $blanco-menu;
+    div>div>div {
+        height: 4rem;
+        border-radius: 20px;
+        background-color: $color-curso;
+    }
+    button {
+        display: inline-block;
+        width: 20%;
+        vertical-align: top;
+        i {
+            font-size: 1.50rem;
+        }
+    }
+    span {
+        display: inline-block;
+        width: 80%;
+        padding-top: 0.2rem;
+    }
+}
+
+#carousel {
+    height: 23rem;
+    border-radius: 20px;
+    background-color: $blanco-menu;
+    .alumno {
+        margin-top: 15px;
+        border-radius: 25px;
+        text-align: center;
+        img {
+            display: block;
+            margin: auto;
+            height: 200px;
+        }
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+.bt-curso {
+    position: absolute
+}

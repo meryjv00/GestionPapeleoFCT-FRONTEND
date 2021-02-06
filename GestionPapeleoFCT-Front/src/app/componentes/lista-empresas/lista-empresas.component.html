@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <main class="row">
+        <div id="menu" class="col-md-3 col-lg-2">
+            <app-menu></app-menu>
+        </div>
+        <div id="contenido" class="col-md-9 col-lg-10">
+            <div name="opciones" class="row mt-2">
+                <div id="opciones" class="ml-auto">
+                    <app-opciones></app-opciones>
+                </div>
+            </div>
+            <h5>{{mensaje}}</h5>
+            <div class="row">
+                <div class="col-11 mt-2 mx-auto">
+                    <button (click)="clickCrearNueva()" id="nuevaEmpresa" class="btn btn-primary">{{textoAddEmpresa}}</button>
+                    <div *ngIf="crearNueva">
+                        <app-nueva-empresa></app-nueva-empresa>
+                    </div>
+                </div>
+                <div id="empresas" class="col-lg-11 col-md-11 col-sm-11 col-11  mx-auto shadow-sm mt-2">
+                    <div class="row py-3">
+                        <ng-container *ngFor="let empresa of empresas; index as i;">
+                            <!--Empresa-->
+                            <div class="col-10">
+                                <div class="bg-light p-4 mb-3 ml-2">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p id="nombreEmpresa"><b>{{empresa.nombre}}</b></p>
+                                        </div>
+                                        <div class="col-2 mt-1">
+                                            <p>{{empresa.localidad}}</p>
+                                        </div>
+                                        <div class="col-2 mt-1">
+                                            <p>{{empresa.email}}</p>
+                                        </div>
+                                        <div class="col-4 mt-1 ver">
+                                            <button class="btn btn-primary" (click)=clickEditar(empresa)>Ver</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Archivo-->
+                            <div class="col-2">
+                                <div class="bg-white py-2 mb-3">
+                                    <button class="btn"><i class="fas fa-file-word "></i></button>
+                                    <p><i>Anexo 0</i></p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <main class="row">
+        <div class="col-md-12 mt-5">
+            <h3 class="text-center">Registrate</h3>
+            <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+                <div>
+                    <div>
+                        <label>Dni</label>
+                        <input type="text" formControlName="dni" />
+                        <div *ngIf="submitted && formulario.dni.errors">
+                            <div *ngIf="formulario.dni.errors.required">No puede estar vacío</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input type="email" formControlName="email" />
+                        <div *ngIf="submitted && formulario.email.errors">
+                            <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Password </label>
+                        <input type="password" formControlName="password" />
+                        <div *ngIf="submitted && formulario.password.errors">
+                            <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Rol</label>
+                        <select formControlName="rol">
+                                <option value="2">Jefe Estudios</option>
+                                <option value="3" selected="true">Tutor</option>
+                            </select>
+                        <div *ngIf="submitted && formulario.rol.errors">
+                            <div *ngIf="formulario.rol.errors.required">No puede estar vacío</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button>Enviar</button>
+                    <button type="reset" (click)="onReset()">Cancelar</button>
+                </div>
+                <div>{{message}}</div>
+            </form>
+        </div>
+    </main>
+</div>
