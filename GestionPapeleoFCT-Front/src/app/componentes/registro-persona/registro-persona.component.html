@@ -4,35 +4,35 @@
             <h1>registro persona</h1>
             <div>
                 <label>nombre</label>
-                <input type="text" formControlName="nombre" />
+                <input type="text" formControlName="nombre" [(ngModel)]="persona.nombre" />
                 <div *ngIf="submitted && formulario.nombre.errors">
                     <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
                 <label>apellidos</label>
-                <input type="text" formControlName="apellidos" />
+                <input type="text" formControlName="apellidos" [(ngModel)]="persona.apellidos"/>
                 <div *ngIf="submitted && formulario.apellidos.errors">
                     <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
                 <label>localidad</label>
-                <input type="text" formControlName="localidad" />
+                <input type="text" formControlName="localidad" [(ngModel)]="persona.localidad"/>
                 <div *ngIf="submitted && formulario.localidad.errors">
                     <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
                 <label>residencia</label>
-                <input type="text" formControlName="residencia" />
+                <input type="text" formControlName="residencia" [(ngModel)]="persona.residencia"/>
                 <div *ngIf="submitted && formulario.residencia.errors">
                     <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
                 <label>Telefono</label>
-                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$">
+                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="persona.tlf">
                 <div *ngIf="submitted && formulario.tlf.errors">
                     <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
                 </div>
