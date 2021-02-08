@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroPersonaService } from 'src/app/servicios/registro-persona.service';
 import { ArrayUsService } from 'src/app/servicios/array-us.service';
+import { IsPersonaService } from 'src/app/servicios/is-persona.service'
 
 @Component({
   selector: 'app-registro-persona',
@@ -13,8 +14,9 @@ export class RegistroPersonaComponent implements OnInit {
   nuevoRegistro: FormGroup;
   submitted = false;
   message: string;
+  persona: any;
 
-  constructor(private ArrayUsService: ArrayUsService, private registroPersonaService: RegistroPersonaService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private registroPersonaService: RegistroPersonaService, private formBuilder: FormBuilder, private router: Router) {
     this.nuevoRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
@@ -23,10 +25,30 @@ export class RegistroPersonaComponent implements OnInit {
       tlf: ['', [Validators.required]]
     });
     this.message = "";
+    this.persona = ({
+      nombre:'',
+      apellidos: '',
+      localidad:'',
+      residencia:'',
+      tlf:'' 
+    });
   }
   ngOnInit(): void {
+    this.IsPer(this.ArrayUsService.getEmail());
   }
 
+  IsPer(email: string) {
+    this.IsPersonaService.Prueba(email).subscribe(
+      (response: any) => { 
+        console.log(response);
+        this.persona = response.message.persona;
+        console.log(this.persona);
+      },
+      (error) => {
+        this.message = error.error.message;
+      }
+    );
+  }
   get formulario() { return this.nuevoRegistro.controls; }
 
   onSubmit() {
