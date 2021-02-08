@@ -16,8 +16,8 @@ export class RegistroService {
 
   constructor(private ArrayUsService: ArrayUsService, private router: Router, private http: HttpClient,private loginService: LoginService) {
     this.user = {
-      access_token: "",
-      email: "",rol:""
+      email: "",
+      rol:""
     }
     this.message = "";
   }
@@ -42,7 +42,6 @@ export class RegistroService {
         console.log(response);
         this.ArrayUsService.setArray(email,dni,rol);
         this.message = "Registro correcto";
-        this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
         this.user.rol = this.ArrayUsService.getRol();
         this.router.navigate(['registroPersona']);

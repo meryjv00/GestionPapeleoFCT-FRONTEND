@@ -25,9 +25,16 @@ export class RegistroPersonaComponent implements OnInit {
       tlf: ['', [Validators.required]]
     });
     this.message = "";
-    this.persona = this.IsPer(this.ArrayUsService.getEmail());
+    this.persona = ({
+      nombre:'',
+      apellidos: '',
+      localidad:'',
+      residencia:'',
+      tlf:'' 
+    });
   }
   ngOnInit(): void {
+    this.IsPer(this.ArrayUsService.getEmail());
   }
 
   IsPer(email: string) {
@@ -36,7 +43,6 @@ export class RegistroPersonaComponent implements OnInit {
         console.log(response);
         this.persona = response.message.persona;
         console.log(this.persona);
-        sessionStorage.setItem(IsPersonaService.SESSION_STORAGE_KEY, JSON.stringify(this.persona));
       },
       (error) => {
         this.message = error.error.message;
@@ -69,7 +75,7 @@ export class RegistroPersonaComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.message = "Registro correcto";
-        this.router.navigate(['login']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         this.message = error.error.message;
