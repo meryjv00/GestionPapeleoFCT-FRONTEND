@@ -18,6 +18,7 @@ import { RegistroUserComponent } from './componentes/registro-user/registro-user
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { AdministracionComponent } from './componentes/administracion/administracion.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
     RegistroUserComponent,
     RegistroPersonaComponent,
     OpcionesComponent,
-    PerfilComponent
+    PerfilComponent,
+    AdministracionComponent
   ],
   imports: [
     BrowserModule,

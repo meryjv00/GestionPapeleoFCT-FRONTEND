@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ListaEmpresasService } from 'src/app/servicios/lista-empresas.service';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 
@@ -18,7 +17,7 @@ export class ListaEmpresasComponent implements OnInit {
   mensaje: any;
   textoAddEmpresa: any;
 
-  constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
+  constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
     this.empresas = [];
     this.crearNueva = false;
     this.mensaje = "";
@@ -57,7 +56,7 @@ export class ListaEmpresasComponent implements OnInit {
    * Recupera todas las empresas a través del servicio listaEmpresas
    */
   getEmpresas() {
-    this.listaEmpresasService.getEmpresas().subscribe(
+    this.adminEmpresasService.getEmpresas().subscribe(
       (response: any) => {
         this.empresas = [];
         console.log(response);

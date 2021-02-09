@@ -9,7 +9,7 @@
             <div name="opciones" class="row mt-2">
                 <div class="col-lg-4 col-md-8 col-sm-6 col-12 form-group-0 px-2">
                     <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
-                        <option *ngFor="let curso of cursos " [value]="curso.id">{{curso.cicloFormativo}}</option>
+                        <option *ngFor="let curso of cursos " [value]="curso.id">{{curso.cicloFormativoA}}  - {{curso.cursoAcademico}}</option>
                     </select>
                 </div>
                 <div id="buscador" *ngIf="this.user.rol  === 'Jefe de estudios'" class="col-lg-3 col-md-8 col-sm-6 col-12 px-2">

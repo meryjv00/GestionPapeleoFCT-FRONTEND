@@ -14,15 +14,15 @@ export class IsPersonaService {
 
   constructor(private router: Router, private http: HttpClient) {
     this.persona = {
-      email: ""
+      dni: ""
     }
     this.message = "";
   }
-  public Prueba = (email:string) => {
+  public existePersona = (dni:string) => {
     const url = "http://localhost:8000/api/isPersona";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, {'email' : email}, { headers: headers });
+    return this.http.post(url, {'dni' : dni}, { headers: headers });
   };
 }

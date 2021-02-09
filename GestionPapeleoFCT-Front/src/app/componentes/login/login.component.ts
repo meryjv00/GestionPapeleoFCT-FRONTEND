@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
   login(email: string, password: string){
     this.loginService.login(email, password).subscribe(
       (response: any) => {
+        //console.log(response.message);
         this.message = "Login correcto";
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
