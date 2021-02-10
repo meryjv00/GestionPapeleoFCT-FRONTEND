@@ -32,10 +32,10 @@ export class ListaCursosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.user.rol  === 'Jefe de estudios'){
-      this.getCursos();
-    }else if (this.user.rol === 'Tutor'){
+    if(this.user.rol  === 'Tutor'){
       this.getMisCursos(this.user.dni);
+    }else{
+      this.getCursos();
     }
     this.getAnexos();
   }
