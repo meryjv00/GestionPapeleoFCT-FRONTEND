@@ -1,8 +1,3 @@
-//Colores principales
-//$boton-main2: #ff4f87;
-$boton-main2: black;
-$blanco-menu: #FFFF;
-$color-gris: #636c6e;
 //Breakpoints
 $breakpoint-movil: 576px;
 $breakpoint-tablet: 768px;
@@ -14,7 +9,6 @@ aside {
     padding-top: 1rem;
     padding-right: 1rem;
     height: 100vh;
-    background-color: $blanco-menu;
     div.user {
         margin: 0.4rem;
         img {
@@ -36,13 +30,10 @@ aside {
             font-weight: 500;
             letter-spacing: .2px;
             font-size: 17px;
+            transition: all 0.2s linear;
             i {
                 font-size: 18px;
                 width: 1.20rem;
-                margin-left: 1rem;
-            }
-            span {
-                color: $color-gris;
             }
             &:hover {
                 transform: translateY(-3px);
@@ -52,7 +43,7 @@ aside {
         }
         //Boton seleccionado
         button.active {
-            background-color: $boton-main2;
+            background-color: #446c77;
             span,
             i {
                 color: white;
@@ -69,13 +60,15 @@ aside {
     #buscador {
         margin-top: 0.40rem;
     }
-    button {
-        padding: 1rem;
-        i {
-            padding-left: 0.80em;
-        }
-        span {
-            display: none;
+    aside{
+        div.enlaces {
+            button.btn-aside {
+                padding: 1rem;
+                text-align: center;
+                span {
+                    display: none;
+                }
+            }
         }
     }
 }

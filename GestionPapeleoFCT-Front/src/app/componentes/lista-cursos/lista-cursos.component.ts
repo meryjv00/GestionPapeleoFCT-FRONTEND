@@ -18,7 +18,7 @@ export class ListaCursosComponent implements OnInit {
   haCambiado = false;
   user: any;
   mensaje: any;
-  
+
   constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
     private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService) {
     if (!loginService.isUserSignedIn()) {
@@ -32,9 +32,9 @@ export class ListaCursosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.user.rol  === 'Jefe de estudios'){
+    if (this.user.rol === 'Jefe de estudios') {
       this.getCursos();
-    }else if (this.user.rol === 'Tutor'){
+    } else if (this.user.rol === 'Tutor') {
       this.getMisCursos(this.user.dni);
     }
     this.getAnexos();
@@ -81,9 +81,9 @@ export class ListaCursosComponent implements OnInit {
         //console.log(response.message);
         //Si se acaba de registrar y no tiene cursos asignados devuelve un array de 0 comprobamos esto:
         let cursos = response.message;
-        if(cursos.length == 0){
+        if (cursos.length == 0) {
           this.mensaje = "No tienes ningún curso asignado todavía";
-        }else{
+        } else {
           cursos.forEach((element: {
             id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
             cursoAcademico: any; nHoras: any; cursos: any;
@@ -176,12 +176,13 @@ export class ListaCursosComponent implements OnInit {
   /**
    * Obtiene todos los anexos disponibles
    */
-  getAnexos(){
+  getAnexos() {
     this.AnexosService.getAnexos().subscribe(
       (response: any) => {
         console.log(response.message);
         let anexos = response.message;
-        anexos.forEach((element: {id: any; nombre: any; tipo: any; ruta: any
+        anexos.forEach((element: {
+          id: any; nombre: any; tipo: any; ruta: any
         }) => {
           let anexo = {
             'id': element.id,
@@ -201,7 +202,28 @@ export class ListaCursosComponent implements OnInit {
   /**
    * Dependiendo del anexo que queramos descargar llamará a una función u otra.
    */
-  descargarAnexo(id: any){
+  descargarAnexo(id: any) {
     alert('Descargar anexo ' + id);
   }
+
+  /**
+   * Funcion para añadir un nuevo curso
+   * ==================================
+   * @version 1.0
+   */
+  storeCurso() {
+    this.router.navigate(['/nuevoCurso']);
+  }
+
+  updateCurso(){
+    console.log('actualiza');
+    
+  }
+
+  deleteCurso() {
+    console.log('borra');
+    
+  }
+
 }
+
