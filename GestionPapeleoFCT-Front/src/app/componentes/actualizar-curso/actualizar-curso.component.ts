@@ -62,7 +62,7 @@ export class ActualizarCursoComponent implements OnInit {
   onCancel() {
     this.submitted = false;
     this.newCurso.reset();
-    this.router.navigate(['/listaCursos']);
+    this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
   }
 
   // Cogemos las familias formativas

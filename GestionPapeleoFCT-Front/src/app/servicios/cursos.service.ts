@@ -39,7 +39,8 @@ export class CursosService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.loginService.getUser().access_token}`
     });
-
+    console.log('llego borrar, id: ' + id);
+    
     return this.http.delete("http://localhost:8000/api/curso/" + id, { headers: headers });
   }
 
