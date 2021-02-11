@@ -9,6 +9,7 @@ import { EmpresaComponent } from './componentes/empresa/empresa.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component'
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'empresa', component: EmpresaComponent},
   {path: 'registroPersona', component: RegistroPersonaComponent},
   {path: 'registroUsuario', component: RegistroUserComponent},
+  {path: 'infCentro', component: InfCentroComponent},
   {path: '', component: LoginComponent},
   {path: 'perfil', component: PerfilComponent}
 ];
