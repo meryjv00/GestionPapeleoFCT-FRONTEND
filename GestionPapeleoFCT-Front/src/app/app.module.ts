@@ -19,6 +19,7 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
+import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.compo
     RegistroPersonaComponent,
     OpcionesComponent,
     PerfilComponent,
-    NuevoCursoComponent
+    NuevoCursoComponent,
+    ActualizarCursoComponent,
   ],
   imports: [
     BrowserModule,

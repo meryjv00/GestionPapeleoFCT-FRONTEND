@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
@@ -18,6 +19,8 @@ export class ListaCursosComponent implements OnInit {
   haCambiado = false;
   user: any;
   mensaje: any;
+  idUpdate: any;
+  cicloFormativoSelect = new FormControl('');
 
   constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
     private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService) {
@@ -38,6 +41,11 @@ export class ListaCursosComponent implements OnInit {
       this.getMisCursos(this.user.dni);
     }
     this.getAnexos();
+
+    // Si existe recojo el curso modificado para volver a el
+    if (this.route.snapshot.paramMap.get('id') != null) {
+      this.idUpdate = this.route.snapshot.paramMap.get('id');
+    }    
   }
 
   /**
@@ -63,7 +71,14 @@ export class ListaCursosComponent implements OnInit {
           };
           this.cursos.push(curso);
         });
-        this.onChange(this.cursos[0].id);
+        if (this.idUpdate) {
+          this.onChange(this.idUpdate);
+        } else {
+          this.onChange(this.cursos[0].id);
+        }
+            console.log(this.cursoSeleccionado);
+            console.log(this.cursos);
+            
       },
       (error) => {
         console.log(error);
@@ -99,6 +114,7 @@ export class ListaCursosComponent implements OnInit {
             };
             this.cursos.push(curso);
           });
+
           this.onChange(this.cursos[0].id);
         }
       },
@@ -149,7 +165,6 @@ export class ListaCursosComponent implements OnInit {
         this.cursoSeleccionado = curso;
       }
     });
-    //console.log(this.cursoSeleccionado);
     this.alumnos = [];
     this.getAlumnos(this.cursoSeleccionado.id);
   }
@@ -179,7 +194,6 @@ export class ListaCursosComponent implements OnInit {
   getAnexos() {
     this.AnexosService.getAnexos().subscribe(
       (response: any) => {
-        console.log(response.message);
         let anexos = response.message;
         anexos.forEach((element: {
           id: any; nombre: any; tipo: any; ruta: any
@@ -206,23 +220,19 @@ export class ListaCursosComponent implements OnInit {
     alert('Descargar anexo ' + id);
   }
 
-  /**
-   * Funcion para añadir un nuevo curso
-   * ==================================
-   * @version 1.0
-   */
-  storeCurso() {
+  // Funcion para añadir un nuevo curso
+  newCurso() {
     this.router.navigate(['/nuevoCurso']);
   }
 
-  updateCurso(){
-    console.log('actualiza');
-    
+  updateCurso(curso: any) {
+    this.CompartirDatos.setCurso(curso);
+    this.router.navigate(['/actualizarCurso']);
   }
 
   deleteCurso() {
     console.log('borra');
-    
+
   }
 
 }

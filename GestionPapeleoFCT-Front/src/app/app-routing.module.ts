@@ -10,6 +10,7 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
+import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
 
   // Rutas para cursos
   {path: 'listaCursos', component: ListaCursosComponent},
-  {path: 'nuevoCurso', component: NuevoCursoComponent}
+  {path: 'nuevoCurso', component: NuevoCursoComponent},
+  {path: 'actualizarCurso', component: ActualizarCursoComponent}
 ];
 
 @NgModule({

@@ -14,7 +14,6 @@ import { LoginService } from 'src/app/servicios/login.service';
 })
 export class NuevoCursoComponent implements OnInit {
 
-    //newCurso: FormGroup;
     families: any[];
     newCurso: FormGroup | any;
     submitted = false;
