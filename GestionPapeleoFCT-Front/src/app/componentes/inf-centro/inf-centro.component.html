@@ -20,23 +20,21 @@
                             <div class="row col-lg-6 col-md-6">
                                 <div class="col-lg-12 col-md-12 mb-3">Código: {{centro.codigo}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3">Cif: {{centro.cif}}</div>
-                                <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-user" aria-hidden="true"></i> Director:
-                                </div>
+                                <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-user" aria-hidden="true"></i> Director: {{director.nombre}}
+                                <i class="fa fa-envelope" aria-hidden="true"></i> {{director.email}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         {{centro.calle}} 
                                         {{centro.cp}}
                                         {{centro.localidad}} ({{centro.provincia}}).</div>
-                                <div class="col-lg-12 col-md-12 mb-3">
-                                    <i class="fa fa-phone" aria-hidden="true"></i> {{centro.tlf}}</div>
-                                <div class="col-lg-12 col-md-12 mb-3">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i> {{centro.email}}</div>
+                                <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-phone" aria-hidden="true"></i> {{centro.tlf}}</div>
+                                <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-envelope" aria-hidden="true"></i> {{centro.email}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer justify-content-end row bg-secondary">
-                        <button type="button" aria-hidden="true" class="btn btn-secondary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-edit" aria-hidden="true"></i>editar
+                        <button type="button" *ngif="user.rol=='Director'" aria-hidden="true" class="btn btn-secondary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-edit" aria-hidden="true"></i>Editar
                         </button>
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

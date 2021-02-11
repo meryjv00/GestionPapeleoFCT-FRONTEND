@@ -29,4 +29,12 @@ export class AdminCentroService {
     });
     return this.http.post(url,{'codigo' : codigo, 'cif' : cif, 'nombre' : nombre, 'provincia' : provincia, 'localidad' : localidad, 'cp' : cp, 'calle' : calle, 'email' : email, 'tlf' : tlf},{ headers: headers });
   };
+
+  public getDirector = () => {
+    const url = "http://localhost:8000/api/getDirector";
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(url, { headers: headers });
+  };
 }
