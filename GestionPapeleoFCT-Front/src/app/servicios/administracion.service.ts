@@ -14,17 +14,17 @@ export class AdministracionService {
     }
   }
 
-  //Insertar cursos
-  public insertCursos = () => {
-    const url = "http://localhost:8000/api/generarCursos";
+  //Insertar profesores
+  public insertProfesores = () => {
+    const url = "http://localhost:8000/api/generarProfesores";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, {}, { headers: headers });
   };
 
   //Insertar alumnos
-  public insertAlumnos = () => {
+  public insertAlumnos = (cursoSeleccionado: any) => {
     const url = "http://localhost:8000/api/generarAlumnos";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, {}, { headers: headers });
+    return this.http.post(url, {'id': cursoSeleccionado.id,'cicloFormativoA': cursoSeleccionado.cicloFormativoA}, { headers: headers });
   };
 }

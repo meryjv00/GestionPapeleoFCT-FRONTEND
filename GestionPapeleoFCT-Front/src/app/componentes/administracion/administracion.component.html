@@ -1,8 +1,60 @@
-<main class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Administración</h1>
-            <a href="http://localhost:8000/importarCSV">Importar CSV</a>
+<div class="container-fluid">
+    <main class="row">
+        <!--**************************************MENU***************************************-->
+        <div id="menu" class="col-md-3 col-lg-2">
+            <app-menu></app-menu>
         </div>
-    </div>
-</main>
+        <!--***********************************CONTENIDO***************************************-->
+        <div id="contenido" class="col-md-9 col-lg-10">
+            <div name="opciones" class="row mt-2">
+                <div id="opciones" class="ml-auto">
+                    <app-opciones></app-opciones>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-6 col-12 form-group-0 px-2">
+
+                <!--FORMULARIO PROFESORES CSV-->
+                <form [formGroup]="profesoresCSV" (ngSubmit)="onSubmitProfesores()" class="mt-5">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" formControlName="profesoresCSV" id="profesoresCSV">
+                                <label class="custom-file-label" for="profesoresCSV">Profesores CSV</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary">Añadir</button>
+                            </div>
+                        </div>
+                        <div class="error" *ngIf="submittedProfesores && formularioProfesores.profesoresCSV.errors">
+                            <div *ngIf="formularioProfesores.profesoresCSV.errors.required">Este campo es obligatorio</div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="mt-5">
+                    <!--SELECT CURSOS-->
+                    <h2 *ngIf="cursos.length>0">Cursos por importar: {{this.cursos.length}}</h2>
+                    <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
+                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativoA}}</option>
+                    </select>
+                    <form *ngIf="haCambiado" [formGroup]="alumnosCSV" (ngSubmit)="onSubmitAlumnos()" class="mt-5">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" formControlName="alumnosCSV" id="alumnosCSV">
+                                    <label class="custom-file-label" for="alumnosCSV">{{cursoSeleccionado.cicloFormativoA}} CSV</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary">Añadir</button>
+                                </div>
+                            </div>
+                            <div class="error" *ngIf="submittedAlumnos && formularioAlumnos.alumnosCSV.errors">
+                                <div *ngIf="formularioAlumnos.alumnosCSV.errors.required">Este campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
