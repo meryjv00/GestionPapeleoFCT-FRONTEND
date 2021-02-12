@@ -10,6 +10,7 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
+import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -23,7 +24,9 @@ const routes: Routes = [
   {path: 'registroUsuario', component: RegistroUserComponent},
   {path: '', component: LoginComponent},
   {path: 'perfil', component: PerfilComponent},
-  {path: 'admin', component: AdministracionComponent}
+  {path: 'csv', component: AdministracionComponent},
+  {path: 'admin', component: AdministracionAnioComponent}
+
 ];
 
 @NgModule({

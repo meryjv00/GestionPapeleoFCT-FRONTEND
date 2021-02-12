@@ -14,14 +14,14 @@ export class AdministracionService {
     }
   }
 
-  //Insertar profesores
+  //Insertar profesores CSV
   public insertProfesores = () => {
     const url = "http://localhost:8000/api/generarProfesores";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, {}, { headers: headers });
   };
 
-  //Insertar alumnos
+  //Insertar alumnos CSV
   public insertAlumnos = (cursoSeleccionado: any) => {
     const url = "http://localhost:8000/api/generarAlumnos";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });

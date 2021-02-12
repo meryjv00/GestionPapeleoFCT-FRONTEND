@@ -19,6 +19,7 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
+import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AdministracionComponent } from './componentes/administracion/administra
     RegistroPersonaComponent,
     OpcionesComponent,
     PerfilComponent,
-    AdministracionComponent
+    AdministracionComponent,
+    AdministracionAnioComponent
   ],
   imports: [
     BrowserModule,
