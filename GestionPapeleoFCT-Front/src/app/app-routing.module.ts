@@ -10,8 +10,7 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
-import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
-import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component'
+import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 
@@ -28,7 +27,6 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'csv', component: AdministracionComponent},
   {path: 'perfil', component: PerfilComponent},
-  {path: 'admin', component: AdministracionAnioComponent}
   // Rutas para cursos
   {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'nuevoCurso', component: NuevoCursoComponent},
