@@ -15,10 +15,10 @@ export class AdministracionService {
   }
 
   //Insertar profesores CSV
-  public insertProfesores = () => {
+  public insertProfesores = (csv: any) => {
     const url = "http://localhost:8000/api/generarProfesores";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, {}, { headers: headers });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}`,'enctype':'mulipart/form-data' });
+    return this.http.put(url, {'profesores': csv}, { headers: headers });
   };
 
   //Insertar alumnos CSV
@@ -27,4 +27,34 @@ export class AdministracionService {
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, {'id': cursoSeleccionado.id,'cicloFormativoA': cursoSeleccionado.cicloFormativoA}, { headers: headers });
   };
+
+  //Obtiene todos los profesores
+  public getProfesores = () => {
+    const url = "http://localhost:8000/api/getProfesores";
+    //console.log(this.loginService.user.access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    return this.http.get(url, { headers: headers });
+  }
+
+  //Añade a un nuevo profesor como jefe de estudios
+  public addJefeEstudios = (profesor: any) =>{
+    const url = "http://localhost:8000/api/addJefeEstudios";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url,{ 'dniProf': profesor.dni}, { headers: headers });
+  }
+
+    //Obtiene todos los jefes de estudio
+    public getJefesEstudio = () => {
+      const url = "http://localhost:8000/api/getJefesEstudio";
+      //console.log(this.loginService.user.access_token);
+      let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+      return this.http.get(url, { headers: headers });
+    }
+
+    //Desasigna jefe de estudio 
+    public deleteJefeEstudio = (dni: any) => {
+      const url = "http://localhost:8000/api/deleteJefeEstudio/" + dni;
+      let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+      return this.http.delete(url, { headers: headers });
+    };
 }

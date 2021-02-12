@@ -68,6 +68,7 @@ export class InfCentroComponent implements OnInit {
       }
     );
   }
+  
   getDirector(){
     this.AdminCentroService.getDirector().subscribe(
       (response: any) => { 
@@ -106,7 +107,7 @@ export class InfCentroComponent implements OnInit {
     this.AdminCentroService.updateCentro(codigo, cif, nombre, provincia, localidad, cp, calle, email, tlf).subscribe(
       (response: any) => {
         console.log(response);
-        this.message = "Registro correcto";
+        this.message = "Datos actualizados correctamente";
         this.router.navigate(['/infCentro']);
       },
       (error) => {

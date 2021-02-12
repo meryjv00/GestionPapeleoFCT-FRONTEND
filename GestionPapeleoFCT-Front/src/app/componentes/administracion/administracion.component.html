@@ -11,51 +11,82 @@
                     <app-opciones></app-opciones>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-8 col-sm-8 col-12 form-group-0 mx-auto mb-5">
-                <h1>Importación CSV</h1>
-                <!--FORMULARIO PROFESORES CSV-->
-                <form [formGroup]="profesoresCSV" (ngSubmit)="onSubmitProfesores()" class="mt-5">
-                    <div class="form-row">
-                        <label for="profesoresCSV"><b>Profesores CSV:</b></label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" formControlName="profesoresCSV" id="profesoresCSV">
-                                <label class="custom-file-label" for="profesoresCSV">Sube tu CSV aquí</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary">Añadir</button>
-                            </div>
-                        </div>
-                        <div class="error" *ngIf="submittedProfesores && formularioProfesores.profesoresCSV.errors">
-                            <div *ngIf="formularioProfesores.profesoresCSV.errors.required">Este campo es obligatorio</div>
-                        </div>
-                    </div>
-                </form>
-
-                <!--SELECT CURSOS-->
-                <div class="mt-5">
-                    <hr>
-                    <h2 *ngIf="cursos.length>0">Cursos por importar: {{this.cursos.length}}</h2>
-                    <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
-                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativoA}}</option>
-                    </select>
-                    <form *ngIf="haCambiado" [formGroup]="alumnosCSV" (ngSubmit)="onSubmitAlumnos()" class="mt-5">
+            <div class="row">
+                <!--********************************************************************************-->
+                <!--********************************************************************************-->
+                <div class="col-md-6 mx-auto mb-5">
+                    <h1>Importación CSV</h1>
+                    <!-------------------------------------------------------------------------------->
+                    <!--------------------------------CSV profesores---------------------------------->
+                    <!-------------------------------------------------------------------------------->
+                    <form [formGroup]="profesoresCSV" (ngSubmit)="onSubmitProfesores()" class="mt-5">
                         <div class="form-row">
-                            <label for="profesoresCSV"><b>{{cursoSeleccionado.cicloFormativoA}} CSV:</b></label>
+                            <label for="profesoresCSV"><b>Profesores CSV:</b></label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" formControlName="alumnosCSV" id="alumnosCSV">
-                                    <label class="custom-file-label" for="alumnosCSV">Sube tu CSV aquí</label>
+                                    <input type="file" class="custom-file-input" formControlName="profesoresCSV" id="profesoresCSV">
+                                    <label class="custom-file-label" for="profesoresCSV">Sube tu CSV aquí</label>
                                 </div>
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary">Añadir</button>
+                                    <button class="btn btn-primary">Añadir</button>
                                 </div>
                             </div>
-                            <div class="error" *ngIf="submittedAlumnos && formularioAlumnos.alumnosCSV.errors">
-                                <div *ngIf="formularioAlumnos.alumnosCSV.errors.required">Este campo es obligatorio</div>
+                            <div class="error" *ngIf="submittedProfesores && formularioProfesores.profesoresCSV.errors">
+                                <div *ngIf="formularioProfesores.profesoresCSV.errors.required">Este campo es obligatorio</div>
                             </div>
                         </div>
                     </form>
+                    <!-------------------------------------------------------------------------------->
+                    <!--------------------------------CSV alumnos------------------------------------->
+                    <!-------------------------------------------------------------------------------->
+                    <div class="mt-5">
+                        <hr>
+                        <h2 *ngIf="cursos.length>0">Cursos por importar: {{this.cursos.length}}</h2>
+                        <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
+                            <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativoA}}</option>
+                        </select>
+                        <form *ngIf="haCambiado" [formGroup]="alumnosCSV" (ngSubmit)="onSubmitAlumnos()" class="mt-5">
+                            <div class="form-row">
+                                <label for="profesoresCSV"><b>{{cursoSeleccionado.cicloFormativoA}} CSV:</b></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" formControlName="alumnosCSV" id="alumnosCSV">
+                                        <label class="custom-file-label" for="alumnosCSV">Sube tu CSV aquí</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary">Añadir</button>
+                                    </div>
+                                </div>
+                                <div class="error" *ngIf="submittedAlumnos && formularioAlumnos.alumnosCSV.errors">
+                                    <div *ngIf="formularioAlumnos.alumnosCSV.errors.required">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--***************************************************************************************-->
+                <!--***************************************************************************************-->
+                <div class="col-md-6">
+                    <h1>Jefes de estudio actuales:</h1>
+                    <div *ngIf="profesoresSeleccionados.length == 0">No hay ningún jefe de estudio asignado todavía</div>
+                    <div *ngIf="profesoresSeleccionados.length > 0">
+                        <ul>
+                            <li *ngFor="let profesorSeleccionado of profesoresSeleccionados" class="mt-2">
+                                {{profesorSeleccionado.nombre}} {{profesorSeleccionado.apellidos}}
+                                <button class="btn btn-primary" (click)="desasignarJefeEstudios(profesorSeleccionado.dni)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <select #selectProfesores (change)="onChangeProf(selectProfesores.value)" class="form-control">
+                        <option *ngFor="let profesor of profesores" [value]="profesor.dni">{{profesor.nombre}}  {{profesor.apellidos}}</option>
+                    </select>
+                    <button class="btn btn-primary mr-2 w-25 mt-3" (click)="elegirJefeEstudios()">
+                        Elegir
+                    </button>
+                    <hr>
                 </div>
             </div>
         </div>

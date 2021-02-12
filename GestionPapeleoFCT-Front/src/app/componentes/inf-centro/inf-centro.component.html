@@ -13,27 +13,24 @@
                 <div class="card" style="width: 100%;">
                     <div class="card-title bg-primary">
                         <img src="https://i0.wp.com/cifpvirgendegracia.com/wp-content/uploads/2019/11/01-LOGO-CIFP-VdG-azul-120-sin-fondo-COLOR-JUNTA.png?resize=300%2C211&ssl=1" alt="imagen" width="150px" class="logo">
-                        <h2 class="card-title">{{centro.nombre}}</h2>
+                        <h2 class="card-title text-white">{{centro.nombre}}</h2>
                     </div>
                     <div class="card-body">
-                        <div class="card-text row justify-content-center"> 
+                        <div class="card-text row justify-content-center">
                             <div class="row col-lg-6 col-md-6">
                                 <div class="col-lg-12 col-md-12 mb-3">Código: {{centro.codigo}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3">Cif: {{centro.cif}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-user" aria-hidden="true"></i> Director: {{director.nombre}}
-                                <i class="fa fa-envelope" aria-hidden="true"></i> {{director.email}}</div>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i> {{director.email}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        {{centro.calle}} 
-                                        {{centro.cp}}
-                                        {{centro.localidad}} ({{centro.provincia}}).</div>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{centro.calle}} {{centro.cp}} {{centro.localidad}} ({{centro.provincia}}).</div>
                                 <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-phone" aria-hidden="true"></i> {{centro.tlf}}</div>
                                 <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-envelope" aria-hidden="true"></i> {{centro.email}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer justify-content-end row bg-secondary">
-                        <button type="button" *ngif="user.rol=='Director'" aria-hidden="true" class="btn btn-secondary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" *ngIf="user.rol=='Director'" aria-hidden="true" class="btn btn-secondary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-edit" aria-hidden="true"></i>Editar
                         </button>
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,7 +38,7 @@
                                 <div class="modal-content">
                                     <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
                                         <div class="modal-header bg-primary">
-                                            <h3 class="modal-title" id="exampleModalLabel">Editar información</h3>
+                                            <h3 class="modal-title text-white" id="exampleModalLabel">Editar información</h3>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -49,56 +46,56 @@
                                         <div class="modal-body row">
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Código</label>
-                                                <input type="text" formControlName="codigo" [(ngModel)]="centro.codigo"/>
+                                                <input type="text" formControlName="codigo" [(ngModel)]="centro.codigo" />
                                                 <div *ngIf="submitted && formulario.codigo.errors">
                                                     <div *ngIf="formulario.codigo.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Cif</label>
-                                                <input type="text" formControlName="cif" [(ngModel)]="centro.cif"/>
+                                                <input type="text" formControlName="cif" [(ngModel)]="centro.cif" />
                                                 <div *ngIf="submitted && formulario.cif.errors">
                                                     <div *ngIf="formulario.cif.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 col-lg-12">
                                                 <label>Nombre</label>
-                                                <input type="text" formControlName="nombre" [(ngModel)]="centro.nombre"/>
+                                                <input type="text" formControlName="nombre" [(ngModel)]="centro.nombre" />
                                                 <div *ngIf="submitted && formulario.nombre.errors">
                                                     <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Provincia</label>
-                                                <input type="text" formControlName="provincia" [(ngModel)]="centro.provincia"/>
+                                                <input type="text" formControlName="provincia" [(ngModel)]="centro.provincia" />
                                                 <div *ngIf="submitted && formulario.provincia.errors">
                                                     <div *ngIf="formulario.provincia.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Localidad</label>
-                                                <input type="text" formControlName="localidad" [(ngModel)]="centro.localidad"/>
+                                                <input type="text" formControlName="localidad" [(ngModel)]="centro.localidad" />
                                                 <div *ngIf="submitted && formulario.localidad.errors">
                                                     <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Código postal</label>
-                                                <input type="number" formControlName="cp" [(ngModel)]="centro.cp"/>
+                                                <input type="number" formControlName="cp" [(ngModel)]="centro.cp" />
                                                 <div *ngIf="submitted && formulario.cp.errors">
                                                     <div *ngIf="formulario.cp.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Calle</label>
-                                                <input type="text" formControlName="calle" [(ngModel)]="centro.calle"/>
+                                                <input type="text" formControlName="calle" [(ngModel)]="centro.calle" />
                                                 <div *ngIf="submitted && formulario.calle.errors">
                                                     <div *ngIf="formulario.calle.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <label>Email</label>
-                                                <input type="email" formControlName="email"  [(ngModel)]="centro.email"/>
+                                                <input type="email" formControlName="email" [(ngModel)]="centro.email" />
                                                 <div *ngIf="submitted && formulario.email.errors">
                                                     <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
                                                     <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
