@@ -16,8 +16,7 @@ export class RegistroUserComponent implements OnInit {
     this.nuevoRegistro = this.formBuilder.group({
       dni: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.email]],
-      password: ['', [Validators.required]],
-      rol: ['', [Validators.required]]
+      password: ['', [Validators.required]]
     });
     this.message = "";
   }
@@ -35,9 +34,8 @@ export class RegistroUserComponent implements OnInit {
     const dni = datosUsuario.dni;
     const email = datosUsuario.email;
     const password = datosUsuario.password;
-    const rol = datosUsuario.rol;
     //Nos subscribimos a la petición de registro que se implementa en el servicio
-    this.registroService.registroSuscription(dni,email, password, rol);
+    this.registroService.registroSuscription(dni,email, password);
     this.onReset();
     this.message = this.registroService.message;
   }

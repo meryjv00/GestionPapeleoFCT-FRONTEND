@@ -9,6 +9,8 @@ import { EmpresaComponent } from './componentes/empresa/empresa.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { AdministracionComponent } from './componentes/administracion/administracion.component';
+import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component'
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
@@ -24,8 +26,9 @@ const routes: Routes = [
   {path: 'registroUsuario', component: RegistroUserComponent},
   {path: 'infCentro', component: InfCentroComponent},
   {path: '', component: LoginComponent},
+  {path: 'csv', component: AdministracionComponent},
   {path: 'perfil', component: PerfilComponent},
-
+  {path: 'admin', component: AdministracionAnioComponent}
   // Rutas para cursos
   {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'nuevoCurso', component: NuevoCursoComponent},

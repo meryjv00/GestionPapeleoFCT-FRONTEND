@@ -15,14 +15,24 @@ export class AdminEmpresasService {
     if (!loginService.isUserSignedIn()) {
       router.navigate(['/login']);
     }
-   this.message = "";
+    this.message = "";
+  }
+
+  //Carga una lista con todas las empresas
+  public getEmpresas = () => {
+    const url = "http://localhost:8000/api/empresas";
+
+    console.log(this.loginService.getUser().access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+
+    return this.http.get(url, { headers: headers });
   }
 
   //Insertar empresa
   public insertEmpresa = (empresa: any) => {
     const url = "http://localhost:8000/api/insertEmpresa";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url,{ 'empresa': empresa }, { headers: headers });
+    return this.http.post(url, { 'empresa': empresa }, { headers: headers });
   };
 
   public insertEmpresaSuscription = (empresa: any) => {
@@ -42,7 +52,7 @@ export class AdminEmpresasService {
   public deleteEmpresa = (id: any) => {
     const url = "http://localhost:8000/api/deleteEmpresa/" + id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url,{ 'id': id }, { headers: headers });
+    return this.http.post(url, { 'id': id }, { headers: headers });
   };
 
   public deleteEmpresaSuscription = (id: any) => {
@@ -63,7 +73,7 @@ export class AdminEmpresasService {
     //console.log(empresa);
     const url = "http://localhost:8000/api/updateEmpresa/" + empresa.id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.put(url,{'empresa': empresa}, { headers: headers });
+    return this.http.put(url, { 'empresa': empresa }, { headers: headers });
   };
 
   //Manda a generar el anexo 0

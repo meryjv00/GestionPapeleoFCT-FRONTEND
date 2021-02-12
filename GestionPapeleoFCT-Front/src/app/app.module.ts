@@ -21,6 +21,8 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
+import { AdministracionComponent } from './componentes/administracion/administracion.component';
+import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { ActualizarCursoComponent } from './componentes/actualizar-curso/actuali
     PerfilComponent,
     NuevoCursoComponent,
     ActualizarCursoComponent,
+    AdministracionComponent,
+    AdministracionAnioComponent
   ],
   imports: [
     BrowserModule,

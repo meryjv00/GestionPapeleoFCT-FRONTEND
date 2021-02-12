@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegistroPersonaService } from 'src/app/servicios/registro-persona.service';
 import { ArrayUsService } from 'src/app/servicios/array-us.service';
 import { IsPersonaService } from 'src/app/servicios/is-persona.service'
+import { RegistroService } from 'src/app/servicios/registro.service';
 
 @Component({
   selector: 'app-registro-persona',
@@ -13,39 +13,39 @@ import { IsPersonaService } from 'src/app/servicios/is-persona.service'
 export class RegistroPersonaComponent implements OnInit {
   nuevoRegistro: FormGroup;
   submitted = false;
-  message: string;
   persona: any;
 
-  constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private registroPersonaService: RegistroPersonaService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private formBuilder: FormBuilder, private router: Router,private RegistroService: RegistroService) {
     this.nuevoRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       localidad: ['', [Validators.required]],
       residencia: ['', [Validators.required]],
-      tlf: ['', [Validators.required]]
+      tlf: ['', [Validators.required]],
+      rol: ['', [Validators.required]]
     });
-    this.message = "";
-    this.persona = ({
+    this.persona = {
       nombre:'',
       apellidos: '',
       localidad:'',
       residencia:'',
       tlf:'' 
-    });
+    };
   }
   ngOnInit(): void {
-    this.IsPer(this.ArrayUsService.getEmail());
+    this.IsPer(this.ArrayUsService.getDni());
   }
 
-  IsPer(email: string) {
-    this.IsPersonaService.Prueba(email).subscribe(
+  IsPer(dni: string) {
+    this.IsPersonaService.existePersona(dni).subscribe(
       (response: any) => { 
-        console.log(response);
-        this.persona = response.message.persona;
-        console.log(this.persona);
+        //console.log(response.message);
+        if(response.message.persona != null){
+          this.persona = response.message.persona;
+        } 
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.error.message);
       }
     );
   }
@@ -65,20 +65,20 @@ export class RegistroPersonaComponent implements OnInit {
     const localidad = datosUsuario.localidad;
     const residencia = datosUsuario.residencia;
     const tlf = datosUsuario.tlf;
-    this.registro(email, dni, nombre, apellidos, localidad, residencia, tlf)
+    const rol = datosUsuario.rol;
+    this.registro(email, dni, nombre, apellidos, localidad, residencia, tlf,rol)
     this.onReset();
-    this.message = this.registroPersonaService.message;
   }
 
-  registro(email: any, nombre: any, apellidos: any, dni: any, localidad: any, residencia: any, tlf: any) {
-    this.registroPersonaService.Registro(email, dni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+  registro(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any, rol:any) {
+    this.RegistroService.RegistroPersona(email, dni, nombre, apellidos, localidad, residencia, tlf,rol).subscribe(
       (response: any) => {
         console.log(response);
-        this.message = "Registro correcto";
+        console.log("Registro correcto");
         this.router.navigate(['/login']);
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.error.message);
       }
     );
 
