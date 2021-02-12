@@ -19,6 +19,8 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
+import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
+import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,9 @@ import { InfCentroComponent } from './componentes/inf-centro/inf-centro.componen
     OpcionesComponent,
     PerfilComponent,
     InfCentroComponent
+    PerfilComponent,
+    NuevoCursoComponent,
+    ActualizarCursoComponent,
   ],
   imports: [
     BrowserModule,

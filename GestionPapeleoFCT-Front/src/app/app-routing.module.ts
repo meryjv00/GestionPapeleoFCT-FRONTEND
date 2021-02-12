@@ -10,12 +10,13 @@ import { RegistroPersonaComponent } from './componentes/registro-persona/registr
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component'
+import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
+import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'nuevoAlumno', component: NuevoAlumnoComponent},
   {path: 'alumno', component: AlumnoComponent},
-  {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'listaEmpresas', component: ListaEmpresasComponent},
   {path: 'empresa/:empresa', component: EmpresaComponent},
   {path: 'empresa', component: EmpresaComponent},
@@ -23,7 +24,12 @@ const routes: Routes = [
   {path: 'registroUsuario', component: RegistroUserComponent},
   {path: 'infCentro', component: InfCentroComponent},
   {path: '', component: LoginComponent},
-  {path: 'perfil', component: PerfilComponent}
+  {path: 'perfil', component: PerfilComponent},
+
+  // Rutas para cursos
+  {path: 'listaCursos', component: ListaCursosComponent},
+  {path: 'nuevoCurso', component: NuevoCursoComponent},
+  {path: 'actualizarCurso', component: ActualizarCursoComponent}
 ];
 
 @NgModule({
