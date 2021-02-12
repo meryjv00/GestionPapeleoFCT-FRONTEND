@@ -36,10 +36,10 @@ export class ListaCursosComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.user.rol === 'Jefe de estudios') {
-            this.getCursos();
-        } else if (this.user.rol === 'Tutor') {
+        if (this.user.rol === 'Tutor') {
             this.getMisCursos(this.user.dni);
+        } else {
+            this.getCursos();
         }
         this.getAnexos();
 
@@ -116,7 +116,11 @@ export class ListaCursosComponent implements OnInit {
                         this.cursos.push(curso);
                     });
 
-                    this.onChange(this.cursos[0].id);
+                    if (this.idUpdate) {
+                        this.onChange(this.idUpdate);
+                    } else {
+                        this.onChange(this.cursos[0].id);
+                    }
                 }
             },
             (error) => {
@@ -242,6 +246,7 @@ export class ListaCursosComponent implements OnInit {
                 this.cursos = [];
                 this.getCursos();
                 console.log(response);
+                this.onChange(this.cursos[0].id);
             },
             (error) => {
                 console.log(error);

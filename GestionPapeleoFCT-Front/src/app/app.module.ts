@@ -22,7 +22,6 @@ import { InfCentroComponent } from './componentes/inf-centro/inf-centro.componen
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
-import { AdministracionAnioComponent } from './componentes/administracion-anio/administracion-anio.component';
 
 @NgModule({
   declarations: [
@@ -39,12 +38,11 @@ import { AdministracionAnioComponent } from './componentes/administracion-anio/a
     RegistroPersonaComponent,
     OpcionesComponent,
     PerfilComponent,
-    InfCentroComponent
+    InfCentroComponent,
     PerfilComponent,
     NuevoCursoComponent,
     ActualizarCursoComponent,
     AdministracionComponent,
-    AdministracionAnioComponent
   ],
   imports: [
     BrowserModule,

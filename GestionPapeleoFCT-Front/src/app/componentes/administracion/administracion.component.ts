@@ -50,14 +50,14 @@ export class AdministracionComponent implements OnInit {
     this.administracionService.insertProfesores().subscribe(
       (response: any) => {
         console.log(response);
-        this.router.navigate(['/admin']);
+        alert("Profesores añadidos correctamente");
       },
       (error) => {
         console.log(error);
       }
     );
-    alert("Profesores añadidos correctamente");
-    this.router.navigate(['/admin']);
+   
+    this.router.navigate(['/csv']);
   }
 
   onSubmitAlumnos() {
@@ -76,14 +76,13 @@ export class AdministracionComponent implements OnInit {
         });
 
         this.onChange(this.cursos[0].id);
-        this.router.navigate(['/admin']);
       },
       (error) => {
         console.log(error);
       }
     );
     alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/csv']);
   }
 
   getCursos() {
