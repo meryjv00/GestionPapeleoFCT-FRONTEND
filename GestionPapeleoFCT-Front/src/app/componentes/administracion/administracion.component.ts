@@ -13,21 +13,28 @@ import { AnyTxtRecord } from 'dns';
 })
 
 export class AdministracionComponent implements OnInit {
-  //----------------------------------------------------------
-  //--VARIABLES
+  //------------------------------------
+  //--Formularios CSV
   submittedProfesores = false;
   submittedAlumnos = false;
   profesoresCSV: FormGroup;
   alumnosCSV: FormGroup;
-
+  //--Cursos
   haCambiado = false;
-  cursos: any[];
+  cursos: any[]; //Cursos importación 
   cursoSeleccionado: any;
+  totalCursos: any;
+  cursosImportados = 0;
+  //------------------------------------
+  jefesEstudio: any[];
+  tutorSelecccionado: any;
+  //------------------------------------
+  //--Tutores (Asignación tutor a curso)
+  cursos2: any[]; //Cursos totales
+  tutores: any[];
+  tutorSelecccionado2: any;
+  cursoSeleccionado2: any;
 
-  terminado = false;
-  profesorSeleccionado: any;
-  profesoresSeleccionados: any[];
-  profesores: any[];
   //------------------------------------------------------------
   //--CONSTRUCTOR
   constructor(private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private administracionService: AdministracionService, private loginService: LoginService, private router: Router) {
@@ -42,21 +49,75 @@ export class AdministracionComponent implements OnInit {
       alumnosCSV: ['', [Validators.required]]
     });
     this.cursos = [];
-    this.profesores = [];
-    this.profesoresSeleccionados = [];
+    this.cursos2 = [];
+    this.jefesEstudio = [];
+    this.tutores = [];
   }
 
   //----------------------------------------------------------
   ngOnInit(): void {
     this.getCursos();
-    this.getProfesores();
     this.getJefesEstudio();
+    this.getTutores();
   }
 
   //----------------------------------------------------------
   get formularioProfesores() { return this.profesoresCSV.controls; }
   get formularioAlumnos() { return this.alumnosCSV.controls; }
 
+  //----------------------------------------------------------
+  //-------------------------CURSOS---------------------------
+  //----------------------------------------------------------
+
+  /**
+   * Se obtienen todos los cursos de la aplicación para la importación CSV de cada curso
+   */
+  getCursos() {
+    this.listaCursosService.getCursos().subscribe(
+      (response: any) => {
+        let cursos = response.message;
+        cursos.forEach((element: {
+          id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+          cursoAcademico: any; nHoras: any; cursos: any;
+        }) => {
+          let curso = {
+            'id': element.id,
+            'tutor': element.cursos.nombre + ' ' + element.cursos.apellidos,
+            'familiaProfesional': element.familiaProfesional,
+            'cicloFormativo': element.cicloFormativo,
+            'cicloFormativoA': element.cicloFormativoA,
+            'cursoAcademico': element.cursoAcademico,
+            'nHoras': element.nHoras
+          };
+          this.cursos.push(curso);
+          this.cursos2.push(curso);
+        });
+        this.onChange(this.cursos[0].id);        
+        this.onChangeCurso(this.cursos[0].id);
+        this.totalCursos = this.cursos.length;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+   * Guarda en una variable el curso seleccionado del select
+   * @param value Recibe como parametro el id del curso seleccionado
+   */
+  onChange(value: any) {
+    this.haCambiado = true;
+    this.cursos.forEach((curso: { id: any; }) => {
+      if (value == curso.id) {
+        this.cursoSeleccionado = curso;
+      }
+    });
+    //console.log('Curso seleccionado: ' + this.cursoSeleccionado.cicloFormativoA);
+  }
+
+  //----------------------------------------------------------
+  //-------------------------CSV------------------------------
   //----------------------------------------------------------
   /**
    * Se añaden nuevos profesores del CSV insertado
@@ -97,7 +158,7 @@ export class AdministracionComponent implements OnInit {
             this.cursos.splice(index, 1);
           }
         });
-
+        this.cursosImportados++;
         this.onChange(this.cursos[0].id);
       },
       (error) => {
@@ -108,145 +169,100 @@ export class AdministracionComponent implements OnInit {
     this.router.navigate(['/csv']);
   }
 
-  /**
-   * Se obtienen todos los cursos de la aplicación para la importación CSV de cada curso
-   */
-  getCursos() {
-    this.listaCursosService.getCursos().subscribe(
-      (response: any) => {
-        let cursos = response.message;
-        cursos.forEach((element: {
-          id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
-          cursoAcademico: any; nHoras: any; cursos: any;
-        }) => {
-          let curso = {
-            'id': element.id,
-            'tutor': element.cursos.nombre + ' ' + element.cursos.apellidos,
-            'familiaProfesional': element.familiaProfesional,
-            'cicloFormativo': element.cicloFormativo,
-            'cicloFormativoA': element.cicloFormativoA,
-            'cursoAcademico': element.cursoAcademico,
-            'nHoras': element.nHoras
-          };
-          this.cursos.push(curso);
-        });
-        this.onChange(this.cursos[0].id);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
 
-  }
-
-  /**
-   * Guarda en una variable el curso seleccionado del select
-   * @param value Recibe como parametro el id del curso seleccionado
-   */
-  onChange(value: any) {
-    this.haCambiado = true;
-    this.cursos.forEach((curso: { id: any; }) => {
-      if (value == curso.id) {
-        this.cursoSeleccionado = curso;
-      }
-    });
-    //console.log(this.cursoSeleccionado);
-  }
-
-  /**
-   * Obtiene todos los profesores
-   */
-  getProfesores() {
-    this.administracionService.getProfesores().subscribe(
-      (response: any) => {
-        //console.log(response);
-        let profesores = response.message;
-        profesores.forEach((element: {
-          id: any; dni: any; apellidos: any; nombre: any; localidad: any;
-          residencia: any; correo: any; tlf: any;
-        }) => {
-          let profesor = {
-            'id': element.id,
-            'dni': element.dni,
-            'apellidos': element.apellidos,
-            'nombre': element.nombre,
-            'localidad': element.localidad,
-            'residencia': element.residencia,
-            'correo': element.correo,
-            'tlf': element.tlf
-          };
-          this.profesores.push(profesor);
-        });
-        this.onChangeProf(this.profesores[0].dni);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-
-  /**
-   * Guarda el profesor seleccionado en una variable
-   * @param value Obtiene como valor el dni del profesor seleccionado
-   */
-  onChangeProf(value: any) {
-    this.terminado = true;
-    this.profesores.forEach((profesor: { dni: any; }) => {
-      if (value == profesor.dni) {
-        this.profesorSeleccionado = profesor;
-      }
-    });
-    //console.log('Profesor seleccionado: ' + this.profesorSeleccionado.nombre);
-  }
-
-
-  /**
-   * Método que añade un nuevo jefe de estudio comprobando si
-   * ya lo es o no.
-   */
-  elegirJefeEstudios() {
-    console.log(this.profesoresSeleccionados);
-    var existe = true;
-    var cont = 0;
-    if (this.profesoresSeleccionados.length == 0) {
-      existe = false;
-    } else {
-      this.profesoresSeleccionados.forEach((profesor: { dni: any; }) => {
-        if (this.profesorSeleccionado.dni == profesor.dni) {
-          existe = true;
-        } else {
-          cont++;
-        }
-        console.log(this.profesorSeleccionado.dni + '!=' + profesor.dni);
-      });
-    }
-    //Comprueba que en todas las posiciones no exista 
-    if (cont == this.profesoresSeleccionados.length) {
-      existe = false;
-    }
-    //Añadir nuevo jefe de estudios en caso de que no lo sea
-    if (!existe) {
-      this.profesoresSeleccionados.push(this.profesorSeleccionado);
-
-      this.administracionService.addJefeEstudios(this.profesorSeleccionado).subscribe(
-        (response: any) => {
-          console.log(response);
-          alert('Ahora ' + this.profesorSeleccionado.nombre + ' ' + this.profesorSeleccionado.apellidos + ' es jefe de estudios');
-        },
-        (error) => {
-          alert('Ha habido un error al asignar a ' + this.profesorSeleccionado.nombre + ' ' + this.profesorSeleccionado.apellidos + ' como jefe de estudios.');
-          console.log(error);
-        }
-      );
-    } else {
-      alert(this.profesorSeleccionado.nombre + ' ' + this.profesorSeleccionado.apellidos + ' ya es jefe de estudios');
-    }
-  }
+  //----------------------------------------------------------
+  //-------------------------TUTORES--------------------------
+  //----------------------------------------------------------
 
   /**
    * Obtiene todos los jefes de estudio del centro
    */
+  getTutores() {
+    this.administracionService.getTutores().subscribe(
+      (response: any) => {
+        //console.log(response);
+        let profesores = response.message;
+        if (profesores.length > 0) {
+          profesores.forEach((element: {
+            id: any; dni: any; apellidos: any; nombre: any; localidad: any;
+            residencia: any; correo: any; tlf: any;
+          }) => {
+            let profesor = {
+              'id': element.id,
+              'dni': element.dni,
+              'apellidos': element.apellidos,
+              'nombre': element.nombre,
+              'localidad': element.localidad,
+              'residencia': element.residencia,
+              'correo': element.correo,
+              'tlf': element.tlf
+            };
+            this.tutores.push(profesor);
+          });
+          this.onChangeTutor(this.tutores[0].dni);
+          this.onChangeTut(this.tutores[0].dni);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+  * Guarda el tutor seleccionado en una variable
+  * @param value Obtiene como valor el dni del tutor seleccionado
+  */
+  onChangeTutor(value: any) {
+    this.tutores.forEach((tutor: { dni: any; }) => {
+      if (value == tutor.dni) {
+        this.tutorSelecccionado2 = tutor;
+      }
+    });
+    //console.log('Tutor seleccionado: ' + this.tutorSelecccionado2.nombre);
+  }
+
+  /**
+ * Guarda en una variable el curso seleccionado del select
+ * @param value Recibe como parametro el id del curso seleccionado
+ */
+  onChangeCurso(value: any) {
+    this.haCambiado = true;
+    this.cursos.forEach((curso: { id: any; }) => {
+      if (value == curso.id) {
+        this.cursoSeleccionado2 = curso;
+      }
+    });
+    //console.log('Curso seleccionado2: ' + this.cursoSeleccionado2.cicloFormativoA);
+  }
+
+  /**
+   * Asigna un tutor a un curso
+   */
+  elegirTutorCurso() {
+    console.log(this.tutorSelecccionado2);
+    if(!this.tutorSelecccionado2){
+      alert('No hay ningún tutor disponible')
+    }else{
+      this.administracionService.addTutorCurso(this.tutorSelecccionado2, this.cursoSeleccionado2).subscribe(
+        (response: any) => {
+          console.log(response);
+          alert('Ahora ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+        },
+        (error) => {
+          alert('No se ha podido asignar a ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  //----------------------------------------------------------
+  //--------------------JEFES DE ESTUDIO----------------------
+  //----------------------------------------------------------
+  /**
+    * Obtiene todos los jefes de estudio del centro
+    */
   getJefesEstudio() {
     this.administracionService.getJefesEstudio().subscribe(
       (response: any) => {
@@ -267,7 +283,7 @@ export class AdministracionComponent implements OnInit {
               'correo': element.correo,
               'tlf': element.tlf
             };
-            this.profesoresSeleccionados.push(profesor);
+            this.jefesEstudio.push(profesor);
           });
         }
       },
@@ -278,22 +294,67 @@ export class AdministracionComponent implements OnInit {
   }
 
   /**
-   * Desasigna el jefe de estudios cuyo dni recibe
+   * Desasigna el jefe de estudios cuyo dni recibe y lo convierte en tutor
    */
   desasignarJefeEstudios(dni: any) {
-    this.administracionService.deleteJefeEstudio(dni).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.profesoresSeleccionados.forEach((profesor, index) => {
-          if (profesor.dni == dni) {
-            this.profesoresSeleccionados.splice(index, 1);
-          }
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    let convertirTutor = confirm("¿Estás seguro de que quieres desasignar a este usuario del rol jefe de estudios? Se convertirá en tutor");
+    if (convertirTutor) {
+      this.administracionService.deleteJefeEstudio(dni).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.jefesEstudio.forEach((profesor, index) => {
+            if (profesor.dni == dni) {
+              this.jefesEstudio.splice(index, 1);
+              this.tutores.push(profesor);
+            }
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
+  /**
+   * Guarda el profesor seleccionado en una variable
+   * @param value Obtiene como valor el dni del profesor seleccionado
+   */
+  onChangeTut(value: any) {
+    this.tutores.forEach((profesor: { dni: any; }) => {
+      if (value == profesor.dni) {
+        this.tutorSelecccionado = profesor;
+      }
+    });
+    //console.log('Profesor seleccionado: ' + this.tutorSelecccionado.nombre);
+  }
+
+  /**
+   * Método que añade un nuevo jefe de estudio
+   */
+  elegirJefeEstudios() {
+    if(!this.tutorSelecccionado){
+      alert('No hay ningún tutor disponible')
+    }else{
+      let convertirJefe = confirm("¿Estás seguro de que quieres desasignar a este usuario del rol tutor? Se convertirá en jefe de estudios");
+      if (convertirJefe) {
+        this.administracionService.addJefeEstudios(this.tutorSelecccionado).subscribe(
+          (response: any) => {
+            //console.log(response);
+            this.tutores.forEach((tutor, index) => {
+              if (tutor.dni == this.tutorSelecccionado.dni) {
+                this.tutores.splice(index, 1);
+                this.jefesEstudio.push(this.tutorSelecccionado);
+              }
+            }); 
+            alert('Ahora ' + this.tutorSelecccionado.nombre + ' ' + this.tutorSelecccionado.apellidos + ' es jefe de estudios');
+          },
+          (error) => {
+            alert('Ha ocurrido un error al asignar a ' + this.tutorSelecccionado.nombre + ' ' + this.tutorSelecccionado.apellidos + ' como jefe de estudios.');
+            console.log(error);
+          }
+        );
+      }
+    }
+  }
 }
