@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ListaEmpresasService } from 'src/app/servicios/lista-empresas.service';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lista-empresas',
@@ -95,8 +96,23 @@ export class ListaEmpresasComponent implements OnInit {
     this.adminEmpresasService.anexo0(empresa).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = 'http://localhost:8000/' + response.message + '.docx';
+        let enlace = environment.dirBack + 'descargar/' + response.message;
         window.open(enlace,'_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  //Borrar
+  pruebaA1() {
+    var datos = {
+      'numConvenio': 123456789,
+      'idCurso': 1
+    }
+    this.adminEmpresasService.anexo1(datos).subscribe(
+      (response: any) => {
+        console.log(response);
       }, (error) => {
         console.log(error);
       }
