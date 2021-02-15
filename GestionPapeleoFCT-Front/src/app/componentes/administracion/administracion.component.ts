@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
-import { AnyTxtRecord } from 'dns';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-administracion',
@@ -34,6 +34,7 @@ export class AdministracionComponent implements OnInit {
   tutores: any[];
   tutorSelecccionado2: any;
   cursoSeleccionado2: any;
+  cursosSinTutor: any[];
 
   //------------------------------------------------------------
   //--CONSTRUCTOR
@@ -52,11 +53,13 @@ export class AdministracionComponent implements OnInit {
     this.cursos2 = [];
     this.jefesEstudio = [];
     this.tutores = [];
+    this.cursosSinTutor = [];
   }
 
   //----------------------------------------------------------
   ngOnInit(): void {
     this.getCursos();
+    this.getCursosSinTutor();
     this.getJefesEstudio();
     this.getTutores();
   }
@@ -92,7 +95,7 @@ export class AdministracionComponent implements OnInit {
           this.cursos.push(curso);
           this.cursos2.push(curso);
         });
-        this.onChange(this.cursos[0].id);        
+        this.onChange(this.cursos[0].id);
         this.onChangeCurso(this.cursos[0].id);
         this.totalCursos = this.cursos.length;
       },
@@ -240,21 +243,57 @@ export class AdministracionComponent implements OnInit {
    * Asigna un tutor a un curso
    */
   elegirTutorCurso() {
-    console.log(this.tutorSelecccionado2);
-    if(!this.tutorSelecccionado2){
+    if (!this.tutorSelecccionado2) {
       alert('No hay ningún tutor disponible')
-    }else{
-      this.administracionService.addTutorCurso(this.tutorSelecccionado2, this.cursoSeleccionado2).subscribe(
-        (response: any) => {
-          console.log(response);
-          alert('Ahora ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
-        },
-        (error) => {
-          alert('No se ha podido asignar a ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
-          console.log(error);
-        }
-      );
+    } else {
+      let convertirTutor = confirm("¿Estás seguro de que quieres convertir a " + this.tutorSelecccionado2.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?");
+      if (convertirTutor) {
+        this.administracionService.addTutorCurso(this.tutorSelecccionado2, this.cursoSeleccionado2).subscribe(
+          (response: any) => {
+            console.log(response);
+            alert('Ahora ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+
+            //Elimina el curso asignado de la lista de cursos sin tutor
+            this.cursosSinTutor.forEach((curso, index) => {
+              if (curso.id == this.cursoSeleccionado2.id) {
+                this.cursosSinTutor.splice(index, 1);
+              }
+            });
+          },
+          (error) => {
+            alert('No se ha podido asignar a ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+            console.log(error);
+          }
+        );
+      }
     }
+  }
+
+  getCursosSinTutor() {
+    this.listaCursosService.getCursosSinTutor().subscribe(
+      (response: any) => {
+        let cursos = response.message;
+        cursos.forEach((element: {
+          id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+          cursoAcademico: any; nHoras: any; cursos: any;
+        }) => {
+          let curso = {
+            'id': element.id,
+            'tutor': element.cursos.nombre + ' ' + element.cursos.apellidos,
+            'familiaProfesional': element.familiaProfesional,
+            'cicloFormativo': element.cicloFormativo,
+            'cicloFormativoA': element.cicloFormativoA,
+            'cursoAcademico': element.cursoAcademico,
+            'nHoras': element.nHoras
+          };
+          this.cursosSinTutor.push(curso);
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
   }
 
   //----------------------------------------------------------
@@ -333,9 +372,9 @@ export class AdministracionComponent implements OnInit {
    * Método que añade un nuevo jefe de estudio
    */
   elegirJefeEstudios() {
-    if(!this.tutorSelecccionado){
+    if (!this.tutorSelecccionado) {
       alert('No hay ningún tutor disponible')
-    }else{
+    } else {
       let convertirJefe = confirm("¿Estás seguro de que quieres desasignar a este usuario del rol tutor? Se convertirá en jefe de estudios");
       if (convertirJefe) {
         this.administracionService.addJefeEstudios(this.tutorSelecccionado).subscribe(
@@ -346,7 +385,7 @@ export class AdministracionComponent implements OnInit {
                 this.tutores.splice(index, 1);
                 this.jefesEstudio.push(this.tutorSelecccionado);
               }
-            }); 
+            });
             alert('Ahora ' + this.tutorSelecccionado.nombre + ' ' + this.tutorSelecccionado.apellidos + ' es jefe de estudios');
           },
           (error) => {
