@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class IsPersonaService {
     this.message = "";
   }
   public existePersona = (dni:string) => {
-    const url = "http://localhost:8000/api/isPersona";
+    const url = environment.dirBack + 'isPersona';
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

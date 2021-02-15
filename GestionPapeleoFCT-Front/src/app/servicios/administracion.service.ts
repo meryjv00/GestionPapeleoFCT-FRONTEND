@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -16,14 +17,14 @@ export class AdministracionService {
 
   //Insertar profesores CSV
   public insertProfesores = () => {
-    const url = "http://localhost:8000/api/generarProfesores";
+    const url = environment.dirBack + 'generarProfesores';
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, {}, { headers: headers });
   };
 
   //Insertar alumnos CSV
   public insertAlumnos = (cursoSeleccionado: any) => {
-    const url = "http://localhost:8000/api/generarAlumnos";
+    const url = environment.dirBack + 'generarAlumnos';
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, {'id': cursoSeleccionado.id,'cicloFormativoA': cursoSeleccionado.cicloFormativoA}, { headers: headers });
   };

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class ListaCursosService {
     }
 
     public getCursos = () => {
-        const url = "http://localhost:8000/api/cursos";
+        const url = environment.dirBack + 'cursos';
 
         //console.log(this.loginService.user.access_token);
 
@@ -24,7 +25,7 @@ export class ListaCursosService {
     };
 
     public getMisCursos = (dni: any) => {
-        const url = "http://localhost:8000/api/cursos/" + dni;
+        const url = environment.dirBack + 'cursos/' + dni;
 
         //console.log(this.loginService.user.access_token);
 
@@ -35,7 +36,7 @@ export class ListaCursosService {
 
 
     public getAlumnos = (id: any) => {
-        const url = "http://localhost:8000/api/alumnos/" + id;
+        const url = environment.dirBack + 'alumnos/' + id;
 
         //console.log(this.loginService.user.access_token);
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
@@ -45,7 +46,7 @@ export class ListaCursosService {
 
 
     public getFamilies = () => {
-        const url = "http://localhost:8000/api/cursosFamilies";
+        const url = environment.dirBack + 'cursosFamilies';
 
         //console.log(this.loginService.user.access_token);
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
