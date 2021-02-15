@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-administracion',
@@ -26,13 +25,13 @@ export class AdministracionComponent implements OnInit {
   totalCursos: any;
   cursosImportados = 0;
   //------------------------------------
-  jefesEstudio: any[];
-  tutorSelecccionado: any;
+  cuentasAdministrar: any[];
+  personaSeleccionada: any;
   //------------------------------------
   //--Tutores (Asignación tutor a curso)
   cursos2: any[]; //Cursos totales
   tutores: any[];
-  tutorSelecccionado2: any;
+  tutorSeleccionado: any;
   cursoSeleccionado2: any;
   cursosSinTutor: any[];
 
@@ -51,7 +50,7 @@ export class AdministracionComponent implements OnInit {
     });
     this.cursos = [];
     this.cursos2 = [];
-    this.jefesEstudio = [];
+    this.cuentasAdministrar = [];
     this.tutores = [];
     this.cursosSinTutor = [];
   }
@@ -60,7 +59,7 @@ export class AdministracionComponent implements OnInit {
   ngOnInit(): void {
     this.getCursos();
     this.getCursosSinTutor();
-    this.getJefesEstudio();
+    this.getCuentasAdministrar();
     this.getTutores();
   }
 
@@ -178,7 +177,7 @@ export class AdministracionComponent implements OnInit {
   //----------------------------------------------------------
 
   /**
-   * Obtiene todos los jefes de estudio del centro
+   * Obtiene todos los tutores del centro cuyas cuentas estén activadas
    */
   getTutores() {
     this.administracionService.getTutores().subscribe(
@@ -203,7 +202,6 @@ export class AdministracionComponent implements OnInit {
             this.tutores.push(profesor);
           });
           this.onChangeTutor(this.tutores[0].dni);
-          this.onChangeTut(this.tutores[0].dni);
         }
       },
       (error) => {
@@ -219,10 +217,9 @@ export class AdministracionComponent implements OnInit {
   onChangeTutor(value: any) {
     this.tutores.forEach((tutor: { dni: any; }) => {
       if (value == tutor.dni) {
-        this.tutorSelecccionado2 = tutor;
+        this.tutorSeleccionado = tutor;
       }
     });
-    //console.log('Tutor seleccionado: ' + this.tutorSelecccionado2.nombre);
   }
 
   /**
@@ -236,22 +233,21 @@ export class AdministracionComponent implements OnInit {
         this.cursoSeleccionado2 = curso;
       }
     });
-    //console.log('Curso seleccionado2: ' + this.cursoSeleccionado2.cicloFormativoA);
   }
 
   /**
    * Asigna un tutor a un curso
    */
   elegirTutorCurso() {
-    if (!this.tutorSelecccionado2) {
+    if (!this.tutorSeleccionado) {
       alert('No hay ningún tutor disponible')
     } else {
-      let convertirTutor = confirm("¿Estás seguro de que quieres convertir a " + this.tutorSelecccionado2.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?");
+      let convertirTutor = confirm("¿Estás seguro de que quieres convertir a " + this.tutorSeleccionado.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?");
       if (convertirTutor) {
-        this.administracionService.addTutorCurso(this.tutorSelecccionado2, this.cursoSeleccionado2).subscribe(
+        this.administracionService.addTutorCurso(this.tutorSeleccionado, this.cursoSeleccionado2).subscribe(
           (response: any) => {
             console.log(response);
-            alert('Ahora ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+            alert('Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
 
             //Elimina el curso asignado de la lista de cursos sin tutor
             this.cursosSinTutor.forEach((curso, index) => {
@@ -261,7 +257,7 @@ export class AdministracionComponent implements OnInit {
             });
           },
           (error) => {
-            alert('No se ha podido asignar a ' + this.tutorSelecccionado2.nombre + ' ' + this.tutorSelecccionado2.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+            alert('No se ha podido asignar a ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
             console.log(error);
           }
         );
@@ -269,6 +265,9 @@ export class AdministracionComponent implements OnInit {
     }
   }
 
+  /**
+   * Obtiene los cursos que no tienen asignado tutor todavía
+   */
   getCursosSinTutor() {
     this.listaCursosService.getCursosSinTutor().subscribe(
       (response: any) => {
@@ -297,18 +296,18 @@ export class AdministracionComponent implements OnInit {
   }
 
   //----------------------------------------------------------
-  //--------------------JEFES DE ESTUDIO----------------------
+  //--------------------ADMINISTRACIÓN CUENTAS----------------
   //----------------------------------------------------------
   /**
     * Obtiene todos los jefes de estudio del centro
     */
-  getJefesEstudio() {
-    this.administracionService.getJefesEstudio().subscribe(
+  getCuentasAdministrar() {
+    this.administracionService.getCuentasAdministrar().subscribe(
       (response: any) => {
-        //console.log(response);
-        let profesores = response.message;
-        if (profesores.length > 0) {
-          profesores.forEach((element: {
+        //Se guardan los jefes de estudio (rol = 2)
+        let jefes = response.message[0];
+        if (jefes.length > 0) {
+          jefes.forEach((element: {
             id: any; dni: any; apellidos: any; nombre: any; localidad: any;
             residencia: any; correo: any; tlf: any;
           }) => {
@@ -320,9 +319,31 @@ export class AdministracionComponent implements OnInit {
               'localidad': element.localidad,
               'residencia': element.residencia,
               'correo': element.correo,
-              'tlf': element.tlf
+              'tlf': element.tlf,
+              'rol': 2
             };
-            this.jefesEstudio.push(profesor);
+            this.cuentasAdministrar.push(profesor);
+          });
+        }
+        //Se guardan los tutores
+        let tutores = response.message[1];
+        if (tutores.length > 0) {
+          tutores.forEach((element: {
+            id: any; dni: any; apellidos: any; nombre: any; localidad: any;
+            residencia: any; correo: any; tlf: any;
+          }) => {
+            let profesor = {
+              'id': element.id,
+              'dni': element.dni,
+              'apellidos': element.apellidos,
+              'nombre': element.nombre,
+              'localidad': element.localidad,
+              'residencia': element.residencia,
+              'correo': element.correo,
+              'tlf': element.tlf,
+              'rol': 3
+            };
+            this.cuentasAdministrar.push(profesor);
           });
         }
       },
@@ -333,18 +354,29 @@ export class AdministracionComponent implements OnInit {
   }
 
   /**
-   * Desasigna el jefe de estudios cuyo dni recibe y lo convierte en tutor
+   * Desasigna el rol de jefe de estudios al usuario cuyo dni recibe y lo convierte en tutor
    */
-  desasignarJefeEstudios(dni: any) {
-    let convertirTutor = confirm("¿Estás seguro de que quieres desasignar a este usuario del rol jefe de estudios? Se convertirá en tutor");
-    if (convertirTutor) {
-      this.administracionService.deleteJefeEstudio(dni).subscribe(
+  cambiarRol(dni: any) {
+    this.buscaPersonaPorDni(dni);
+    var rol;
+    if (this.personaSeleccionada.rol == 2) {
+      rol = "tutor";
+    } else {
+      rol = "jefe de estudios";
+    }
+    let cambiarRol = confirm("¿Estás seguro de que quieres que " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + " se convierta en " + rol + "?");
+    if (cambiarRol) {
+      this.administracionService.cambiarRol(dni, this.personaSeleccionada.rol).subscribe(
         (response: any) => {
           console.log(response);
-          this.jefesEstudio.forEach((profesor, index) => {
+          //Busca esa persona para actualizarle el rol
+          this.cuentasAdministrar.forEach((profesor, index) => {
             if (profesor.dni == dni) {
-              this.jefesEstudio.splice(index, 1);
-              this.tutores.push(profesor);
+              if (this.personaSeleccionada.rol == 2) {
+                profesor.rol = 3;
+              } else {
+                profesor.rol = 2;
+              }
             }
           });
         },
@@ -356,44 +388,66 @@ export class AdministracionComponent implements OnInit {
   }
 
   /**
-   * Guarda el profesor seleccionado en una variable
-   * @param value Obtiene como valor el dni del profesor seleccionado
+   * Activa la cuenta cuyo dni reciba por parámetro
+   * @param dni 
    */
-  onChangeTut(value: any) {
-    this.tutores.forEach((profesor: { dni: any; }) => {
-      if (value == profesor.dni) {
-        this.tutorSelecccionado = profesor;
-      }
-    });
-    //console.log('Profesor seleccionado: ' + this.tutorSelecccionado.nombre);
+  activarCuenta(dni: any) {
+    this.buscaPersonaPorDni(dni);
+    var rol;
+    if (this.personaSeleccionada.rol == 2) {
+      rol = "jefe de estudios";
+    } else {
+      rol = "tutor";
+    }
+    let activarCuenta = confirm("¿Estás seguro de que quieres activar la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + " con rol de " + rol + " ? No hay marcha atrás");
+    if (activarCuenta) {
+      this.administracionService.activarCuenta(dni).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.cuentasAdministrar.forEach((profesor, index) => {
+            if (profesor.dni == dni) {
+              this.cuentasAdministrar.splice(index, 1);
+            }
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   /**
-   * Método que añade un nuevo jefe de estudio
+   * Deniega acceso a la cuenta cuyo dni recibe
+   * @param dni 
    */
-  elegirJefeEstudios() {
-    if (!this.tutorSelecccionado) {
-      alert('No hay ningún tutor disponible')
-    } else {
-      let convertirJefe = confirm("¿Estás seguro de que quieres desasignar a este usuario del rol tutor? Se convertirá en jefe de estudios");
-      if (convertirJefe) {
-        this.administracionService.addJefeEstudios(this.tutorSelecccionado).subscribe(
-          (response: any) => {
-            //console.log(response);
-            this.tutores.forEach((tutor, index) => {
-              if (tutor.dni == this.tutorSelecccionado.dni) {
-                this.tutores.splice(index, 1);
-                this.jefesEstudio.push(this.tutorSelecccionado);
-              }
-            });
-            alert('Ahora ' + this.tutorSelecccionado.nombre + ' ' + this.tutorSelecccionado.apellidos + ' es jefe de estudios');
-          },
-          (error) => {
-            alert('Ha ocurrido un error al asignar a ' + this.tutorSelecccionado.nombre + ' ' + this.tutorSelecccionado.apellidos + ' como jefe de estudios.');
-            console.log(error);
-          }
-        );
-      }
+  denegarAcceso(dni: any) {
+    this.buscaPersonaPorDni(dni);
+    let denegarAcceso = confirm("¿Estás seguro de que quieres denegar el acceso a " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "? No hay marcha atrás");
+    if (denegarAcceso) {
+      this.administracionService.denegarAccesoCuenta(dni).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.cuentasAdministrar.forEach((profesor, index) => {
+            if (profesor.dni == dni) {
+              this.cuentasAdministrar.splice(index, 1);
+            }
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
+  }
+
+  buscaPersonaPorDni(dni: any) {
+    this.cuentasAdministrar.forEach((persona, index) => {
+      if (persona.dni == dni) {
+        this.personaSeleccionada = persona;
+        return;
+      }
+    });
+
   }
 }

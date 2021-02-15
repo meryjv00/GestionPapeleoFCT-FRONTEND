@@ -30,7 +30,7 @@ export class RegistroService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password }, { headers: headers });
+    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password , 'activado': 0,'denegado': 0 }, { headers: headers });
   };
   /**
    * Subscripción a la petición de Registro, si todo es correcto, la almacena en session storage y

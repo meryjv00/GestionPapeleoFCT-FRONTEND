@@ -15,7 +15,7 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-csv-tab" data-toggle="tab" href="#nav-csv" role="tab" aria-controls="nav-home" aria-selected="true">Importación CSV</a>
-                    <a class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin" role="tab" aria-controls="nav-admin" aria-selected="false">Jefes de estudio</a>
+                    <a class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin" role="tab" aria-controls="nav-admin" aria-selected="false">Administración</a>
                     <a class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin2" role="tab" aria-controls="nav-admin2" aria-selected="false">Tutores</a>
                 </div>
             </nav>
@@ -26,11 +26,11 @@
                     <div id="importacionCSV" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
-                                <h3 class="font-weight-bolder">
+                                <h3 class="font-weight-bolder ml-4">
                                     Importación CSV
                                 </h3>
                             </div>
-                            <div class="card-body col-12">
+                            <div class="card-body col-12 px-5">
                                 <form [formGroup]="profesoresCSV" (ngSubmit)="onSubmitProfesores()">
                                     <div class="form-row">
                                         <h5 for="profesoresCSV">Profesores CSV:</h5>
@@ -54,7 +54,7 @@
                                     <hr>
                                     <h2 *ngIf="cursos.length>0">Cursos por importar: {{cursosImportados}}/{{totalCursos}}</h2>
                                     <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
-                                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativo}}</option>
+                                        <option *ngFor="let curso of cursos" [value]="curso.id">{{curso.cicloFormativoA}}</option>
                                     </select>
                                     <form *ngIf="haCambiado" [formGroup]="alumnosCSV" (ngSubmit)="onSubmitAlumnos()" class="mt-5">
                                         <div class="form-row">
@@ -78,45 +78,55 @@
                         </div>
                     </div>
                 </div>
-                <!--Administración jefes de estudio-->
+                <!--Administración cuentas-->
                 <div class="tab-pane fade" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
                     <div id="adminJefes" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
-                                <h3 class="font-weight-bolder">
-                                    Administración jefes de estudio
+                                <h3 class="font-weight-bolder ml-4">
+                                    Administración cuentas
                                 </h3>
                             </div>
-                            <div class="card-body col-12">
+                            <div class="card-body col-12 px-5">
                                 <!--Gestión jefes de estudio-->
-                                <h4>Jefes de estudio actuales:</h4>
-                                <div *ngIf="jefesEstudio.length == 0">No hay ningún jefe de estudios registrado en este momento</div>
-                                <div *ngIf="jefesEstudio.length > 0">
-                                    <ul>
-                                        <li *ngFor="let profesorSeleccionado of jefesEstudio" class="mt-2">
-                                            {{profesorSeleccionado.nombre}} {{profesorSeleccionado.apellidos}}
-                                            <button class="btn btn-primary" (click)="desasignarJefeEstudios(profesorSeleccionado.dni)"><i class="fas fa-times"></i></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <hr>
-                                <h4>Tutores actuales:</h4>
-                                <div *ngIf="tutores.length == 0">No hay ningún tutor registrado todavía</div>
-                                <div *ngIf="tutores.length > 0">
-                                    <!--
-                                    <ul>
-                                        <li *ngFor="let tutorSeleccionado of tutores" class="mt-2">
-                                            {{tutorSeleccionado.nombre}} {{tutorSeleccionado.apellidos}}
-                                            <button class="btn btn-primary" (click)="desasignarTutor(tutor.dni)"><i class="fas fa-times"></i></button>
-                                        </li>
-                                    </ul>
-                                    -->
-
-                                    <select #selectProfesores (change)="onChangeTut(selectProfesores.value)" class="form-control">
-                                        <option *ngFor="let profesor of tutores" [value]="profesor.dni">{{profesor.nombre}}  {{profesor.apellidos}}</option>
-                                    </select>
-                                </div>
-                                <button class="btn btn-primary mr-2 mt-3" (click)="elegirJefeEstudios()">Elegir</button>
+                                <div *ngIf="cuentasAdministrar.length == 0">No hay ninguna cuenta registrada nueva que administrar</div>
+                                <table *ngIf="cuentasAdministrar.length > 0" class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">Rol</th>
+                                            <th scope="col">Nombre completo</th>
+                                            <th scope="col">Correo</th>
+                                            <th scope="col">Teléfono</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-center" *ngFor="let cuenta of cuentasAdministrar">
+                                            <td *ngIf="cuenta.rol == 2">
+                                                <i class="fas fa-user-tie text-primary" style="font-size: 30px;"></i>
+                                            </td>
+                                            <td *ngIf="cuenta.rol == 3">
+                                                <i class="fas fa-chalkboard-teacher text-primary" style="font-size: 30px;"></i>
+                                            </td>
+                                            <td>
+                                                {{cuenta.nombre}} {{cuenta.apellidos}}
+                                            </td>
+                                            <td>{{cuenta.correo}}</td>
+                                            <td>{{cuenta.tlf}}</td>
+                                            <td>
+                                                <button class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
+                                                    Cambiar rol
+                                                </button>
+                                                <button class="btn btn-primary mr-2" (click)="activarCuenta(cuenta.dni)">
+                                                    Activar
+                                                </button>
+                                                <button class="btn btn-primary" (click)="denegarAcceso(cuenta.dni)">
+                                                    Denegar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -126,7 +136,7 @@
                     <div id="adminTutores" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
-                                <h3 class="font-weight-bolder">
+                                <h3 class="font-weight-bolder ml-4">
                                     Administración tutores
                                 </h3>
                             </div>
@@ -136,7 +146,7 @@
                                     Cursos sin tutor: <span *ngIf="cursosSinTutor.length > 0" class="badge badge-primary">{{cursosSinTutor.length}}</span>
                                 </h4>
                                 <select *ngIf="cursosSinTutor.length > 0" #selectCursosSinTutor class="form-control">
-                                    <option *ngFor="let cursoSinTutor of cursosSinTutor" >{{cursoSinTutor.cicloFormativoA}}</option>
+                                    <option *ngFor="let cursoSinTutor of cursosSinTutor" >{{cursoSinTutor.cicloFormativo}}</option>
                                 </select>
                                 <h5>
                                     <span *ngIf="cursosSinTutor.length == 0" class="badge badge-primary">¡Todos los cursos tienen tutor asignado!</span>
@@ -147,7 +157,7 @@
                                     <div class="col-md-6">
                                         <h5>Elegir curso: </h5>
                                         <select #selectCursos2 (change)="onChangeCurso(selectCursos2.value)" class="form-control">
-                                            <option *ngFor="let curso of cursos2" [value]="curso.id">{{curso.cicloFormativo}}</option>
+                                            <option *ngFor="let curso of cursos2" [value]="curso.id">{{curso.cicloFormativoA}}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -160,7 +170,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary mr-2 mt-3" (click)="elegirTutorCurso()">Asignar</button>
+                                <button *ngIf="tutores.length > 0" class="btn btn-primary mr-2 mt-3" (click)="elegirTutorCurso()">Asignar</button>
                             </div>
                         </div>
                     </div>
