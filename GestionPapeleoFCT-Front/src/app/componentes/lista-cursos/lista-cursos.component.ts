@@ -16,6 +16,8 @@ export class ListaCursosComponent implements OnInit {
     cursos: any[];
     alumnos: any[];
     anexos: any[];
+    empresasNoCurso: any[];
+    empresasCurso: any[];
     cursoSeleccionado: any;
     haCambiado = false;
     user: any;
@@ -31,6 +33,8 @@ export class ListaCursosComponent implements OnInit {
         this.cursos = [];
         this.alumnos = [];
         this.anexos = [];
+        this.empresasNoCurso = [];
+        this.empresasCurso = [];
         this.mensaje = "";
         this.user = this.loginService.getUser();
     }
@@ -77,9 +81,6 @@ export class ListaCursosComponent implements OnInit {
                 } else {
                     this.onChange(this.cursos[0].id);
                 }
-                console.log(this.cursoSeleccionado);
-                console.log(this.cursos);
-
             },
             (error) => {
                 console.log(error);
@@ -158,6 +159,69 @@ export class ListaCursosComponent implements OnInit {
         );
     }
 
+    // Cogemos las empresas que aun no participan en las prácticas del curso
+    getEmpresasNoCurso() {
+        this.listaCursosService.getEmpresasNoCurso(this.cursoSeleccionado.id).subscribe(
+            (response: any) => {
+                console.log(response);
+
+                let empresas = response.message;
+                empresas.forEach((element: {
+                    id: any; nombre: any; provincia: any; localidad: any; calle: any;
+                    cp: any; cif: any; tlf: any, email: any, dniRepresentante: any, nombreRepresentante: any;
+                }) => {
+                    let empresa = {
+                        'id': element.id,
+                        'nombre': element.nombre,
+                        'provincia': element.provincia,
+                        'localidad': element.localidad,
+                        'calle': element.calle,
+                        'cp': element.cp,
+                        'cif': element.cif,
+                        'tlf': element.tlf,
+                        'dniRepresentante': element.dniRepresentante,
+                        'nombreRepresentante': element.nombreRepresentante
+                    };
+                    this.empresasNoCurso.push(empresa);
+                });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
+    // Cogemos las empresas que participan en las prácticas del curso
+    getEmpresasCurso() {
+        this.listaCursosService.getEmpresasCurso(this.cursoSeleccionado.id).subscribe(
+            (response: any) => {
+                console.log(response);
+                let empresas = response.message;
+                empresas.forEach((element: {
+                    id: any; nombre: any; provincia: any; localidad: any; calle: any;
+                    cp: any; cif: any; tlf: any, email: any, dniRepresentante: any, nombreRepresentante: any;
+                }) => {
+                    let empresa = {
+                        'id': element.id,
+                        'nombre': element.nombre,
+                        'provincia': element.provincia,
+                        'localidad': element.localidad,
+                        'calle': element.calle,
+                        'cp': element.cp,
+                        'cif': element.cif,
+                        'tlf': element.tlf,
+                        'dniRepresentante': element.dniRepresentante,
+                        'nombreRepresentante': element.nombreRepresentante
+                    };
+                    this.empresasCurso.push(empresa);
+                });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
     /**
      * Evento del select que obtiene el curso seleccionado
      * @param value 
@@ -172,6 +236,8 @@ export class ListaCursosComponent implements OnInit {
         });
         this.alumnos = [];
         this.getAlumnos(this.cursoSeleccionado.id);
+        this.getEmpresasNoCurso();
+                this.getEmpresasCurso();
     }
 
     /**
@@ -242,16 +308,16 @@ export class ListaCursosComponent implements OnInit {
         let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar el curso de la Base de datos?");
         if (seguroEliminar) {
             this.cursosService.deleteCurso(this.cursoSeleccionado.id).subscribe(
-            (response: any) => {
-                this.cursos = [];
-                this.getCursos();
-                console.log(response);
-                this.onChange(this.cursos[0].id);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+                (response: any) => {
+                    this.cursos = [];
+                    this.getCursos();
+                    console.log(response);
+                    this.onChange(this.cursos[0].id);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
             alert("Curso eliminado.");
             this.router.navigate(['/listaCursos']);
         }
