@@ -252,7 +252,7 @@ export class ListaCursosComponent implements OnInit {
                 console.log(error);
             }
         );
-            alert("Empresa eliminada.");
+            alert("Curso eliminado.");
             this.router.navigate(['/listaCursos']);
         }
     }
