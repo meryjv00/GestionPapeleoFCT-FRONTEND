@@ -5,6 +5,7 @@ import { ListaEmpresasService } from 'src/app/servicios/lista-empresas.service';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { environment } from 'src/environments/environment';
+import { AnexosService } from 'src/app/servicios/anexos.service';
 
 @Component({
   selector: 'app-lista-empresas',
@@ -19,7 +20,7 @@ export class ListaEmpresasComponent implements OnInit {
   mensaje: any;
   textoAddEmpresa: any;
 
-  constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
+  constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
     this.empresas = [];
     this.crearNueva = false;
     this.mensaje = "";
@@ -88,12 +89,12 @@ export class ListaEmpresasComponent implements OnInit {
   }
 
   /**
-   * Manda generar el anexo 0 con el servicio 'adminEmpresas' y lo manda descargar
+   * Manda generar el anexo 0 con el servicio 'anexos' y lo manda descargar
    * redirigiendo a la url donde se encuentra el archivo
    * @param empresa 
    */
   anexo0(empresa: any) {
-    this.adminEmpresasService.anexo0(empresa).subscribe(
+    this.anexosService.anexo0(empresa).subscribe(
       (response: any) => {
         console.log(response);
         let enlace = environment.dirBack + 'descargar/' + response.message;
@@ -104,15 +105,34 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
-  //Borrar
+  //--------------Pruebas (borrar)
   pruebaA1() {
     var datos = {
-      'numConvenio': 123456789,
+      'numConvenio': '123456789',
       'idCurso': 1
     }
-    this.adminEmpresasService.anexo1(datos).subscribe(
+    this.anexosService.anexo1(datos).subscribe(
       (response: any) => {
         console.log(response);
+        let enlace = environment.dirBack + 'descargar/' + response.message;
+        window.open(enlace,'_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  pruebaA5() {
+    var datos = {
+      'idAlumno': 1,
+      'idEmpresa': 1,
+      'idCurso': 1
+    }
+    this.anexosService.anexo5(datos).subscribe(
+      (response: any) => {
+        console.log(response);
+        let enlace = environment.dirBack + 'descargar/' + response.message;
+        window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
       }

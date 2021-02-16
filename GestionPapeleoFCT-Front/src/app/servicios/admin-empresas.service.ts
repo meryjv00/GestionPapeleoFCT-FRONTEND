@@ -65,28 +65,4 @@ export class AdminEmpresasService {
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'empresa': empresa }, { headers: headers });
   };
-
-  /**
-   * Manda generar el anexo 0
-   * Recibe el id del archivo generado para redirigir a la ruta adecuada
-   * @param empresa 
-   */
-  public anexo0 = (empresa: any) => {
-    console.log(empresa);
-    const url = "http://localhost:8000/api/getAnexo0/" + empresa.id;
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.get(url, { headers: headers });
-  }
-
-  /**
-   * Manda generar el anexo 1
-   * Requiere un OBJETO 'datos' con 2 valores: numConvenio e idCurso
-   * @param datos 
-   */
-  public anexo1 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo1";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, { 'datos': datos }, { headers: headers });
-  }
-
 }
