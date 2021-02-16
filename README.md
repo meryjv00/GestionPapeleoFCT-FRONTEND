@@ -10,7 +10,7 @@ El proyecto consta de dos repositorios:
 Docker y docker compose
 
 ### Despliegue  🧱
-Para desplegar el entorno de desarrollo siempre y cuando cumplas los requisitos, solo tendrás que ejecutar los scripts (iniciar.sh) que se encuentran actualmente en la rama "dockerDesarrollo" de los correspondientes repositorios (back y front), en el orden que usted prefiera.
+Para desplegar el entorno de desarrollo siempre y cuando cumplas los requisitos, solo tendrás que ejecutar los scripts (iniciar.sh) de los correspondientes repositorios (back y front), en el orden que usted prefiera.
 
 #### Planificación tareas: 📜 
 https://trello.com/b/KdFEuQ4v/desafio-3-papeleo-fct
