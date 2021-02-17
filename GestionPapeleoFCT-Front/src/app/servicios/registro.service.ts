@@ -51,12 +51,12 @@ export class RegistroService {
     );
   }
 
-  public RegistroPersona = (email:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any, rol:any) => {
+  public RegistroPersona = (email:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any,correo:any, tlf: any, rol:any) => {
     const url = "http://localhost:8000/api/register_persona";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, {'email' : email, 'dni': dni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf, 'rol': rol }, { headers: headers });
+    return this.http.post(url, {'email' : email, 'dni': dni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia ,'correo': correo, 'tlf': tlf, 'rol': rol }, { headers: headers });
   };
 }

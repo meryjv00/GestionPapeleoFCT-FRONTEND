@@ -1,29 +1,35 @@
 <div class="container-fluid">
     <main class="row">
-        <div class="col-md-4 mx-auto border px-5 py-5 mt-5">
+        <div class="col-11 col-md-5 mx-auto border px-5 py-5 mt-5">
             <h2 class="text-center">Login</h2>
+
             <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <label class="col-md-3">Email</label>
-                    <input class="col-md-6" type="email" formControlName="email" />
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email: </label>
+                    <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp">
                     <div *ngIf="submitted && formulario.email.errors">
                         <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
                         <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <label class="col-md-3">Password</label>
-                    <input class="col-md-6" type="password" formControlName="password" />
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña: </label>
+                    <input type="password" class="form-control" formControlName="password" id="password">
                     <div *ngIf="submitted && formulario.password.errors">
                         <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <button class="btn btn-primary col-md-3 offset-md-3">Entrar</button>
-                    <button (click)="irRegistro()" class="btn btn-primary col-md-3 ml-1">Registrate</button>
-                    <!--<button class="col-md-3 btn border ml-2" type="reset" (click)="onReset()">Cancelar</button>-->
+                <div class="mt-1">{{message}}</div>
+                <p>¿Todavía no tienes cuenta? <a href="/registroUsuario">Registrate aquí</a></p>
+                <p><a href="/registroUsuario">¿Has olvidado la contraseña?</a></p>
+
+                <!--
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
                 </div>
-                <div class="text-center mt-1">{{message}}</div>
+                -->
+                <button class="btn btn-primary w-25">Entrar</button>
             </form>
         </div>
     </main>

@@ -14,21 +14,23 @@ export class RegistroPersonaComponent implements OnInit {
   nuevoRegistro: FormGroup;
   submitted = false;
   persona: any;
-
+  rolSeleccionado: any;
+  mensaje: any;
   constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private formBuilder: FormBuilder, private router: Router,private RegistroService: RegistroService) {
     this.nuevoRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       localidad: ['', [Validators.required]],
       residencia: ['', [Validators.required]],
-      tlf: ['', [Validators.required]],
-      rol: ['', [Validators.required]]
+      correo: ['', [Validators.required]],
+      tlf: ['', [Validators.required]]
     });
     this.persona = {
       nombre:'',
       apellidos: '',
       localidad:'',
       residencia:'',
+      correo: '',
       tlf:'' 
     };
   }
@@ -39,7 +41,7 @@ export class RegistroPersonaComponent implements OnInit {
   IsPer(dni: string) {
     this.IsPersonaService.existePersona(dni).subscribe(
       (response: any) => { 
-        //console.log(response.message);
+        console.log(response.message);
         if(response.message.persona != null){
           this.persona = response.message.persona;
         } 
@@ -56,7 +58,12 @@ export class RegistroPersonaComponent implements OnInit {
     if (this.nuevoRegistro.invalid) {
       return;
     }
-
+    console.log(this.rolSeleccionado);
+    if(!this.rolSeleccionado){
+      this.mensaje = "Seleccione un rol, porfavor";
+      return;
+    }
+    
     let datosUsuario = this.nuevoRegistro.value;
     const email = this.ArrayUsService.getEmail();
     const dni = this.ArrayUsService.getDni();
@@ -64,14 +71,15 @@ export class RegistroPersonaComponent implements OnInit {
     const apellidos = datosUsuario.apellidos;
     const localidad = datosUsuario.localidad;
     const residencia = datosUsuario.residencia;
+    const correo = datosUsuario.correo;
     const tlf = datosUsuario.tlf;
-    const rol = datosUsuario.rol;
-    this.registro(email, dni, nombre, apellidos, localidad, residencia, tlf,rol)
-    this.onReset();
+    const rol = this.rolSeleccionado;
+    this.registro(email, dni, nombre, apellidos, localidad, residencia,correo, tlf,rol);
+    this.onReset(); 
   }
 
-  registro(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any, rol:any) {
-    this.RegistroService.RegistroPersona(email, dni, nombre, apellidos, localidad, residencia, tlf,rol).subscribe(
+  registro(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, correo:any, tlf: any, rol:any) {
+    this.RegistroService.RegistroPersona(email, dni, nombre, apellidos, localidad, residencia,correo, tlf,rol).subscribe(
       (response: any) => {
         console.log(response);
         console.log("Registro correcto");
@@ -92,4 +100,8 @@ export class RegistroPersonaComponent implements OnInit {
     this.onReset();
   }
 
+  onChange(idRol: any){
+    console.log(idRol);
+    this.rolSeleccionado = idRol;
+  }
 }

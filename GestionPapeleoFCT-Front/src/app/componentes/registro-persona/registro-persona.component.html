@@ -31,6 +31,13 @@
                 </div>
             </div>
             <div>
+                <label>Correo: </label>
+                <input type="text" formControlName="correo" [(ngModel)]="persona.correo" />
+                <div *ngIf="submitted && formulario.correo.errors">
+                    <div *ngIf="formulario.correo.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
                 <label>Telefono: </label>
                 <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="persona.tlf">
                 <div *ngIf="submitted && formulario.tlf.errors">
@@ -39,13 +46,12 @@
             </div>
             <div>
                 <label>Rol: </label>
-                <select formControlName="rol">
-                        <option value="2">Jefe Estudios</option>
-                        <option value="3" selected="true">Tutor</option>
-                    </select>
-                <div *ngIf="submitted && formulario.rol.errors">
-                    <div *ngIf="formulario.rol.errors.required">No puede estar vacío</div>
-                </div>
+                <select #selectRoles (change)="onChange(selectRoles.value)" class="form-select">
+                    <option selected>Elige el rol</option>
+                    <option value="2">Jefe Estudios</option>
+                    <option value="3">Tutor</option>
+                </select>
+                <p *ngIf="mensaje">{{mensaje}}</p>
             </div>
         </div>
         <div>

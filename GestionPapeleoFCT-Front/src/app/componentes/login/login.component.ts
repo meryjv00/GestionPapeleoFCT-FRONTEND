@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       nombre: "",
       localidad: "",
       residencia: "",
+      correo: "",
       telefono: "",
       rol: ""
     }
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
         this.user.nombre = response.message.datos_user.nombre;
         this.user.residencia = response.message.datos_user.residencia;
         this.user.localidad = response.message.datos_user.localidad;
+        this.user.correo = response.message.datos_user.correo
         this.user.telefono = response.message.datos_user.tlf;
         this.user.rol = response.message.rol;
         //Guardamos el usuario en session storage
@@ -86,11 +88,4 @@ export class LoginComponent implements OnInit {
     this.nuevoLogin.reset();
   }
 
-  cancel() {
-    this.onReset();
-  }
-
-  irRegistro(){
-    this.router.navigate(['/registroUsuario']);
-  }
 }

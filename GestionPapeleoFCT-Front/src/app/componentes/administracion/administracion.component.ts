@@ -18,6 +18,9 @@ export class AdministracionComponent implements OnInit {
   submittedAlumnos = false;
   profesoresCSV: FormGroup;
   alumnosCSV: FormGroup;
+  profCSV: any;
+  alumnCSV: any;
+
   //--Cursos
   haCambiado = false;
   cursos: any[]; //Cursos importación 
@@ -34,6 +37,7 @@ export class AdministracionComponent implements OnInit {
   tutorSeleccionado: any;
   cursoSeleccionado2: any;
   cursosSinTutor: any[];
+  cursosCargados = false;
 
   //------------------------------------------------------------
   //--CONSTRUCTOR
@@ -95,7 +99,6 @@ export class AdministracionComponent implements OnInit {
           this.cursos2.push(curso);
         });
         this.onChange(this.cursos[0].id);
-        this.onChangeCurso(this.cursos[0].id);
         this.totalCursos = this.cursos.length;
       },
       (error) => {
@@ -129,9 +132,7 @@ export class AdministracionComponent implements OnInit {
     if (this.profesoresCSV.invalid) {
       return;
     }
-    var csv = this.profesoresCSV.value.profesoresCSV;
-    console.log(csv);
-    this.administracionService.insertProfesores(csv).subscribe(
+    this.administracionService.insertProfesores(this.profCSV).subscribe(
       (response: any) => {
         console.log(response.message);
         alert("Profesores añadidos correctamente");
@@ -140,9 +141,15 @@ export class AdministracionComponent implements OnInit {
         console.log(error);
       }
     );
-    this.router.navigate(['/csv']);
   }
 
+  guardarProfesoresCSV(event: any) {
+    this.profCSV = <File>event.target.files[0]
+  }
+  guardarAlumnosCSV(event: any) {
+    this.alumnCSV = <File>event.target.files[0]
+  }
+  
   /**
    * Se añaden nuevos alumnos del CSV insertado
    */
@@ -151,12 +158,11 @@ export class AdministracionComponent implements OnInit {
     if (this.alumnosCSV.invalid) {
       return;
     }
-    this.administracionService.insertAlumnos(this.cursoSeleccionado).subscribe(
+    this.administracionService.insertAlumnos(this.alumnCSV,this.cursoSeleccionado).subscribe(
       (response: any) => {
-        //console.log(response);
+        console.log(response.message);
         this.cursos.forEach((curso, index) => {
           if (curso.id == this.cursoSeleccionado.id) {
-            //console.log(curso.id);
             this.cursos.splice(index, 1);
           }
         });
@@ -182,7 +188,6 @@ export class AdministracionComponent implements OnInit {
   getTutores() {
     this.administracionService.getTutores().subscribe(
       (response: any) => {
-        //console.log(response);
         let profesores = response.message;
         if (profesores.length > 0) {
           profesores.forEach((element: {
@@ -227,7 +232,7 @@ export class AdministracionComponent implements OnInit {
  * @param value Recibe como parametro el id del curso seleccionado
  */
   onChangeCurso(value: any) {
-    this.haCambiado = true;
+    this.cursosCargados = true;
     this.cursos.forEach((curso: { id: any; }) => {
       if (value == curso.id) {
         this.cursoSeleccionado2 = curso;
@@ -246,13 +251,13 @@ export class AdministracionComponent implements OnInit {
       if (convertirTutor) {
         this.administracionService.addTutorCurso(this.tutorSeleccionado, this.cursoSeleccionado2).subscribe(
           (response: any) => {
-            console.log(response);
             alert('Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
 
             //Elimina el curso asignado de la lista de cursos sin tutor
             this.cursosSinTutor.forEach((curso, index) => {
               if (curso.id == this.cursoSeleccionado2.id) {
                 this.cursosSinTutor.splice(index, 1);
+                this.cursoSeleccionado2 = this.cursosSinTutor[0];
               }
             });
           },
@@ -287,6 +292,7 @@ export class AdministracionComponent implements OnInit {
           };
           this.cursosSinTutor.push(curso);
         });
+        this.onChangeCurso(this.cursosSinTutor[0].id);
       },
       (error) => {
         console.log(error);
@@ -294,6 +300,7 @@ export class AdministracionComponent implements OnInit {
     );
 
   }
+
 
   //----------------------------------------------------------
   //--------------------ADMINISTRACIÓN CUENTAS----------------
@@ -368,7 +375,6 @@ export class AdministracionComponent implements OnInit {
     if (cambiarRol) {
       this.administracionService.cambiarRol(dni, this.personaSeleccionada.rol).subscribe(
         (response: any) => {
-          console.log(response);
           //Busca esa persona para actualizarle el rol
           this.cuentasAdministrar.forEach((profesor, index) => {
             if (profesor.dni == dni) {
@@ -403,10 +409,13 @@ export class AdministracionComponent implements OnInit {
     if (activarCuenta) {
       this.administracionService.activarCuenta(dni).subscribe(
         (response: any) => {
-          console.log(response);
           this.cuentasAdministrar.forEach((profesor, index) => {
             if (profesor.dni == dni) {
+              if (profesor.rol == 3) {
+                this.tutores.push(profesor);
+              }
               this.cuentasAdministrar.splice(index, 1);
+
             }
           });
         },
@@ -427,7 +436,6 @@ export class AdministracionComponent implements OnInit {
     if (denegarAcceso) {
       this.administracionService.denegarAccesoCuenta(dni).subscribe(
         (response: any) => {
-          console.log(response);
           this.cuentasAdministrar.forEach((profesor, index) => {
             if (profesor.dni == dni) {
               this.cuentasAdministrar.splice(index, 1);

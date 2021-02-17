@@ -16,18 +16,21 @@ export class AdministracionService {
 
   //Insertar profesores CSV
   public insertProfesores = (csv: File) => {
-    //const formData = new FormData(); 
-    //formData.append('csvProfesores', csv, csv.name);
     const url = "http://localhost:8000/api/generarProfesores";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}`, 'enctype': 'mulipart/form-data' });
-    return this.http.put(url, { 'profesores': csv }, { headers: headers });
+    const fd = new FormData;
+    fd.append('csv', csv, csv.name);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, fd, { headers: headers });
   };
 
   //Insertar alumnos CSV
-  public insertAlumnos = (cursoSeleccionado: any) => {
-    const url = "http://localhost:8000/api/generarAlumnos";
+  public insertAlumnos = (csv:File, cursoSeleccionado: any) => {
+    const url = "http://localhost:8000/api/generarAlumnos/" + cursoSeleccionado.id + "/" + cursoSeleccionado.cicloFormativoA;
+    const fd = new FormData;
+    fd.append('csv', csv, csv.name);
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, { 'id': cursoSeleccionado.id, 'cicloFormativoA': cursoSeleccionado.cicloFormativoA }, { headers: headers });
+    //return this.http.post(url,{ 'id': cursoSeleccionado.id, 'cicloFormativoA': cursoSeleccionado.cicloFormativoA, 'formu': fd}, { headers: headers });
+    return this.http.post(url, fd, { headers: headers });
   };
 
   //Añade a un nuevo profesor como jefe de estudios
@@ -46,10 +49,10 @@ export class AdministracionService {
   }
 
   //Cambia el rol al contrario que tenga
-  public cambiarRol = (dni: any,rol:any) => {
+  public cambiarRol = (dni: any, rol: any) => {
     const url = "http://localhost:8000/api/cambiarRol";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, {'dni': dni, 'rol': rol}, { headers: headers });
+    return this.http.post(url, { 'dni': dni, 'rol': rol }, { headers: headers });
   };
 
   //Activa la cuenta del usuario cuyo dni recibe por parámetro
@@ -59,14 +62,14 @@ export class AdministracionService {
     return this.http.put(url, { 'dni': dni }, { headers: headers });
   };
 
-  
+
   //Deniega acceso a la cuenta del usuario cuyo dni recibe por parámetro
   public denegarAccesoCuenta = (dni: any) => {
     const url = "http://localhost:8000/api/denegarAccesoCuenta/" + dni;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'dni': dni }, { headers: headers });
   };
-  
+
   //Obtiene todos los tutores
   public getTutores = () => {
     const url = "http://localhost:8000/api/getTutores";
