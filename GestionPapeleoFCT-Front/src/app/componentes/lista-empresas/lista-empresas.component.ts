@@ -19,8 +19,7 @@ export class ListaEmpresasComponent implements OnInit {
   mensaje: any;
   textoAddEmpresa: any;
 
-  constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router, private listaEmpresasService: ListaEmpresasService) {
-  constructor(private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
+  constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
     this.empresas = [];
     this.crearNueva = false;
     this.mensaje = "";
@@ -128,7 +127,7 @@ export class ListaEmpresasComponent implements OnInit {
       'idEmpresa': 1,
       'idCurso': 1
     }
-    this.anexosService.anexo5(datos).subscribe(
+    this.anexosService.anexo4(datos).subscribe(
       (response: any) => {
         console.log(response);
         let enlace = environment.dirBack + 'descargar/' + response.message;
