@@ -18,6 +18,16 @@ export class AdminEmpresasService {
     this.message = "";
   }
 
+  //Carga una lista con todas las empresas
+  public getEmpresas = () => {
+    const url = "http://localhost:8000/api/empresas";
+
+    console.log(this.loginService.getUser().access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+
+    return this.http.get(url, { headers: headers });
+  }
+
   //Insertar empresa
   public insertEmpresa = (empresa: any) => {
     const url = "http://localhost:8000/api/insertEmpresa";

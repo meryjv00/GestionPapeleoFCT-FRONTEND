@@ -1,40 +1,50 @@
 <body class="dark">
     <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
         <div>
-            <h1>registro persona</h1>
+            <h1>Completa tu perfil</h1>
             <div>
-                <label>nombre</label>
-                <input type="text" formControlName="nombre" />
+                <label>Nombre: </label>
+                <input type="text" formControlName="nombre" [(ngModel)]="persona.nombre" />
                 <div *ngIf="submitted && formulario.nombre.errors">
                     <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
-                <label>apellidos</label>
-                <input type="text" formControlName="apellidos" />
+                <label>Apellidos: </label>
+                <input type="text" formControlName="apellidos" [(ngModel)]="persona.apellidos" />
                 <div *ngIf="submitted && formulario.apellidos.errors">
                     <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
-                <label>localidad</label>
-                <input type="text" formControlName="localidad" />
+                <label>Localidad: </label>
+                <input type="text" formControlName="localidad" [(ngModel)]="persona.localidad" />
                 <div *ngIf="submitted && formulario.localidad.errors">
                     <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
-                <label>residencia</label>
-                <input type="text" formControlName="residencia" />
+                <label>Residencia: </label>
+                <input type="text" formControlName="residencia" [(ngModel)]="persona.residencia" />
                 <div *ngIf="submitted && formulario.residencia.errors">
                     <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
                 </div>
             </div>
             <div>
-                <label>Telefono</label>
-                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$">
+                <label>Telefono: </label>
+                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="persona.tlf">
                 <div *ngIf="submitted && formulario.tlf.errors">
                     <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
+                </div>
+            </div>
+            <div>
+                <label>Rol: </label>
+                <select formControlName="rol">
+                        <option value="2">Jefe Estudios</option>
+                        <option value="3" selected="true">Tutor</option>
+                    </select>
+                <div *ngIf="submitted && formulario.rol.errors">
+                    <div *ngIf="formulario.rol.errors.required">No puede estar vacío</div>
                 </div>
             </div>
         </div>
@@ -42,6 +52,5 @@
             <button>Enviar</button>
             <button type="reset" (click)="onReset()">Cancelar</button>
         </div>
-        <div>{{message}}</div>
     </form>
 </body>

@@ -16,35 +16,33 @@ export class RegistroService {
 
   constructor(private ArrayUsService: ArrayUsService, private router: Router, private http: HttpClient,private loginService: LoginService) {
     this.user = {
-      access_token: "",
-      email: "",rol:""
+      email: "",
+      rol:""
     }
     this.message = "";
   }
    /**
    * Petición de registro
    * */
-  public Registro = (dni: string, email: string, password: string, rol: string) => {
+  public Registro = (dni: string, email: string, password: string) => {
     const url = "http://localhost:8000/api/register";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password, 'rol': rol }, { headers: headers });
+    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password }, { headers: headers });
   };
   /**
    * Subscripción a la petición de Registro, si todo es correcto, la almacena en session storage y
    * vamos a /home. Si se produce un error lo muestra
    * */
-  public registroSuscription(dni: string, email: string, password: string, rol: string) {
-    this.Registro(dni, email, password, rol).subscribe(
+  public registroSuscription(dni: string, email: string, password: string) {
+    this.Registro(dni, email, password).subscribe(
       (response: any) => {
         console.log(response);
-        this.ArrayUsService.setArray(email,dni,rol);
+        this.ArrayUsService.setArray(email,dni);
         this.message = "Registro correcto";
-        this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
-        this.user.rol = this.ArrayUsService.getRol();
         this.router.navigate(['registroPersona']);
       },
       (error) => {
@@ -52,4 +50,13 @@ export class RegistroService {
       }
     );
   }
+
+  public RegistroPersona = (email:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any, rol:any) => {
+    const url = "http://localhost:8000/api/register_persona";
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post(url, {'email' : email, 'dni': dni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf, 'rol': rol }, { headers: headers });
+  };
 }

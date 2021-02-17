@@ -18,6 +18,10 @@ import { RegistroUserComponent } from './componentes/registro-user/registro-user
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
+import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
+import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
+import { AdministracionComponent } from './componentes/administracion/administracion.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,12 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
     RegistroUserComponent,
     RegistroPersonaComponent,
     OpcionesComponent,
-    PerfilComponent
+    PerfilComponent,
+    InfCentroComponent,
+    PerfilComponent,
+    NuevoCursoComponent,
+    ActualizarCursoComponent,
+    AdministracionComponent,
   ],
   imports: [
     BrowserModule,

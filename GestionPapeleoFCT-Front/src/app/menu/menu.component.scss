@@ -1,91 +1,113 @@
-//Colores principales
-//$boton-main2: #ff4f87;
-$boton-main2: black;
-$blanco-menu: #FFFF;
-$color-gris: #636c6e;
 //Breakpoints
 $breakpoint-movil: 576px;
-$breakpoint-tablet: 768px;
-$breakpoint-ordenador: 992px;
+$breakpoint-tablet: 762px;
+$breakpoint-ordenador: 994px;
 $breakpoint-ordenadorl: 1200px;
+
 //--------------------------------------
 //--------------------------------------
 aside {
-    padding-top: 1rem;
-    padding-right: 1rem;
-    height: 100vh;
-    background-color: $blanco-menu;
-    div.user {
-        margin: 0.4rem;
-        img {
-            display: block;
-            margin: auto;
-            height: 90px;
-        }
-        h4,
-        p {
-            text-align: center;
-        }
+  padding-top: 1rem;
+  padding-right: 1rem;
+  height: 100vh;
+
+  div.user {
+    margin: 0.4rem;
+
+    img {
+      display: block;
+      margin: auto;
+      height: 90px;
     }
-    div.enlaces {
-        button {
-            margin: 0.4rem;
-            text-align: left;
-            font-family: Jost_500;
-            padding: .45em 1em;
-            font-weight: 500;
-            letter-spacing: .2px;
-            font-size: 17px;
-            i {
-                font-size: 18px;
-                width: 1.20rem;
-                margin-left: 1rem;
-            }
-            span {
-                color: $color-gris;
-            }
-            &:hover {
-                transform: translateY(-3px);
-                //box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
-                box-shadow: 0 10px 34px 0 rgba(54, 8, 23, 0.32);
-            }
-        }
-        //Boton seleccionado
-        button.active {
-            background-color: $boton-main2;
-            span,
-            i {
-                color: white;
-            }
-        }
+
+    h4,
+    p {
+      text-align: center;
     }
+  }
+
+  div.enlaces {
+    button {
+      margin: 0.4rem;
+      text-align: left;
+      font-family: Jost_500;
+      padding: .45em 1em;
+      font-weight: 500;
+      letter-spacing: .2px;
+      font-size: 17px;
+      transition: all 0.2s linear;
+
+      i {
+        font-size: 18px;
+        width: 1.20rem;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        //box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
+        box-shadow: 0 10px 34px 0 rgba(54, 8, 23, 0.32);
+      }
+    }
+
+    //Boton seleccionado
+    button.active {
+      background-color: #446c77;
+
+      span,
+      i {
+        color: white;
+      }
+    }
+  }
 }
 
 //--------------------------------------
 //--------------------------------------
 //MOVIL
 @media (max-width: $breakpoint-movil) {
-    #opciones,
-    #buscador {
-        margin-top: 0.40rem;
-    }
-    button {
+
+  #opciones,
+  #buscador {
+    margin-top: 0.40rem;
+  }
+
+  aside {
+    div.enlaces {
+      button.btn-aside {
         padding: 1rem;
-        i {
-            padding-left: 0.80em;
-        }
+        text-align: center;
         span {
-            display: none;
+          display: none;
         }
+      }
     }
+  }
 }
 
 //TABLET - MÓVIL
-@media (max-width: $breakpoint-tablet) {
-    aside {
-        height: auto;
-        div.enlaces {
-            margin-left: 0.50rem;
-        }
+@media (max-width: $breakpoint-ordenador) {
+  aside {
+    display: flex;
+    align-items: flex-end;
+    justify-content: stretch;
+    padding-top: 0;
+    div.user {
+      img {
+        height: 45px;
+      }
+      p, h4 {
+          display: none;
+      }
     }
+    height: auto;
+    div.enlaces {
+        flex-grow: 1;
+      button.btn-aside {
+        text-align: center;
+        span {
+          display: none;
+        }
+      }
+    }
+  }
 }
