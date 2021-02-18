@@ -85,7 +85,6 @@ export class InfCentroComponent implements OnInit {
   get formulario() { return this.nuevoRegistro.controls; }
 
   onSubmit() {
-    console.log("aqui");
     this.submitted = true;
     if (this.nuevoRegistro.invalid) {
       return;
@@ -120,10 +119,6 @@ export class InfCentroComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.nuevoRegistro.reset();
-  }
-
-  cancel() {
-    this.onReset();
   }
 
 }

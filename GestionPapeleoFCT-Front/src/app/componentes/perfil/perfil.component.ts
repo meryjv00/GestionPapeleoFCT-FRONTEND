@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModUsService } from 'src/app/servicios/mod-us.service';
 
 @Component({
   selector: 'app-perfil',
@@ -7,12 +9,70 @@ import { LoginService } from 'src/app/servicios/login.service';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+  nuevoRegistro: FormGroup;
   user: any;
-  constructor(loginService: LoginService) {
-    this.user = loginService.getUser();
+  submitted = false;
+
+
+  constructor(private loginService: LoginService,private formBuilder: FormBuilder, private mod_user: ModUsService) {
+    this.nuevoRegistro = this.formBuilder.group({
+      email: '',
+      nombre: '',
+      apellidos: '',
+      dni: '',
+      localidad: '',
+      residencia: '',
+      telefono: ''
+    });
+    this.user = this.loginService.getUser();
   }
+
+  get formulario() { return this.nuevoRegistro.controls; }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    this.submitted = true;
+    if (this.nuevoRegistro.invalid) {
+      return;
+    }
+    let datosUsuario = this.nuevoRegistro.value;
+    const email = datosUsuario.email;
+    const dni = this.user.dni;
+    const nombre = datosUsuario.nombre;
+    const apellidos = datosUsuario.apellidos;
+    const localidad = datosUsuario.localidad;
+    const residencia = datosUsuario.residencia;
+    const tlf = datosUsuario.telefono;
+    this.update(email, dni, nombre, apellidos, localidad, residencia, tlf);
+    this.onReset();
+  }
+
+  update(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
+    this.mod_user.Mod_user(email, dni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+      (response: any) => {
+        console.log(response);
+        console.log("Registro correcto");
+        this.user.email=email;
+        this.user.dni=dni;
+        this.user.nombre=nombre;
+        this.user.apellidos=apellidos;
+        this.user.localidad=localidad;
+        this.user.residencia=residencia;
+        this.user.tlf=tlf;
+        this.loginService.saveUser(this.user);
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
+    );
+  }
+
+
+
+  onReset() {
+    this.submitted = false;
+    this.user = this.loginService.getUser();
+  }
 }

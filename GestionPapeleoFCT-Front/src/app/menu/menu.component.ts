@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../servicios/login.service';
 
@@ -8,18 +8,19 @@ import { LoginService } from '../servicios/login.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  user: any;
+  @Input() user: any;
   constructor(private loginService: LoginService,private router: Router) {
     this.user = this.loginService.getUser();
-   }
-
-  ngOnInit(): void {
   }
 
-    //Cerrar sesión
+
+  ngOnInit(): void {
+    this.user = this.loginService.getUser();
+  }
+  
+  //Cerrar sesión
   logOut(){
     this.loginService.logout();
     this.router.navigate(['/login']);
   }
-
 }

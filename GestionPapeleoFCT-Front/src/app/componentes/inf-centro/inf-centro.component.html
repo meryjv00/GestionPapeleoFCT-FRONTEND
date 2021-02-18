@@ -33,9 +33,11 @@
                         </div>
                     </div>
                     <div class="card-footer justify-content-end row bg-secondary">
-                        <button type="button" *ngif="user.rol=='Director'" aria-hidden="true" class="btn btn-secondary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-edit" aria-hidden="true"></i>Editar
-                        </button>
+                        <div *ngIf="user.rol=='Director'">
+                            <button type="button" aria-hidden="true" class="btn btn-primary fa fa-pencil" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-edit" aria-hidden="true"></i>Editar
+                            </button>
+                        </div>
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -114,7 +116,7 @@
                                         </div>
                                         <div class="modal-footer bg-secondary">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                                            <button type="submit" class="btn btn-success" data-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                                            <button class="btn btn-success" data-dismiss="modal" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
                                         </div>
                                     </form>
                                 </div>
