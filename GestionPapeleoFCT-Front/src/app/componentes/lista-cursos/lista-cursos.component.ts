@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/modal-add-alumno-practica.component';
 
 @Component({
     selector: 'app-lista-cursos',
@@ -27,7 +29,7 @@ export class ListaCursosComponent implements OnInit {
     @ViewChild("selectEmpresasNoCurso") selectEmpresasNoCurso: ElementRef | undefined;
 
     constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
-        private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService) {
+        private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService, private modal: NgbModal) {
         if (!loginService.isUserSignedIn()) {
             this.router.navigate(['/login']);
         }
@@ -51,6 +53,8 @@ export class ListaCursosComponent implements OnInit {
         // Si existe recojo el curso modificado para volver a el
         if (this.route.snapshot.paramMap.get('id') != null) {
             this.idUpdate = this.route.snapshot.paramMap.get('id');
+            console.log('update' + this.idUpdate);
+            
         }
     }
 
@@ -339,9 +343,9 @@ export class ListaCursosComponent implements OnInit {
 
 
     // Metodo para eliminar una empresa para practicas en un curso
-    deleteEmpresaCurso(id: any) {        
+    deleteEmpresaCurso(id: any) {
         // Lo que paso por parametro es el id de la tabla que relaciona idEmpresa con idCurso
-        
+
         let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar esta empresa?");
         if (seguroEliminar) {
             this.listaCursosService.deleteEmpresaCurso(id).subscribe(
@@ -353,6 +357,18 @@ export class ListaCursosComponent implements OnInit {
                 }
             );
         }
+    }
+
+    // Método que lanza un modal para añadir alumnos a las practicas en un empresa
+    addAlumnoCurso() {
+        let idCur = this.cursoSeleccionado.id;
+        console.log('llamada modal: ' + idCur);
+        
+        const modalRef = this.modal.open(ModalAddAlumnoPracticaComponent);
+        modalRef.componentInstance.idCur = idCur;
+        modalRef.componentInstance["eventOk"].subscribe((event: any) => {
+            //
+        });
     }
 
 }

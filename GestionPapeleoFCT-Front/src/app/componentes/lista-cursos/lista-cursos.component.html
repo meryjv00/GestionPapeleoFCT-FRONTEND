@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <main class="row">
     <!--**************************************MENU***************************************-->
-    <div id="menu" class="col-12 col-lg-3 pr-0 bg-light border-right">
+    <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
       <app-menu></app-menu>
     </div>
     <!--***********************************CONTENIDO***************************************-->
@@ -99,7 +99,7 @@
                     <td>{{ empresaS.nombreRepresentante }}</td>
                     <td>Nº Alumnos</td>
                     <td>
-                      <button (click)="addAlumno()" class="btn btn-primary ml-2 py-0">
+                      <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-primary ml-2 py-0">
                         <i class="fas fa-user-plus fa-xs"></i>
                       </button>
                       <button (click)="deleteEmpresaCurso(empresaS.id)" class="btn btn-primary ml-2 py-0">
