@@ -53,4 +53,33 @@ export class ListaCursosService {
         return this.http.get(url, { headers: headers });
     };
 
+    // Método para obtener las empresas que no estan ligadas al curso
+    public getEmpresasNoCurso = (id: any) => {
+        const url = "http://localhost:8000/api/empresasNoCurso/" + id;
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+        return this.http.get(url, { headers: headers });
+    };
+
+    // Método para obtener las empresas que no estan ligadas al curso
+    public getEmpresasCurso = (id: any) => {
+        const url = "http://localhost:8000/api/empresasCurso/" + id;
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+        return this.http.get(url, { headers: headers });
+    };
+
+    // Método para agregar una nueva empresa a un curso para realizar practicas
+    public addEmpresaCurso(idCurso: any, idEmpresa: any) {
+        const url = "http://localhost:8000/api/addEmpresaCurso";
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+        return this.http.post(url, { 'idCurso': idCurso, 'idEmpresa': idEmpresa }, { headers: headers });
+    };
+
+    // Métodopara eliminar una empresa en un curso para realizar las practicas
+    public deleteEmpresaCurso(id: any) {
+        
+        const url = "http://localhost:8000/api/deleteEmpresaCurso/" + id;
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+        return this.http.delete(url, { headers: headers });
+    }
+
 }

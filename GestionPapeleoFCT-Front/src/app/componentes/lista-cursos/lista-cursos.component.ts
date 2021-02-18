@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnexosService } from 'src/app/servicios/anexos.service';
@@ -16,12 +16,15 @@ export class ListaCursosComponent implements OnInit {
     cursos: any[];
     alumnos: any[];
     anexos: any[];
+    empresasNoCurso: any[];
+    empresasCurso: any[];
     cursoSeleccionado: any;
     haCambiado = false;
     user: any;
     mensaje: any;
     idUpdate: any;
     cicloFormativoSelect = new FormControl('');
+    @ViewChild("selectEmpresasNoCurso") selectEmpresasNoCurso: ElementRef | undefined;
 
     constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
         private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService) {
@@ -31,6 +34,8 @@ export class ListaCursosComponent implements OnInit {
         this.cursos = [];
         this.alumnos = [];
         this.anexos = [];
+        this.empresasNoCurso = [];
+        this.empresasCurso = [];
         this.mensaje = "";
         this.user = this.loginService.getUser();
     }
@@ -77,9 +82,6 @@ export class ListaCursosComponent implements OnInit {
                 } else {
                     this.onChange(this.cursos[0].id);
                 }
-                console.log(this.cursoSeleccionado);
-                console.log(this.cursos);
-
             },
             (error) => {
                 console.log(error);
@@ -115,7 +117,6 @@ export class ListaCursosComponent implements OnInit {
                         };
                         this.cursos.push(curso);
                     });
-
                     if (this.idUpdate) {
                         this.onChange(this.idUpdate);
                     } else {
@@ -158,6 +159,68 @@ export class ListaCursosComponent implements OnInit {
         );
     }
 
+    // Cogemos las empresas que aun no participan en las prácticas del curso
+    getEmpresasNoCurso() {
+        this.empresasNoCurso = [];
+        this.listaCursosService.getEmpresasNoCurso(this.cursoSeleccionado.id).subscribe(
+            (response: any) => {
+                let empresas = response.message;
+                empresas.forEach((element: {
+                    id: any; nombre: any; provincia: any; localidad: any; calle: any;
+                    cp: any; cif: any; tlf: any, email: any, dniRepresentante: any, nombreRepresentante: any;
+                }) => {
+                    let empresa = {
+                        'id': element.id,
+                        'nombre': element.nombre,
+                        'provincia': element.provincia,
+                        'localidad': element.localidad,
+                        'calle': element.calle,
+                        'cp': element.cp,
+                        'cif': element.cif,
+                        'tlf': element.tlf,
+                        'dniRepresentante': element.dniRepresentante,
+                        'nombreRepresentante': element.nombreRepresentante
+                    };
+                    this.empresasNoCurso.push(empresa);
+                });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
+    // Cogemos las empresas que participan en las prácticas del curso
+    getEmpresasCurso() {
+        this.empresasCurso = [];
+        this.listaCursosService.getEmpresasCurso(this.cursoSeleccionado.id).subscribe(
+            (response: any) => {
+                let empresas = response.message;
+                empresas.forEach((element: {
+                    id: any; nombre: any; provincia: any; localidad: any; calle: any;
+                    cp: any; cif: any; tlf: any, email: any, dniRepresentante: any, nombreRepresentante: any;
+                }) => {
+                    let empresa = {
+                        'id': element.id,
+                        'nombre': element.nombre,
+                        'provincia': element.provincia,
+                        'localidad': element.localidad,
+                        'calle': element.calle,
+                        'cp': element.cp,
+                        'cif': element.cif,
+                        'tlf': element.tlf,
+                        'dniRepresentante': element.dniRepresentante,
+                        'nombreRepresentante': element.nombreRepresentante
+                    };
+                    this.empresasCurso.push(empresa);
+                });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
     /**
      * Evento del select que obtiene el curso seleccionado
      * @param value 
@@ -172,6 +235,8 @@ export class ListaCursosComponent implements OnInit {
         });
         this.alumnos = [];
         this.getAlumnos(this.cursoSeleccionado.id);
+        this.getEmpresasNoCurso();
+        this.getEmpresasCurso();
     }
 
     /**
@@ -242,18 +307,51 @@ export class ListaCursosComponent implements OnInit {
         let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar el curso de la Base de datos?");
         if (seguroEliminar) {
             this.cursosService.deleteCurso(this.cursoSeleccionado.id).subscribe(
-            (response: any) => {
-                this.cursos = [];
-                this.getCursos();
-                console.log(response);
-                this.onChange(this.cursos[0].id);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+                (response: any) => {
+                    this.cursos = [];
+                    this.getCursos();
+                    console.log(response);
+                    this.onChange(this.cursos[0].id);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
             alert("Curso eliminado.");
             this.router.navigate(['/listaCursos']);
+        }
+    }
+
+    // Metodo para añadir una empresa para practicas a un curso
+    addEmpresaCurso() {
+        // Si el select del curso tiene valor lo añado
+        if (this.selectEmpresasNoCurso) {
+            let empresaId = this.selectEmpresasNoCurso.nativeElement.value;
+            this.listaCursosService.addEmpresaCurso(this.cursoSeleccionado.id, empresaId).subscribe(
+                (response: any) => {
+                    this.onChange(this.cursos[0].id);
+                },
+                (error: any) => {
+                    console.log(error);
+                });
+        }
+    }
+
+
+    // Metodo para eliminar una empresa para practicas en un curso
+    deleteEmpresaCurso(id: any) {        
+        // Lo que paso por parametro es el id de la tabla que relaciona idEmpresa con idCurso
+        
+        let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar esta empresa?");
+        if (seguroEliminar) {
+            this.listaCursosService.deleteEmpresaCurso(id).subscribe(
+                (response: any) => {
+                    this.onChange(this.cursos[0].id);
+                },
+                (error: any) => {
+                    console.log(error);
+                }
+            );
         }
     }
 
