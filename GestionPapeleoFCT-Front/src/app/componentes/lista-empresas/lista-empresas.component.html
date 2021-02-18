@@ -1,14 +1,9 @@
 <div class="container-fluid">
     <main class="row">
-        <div id="menu" class="col-md-3 col-lg-2">
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu></app-menu>
         </div>
         <div id="contenido" class="col-md-9 col-lg-10">
-            <div name="opciones" class="row mt-2">
-                <div id="opciones" class="ml-auto">
-                    <app-opciones></app-opciones>
-                </div>
-            </div>
             <h5>{{mensaje}}</h5>
             <div class="row">
                 <div class="col-11 mt-2 mx-auto">
@@ -17,7 +12,6 @@
                         <app-nueva-empresa></app-nueva-empresa>
                     </div>
                 </div>
-                <button (click)="pruebaA5()">PRUEBAME</button>
                 <div id="empresas" class="col-lg-11 col-md-11 col-sm-11 col-11  mx-auto shadow-sm mt-2">
                     <div class="row py-3">
                         <ng-container *ngFor="let empresa of empresas; index as i;">

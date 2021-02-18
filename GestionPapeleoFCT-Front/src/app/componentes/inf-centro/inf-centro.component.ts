@@ -59,22 +59,19 @@ export class InfCentroComponent implements OnInit {
   IsCentr(){
     this.AdminCentroService.getCentro().subscribe(
       (response: any) => { 
-        console.log(response);
         this.centro = response.message.centro;
-        console.log(this.centro);
       },
       (error) => {
         this.message = error.error.message;
       }
     );
   }
+  
   getDirector(){
     this.AdminCentroService.getDirector().subscribe(
       (response: any) => { 
-        console.log(response);
         this.director.nombre = response.message.nombre;
         this.director.email = response.message.email;
-        console.log(this.centro);
       },
       (error) => {
         this.message = error.error.message;
@@ -105,11 +102,10 @@ export class InfCentroComponent implements OnInit {
     this.AdminCentroService.updateCentro(codigo, cif, nombre, provincia, localidad, cp, calle, email, tlf).subscribe(
       (response: any) => {
         console.log(response);
-        this.message = "Registro correcto";
-        this.router.navigate(['/infCentro']);
+        this.message = "Datos actualizados correctamente";
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.message);
       }
     );
     this.onReset();

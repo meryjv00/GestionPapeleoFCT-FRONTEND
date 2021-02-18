@@ -1,30 +1,35 @@
-<div class="container-fluid">
-    <main class="row">
-        <div class="col-md-4 mx-auto border px-5 py-5 mt-5">
-            <h2 class="text-center">Login</h2>
+<div id="body" class="container-fluid bg-secondary">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12">
+            <img class="d-block mx-auto my-3" src="https://i0.wp.com/cifpvirgendegracia.com/wp-content/uploads/2019/11/01-LOGO-CIFP-VdG-azul-120-sin-fondo-COLOR-JUNTA.png?resize=300%2C211&ssl=1" alt="imagen" width="150px">
+        </div>
+        <div id="formu" class="col-9 col-md-8 col-lg-5 mx-auto border bg-white shadow px-5 py-5">
+            <h1 class="text-center">Login</h1>
             <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <label class="col-md-3">Email</label>
-                    <input class="col-md-6" type="email" formControlName="email" />
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email: </label>
+                    <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp">
                     <div *ngIf="submitted && formulario.email.errors">
                         <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
                         <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <label class="col-md-3">Password</label>
-                    <input class="col-md-6" type="password" formControlName="password" />
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña: </label>
+                    <input type="password" class="form-control" formControlName="password" id="password">
                     <div *ngIf="submitted && formulario.password.errors">
                         <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <button class="btn btn-primary col-md-3 offset-md-3">Entrar</button>
-                    <button (click)="irRegistro()" class="btn btn-primary col-md-3 ml-1">Registrate</button>
-                    <!--<button class="col-md-3 btn border ml-2" type="reset" (click)="onReset()">Cancelar</button>-->
-                </div>
-                <div class="text-center mt-1">{{message}}</div>
+                <div class="mt-1">{{message}}</div>
+                <p><a href="/registroUsuario">¿Has olvidado la contraseña?</a></p>
+                <button class="btn btn-primary w-25">Entrar</button>
             </form>
         </div>
-    </main>
+    </div>
+    <div class="row">
+        <div class="col-9 col-md-8 col-lg-5 mx-auto pt-2">
+            <p>¿Todavía no tienes cuenta? <a href="/registroUsuario">Registrate aquí</a></p>
+        </div>
+    </div>
 </div>

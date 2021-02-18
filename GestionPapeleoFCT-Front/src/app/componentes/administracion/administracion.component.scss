@@ -1,4 +1,11 @@
-a {
-    text-decoration: underline;
-    color: blue;
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+.error {
+    color: rgb(252, 66, 66);
 }
