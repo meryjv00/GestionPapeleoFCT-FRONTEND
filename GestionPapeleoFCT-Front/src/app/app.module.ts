@@ -22,6 +22,7 @@ import { InfCentroComponent } from './componentes/inf-centro/inf-centro.componen
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AdministracionComponent } from './componentes/administracion/administra
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
   ],
