@@ -24,12 +24,11 @@ export class AdministracionService {
   };
 
   //Insertar alumnos CSV
-  public insertAlumnos = (csv:File, cursoSeleccionado: any) => {
+  public insertAlumnos = (csv: File, cursoSeleccionado: any) => {
     const url = "http://localhost:8000/api/generarAlumnos/" + cursoSeleccionado.id + "/" + cursoSeleccionado.cicloFormativoA;
     const fd = new FormData;
     fd.append('csv', csv, csv.name);
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    //return this.http.post(url,{ 'id': cursoSeleccionado.id, 'cicloFormativoA': cursoSeleccionado.cicloFormativoA, 'formu': fd}, { headers: headers });
     return this.http.post(url, fd, { headers: headers });
   };
 
@@ -40,13 +39,22 @@ export class AdministracionService {
     return this.http.post(url, { 'dniProf': profesor.dni }, { headers: headers });
   }
 
-  //Obtiene todos los jefes de estudio
+  //Obtiene todas las cuentas inactivas (jefes de estudio y tutores)
   public getCuentasAdministrar = () => {
     const url = "http://localhost:8000/api/getCuentasAdministrar";
     //console.log(this.loginService.user.access_token);
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
     return this.http.get(url, { headers: headers });
   }
+
+  //Obtiene todas las cuentas activas (jefes de estudio y tutores)
+  public getCuentasActivas = () => {
+    const url = "http://localhost:8000/api/getCuentasActivas";
+    //console.log(this.loginService.user.access_token);
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    return this.http.get(url, { headers: headers });
+  }
+
 
   //Cambia el rol al contrario que tenga
   public cambiarRol = (dni: any, rol: any) => {
@@ -55,9 +63,9 @@ export class AdministracionService {
     return this.http.post(url, { 'dni': dni, 'rol': rol }, { headers: headers });
   };
 
-  //Activa la cuenta del usuario cuyo dni recibe por parámetro
-  public activarCuenta = (dni: any) => {
-    const url = "http://localhost:8000/api/activarCuenta/" + dni;
+  //Activa o desactiva la cuenta del usuario cuyo dni recibe por parámetro
+  public activarDesactivarCuenta = (dni: any) => {
+    const url = "http://localhost:8000/api/activarDesactCuenta/" + dni;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'dni': dni }, { headers: headers });
   };
@@ -84,5 +92,11 @@ export class AdministracionService {
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'curso': curso, 'dniProfesor': profesor.dni }, { headers: headers });
   };
+
+  public reiniciarAlumnos = () => {
+    const url = "http://localhost:8000/api/reiniciarAlumnos";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    return this.http.get(url, { headers: headers });
+  }
 
 }

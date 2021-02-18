@@ -47,15 +47,16 @@ export class NuevoAlumnoComponent implements OnInit {
     if (this.nuevoAlumno.invalid) {
       return;
     }
-    //console.log(this.nuevoAlumno.value);
-    this.insertAlumno();
-    this.onReset();
+    let add = confirm("¿Estás seguro de que quieres añadir este alumno a el curso " +  this.curso.cicloFormativoA + "?");
+    if (add) {
+      this.insertAlumno();
+      this.onReset();
+    }
   }
 
   insertAlumno(){
     this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.curso).subscribe(
       (response: any) => {
-        //console.log(response);
         this.router.navigate(['/listaCursos']);
       },
       (error) => {

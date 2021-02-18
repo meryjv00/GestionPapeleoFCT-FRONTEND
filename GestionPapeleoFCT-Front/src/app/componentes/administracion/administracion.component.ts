@@ -12,7 +12,6 @@ import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 })
 
 export class AdministracionComponent implements OnInit {
-  //------------------------------------
   //--Formularios CSV
   submittedProfesores = false;
   submittedAlumnos = false;
@@ -21,23 +20,21 @@ export class AdministracionComponent implements OnInit {
   profCSV: any;
   alumnCSV: any;
 
-  //--Cursos
+  //--Arrays
+  cursos: any[];  //Todos los cursos
+  cursosSinAlumnos: any[]; //Cursos sin alumnos todavía
+  cursosSinTutor: any[]; //Cursos sin tutor todavía
+  cuentasAdministrar: any[]; //Cuentas de tutores y jefes de estudio inactivas
+  tutores: any[]; //Tutores de la aplicación
+  cuentasActivas: any[]; //Cuentas de tutores y jefes de estudio activas
+
+  //--Variables necesarias
+  cursoSeleccionado: any; //Curso sin alumnos seleccionado
+  cursoSeleccionado2: any; //Curso asignar tutor curso
+  tutorSeleccionado: any; //Tutor seleccionado para asignar a un curso
   haCambiado = false;
-  cursos: any[]; //Cursos importación 
-  cursoSeleccionado: any;
-  totalCursos: any;
-  cursosImportados = 0;
-  //------------------------------------
-  cuentasAdministrar: any[];
-  personaSeleccionada: any;
-  //------------------------------------
-  //--Tutores (Asignación tutor a curso)
-  cursos2: any[]; //Cursos totales
-  tutores: any[];
-  tutorSeleccionado: any;
-  cursoSeleccionado2: any;
-  cursosSinTutor: any[];
   cursosCargados = false;
+  personaSeleccionada: any;
 
   //------------------------------------------------------------
   //--CONSTRUCTOR
@@ -52,19 +49,22 @@ export class AdministracionComponent implements OnInit {
     this.alumnosCSV = this.formBuilder.group({
       alumnosCSV: ['', [Validators.required]]
     });
+    this.cursosSinAlumnos = [];
     this.cursos = [];
-    this.cursos2 = [];
     this.cuentasAdministrar = [];
     this.tutores = [];
     this.cursosSinTutor = [];
+    this.cuentasActivas = [];
   }
 
   //----------------------------------------------------------
   ngOnInit(): void {
     this.getCursos();
+    this.getCursosSinAlumnos();
     this.getCursosSinTutor();
     this.getCuentasAdministrar();
     this.getTutores();
+    this.getCuentasActivas();
   }
 
   //----------------------------------------------------------
@@ -96,10 +96,36 @@ export class AdministracionComponent implements OnInit {
             'nHoras': element.nHoras
           };
           this.cursos.push(curso);
-          this.cursos2.push(curso);
         });
-        this.onChange(this.cursos[0].id);
-        this.totalCursos = this.cursos.length;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+   * Se obtienen los cursos que todavía no tienen asignados alumnos
+   */
+  getCursosSinAlumnos() {
+    this.listaCursosService.getCursosSinAlumnos().subscribe(
+      (response: any) => {
+        let cursos = response.message;
+        cursos.forEach((element: {
+          id: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+          cursoAcademico: any; nHoras: any; cursos: any;
+        }) => {
+          let curso = {
+            'id': element.id,
+            'familiaProfesional': element.familiaProfesional,
+            'cicloFormativo': element.cicloFormativo,
+            'cicloFormativoA': element.cicloFormativoA,
+            'cursoAcademico': element.cursoAcademico,
+            'nHoras': element.nHoras
+          };
+          this.cursosSinAlumnos.push(curso);
+        });
+        this.onChange(this.cursosSinAlumnos[0].id);
       },
       (error) => {
         console.log(error);
@@ -113,17 +139,32 @@ export class AdministracionComponent implements OnInit {
    */
   onChange(value: any) {
     this.haCambiado = true;
-    this.cursos.forEach((curso: { id: any; }) => {
+    this.cursosSinAlumnos.forEach((curso: { id: any; }) => {
       if (value == curso.id) {
         this.cursoSeleccionado = curso;
       }
     });
-    //console.log('Curso seleccionado: ' + this.cursoSeleccionado.cicloFormativoA);
   }
 
   //----------------------------------------------------------
   //-------------------------CSV------------------------------
   //----------------------------------------------------------
+  /**
+   * Se guarda el archivo CSV de los profesores introducido
+   * @param event 
+   */
+  guardarProfesoresCSV(event: any) {
+    this.profCSV = <File>event.target.files[0];
+  }
+
+  /**
+   * Se guarda el archivo CSV de los alumnos introducido
+   * @param event 
+   */
+  guardarAlumnosCSV(event: any) {
+    this.alumnCSV = <File>event.target.files[0];
+  }
+
   /**
    * Se añaden nuevos profesores del CSV insertado
    */
@@ -132,24 +173,19 @@ export class AdministracionComponent implements OnInit {
     if (this.profesoresCSV.invalid) {
       return;
     }
-    this.administracionService.insertProfesores(this.profCSV).subscribe(
-      (response: any) => {
-        console.log(response.message);
-        alert("Profesores añadidos correctamente");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    let confirmar = confirm("¿Estás seguro que quieres insertar estos profesores en la base de datos?");
+    if (confirmar) {
+      this.administracionService.insertProfesores(this.profCSV).subscribe(
+        (response: any) => {
+          alert(response.message);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
-  guardarProfesoresCSV(event: any) {
-    this.profCSV = <File>event.target.files[0]
-  }
-  guardarAlumnosCSV(event: any) {
-    this.alumnCSV = <File>event.target.files[0]
-  }
-  
   /**
    * Se añaden nuevos alumnos del CSV insertado
    */
@@ -158,25 +194,38 @@ export class AdministracionComponent implements OnInit {
     if (this.alumnosCSV.invalid) {
       return;
     }
-    this.administracionService.insertAlumnos(this.alumnCSV,this.cursoSeleccionado).subscribe(
-      (response: any) => {
-        console.log(response.message);
-        this.cursos.forEach((curso, index) => {
-          if (curso.id == this.cursoSeleccionado.id) {
-            this.cursos.splice(index, 1);
+    let confirmar = confirm("¿Estás seguro que quieres insertar estos alumnos en el curso " + this.cursoSeleccionado.cicloFormativoA + "?");
+    if (confirmar) {
+      this.administracionService.insertAlumnos(this.alumnCSV, this.cursoSeleccionado).subscribe(
+        (response: any) => {
+          console.log(response.message);
+          this.cursosSinAlumnos.forEach((curso, index) => {
+            if (curso.id == this.cursoSeleccionado.id) {
+              this.cursosSinAlumnos.splice(index, 1);
+            }
+          });
+          this.onChange(this.cursosSinAlumnos[0].id);
+          alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
+        },
+        (error) => {
+          let reiniciar = confirm("No se han podido insertar los alumnos, asegurese de que el csv introducido es correcto, puede que los hayas insertado en otro curso por equivocación \n" +
+            "En ese caso ¿Quieres reiniciar los cursos y empezar de nuevo? Esto borrará todos los alumnos de la base de datos");
+          if (reiniciar) {
+            this.administracionService.reiniciarAlumnos().subscribe(
+              (response: any) => {
+                alert(response.message);
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+            this.cursosSinAlumnos = [];
+            this.getCursosSinAlumnos();
           }
-        });
-        this.cursosImportados++;
-        this.onChange(this.cursos[0].id);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
-    this.router.navigate(['/csv']);
+        }
+      );
+    }
   }
-
 
   //----------------------------------------------------------
   //-------------------------TUTORES--------------------------
@@ -245,7 +294,7 @@ export class AdministracionComponent implements OnInit {
    */
   elegirTutorCurso() {
     if (!this.tutorSeleccionado) {
-      alert('No hay ningún tutor disponible')
+      alert('No hay ningún tutor disponible');
     } else {
       let convertirTutor = confirm("¿Estás seguro de que quieres convertir a " + this.tutorSeleccionado.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?");
       if (convertirTutor) {
@@ -327,7 +376,8 @@ export class AdministracionComponent implements OnInit {
               'residencia': element.residencia,
               'correo': element.correo,
               'tlf': element.tlf,
-              'rol': 2
+              'rol': 2,
+              'activo': 0
             };
             this.cuentasAdministrar.push(profesor);
           });
@@ -348,7 +398,8 @@ export class AdministracionComponent implements OnInit {
               'residencia': element.residencia,
               'correo': element.correo,
               'tlf': element.tlf,
-              'rol': 3
+              'rol': 3,
+              'activo': 0
             };
             this.cuentasAdministrar.push(profesor);
           });
@@ -397,33 +448,58 @@ export class AdministracionComponent implements OnInit {
    * Activa la cuenta cuyo dni reciba por parámetro
    * @param dni 
    */
-  activarCuenta(dni: any) {
+  activarDesactivarCuenta(dni: any) {
     this.buscaPersonaPorDni(dni);
-    var rol;
-    if (this.personaSeleccionada.rol == 2) {
-      rol = "jefe de estudios";
+    console.log(this.personaSeleccionada.activo);
+    var accion;
+    if (this.personaSeleccionada.activo == 0) {
+      accion = "activar";
     } else {
-      rol = "tutor";
+      accion = "desactivar";
     }
-    let activarCuenta = confirm("¿Estás seguro de que quieres activar la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + " con rol de " + rol + " ? No hay marcha atrás");
-    if (activarCuenta) {
-      this.administracionService.activarCuenta(dni).subscribe(
-        (response: any) => {
-          this.cuentasAdministrar.forEach((profesor, index) => {
-            if (profesor.dni == dni) {
-              if (profesor.rol == 3) {
-                this.tutores.push(profesor);
-              }
-              this.cuentasAdministrar.splice(index, 1);
 
-            }
-          });
+    let activarCuenta = confirm("¿Estás seguro de que quieres " + accion + "  la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "?");
+    if (activarCuenta) {
+      this.administracionService.activarDesactivarCuenta(dni).subscribe(
+        (response: any) => {
+          //Activar cuentas
+          if(this.personaSeleccionada.activo == 0){
+            this.cuentasAdministrar.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                //Añade tutor 
+                if (profesor.rol == 3) {
+                  this.tutores.push(profesor);
+                }
+                this.cuentasAdministrar.splice(index, 1);
+                this.cuentasActivas.push(this.personaSeleccionada);
+                this.personaSeleccionada.activo = 1;
+              }
+            });
+          }else{ //Desactivar cuentas
+            this.cuentasActivas.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                //Elimina tutor
+                if (profesor.rol == 3) {
+                  this.tutores.forEach((tutor, index) => {
+                    if(tutor.dni == profesor.dni){
+                      this.tutores.splice(index, 1);
+                    }
+                  });
+                }
+                this.cuentasActivas.splice(index, 1);
+                this.cuentasAdministrar.push(this.personaSeleccionada);
+                this.personaSeleccionada.activo = 0;
+              }
+            });
+          }
+          
         },
         (error) => {
           console.log(error);
         }
       );
     }
+
   }
 
   /**
@@ -432,7 +508,7 @@ export class AdministracionComponent implements OnInit {
    */
   denegarAcceso(dni: any) {
     this.buscaPersonaPorDni(dni);
-    let denegarAcceso = confirm("¿Estás seguro de que quieres denegar el acceso a " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "? No hay marcha atrás");
+    let denegarAcceso = confirm("¿Estás seguro de que quieres denegar el acceso a " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "? La cuenta será borrada");
     if (denegarAcceso) {
       this.administracionService.denegarAccesoCuenta(dni).subscribe(
         (response: any) => {
@@ -456,6 +532,66 @@ export class AdministracionComponent implements OnInit {
         return;
       }
     });
+    this.cuentasActivas.forEach((persona, index) => {
+      if (persona.dni == dni) {
+        this.personaSeleccionada = persona;
+        return;
+      }
+    });
 
+  }
+
+  getCuentasActivas() {
+    this.administracionService.getCuentasActivas().subscribe(
+      (response: any) => {
+        //Se guardan los jefes de estudio (rol = 2)
+        let jefes = response.message[0];
+        if (jefes.length > 0) {
+          jefes.forEach((element: {
+            id: any; dni: any; apellidos: any; nombre: any; localidad: any;
+            residencia: any; correo: any; tlf: any;
+          }) => {
+            let profesor = {
+              'id': element.id,
+              'dni': element.dni,
+              'apellidos': element.apellidos,
+              'nombre': element.nombre,
+              'localidad': element.localidad,
+              'residencia': element.residencia,
+              'correo': element.correo,
+              'tlf': element.tlf,
+              'rol': 2,
+              'activo': 1
+            };
+            this.cuentasActivas.push(profesor);
+          });
+        }
+        //Se guardan los tutores
+        let tutores = response.message[1];
+        if (tutores.length > 0) {
+          tutores.forEach((element: {
+            id: any; dni: any; apellidos: any; nombre: any; localidad: any;
+            residencia: any; correo: any; tlf: any;
+          }) => {
+            let profesor = {
+              'id': element.id,
+              'dni': element.dni,
+              'apellidos': element.apellidos,
+              'nombre': element.nombre,
+              'localidad': element.localidad,
+              'residencia': element.residencia,
+              'correo': element.correo,
+              'tlf': element.tlf,
+              'rol': 3,
+              'activo': 1
+            };
+            this.cuentasActivas.push(profesor);
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

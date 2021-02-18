@@ -1,8 +1,10 @@
-<div class="container-fluid">
-    <main class="row">
-        <div class="col-11 col-md-5 mx-auto border px-5 py-5 mt-5">
-            <h2 class="text-center">Login</h2>
-
+<div id="body" class="container-fluid bg-secondary">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12">
+            <img class="d-block mx-auto my-3" src="https://i0.wp.com/cifpvirgendegracia.com/wp-content/uploads/2019/11/01-LOGO-CIFP-VdG-azul-120-sin-fondo-COLOR-JUNTA.png?resize=300%2C211&ssl=1" alt="imagen" width="150px">
+        </div>
+        <div id="formu" class="col-9 col-md-8 col-lg-5 mx-auto border bg-white shadow px-5 py-5">
+            <h1 class="text-center">Login</h1>
             <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email: </label>
@@ -20,17 +22,14 @@
                     </div>
                 </div>
                 <div class="mt-1">{{message}}</div>
-                <p>¿Todavía no tienes cuenta? <a href="/registroUsuario">Registrate aquí</a></p>
                 <p><a href="/registroUsuario">¿Has olvidado la contraseña?</a></p>
-
-                <!--
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
-                </div>
-                -->
                 <button class="btn btn-primary w-25">Entrar</button>
             </form>
         </div>
-    </main>
+    </div>
+    <div class="row">
+        <div class="col-9 col-md-8 col-lg-5 mx-auto pt-2">
+            <p>¿Todavía no tienes cuenta? <a href="/registroUsuario">Registrate aquí</a></p>
+        </div>
+    </div>
 </div>

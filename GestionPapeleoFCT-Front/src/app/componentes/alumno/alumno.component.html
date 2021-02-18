@@ -11,27 +11,24 @@
                     <app-opciones></app-opciones>
                 </div>
             </div>
-            <!--Cart Información personal-->
+            <!--Card Información personal-->
             <div class="row mt-4">
                 <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-3 mb-5">
                     <div class="row">
-                        <!--Header-->
-                        <div class="col-12 card-header text-white bg-primary">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h3 class="font-weight-bolder">
-                                        Información personal alumno
-                                    </h3>
-                                </div>
-                                <div class="col-md-4">
-                                    <button (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
-                                    <button (click)="deleteAlumno()" class="btn btn-secondary ml-2">Eliminar</button>
+                        <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()" class="col-12 p-0">
+                            <!--Header-->
+                            <div class="card-header text-white bg-primary">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h3 class="font-weight-bolder">Información personal alumno</h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <button (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--Body-->
-                        <div class="card-body col-12">
-                            <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()" class="mt-4">
+                            <!--Body-->
+                            <div class="card-body">
                                 <div class="form-row">
                                     <div class="col">
                                         <label for="nombre">Nombre:</label>
@@ -94,19 +91,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button *ngIf="this.activados" id="botonConfirmar" class="btn btn-primary mx-auto mt-3">Confirmar</button>
-                            </form>
-                        </div>
+                            </div>
+                            <!--Footer-->
+                            <div class="card-footer bg-secondary">
+                                <button *ngIf="this.activados" id="botonConfirmar" type="submit" class="btn btn-success mr-2">
+                                    Editar
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button (click)="deleteAlumno()" class="btn btn-danger">
+                                    Eliminar
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!--
-                    <div class="col-lg-6">
-                    <h3>Información relacionada con la FCT</h3>
-                    <h5>Empresa:</h5>
-                    <h5>Desplazamiento: ?</h5>
-                    <h5>Anexos: ?</h5>
-                </div>
-                -->
             </div>
         </div>
     </main>

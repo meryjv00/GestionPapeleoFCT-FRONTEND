@@ -16,8 +16,8 @@ export class AlumnoComponent implements OnInit {
   submitted = false;
   activados = false;
   textoBoton: any;
-  
-  constructor(private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,private CompartirDatos: CompartirDatosService) {
+
+  constructor(private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private CompartirDatos: CompartirDatosService) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
@@ -49,15 +49,15 @@ export class AlumnoComponent implements OnInit {
     this.submitted = true;
     if (this.modificarAlumno.invalid) {
       return;
-    }   
+    }
     this.updateAlumn0();
   }
-  
-  updateAlumn0(){
+
+  updateAlumn0() {
     this.adminAlumnosService.updateAlumno(this.alumno).subscribe(
       (response: any) => {
         console.log(response);
-        this.router.navigate(['/alumno',this.alumno]);
+        this.router.navigate(['/alumno', this.alumno]);
       },
       (error) => {
         console.log(error);
@@ -70,30 +70,33 @@ export class AlumnoComponent implements OnInit {
    * Eliminar alumno
    */
   deleteAlumno() {
-    this.adminAlumnosService.deleteAlumno(this.alumno).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.router.navigate(['/listaCursos']);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    let eliminar = confirm("¿Estás seguro de que quieres eliminar este alumno de la base de datos?");
+    if (eliminar) {
+      this.adminAlumnosService.deleteAlumno(this.alumno).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.router.navigate(['/listaCursos']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   /**
    * Activa los inputs del formulario para editarlos o en caso de que esten 
    * activados los desactiva
    */
- activarEdicion(){
-  if(!this.activados){
-    this.modificarAlumno?.enable();
-    this.activados = true;
-    this.textoBoton = "Cancelar";
-  }else{
-    this.modificarAlumno?.disable();
-    this.activados = false;
-    this.textoBoton = "Editar";
+  activarEdicion() {
+    if (!this.activados) {
+      this.modificarAlumno?.enable();
+      this.activados = true;
+      this.textoBoton = "Cancelar";
+    } else {
+      this.modificarAlumno?.disable();
+      this.activados = false;
+      this.textoBoton = "Editar";
+    }
   }
- } 
 }

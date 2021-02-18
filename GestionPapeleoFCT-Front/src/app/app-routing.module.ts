@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'registroUsuario', component: RegistroUserComponent},
   {path: 'infCentro', component: InfCentroComponent},
   {path: '', component: LoginComponent},
-  {path: 'csv', component: AdministracionComponent},
+  {path: 'admin', component: AdministracionComponent},
   {path: 'perfil', component: PerfilComponent},
   // Rutas para cursos
   {path: 'listaCursos', component: ListaCursosComponent},
