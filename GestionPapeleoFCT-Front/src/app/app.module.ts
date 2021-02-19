@@ -23,6 +23,7 @@ import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.compo
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAddAlumnoPracticaComponent } from './componentes/modal-add-alumno-practica/modal-add-alumno-practica.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NuevoCursoComponent,
     ActualizarCursoComponent,
     AdministracionComponent,
+    ModalAddAlumnoPracticaComponent,
   ],
   imports: [
     BrowserModule,

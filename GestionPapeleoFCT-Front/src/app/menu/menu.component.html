@@ -1,31 +1,31 @@
 <aside>
-    <div class="user">
-        <img routerLink="/perfil" class="rounded-circle" src="../../assets/img/avatar1.png" />
-        <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
-        <p name="rol">{{user.rol}}</p>
+  <div class="user">
+    <img routerLink="/perfil" class="rounded-circle" src="../../assets/img/avatar1.png" />
+    <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
+    <p name="rol">{{user.rol}}</p>
+  </div>
+  <div class="row enlaces">
+    <div class="col">
+      <button name="cursos" routerLink="/listaCursos" class="col-2 col-lg-11 mx-auto btn active btn-aside">
+        <i class="fas fa-users"></i>
+        <span class="ml-3">Cursos</span>
+      </button>
+      <button name="empresas" routerLink="/listaEmpresas" class="col-2 col-lg-11 mx-auto btn btn-aside">
+        <i class="fas fa-briefcase"></i>
+        <span class="ml-3">Empresas</span>
+      </button>
+      <button name="centro" routerLink="/infCentro" class="col-2 col-lg-11 mx-auto btn btn-aside">
+        <i class="fas fa-building"></i>
+        <span class="ml-3">Centro</span>
+      </button>
+      <button name="csv" routerLink="/csv" class="col-2 col-lg-11 mx-auto btn btn-aside">
+        <i class="fas fa-cogs"></i>
+        <span class="ml-3">Admin</span>
+      </button>
+      <button name="sin_gout" routerLink="/" class="col-2 col-lg-11 mx-auto btn btn-aside" (click)="logOut()">
+        <i class="fas fa-sign-out-alt "></i>
+        <span class="ml-3">Salir</span>
+      </button>
     </div>
-    <div class="row enlaces">
-        <div class="col">
-            <button name="cursos" routerLink="/listaCursos" class="col-lg-11 col-3 mx-auto btn active btn-aside">
-          <i class="fas fa-users"></i>
-          <span class="ml-3">Cursos</span>
-        </button>
-            <button name="empresas" routerLink="/listaEmpresas" class="col-lg-11 col-3 col-3 mx-auto btn btn-aside">
-          <i class="fas fa-briefcase"></i>
-          <span class="ml-3">Empresas</span>
-        </button>
-            <button name="centro" routerLink="/infCentro" class="col-lg-11 col-3 mx-auto btn btn-aside">
-          <i class="fas fa-building"></i>
-          <span class="ml-3">Centro</span>
-        </button>
-            <button name="admin" routerLink="/admin" class="col-lg-11 col-3 mx-auto btn btn-aside">
-          <i class="fas fa-cogs"></i>
-          <span class="ml-3">Admin</span>
-        </button>
-            <button name="sin_gout" routerLink="/" class="col-lg-11 col-3 mx-auto btn btn-aside" (click)="logOut()">
-          <i class="fas fa-sign-out-alt "></i>
-          <span class="ml-3">Salir</span>
-        </button>
-        </div>
-    </div>
+  </div>
 </aside>
