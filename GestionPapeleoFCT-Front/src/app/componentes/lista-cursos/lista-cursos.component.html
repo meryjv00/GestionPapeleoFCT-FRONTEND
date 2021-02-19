@@ -1,34 +1,8 @@
 <div class="container-fluid">
-  <main class="row">
-    <!--**************************************MENU***************************************-->
-    <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
-      <app-menu></app-menu>
-    </div>
-    <!--***********************************CONTENIDO***************************************-->
-    <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
-      <h5>{{mensaje}}</h5>
-      <div *ngIf="haCambiado" class="row">
-        <!------------------------------------------------------------------------------------>
-        <div class="container-fluid border-bottom-0 shadow pb-2">
-          <div class="col-11 d-flex flex-wrap pt-3 mx-auto">
-            <div class="col-12 col-lg-4 form-group-0 mb-2">
-              <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
-                <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
-                  {{curso.cicloFormativoA}}</option>
-              </select>
-            </div>
-            <div id="buscador" class="col-12 col-lg-4 mb-2 mt-0">
-              <form class="d-flex align-items-center">
-                <input class="form-control" type="search" placeholder="Busca aquí..." name="searchbar">
-                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-              </form>
-            </div>
-            <div class="col-12 col-lg-4 mb-2">
-              <button class="btn btn-primary mr-2 w-100" (click)="newCurso()"><i class="fas fa-plus "></i>
-                Nuevo curso
-              </button>
-            </div>
-          </div>
+    <main class="row">
+        <!--**************************************MENU***************************************-->
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
+            <app-menu></app-menu>
         </div>
         <!--***********************************CONTENIDO***************************************-->
         <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
@@ -42,10 +16,10 @@
                         </div>
                         <div class="col-12 col-lg-4 form-group-0 mb-2">
                             <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
-                              <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
-                                {{curso.cicloFormativoA}}
-                              </option>
-                            </select>
+                            <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
+                              {{curso.cicloFormativoA}}
+                            </option>
+                          </select>
                         </div>
                         <div id="buscador" class="col-12 col-lg-4 mb-2 mt-0">
                             <form class="d-flex align-items-center">
@@ -55,16 +29,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 text-sm-right">
-                  <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button (click)="addAlumno()" class="btn btn-primary ml-2">
-                    <i class="fas fa-user-plus"></i>
-                  </button>
-                  <button (click)="deleteCurso()" class="btn btn-danger ml-2">
-                    <i class="fas fa-times"></i>
-                  </button>
+                <!-- Tarjeta info del curso -->
+                <div id="curso" class="col-11 mx-auto shadow-sm my-3 card">
+                    <div class="row">
+                        <div class="col-12 card-header text-white bg-primary">
+                            <h3 class="font-weight-bolder">
+                                {{cursoSeleccionado.cicloFormativo}} - {{cursoSeleccionado.cursoAcademico}}
+                            </h3>
+                            <p class="text-center">
+                                <span class="badge badge-light mr">Familia: {{cursoSeleccionado.familiaProfesional}}</span>
+                                <span> | </span>
+                                <span class="badge badge-light">Tutor: {{cursoSeleccionado.tutor}}</span>
+                            </p>
+                        </div>
+                        <div class="col-12 card-footer">
+                            <div class="row">
+                                <div class="col-md-6 text-left text-dark pt-2">
+                                    <span class="font-weight-bolder mr-2">{{alumnos.length}} <i class="fa fa-users"></i></span>
+                                    <span class="font-weight-bolder mr-2">{{cursoSeleccionado.nHoras}} <i class="fa fa-clock"></i></span>
+                                </div>
+                                <div class="col-md-6 text-sm-right">
+                                    <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2">
+                                    <i class="fas fa-edit"></i>
+                                  </button>
+                                    <button (click)="addAlumno()" class="btn btn-primary ml-2">
+                                    <i class="fas fa-user-plus"></i>
+                                  </button>
+                                    <button (click)="deleteCurso()" class="btn btn-primary ml-2">
+                                    <i class="fas fa-times"></i>
+                                  </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Tarjeta de empresas -->
                 <div id="empresas" class="col-11 mx-auto shadow-sm my-3 card">
@@ -76,13 +73,13 @@
                             <form class="form-inline">
                                 <div class="form-group mb-2">
                                     <select #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
-                                      <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
-                                        {{empresaN.nombre}}</option>
-                                    </select>
+                                    <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
+                                      {{empresaN.nombre}}</option>
+                                  </select>
                                 </div>
                                 <button class="btn btn-secondary mb-2" (click)="addEmpresaCurso()">
-                                  <i class="fas fa-plus mr-2"></i>Añadir
-                                </button>
+                                <i class="fas fa-plus mr-2"></i>Añadir
+                              </button>
                             </form>
                         </div>
                         <div class="col-12 card-body">
@@ -114,84 +111,27 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-secondary mb-2" (click)="addEmpresaCurso()">
-                  <i class="fas fa-plus "></i>Añadir
-                </button>
-              </form>
-            </div>
-            <div class="col-12 card-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Empresa</th>
-                    <th scope="col">Representante</th>
-                    <th scope="col">Alumnos</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let empresaS of empresasCurso">
-                    <td>{{ empresaS.nombre }}</td>
-                    <td>{{ empresaS.nombreRepresentante }}</td>
-                    <td>Nº Alumnos</td>
-                    <td>
-                      <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-primary ml-2 py-0">
-                        <i class="fas fa-user-plus fa-xs"></i>
-                      </button>
-                      <button (click)="deleteEmpresaCurso(empresaS.id)" class="btn btn-danger ml-2 py-0">
-                        <i class="fas fa-times fa-xs"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <!-- Tarjetas anexos -->
-        <div id="anexos" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card">
-          <div class="row">
-            <div class="col-12 card-header text-white bg-primary">
-              <h3 class="font-weight-bolder">
-                Anexos
-              </h3>
-            </div>
-            <div class="card-body col-12 d-flex flex-wrap">
-              <ng-container *ngFor="let anexo of anexos; index as j; ">
-                <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
-                  <div class="bg-secondary d-flex align-items-center">
-                    <button class="btn">
-                      <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
-                      <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
-                    </button>
-                    <small> {{anexo.nombre}}</small>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <!------------------------------------------------------------------------------------>
-        <div id="carousel" class="w-100 mx-5 carousel bg-dark shadow-lg slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel" data-slide-to="1"></li>
-            <li data-target="#carousel" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div *ngIf="haCambiado">
-              <ng-container *ngFor="let alumno of alumnos; index as i; ">
-                <div *ngIf="i== 0 && i % 3 == 0" class="carousel-item active">
-                  <div class="row ml-5 pb-5">
-                    <div class="col-md-3 offset-md-1">
-                      <div class="px-2 bg-light shadow pb-4 mb-2 alumno">
-                        <img src="../../../assets/img/wjpg.jpg" alt="foto_perfil"> {{ alumno.nombre }}
-                        {{alumno.apellidos}}
-                        <button (click)="updateAlumno(alumno)" class="btn btn-primary ">
-                          <i class="fas fa-user-edit "></i>
-                        </button><br>
-                        <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
-                      </div>
+                <!-- Tarjetas anexos -->
+                <div id="anexos" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card">
+                    <div class="row">
+                        <div class="col-12 card-header text-white bg-primary">
+                            <h3 class="font-weight-bolder">
+                                Anexos
+                            </h3>
+                        </div>
+                        <div class="card-body col-12 d-flex flex-wrap">
+                            <ng-container *ngFor="let anexo of anexos; index as j; ">
+                                <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
+                                    <div class="bg-secondary d-flex align-items-center">
+                                        <button class="btn">
+                                        <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
+                                        <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
+                                      </button>
+                                        <small> {{anexo.nombre}}</small>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------>
@@ -210,8 +150,8 @@
                                             <div class="px-2 bg-light shadow pb-4 mb-2 alumno">
                                                 <img src="../../../assets/img/wjpg.jpg" alt="foto_perfil"> {{ alumno.nombre }} {{alumno.apellidos}}
                                                 <button (click)="updateAlumno(alumno)" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button><br>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button><br>
                                                 <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
                                             </div>
                                         </div>
@@ -219,8 +159,8 @@
                                             <div class="px-2 bg-light shadow pb-4 alumno">
                                                 <img src="../../../assets/img/p.jpg" alt=""> {{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}
                                                 <button (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button>
                                                 <a href="mailto:{{alumnos[i + 1].correo}} ">{{alumnos[i + 1].correo}}</a>
                                             </div>
                                         </div>
@@ -228,8 +168,8 @@
                                             <div class="px-2 bg-light shadow pb-4 alumno">
                                                 <img src="../../../assets/img/q.jpg" alt=""> {{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}
                                                 <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button><br>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button><br>
                                                 <a href="mailto:{{alumnos[i + 2].correo}} ">{{alumnos[i + 2].correo}}</a>
                                             </div>
                                         </div>
@@ -241,8 +181,8 @@
                                             <div class="px-2 bg-light shadow pb-4 mb-3 alumno">
                                                 <img src="../../../assets/img/wjpg.jpg" alt=""> {{ alumno.nombre }} {{alumno.apellidos}}
                                                 <button (click)="updateAlumno(alumno)" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button>
                                                 <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
                                             </div>
                                         </div>
@@ -250,8 +190,8 @@
                                             <div class="px-2 bg-light shadow pb-4 alumno">
                                                 <img src="../../../assets/img/p.jpg" alt=""> {{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}
                                                 <button (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button>
                                                 <a href="mailto:{{alumnos[i + 1].correo}} ">{{alumnos[i + 1].correo}}</a>
                                             </div>
                                         </div>
@@ -259,8 +199,8 @@
                                             <div class="px-2 bg-light shadow pb-4 alumno">
                                                 <img src="../../../assets/img/q.jpg" alt=""> {{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}
                                                 <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary ">
-                                                  <i class="fas fa-user-edit "></i>
-                                                </button>
+                                                <i class="fas fa-user-edit "></i>
+                                              </button>
                                                 <a href="mailto:{{alumnos[i + 2].correo}} ">{{alumnos[i + 2].correo}}</a>
                                             </div>
                                         </div>
