@@ -17,9 +17,10 @@ export class LoginService {
   * Petición de login
   * */
   public login = (email: string, password: string) => {
-    const url = "http://localhost:8000/api/login";
+    const url = "http://gestionpapeleoback.dyndnss.net/api/login";
 
     let headers = new HttpHeaders({
+      
       'Content-Type': 'application/json',
     });
     return this.http.post(url, { 'email': email, 'password': password }, { headers: headers });
