@@ -81,7 +81,7 @@ export class ListaCursosService {
         return this.http.get(url, { headers: headers });
     };
 
-    // Método para obtener las empresas que no estan ligadas al curso
+    // Método para obtener las empresas que estan ligadas al curso
     public getEmpresasCurso = (id: any) => {
         const url = "http://localhost:8000/api/empresasCurso/" + id;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
