@@ -199,13 +199,15 @@ export class ListaCursosComponent implements OnInit {
         this.empresasCurso = [];
         this.listaCursosService.getEmpresasCurso(this.cursoSeleccionado.id).subscribe(
             (response: any) => {
+                console.log(response);
+                
                 let empresas = response.message;
                 empresas.forEach((element: {
-                    id: any; nombre: any; provincia: any; localidad: any; calle: any;
+                    idEmpresa: any; nombre: any; provincia: any; localidad: any; calle: any;
                     cp: any; cif: any; tlf: any, email: any, dniRepresentante: any, nombreRepresentante: any;
                 }) => {
                     let empresa = {
-                        'id': element.id,
+                        'id': element.idEmpresa,
                         'nombre': element.nombre,
                         'provincia': element.provincia,
                         'localidad': element.localidad,
@@ -333,7 +335,7 @@ export class ListaCursosComponent implements OnInit {
             let empresaId = this.selectEmpresasNoCurso.nativeElement.value;
             this.listaCursosService.addEmpresaCurso(this.cursoSeleccionado.id, empresaId).subscribe(
                 (response: any) => {
-                    this.onChange(this.cursos[0].id);
+                    this.onChange(this.cursoSeleccionado.id);
                 },
                 (error: any) => {
                     console.log(error);
@@ -350,7 +352,7 @@ export class ListaCursosComponent implements OnInit {
         if (seguroEliminar) {
             this.listaCursosService.deleteEmpresaCurso(id).subscribe(
                 (response: any) => {
-                    this.onChange(this.cursos[0].id);
+                    this.onChange(this.cursoSeleccionado.id);
                 },
                 (error: any) => {
                     console.log(error);
@@ -360,12 +362,13 @@ export class ListaCursosComponent implements OnInit {
     }
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
-    addAlumnoCurso() {
-        let idCur = this.cursoSeleccionado.id;
-        console.log('llamada modal: ' + idCur);
+    addAlumnoCurso(idEmpresa: any) {
         
+        let idEmp = idEmpresa;
+        let idCur = this.cursoSeleccionado.id;
         const modalRef = this.modal.open(ModalAddAlumnoPracticaComponent);
         modalRef.componentInstance.idCur = idCur;
+        modalRef.componentInstance.idEmp = idEmp;
         modalRef.componentInstance["eventOk"].subscribe((event: any) => {
             //
         });

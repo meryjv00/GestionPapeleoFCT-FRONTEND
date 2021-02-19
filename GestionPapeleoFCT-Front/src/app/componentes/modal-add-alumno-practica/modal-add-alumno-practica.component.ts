@@ -11,10 +11,12 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     @Output() storeOk: EventEmitter<any> = new EventEmitter();
     @Input() public idCur: any;
+    @Input() public idEmp: any;
 
     alumnosPracticas: any[];
     alumnosCurso: any[];
     idCurso: any;
+    idEmpresa: any;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService) {
         this.alumnosPracticas = [];
@@ -22,10 +24,10 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAlumnosPracticas();
-        this.getAlumnosCurso(this.idCurso);
         this.idCurso = this.idCur;
-        console.log(this.idCurso);
+        this.idEmpresa = this.idEmp;        
+        this.getAlumnosCurso(this.idCurso);
+        this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
     }
 
     // Método para añadir un alumno de las practicas de una empresa
@@ -43,14 +45,15 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.alumnosCurso = [];
         this.adminAlumnosService.getAlumnosCurso(idCurso).subscribe(
             (response: any) => {
-                const alumnos = response;
-                alumnos.forEach((element: { id: any; description: any }) => {
-                    let alumno = {
-                        'id': element.id,
-                        'description': element.description
-                    };
-                    this.alumnosCurso.push(alumno);
-                });
+                console.log(response);
+                // const alumnos = response;
+                // alumnos.forEach((element: { id: any; description: any }) => {
+                //     let alumno = {
+                //         'id': element.id,
+                //         'description': element.description
+                //     };
+                //     this.alumnosCurso.push(alumno);
+                // });
             },
             (error: any) => {
                 console.log(error);
@@ -59,8 +62,24 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     }
 
     // Método para obtener los alumnos en practicas de una empresa
-    getAlumnosPracticas() {
-
+    getAlumnosPracticas(idCurso: any, idEmpresa: any) {
+        this.alumnosPracticas = [];
+        this.adminAlumnosService.getAlumnosPraticas(idCurso, idEmpresa).subscribe(
+            (response: any) => {
+                console.log(response);
+                // const alumnos = response;
+                // alumnos.forEach((element: { id: any; description: any }) => {
+                //     let alumno = {
+                //         'id': element.id,
+                //         'description': element.description
+                //     };
+                //     this.alumnosCurso.push(alumno);
+                // });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
     }
 
 
