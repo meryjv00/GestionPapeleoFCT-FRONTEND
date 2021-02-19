@@ -104,11 +104,10 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
-  //--------------Pruebas (borrar)
-  pruebaA1() {
+  anexo1() {
     var datos = {
-      'numConvenio': '123456789',
-      'idCurso': 1
+      'numConvenio': '4433434',
+      'idCurso': 11
     }
     this.anexosService.anexo1(datos).subscribe(
       (response: any) => {
@@ -121,13 +120,64 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
-  pruebaA5() {
+  anexo2() {
+    var datos = {
+      'idAlumno': 1,
+      'idEmpresa': 1,
+      'idCurso': 1
+    }
+    this.anexosService.anexo2(datos).subscribe(
+      (response: any) => {
+        console.log(response);
+        let enlace = environment.dirBack + 'descargar/' + response.message;
+        window.open(enlace,'_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  anexo3() {
+    var datos = {
+      'idAlumno': 1,
+      'idEmpresa': 1,
+      'idCurso': 1
+    }
+    this.anexosService.anexo3(datos).subscribe(
+      (response: any) => {
+        console.log(response);
+        let enlace = environment.dirBack + 'descargar/' + response.message;
+        window.open(enlace,'_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  anexo4() {
     var datos = {
       'idAlumno': 1,
       'idEmpresa': 1,
       'idCurso': 1
     }
     this.anexosService.anexo4(datos).subscribe(
+      (response: any) => {
+        console.log(response);
+        let enlace = environment.dirBack + 'descargar/' + response.message;
+        window.open(enlace,'_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  anexo5() {
+    var datos = {
+      'idAlumno': 1,
+      'idEmpresa': 1,
+      'idCurso': 1
+    }
+    this.anexosService.anexo5(datos).subscribe(
       (response: any) => {
         console.log(response);
         let enlace = environment.dirBack + 'descargar/' + response.message;
