@@ -99,7 +99,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.addAlumnoPracitas = this.formBuilder.group({
             horarioDiario: ['', [Validators.required]],
             nHoras: ['', [Validators.required]],
-            dniAlumno: ['', [Validators.required]],
+            dniAlumno: [null, [Validators.required]],
             fechaComienzo: ['', [Validators.required]],
             fechaFin: ['', [Validators.required]],
         })

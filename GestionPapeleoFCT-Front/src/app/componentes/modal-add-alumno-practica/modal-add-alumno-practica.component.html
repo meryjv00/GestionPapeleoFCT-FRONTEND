@@ -7,6 +7,7 @@
 <div class="modal-body">
   <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
     <select class="form-control" name="dniAlumno" formControlName="dniAlumno">
+      <option [ngValue]="null" disabled>Selecciona un alumno</option>
       <option *ngFor="let alumno of alumnosCurso" value="{{alumno.dniAlumno}}">
         {{alumno.apellidos}},
         {{alumno.nombre}}:
