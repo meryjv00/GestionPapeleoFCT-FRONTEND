@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { ArrayUsService } from 'src/app/servicios/array-us.service';
 import { LoginService } from './login.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

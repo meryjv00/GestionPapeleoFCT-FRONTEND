@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 
 @Component({
