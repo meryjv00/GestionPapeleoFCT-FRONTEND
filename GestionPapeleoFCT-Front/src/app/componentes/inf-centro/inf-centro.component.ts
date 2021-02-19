@@ -15,7 +15,6 @@ export class InfCentroComponent implements OnInit {
   centro: any;
   nuevoRegistro: FormGroup;
   submitted = false;
-  message: any;
   director: any;
   user: any;
 
@@ -32,7 +31,6 @@ export class InfCentroComponent implements OnInit {
       email: ['', [Validators.required]],
       tlf: ['', [Validators.required]],
     });
-    this.message = "";
     this.centro =({
       codigo:'',
       nombre: '',
@@ -62,7 +60,7 @@ export class InfCentroComponent implements OnInit {
         this.centro = response.message.centro;
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.message);
       }
     );
   }
@@ -74,7 +72,7 @@ export class InfCentroComponent implements OnInit {
         this.director.email = response.message.email;
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.message);
       }
     );
   }
@@ -88,7 +86,6 @@ export class InfCentroComponent implements OnInit {
     }
     let datosCentro = this.nuevoRegistro.value;
 
-    console.log(datosCentro);
     const codigo = datosCentro.codigo;
     const cif = datosCentro.cif;
     const nombre = datosCentro.nombre;
@@ -98,11 +95,8 @@ export class InfCentroComponent implements OnInit {
     const calle = datosCentro.calle;
     const email = datosCentro.email;
     const tlf = datosCentro.tlf;
-
     this.AdminCentroService.updateCentro(codigo, cif, nombre, provincia, localidad, cp, calle, email, tlf).subscribe(
       (response: any) => {
-        console.log(response);
-        this.message = "Datos actualizados correctamente";
       },
       (error) => {
         console.log(error.message);
