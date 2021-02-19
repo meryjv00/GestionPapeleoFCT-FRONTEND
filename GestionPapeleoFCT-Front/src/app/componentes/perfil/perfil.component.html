@@ -4,12 +4,12 @@
             <app-menu [user]="user"></app-menu>
         </div>
         <div id="contenido" class="col-md-9 col-lg-10 overflow-hidden">
-            <div>
-                <div class="card m-2 w-100 mt-5">
+            <div class="row">
+                <div class="card col-11 mx-auto mt-5 p-0">
                     <div class="card-header bg-primary">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-10">
-                                <h2 class="card-title"><img class="card-img-center img" src="..." alt="Card image cap" src="../../assets/img/avatar1.png" /> {{user.nombre}} {{user.apellidos}}</h2>
+                                <h2 class="card-title text-white"><img class="card-img-center img" src="..." alt="Card image cap" src="../../assets/img/avatar1.png" /> {{user.nombre}} {{user.apellidos}}</h2>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <div class="modal-content">
                                     <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
                                         <div class="modal-header bg-primary">
-                                            <h3 class="modal-title" id="exampleModalLabel">Editar Perfil</h3>
+                                            <h3 class="modal-title text-white" id="exampleModalLabel">Editar Perfil</h3>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>

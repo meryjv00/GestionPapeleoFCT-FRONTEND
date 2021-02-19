@@ -198,14 +198,13 @@ export class AdministracionComponent implements OnInit {
     if (confirmar) {
       this.administracionService.insertAlumnos(this.alumnCSV, this.cursoSeleccionado).subscribe(
         (response: any) => {
-          console.log(response.message);
+          alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
           this.cursosSinAlumnos.forEach((curso, index) => {
             if (curso.id == this.cursoSeleccionado.id) {
               this.cursosSinAlumnos.splice(index, 1);
             }
           });
           this.onChange(this.cursosSinAlumnos[0].id);
-          alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
         },
         (error) => {
           let reiniciar = confirm("No se han podido insertar los alumnos, asegurese de que el csv introducido es correcto, puede que los hayas insertado en otro curso por equivocación \n" +
@@ -469,6 +468,9 @@ export class AdministracionComponent implements OnInit {
                 //Añade tutor 
                 if (profesor.rol == 3) {
                   this.tutores.push(profesor);
+                  if(!this.tutorSeleccionado){
+                    this.tutorSeleccionado = profesor;
+                  }
                 }
                 this.cuentasAdministrar.splice(index, 1);
                 this.cuentasActivas.push(this.personaSeleccionada);
@@ -512,11 +514,19 @@ export class AdministracionComponent implements OnInit {
     if (denegarAcceso) {
       this.administracionService.denegarAccesoCuenta(dni).subscribe(
         (response: any) => {
-          this.cuentasAdministrar.forEach((profesor, index) => {
-            if (profesor.dni == dni) {
-              this.cuentasAdministrar.splice(index, 1);
-            }
-          });
+          if(this.personaSeleccionada.activo == 0){
+            this.cuentasAdministrar.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                this.cuentasAdministrar.splice(index, 1);
+              }
+            });
+          }else{
+            this.cuentasActivas.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                this.cuentasActivas.splice(index, 1);
+              }
+            });
+          }
         },
         (error) => {
           console.log(error);
