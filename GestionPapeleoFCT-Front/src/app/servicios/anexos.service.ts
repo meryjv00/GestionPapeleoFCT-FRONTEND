@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginService } from './login.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AnexosService {
    * Recupera todos los anexos de la BD
    */
   getAnexos() {
-    const url = "http://localhost:8000/api/anexos";
+    const url = environment.dirBack + "anexos";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
     return this.http.get(url, { headers: headers });
   }
@@ -26,7 +27,7 @@ export class AnexosService {
    */
   public anexo0 = (empresa: any) => {
     console.log(empresa);
-    const url = "http://localhost:8000/api/getAnexo0/" + empresa.id;
+    const url = environment.dirBack + "getAnexo0/" + empresa.id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
@@ -37,7 +38,7 @@ export class AnexosService {
    * @param datos 
    */
   public anexo1 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo1";
+    const url = environment.dirBack + "getAnexo1";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }
@@ -48,7 +49,7 @@ export class AnexosService {
    * @param datos 
    */
   public anexo2 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo2";
+    const url = environment.dirBack +"getAnexo2";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }
@@ -59,7 +60,7 @@ export class AnexosService {
    * @param datos 
    */
   public anexo3 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo3";
+    const url = environment.dirBack +"getAnexo3";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }
@@ -70,7 +71,7 @@ export class AnexosService {
    * @param datos 
    */
   public anexo4 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo4";
+    const url = environment.dirBack +"getAnexo4";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }
@@ -81,7 +82,7 @@ export class AnexosService {
    * @param datos 
    */
   public anexo5 = (datos: any) => {
-    const url = "http://localhost:8000/api/getAnexo5";
+    const url = environment.dirBack + "getAnexo5";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }

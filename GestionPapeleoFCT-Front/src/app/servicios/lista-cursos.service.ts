@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class ListaCursosService {
     }
 
     public getCursos = () => {
-        const url = "http://localhost:8000/api/cursos";
+        const url = environment.dirBack + "cursos";
 
         //console.log(this.loginService.user.access_token);
 
@@ -24,7 +25,7 @@ export class ListaCursosService {
     };
 
     public getCursosSinTutor = () => {
-        const url = "http://localhost:8000/api/cursosSinTutor";
+        const url = environment.dirBack + "cursosSinTutor";
 
         //console.log(this.loginService.user.access_token);
 
@@ -34,7 +35,7 @@ export class ListaCursosService {
     };
 
     public getCursosSinAlumnos = () => {
-        const url = "http://localhost:8000/api/cursosSinAlumnos";
+        const url = environment.dirBack + "cursosSinAlumnos";
 
         //console.log(this.loginService.user.access_token);
 
@@ -45,7 +46,7 @@ export class ListaCursosService {
 
     
     public getMisCursos = (dni: any) => {
-        const url = "http://localhost:8000/api/cursos/" + dni;
+        const url = environment.dirBack + "cursos/" + dni;
 
         //console.log(this.loginService.user.access_token);
 
@@ -56,7 +57,7 @@ export class ListaCursosService {
 
 
     public getAlumnos = (id: any) => {
-        const url = "http://localhost:8000/api/alumnos/" + id;
+        const url = environment.dirBack + "alumnos/" + id;
 
         //console.log(this.loginService.user.access_token);
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
@@ -66,7 +67,7 @@ export class ListaCursosService {
 
 
     public getFamilies = () => {
-        const url = "http://localhost:8000/api/cursosFamilies";
+        const url = environment.dirBack +  "cursosFamilies";
 
         //console.log(this.loginService.user.access_token);
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
@@ -76,21 +77,21 @@ export class ListaCursosService {
 
     // Método para obtener las empresas que no estan ligadas al curso
     public getEmpresasNoCurso = (id: any) => {
-        const url = "http://localhost:8000/api/empresasNoCurso/" + id;
+        const url = environment.dirBack + "empresasNoCurso/" + id;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.get(url, { headers: headers });
     };
 
     // Método para obtener las empresas que estan ligadas al curso
     public getEmpresasCurso = (id: any) => {
-        const url = "http://localhost:8000/api/empresasCurso/" + id;
+        const url = environment.dirBack + "empresasCurso/" + id;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.get(url, { headers: headers });
     };
 
     // Método para agregar una nueva empresa a un curso para realizar practicas
     public addEmpresaCurso(idCurso: any, idEmpresa: any) {
-        const url = "http://localhost:8000/api/addEmpresaCurso";
+        const url = environment.dirBack + "addEmpresaCurso";
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.post(url, { 'idCurso': idCurso, 'idEmpresa': idEmpresa }, { headers: headers });
     };
@@ -98,7 +99,7 @@ export class ListaCursosService {
     // Métodopara eliminar una empresa en un curso para realizar las practicas
     public deleteEmpresaCurso(id: any) {
         
-        const url = "http://localhost:8000/api/deleteEmpresaCurso/" + id;
+        const url = environment.dirBack + "deleteEmpresaCurso/" + id;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.delete(url, { headers: headers });
     }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class LoginService {
   * Petición de login
   * */
   public login = (email: string, password: string) => {
-    const url = "http://localhost:8000/api/login";
+    const url = environment.dirBack + "login";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

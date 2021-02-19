@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AdminCentroService {
   }
 
   public getCentro = () => {
-    const url = "http://localhost:8000/api/getCentro";
+    const url = environment.dirBack + "getCentro";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -23,7 +24,7 @@ export class AdminCentroService {
   };
   
   public updateCentro = (codigo : any, cif : any, nombre : any, provincia : any, localidad : any, cp : any, calle : any, email : any, tlf : any) => {
-    const url = "http://localhost:8000/api/updateCentro";
+    const url = environment.dirBack + "updateCentro";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -31,7 +32,7 @@ export class AdminCentroService {
   };
 
   public getDirector = () => {
-    const url = "http://localhost:8000/api/getDirector";
+    const url = environment.dirBack + "getDirector";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

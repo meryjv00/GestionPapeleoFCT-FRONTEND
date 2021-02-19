@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 import { LoginService } from './login.service';
 
 
@@ -20,7 +21,7 @@ export class AdminEmpresasService {
 
   //Carga una lista con todas las empresas
   public getEmpresas = () => {
-    const url = "http://localhost:8000/api/empresas";
+    const url = environment.dirBack + "empresas";
 
     console.log(this.loginService.getUser().access_token);
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
@@ -30,7 +31,7 @@ export class AdminEmpresasService {
 
   //Insertar empresa
   public insertEmpresa = (empresa: any) => {
-    const url = "http://localhost:8000/api/insertEmpresa";
+    const url = environment.dirBack + "insertEmpresa";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'empresa': empresa }, { headers: headers });
   };
@@ -50,7 +51,7 @@ export class AdminEmpresasService {
 
   //Eliminar empresa
   public deleteEmpresa = (id: any) => {
-    const url = "http://localhost:8000/api/deleteEmpresa/" + id;
+    const url = environment.dirBack + "deleteEmpresa/" + id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'id': id }, { headers: headers });
   };
@@ -71,7 +72,7 @@ export class AdminEmpresasService {
   //Actualizar empresa
   public updateEmpresa = (empresa: any) => {
     //console.log(empresa);
-    const url = "http://localhost:8000/api/updateEmpresa/" + empresa.id;
+    const url = environment.dirBack + "updateEmpresa/" + empresa.id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'empresa': empresa }, { headers: headers });
   };

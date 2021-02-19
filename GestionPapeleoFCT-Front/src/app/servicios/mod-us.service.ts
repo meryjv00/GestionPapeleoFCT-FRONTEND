@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class ModUsService {
    * Petición de modificacion de usuario
    * */
   public Mod_user = (correo:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any) => {
-    const url = "http://localhost:8000/api/mod_user";
+    const url = environment.dirBack + "mod_user";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
