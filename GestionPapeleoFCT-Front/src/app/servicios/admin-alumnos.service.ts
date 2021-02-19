@@ -47,11 +47,7 @@ export class AdminAlumnosService {
     }
 
     // Método para ver los alumnos de practica en una empresa
-    public getAlumnosPraticas = (idCurso: any, idEmpresa: any) => {
-        console.log('curso: ' + idCurso);
-        console.log('empresa: ' + idEmpresa);
-        
-        
+    public getAlumnosPraticas = (idCurso: any, idEmpresa: any) => {   
         const url = "http://localhost:8000/api/alumnosCursoPracticas/" + idCurso + "/" + idEmpresa;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.get(url, { headers: headers });

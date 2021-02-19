@@ -54,7 +54,7 @@ export class ListaCursosComponent implements OnInit {
         if (this.route.snapshot.paramMap.get('id') != null) {
             this.idUpdate = this.route.snapshot.paramMap.get('id');
             console.log('update' + this.idUpdate);
-            
+
         }
     }
 
@@ -200,7 +200,7 @@ export class ListaCursosComponent implements OnInit {
         this.listaCursosService.getEmpresasCurso(this.cursoSeleccionado.id).subscribe(
             (response: any) => {
                 console.log(response);
-                
+
                 let empresas = response.message;
                 empresas.forEach((element: {
                     idEmpresa: any; nombre: any; provincia: any; localidad: any; calle: any;
@@ -363,10 +363,11 @@ export class ListaCursosComponent implements OnInit {
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
     addAlumnoCurso(idEmpresa: any) {
-        
+
         let idEmp = idEmpresa;
         let idCur = this.cursoSeleccionado.id;
-        const modalRef = this.modal.open(ModalAddAlumnoPracticaComponent);
+        let nombreRes = this.cursoSeleccionado.nombreRepresentante;
+        const modalRef = this.modal.open(ModalAddAlumnoPracticaComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.idCur = idCur;
         modalRef.componentInstance.idEmp = idEmp;
         modalRef.componentInstance["eventOk"].subscribe((event: any) => {
