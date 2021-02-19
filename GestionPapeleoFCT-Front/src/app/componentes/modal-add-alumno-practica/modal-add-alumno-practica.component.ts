@@ -20,7 +20,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     idCurso: any;
     idEmpresa: any;
     addAlumnoPracitas: FormGroup | any;
-    submitted: false;
+    submitted =  false;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private fctAlumnoService: FctAlumnoService) {
         this.alumnosPracticas = [];
