@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(email: string, password: string){
+    console.log('Entro componente login');
     this.loginService.login(email, password).subscribe(
       (response: any) => {
         //console.log(response.message);

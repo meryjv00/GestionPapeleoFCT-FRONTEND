@@ -18,7 +18,8 @@ export class LoginService {
   * Petición de login
   * */
   public login = (email: string, password: string) => {
-    const url = environment.dirBack + "login";
+    console.log('Entro servicio login');
+    const url = "http://coworkingdaw2.ddns.net:8081/api/login";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
