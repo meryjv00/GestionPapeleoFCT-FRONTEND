@@ -29,88 +29,89 @@
                             <button type="button" *ngIf="user.rol=='Director'" aria-hidden="true" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fa fa-edit mr-2" aria-hidden="true"></i>Editar
                             </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
-                                            <div class="modal-header bg-primary">
-                                                <h3 class="modal-title text-white" id="exampleModalLabel">Editar información</h3>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body row">
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Código</label>
-                                                    <input type="text" formControlName="codigo" [(ngModel)]="centro.codigo" />
-                                                    <div *ngIf="submitted && formulario.codigo.errors">
-                                                        <div *ngIf="formulario.codigo.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Cif</label>
-                                                    <input type="text" formControlName="cif" [(ngModel)]="centro.cif" />
-                                                    <div *ngIf="submitted && formulario.cif.errors">
-                                                        <div *ngIf="formulario.cif.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <label>Nombre</label>
-                                                    <input type="text" formControlName="nombre" [(ngModel)]="centro.nombre" />
-                                                    <div *ngIf="submitted && formulario.nombre.errors">
-                                                        <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Provincia</label>
-                                                    <input type="text" formControlName="provincia" [(ngModel)]="centro.provincia" />
-                                                    <div *ngIf="submitted && formulario.provincia.errors">
-                                                        <div *ngIf="formulario.provincia.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Localidad</label>
-                                                    <input type="text" formControlName="localidad" [(ngModel)]="centro.localidad" />
-                                                    <div *ngIf="submitted && formulario.localidad.errors">
-                                                        <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Código postal</label>
-                                                    <input type="number" formControlName="cp" [(ngModel)]="centro.cp" />
-                                                    <div *ngIf="submitted && formulario.cp.errors">
-                                                        <div *ngIf="formulario.cp.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Calle</label>
-                                                    <input type="text" formControlName="calle" [(ngModel)]="centro.calle" />
-                                                    <div *ngIf="submitted && formulario.calle.errors">
-                                                        <div *ngIf="formulario.calle.errors.required">No puede estar vacío</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Email</label>
-                                                    <input type="email" formControlName="email" [(ngModel)]="centro.email" />
-                                                    <div *ngIf="submitted && formulario.email.errors">
-                                                        <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label>Teléfono</label>
-                                                    <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="centro.tlf">
-                                                    <div *ngIf="submitted && formulario.tlf.errors">
-                                                        <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
-                                                    </div>
+                        </div>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+                                        <div class="modal-header bg-primary">
+                                            <h3 class="modal-title text-white" id="exampleModalLabel">Editar información</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Código</label>
+                                                <input type="text" formControlName="codigo" [(ngModel)]="centro.codigo" />
+                                                <div *ngIf="submitted && formulario.codigo.errors">
+                                                    <div *ngIf="formulario.codigo.errors.required">No puede estar vacío</div>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer bg-secondary">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                                                <button class="btn btn-success" data-dismiss="modal" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Cif</label>
+                                                <input type="text" formControlName="cif" [(ngModel)]="centro.cif" />
+                                                <div *ngIf="submitted && formulario.cif.errors">
+                                                    <div *ngIf="formulario.cif.errors.required">No puede estar vacío</div>
+                                                </div>
                                             </div>
-                                        </form>
-                                    </div>
+                                            <div class="col-md-12 col-lg-12">
+                                                <label>Nombre</label>
+                                                <input type="text" formControlName="nombre" [(ngModel)]="centro.nombre" />
+                                                <div *ngIf="submitted && formulario.nombre.errors">
+                                                    <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Provincia</label>
+                                                <input type="text" formControlName="provincia" [(ngModel)]="centro.provincia" />
+                                                <div *ngIf="submitted && formulario.provincia.errors">
+                                                    <div *ngIf="formulario.provincia.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Localidad</label>
+                                                <input type="text" formControlName="localidad" [(ngModel)]="centro.localidad" />
+                                                <div *ngIf="submitted && formulario.localidad.errors">
+                                                    <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Código postal</label>
+                                                <input type="number" formControlName="cp" [(ngModel)]="centro.cp" />
+                                                <div *ngIf="submitted && formulario.cp.errors">
+                                                    <div *ngIf="formulario.cp.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Calle</label>
+                                                <input type="text" formControlName="calle" [(ngModel)]="centro.calle" />
+                                                <div *ngIf="submitted && formulario.calle.errors">
+                                                    <div *ngIf="formulario.calle.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Email</label>
+                                                <input type="email" formControlName="email" [(ngModel)]="centro.email" />
+                                                <div *ngIf="submitted && formulario.email.errors">
+                                                    <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
+                                                    <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <label>Teléfono</label>
+                                                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="centro.tlf">
+                                                <div *ngIf="submitted && formulario.tlf.errors">
+                                                    <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-secondary">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+                                            <button class="btn btn-success" data-dismiss="modal" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

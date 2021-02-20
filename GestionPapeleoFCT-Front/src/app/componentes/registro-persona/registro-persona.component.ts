@@ -18,12 +18,12 @@ export class RegistroPersonaComponent implements OnInit {
   mensaje: any;
   constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private formBuilder: FormBuilder, private router: Router,private RegistroService: RegistroService) {
     this.nuevoRegistro = this.formBuilder.group({
-      nombre: ['', [Validators.required]],
-      apellidos: ['', [Validators.required]],
-      localidad: ['', [Validators.required]],
-      residencia: ['', [Validators.required]],
-      correo: ['', [Validators.required]],
-      tlf: ['', [Validators.required]]
+      nombre: ['', [Validators.required,Validators.pattern]],
+      apellidos: ['', [Validators.required,Validators.pattern]],
+      localidad: ['', [Validators.required,Validators.minLength]],
+      residencia: ['', [Validators.required,Validators.minLength]],
+      correo: ['', [Validators.required,Validators.email]],
+      tlf: ['', [Validators.required,Validators.pattern]]
     });
     this.persona = {
       nombre:'',

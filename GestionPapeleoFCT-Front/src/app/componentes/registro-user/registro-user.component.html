@@ -1,38 +1,43 @@
-<div class="container-fluid">
-    <main class="row">
-        <div class="col-md-12 mt-5">
-            <h3 class="text-center">Registrate</h3>
+<div class="container-fluid bg-secondary vh-100">
+    <div class="row">
+        <div class="col-12">
+            <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="imagen" width="150px">
+        </div>
+        <div class="col-11 col-md-9 col-lg-5 mx-auto border bg-white shadow px-5 py-4 rounded">
+            <h1 class="text-center">Registrate</h1>
             <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
-                <div>
-                    <div>
-                        <label>Dni</label>
-                        <input type="text" formControlName="dni" />
-                        <div *ngIf="submitted && formulario.dni.errors">
-                            <div *ngIf="formulario.dni.errors.required">No puede estar vacío</div>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input type="email" formControlName="email" />
-                        <div *ngIf="submitted && formulario.email.errors">
-                            <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
-                            <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Password </label>
-                        <input type="password" formControlName="password" />
-                        <div *ngIf="submitted && formulario.password.errors">
-                            <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
-                        </div>
+                <div class="mb-3">
+                    <label for="dni" class="form-label">Dni:</label>
+                    <input type="text" class="form-control" formControlName="dni" pattern="^[0-9]{8}[A-Za-z]{1}$" />
+                    <div class="error" *ngIf="(submitted || formulario.dni.touched) && formulario.dni.errors">
+                        <div *ngIf="formulario.dni.errors.required">Este campo es obligatorio</div>
+                        <div *ngIf="formulario.dni.errors.pattern">Introduce un dni válido</div>
                     </div>
                 </div>
-                <div>
-                    <button>Enviar</button>
-                    <button type="reset" (click)="onReset()">Cancelar</button>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" formControlName="email" />
+                    <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
+                        <div *ngIf="formulario.email.errors.required">Este campo es obligatorio</div>
+                        <div *ngIf="formulario.email.errors.email">Introduce un email valido</div>
+                    </div>
                 </div>
-                <div>{{message}}</div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña: </label>
+                    <input type="password" class="form-control" formControlName="password" minlength="5" />
+                    <div class="error" *ngIf="(submitted || formulario.password.touched) && formulario.password.errors">
+                        <div *ngIf="formulario.password.errors.required">Este campo es obligatorio</div>
+                        <div *ngIf="formulario.password.errors.minlength">La contraseña debe contener más de {{formulario.password.errors.minlength.requiredLength}} carácteres</div>
+                    </div>
+                </div>
+                <div class="mt-1">{{message}}</div>
+                <button class="btn btn-primary w-25">Confirmar</button>
             </form>
         </div>
-    </main>
+    </div>
+    <div class="row">
+        <div class="col-9 col-md-8 col-lg-5 mx-auto pt-2">
+            <p>¿Ya tienes cuenta? <a href="/"> Inicia sesión aquí</a></p>
+        </div>
+    </div>
 </div>

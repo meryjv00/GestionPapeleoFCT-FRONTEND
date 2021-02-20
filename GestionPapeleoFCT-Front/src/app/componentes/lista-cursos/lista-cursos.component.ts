@@ -345,20 +345,22 @@ export class ListaCursosComponent implements OnInit {
 
 
     // Metodo para eliminar una empresa para practicas en un curso
-    deleteEmpresaCurso(id: any) {
+    deleteEmpresaCurso(idEmpresa: any) {
         // Lo que paso por parametro es el id de la tabla que relaciona idEmpresa con idCurso
-
         let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar esta empresa?");
         if (seguroEliminar) {
-            this.listaCursosService.deleteEmpresaCurso(id).subscribe(
+            this.listaCursosService.deleteEmpresaCurso(idEmpresa,this.cursoSeleccionado.id).subscribe(
                 (response: any) => {
+                    console.log(response.message);
+                    //Borra la seleccionada del vector empresas curso
+                    //La añade como disponible
                     this.onChange(this.cursoSeleccionado.id);
                 },
                 (error: any) => {
                     console.log(error);
                 }
             );
-        }
+        }  
     }
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
