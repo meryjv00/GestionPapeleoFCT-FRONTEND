@@ -2,9 +2,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-nuevo-alumno',
@@ -16,7 +18,8 @@ export class NuevoAlumnoComponent implements OnInit {
   curso: any;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private adminAlumnosService: AdminAlumnosService,private loginService: LoginService,private CompartirDatos: CompartirDatosService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private adminAlumnosService: AdminAlumnosService,private loginService: LoginService,
+    private CompartirDatos: CompartirDatosService,private modal: NgbModal) {
     if (!loginService.isUserSignedIn()){
       this.router.navigate(['/login']);
     }
@@ -47,22 +50,20 @@ export class NuevoAlumnoComponent implements OnInit {
     if (this.nuevoAlumno.invalid) {
       return;
     }
-    let add = confirm("¿Estás seguro de que quieres añadir este alumno a el curso " +  this.curso.cicloFormativoA + "?");
-    if (add) {
-      this.insertAlumno();
-      this.onReset();
-    }
-  }
 
-  insertAlumno(){
-    this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.curso).subscribe(
-      (response: any) => {
-        this.router.navigate(['/listaCursos']);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres añadir este alumno a el curso ' + this.curso.cicloFormativoA + ' ?';
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+        //Añade el alumno
+        this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.curso).subscribe(
+          (response: any) => {
+            this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    });
   }
 
   /**
@@ -73,6 +74,12 @@ export class NuevoAlumnoComponent implements OnInit {
     this.nuevoAlumno.reset();
   }
 
+  /**
+   * Vuelve a la lista de cursos cargando el curso seleccionado
+   */
+  cancelar(){
+    this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+  }
 }
 
 

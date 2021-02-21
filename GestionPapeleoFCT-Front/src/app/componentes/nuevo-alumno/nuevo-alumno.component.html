@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <main class="row">
         <!--**************************************MENU***************************************-->
-        <div id="menu" class="col-md-3 col-lg-2 pr-0 bg-light border-right">
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu></app-menu>
         </div>
         <!--***********************************CONTENIDO***************************************-->
-        <div class="col-md-9 col-lg-10">
+        <div class="col-12 col-lg-10 overflow-hidden">
             <!-- Tarjeta añadir nuevo alumno -->
             <div class="row">
                 <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-5 mb-5">
@@ -52,7 +52,7 @@
                                         <input type="text" formControlName="localidad" id="localidad" class="form-control" minlength="5" />
                                         <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
                                             <div *ngIf="formulario.localidad.errors.required ">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
+                                            <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} carácteres</div>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -60,7 +60,7 @@
                                         <input type="text" formControlName="residencia" id="residencia" class="form-control" minlength="5" />
                                         <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
                                             <div *ngIf="formulario.residencia.errors.required ">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
+                                            <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} carácteres</div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,6 +92,10 @@
                                 <button type="reset" (click)="onReset()" class="btn btn-primary mr-2">
                                     Reiniciar             
                                     <i class="fa fa-undo ml-1"></i>
+                                </button>
+                                <button (click)="cancelar()" type="button" class="btn btn-danger mr-2">
+                                    Cancelar             
+                                    <i class="fa fa-times ml-1"></i>
                                 </button>
                             </div>
                         </form>

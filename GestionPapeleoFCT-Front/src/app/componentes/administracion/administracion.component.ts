@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-administracion',
@@ -38,7 +40,8 @@ export class AdministracionComponent implements OnInit {
 
   //------------------------------------------------------------
   //--CONSTRUCTOR
-  constructor(private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private administracionService: AdministracionService, private loginService: LoginService, private router: Router) {
+  constructor(private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private administracionService: AdministracionService,
+    private loginService: LoginService, private router: Router, private modal: NgbModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
@@ -173,8 +176,10 @@ export class AdministracionComponent implements OnInit {
     if (this.profesoresCSV.invalid) {
       return;
     }
-    let confirmar = confirm("¿Estás seguro que quieres insertar estos profesores en la base de datos?");
-    if (confirmar) {
+
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro que quieres insertar estos profesores en la base de datos?';
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.insertProfesores(this.profCSV).subscribe(
         (response: any) => {
           alert(response.message);
@@ -183,7 +188,8 @@ export class AdministracionComponent implements OnInit {
           console.log(error);
         }
       );
-    }
+    });
+
   }
 
   /**
@@ -194,8 +200,9 @@ export class AdministracionComponent implements OnInit {
     if (this.alumnosCSV.invalid) {
       return;
     }
-    let confirmar = confirm("¿Estás seguro que quieres insertar estos alumnos en el curso " + this.cursoSeleccionado.cicloFormativoA + "?");
-    if (confirmar) {
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = "¿Estás seguro que quieres insertar estos alumnos en el curso " + this.cursoSeleccionado.cicloFormativoA + "?";
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.insertAlumnos(this.alumnCSV, this.cursoSeleccionado).subscribe(
         (response: any) => {
           alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
@@ -223,7 +230,8 @@ export class AdministracionComponent implements OnInit {
           }
         }
       );
-    }
+    }); 
+
   }
 
   //----------------------------------------------------------
@@ -292,30 +300,29 @@ export class AdministracionComponent implements OnInit {
    * Asigna un tutor a un curso
    */
   elegirTutorCurso() {
-    if (!this.tutorSeleccionado) {
-      alert('No hay ningún tutor disponible');
-    } else {
-      let convertirTutor = confirm("¿Estás seguro de que quieres convertir a " + this.tutorSeleccionado.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?");
-      if (convertirTutor) {
-        this.administracionService.addTutorCurso(this.tutorSeleccionado, this.cursoSeleccionado2).subscribe(
-          (response: any) => {
-            alert('Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+    console.log(this.tutorSeleccionado);
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres convertir a ' + this.tutorSeleccionado.nombre + " en tutor del curso " + this.cursoSeleccionado2.cicloFormativoA + "?";
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+      this.administracionService.addTutorCurso(this.tutorSeleccionado, this.cursoSeleccionado2).subscribe(
+        (response: any) => {
+          alert('Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
 
-            //Elimina el curso asignado de la lista de cursos sin tutor
-            this.cursosSinTutor.forEach((curso, index) => {
-              if (curso.id == this.cursoSeleccionado2.id) {
-                this.cursosSinTutor.splice(index, 1);
-                this.cursoSeleccionado2 = this.cursosSinTutor[0];
-              }
-            });
-          },
-          (error) => {
-            alert('No se ha podido asignar a ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
-            console.log(error);
-          }
-        );
-      }
-    }
+          //Elimina el curso asignado de la lista de cursos sin tutor
+          this.cursosSinTutor.forEach((curso, index) => {
+            if (curso.id == this.cursoSeleccionado2.id) {
+              this.cursosSinTutor.splice(index, 1);
+              this.cursoSeleccionado2 = this.cursosSinTutor[0];
+            }
+          });
+        },
+        (error) => {
+          alert('No se ha podido asignar a ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+          console.log(error);
+        }
+      );
+    }); 
+
   }
 
   /**
@@ -421,26 +428,52 @@ export class AdministracionComponent implements OnInit {
     } else {
       rol = "jefe de estudios";
     }
-    let cambiarRol = confirm("¿Estás seguro de que quieres que " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + " se convierta en " + rol + "?");
-    if (cambiarRol) {
+
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = "¿Estás seguro de que quieres que " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + " se convierta en " + rol + "?";
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.cambiarRol(dni, this.personaSeleccionada.rol).subscribe(
         (response: any) => {
           //Busca esa persona para actualizarle el rol
-          this.cuentasAdministrar.forEach((profesor, index) => {
-            if (profesor.dni == dni) {
-              if (this.personaSeleccionada.rol == 2) {
-                profesor.rol = 3;
-              } else {
-                profesor.rol = 2;
+          if (this.personaSeleccionada.activo == 0) {
+            this.cuentasAdministrar.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                if (this.personaSeleccionada.rol == 2) {
+                  profesor.rol = 3;
+                } else {
+                  profesor.rol = 2;
+                }
               }
-            }
-          });
+            });
+          } else {
+            this.cuentasActivas.forEach((profesor, index) => {
+              if (profesor.dni == dni) {
+                if (this.personaSeleccionada.rol == 2) {
+                  profesor.rol = 3;
+                  //Añadir como tutor
+                  this.tutores.push(profesor);
+                  if(this.tutores.length == 1){
+                    this.tutorSeleccionado = profesor;
+                  }
+                } else {
+                  profesor.rol = 2;
+                  //Eliminar como tutor
+                  this.tutores.forEach((tutor, index) => {
+                    if (tutor.dni == profesor.dni) {
+                      this.tutores.splice(index, 1);
+                    }
+                  });
+                }
+              }
+            });
+          }
         },
         (error) => {
           console.log(error);
         }
       );
-    }
+    }); 
+
   }
 
   /**
@@ -457,18 +490,20 @@ export class AdministracionComponent implements OnInit {
       accion = "desactivar";
     }
 
-    let activarCuenta = confirm("¿Estás seguro de que quieres " + accion + "  la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "?");
-    if (activarCuenta) {
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = "¿Estás seguro de que quieres " + accion + "  la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "?";
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+      
       this.administracionService.activarDesactivarCuenta(dni).subscribe(
         (response: any) => {
           //Activar cuentas
-          if(this.personaSeleccionada.activo == 0){
+          if (this.personaSeleccionada.activo == 0) {
             this.cuentasAdministrar.forEach((profesor, index) => {
               if (profesor.dni == dni) {
                 //Añade tutor 
                 if (profesor.rol == 3) {
                   this.tutores.push(profesor);
-                  if(!this.tutorSeleccionado){
+                  if (!this.tutorSeleccionado) {
                     this.tutorSeleccionado = profesor;
                   }
                 }
@@ -477,13 +512,13 @@ export class AdministracionComponent implements OnInit {
                 this.personaSeleccionada.activo = 1;
               }
             });
-          }else{ //Desactivar cuentas
+          } else { //Desactivar cuentas
             this.cuentasActivas.forEach((profesor, index) => {
               if (profesor.dni == dni) {
                 //Elimina tutor
                 if (profesor.rol == 3) {
                   this.tutores.forEach((tutor, index) => {
-                    if(tutor.dni == profesor.dni){
+                    if (tutor.dni == profesor.dni) {
                       this.tutores.splice(index, 1);
                     }
                   });
@@ -494,13 +529,13 @@ export class AdministracionComponent implements OnInit {
               }
             });
           }
-          
+
         },
         (error) => {
           console.log(error);
         }
       );
-    }
+    }); 
 
   }
 
@@ -510,17 +545,18 @@ export class AdministracionComponent implements OnInit {
    */
   denegarAcceso(dni: any) {
     this.buscaPersonaPorDni(dni);
-    let denegarAcceso = confirm("¿Estás seguro de que quieres denegar el acceso a " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "? La cuenta será borrada");
-    if (denegarAcceso) {
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = "¿Estás seguro de que quieres denegar el acceso a " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "? La cuenta será borrada";
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.denegarAccesoCuenta(dni).subscribe(
         (response: any) => {
-          if(this.personaSeleccionada.activo == 0){
+          if (this.personaSeleccionada.activo == 0) {
             this.cuentasAdministrar.forEach((profesor, index) => {
               if (profesor.dni == dni) {
                 this.cuentasAdministrar.splice(index, 1);
               }
             });
-          }else{
+          } else {
             this.cuentasActivas.forEach((profesor, index) => {
               if (profesor.dni == dni) {
                 this.cuentasActivas.splice(index, 1);
@@ -532,7 +568,7 @@ export class AdministracionComponent implements OnInit {
           console.log(error);
         }
       );
-    }
+    }); 
   }
 
   buscaPersonaPorDni(dni: any) {

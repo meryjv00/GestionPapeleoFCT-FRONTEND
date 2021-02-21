@@ -24,6 +24,7 @@ import { ActualizarCursoComponent } from './componentes/actualizar-curso/actuali
 import { AdministracionComponent } from './componentes/administracion/administracion.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddAlumnoPracticaComponent } from './componentes/modal-add-alumno-practica/modal-add-alumno-practica.component';
+import { ModalAlertaComponent } from './componentes/modal-alerta/modal-alerta.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ModalAddAlumnoPracticaComponent } from './componentes/modal-add-alumno-
     ActualizarCursoComponent,
     AdministracionComponent,
     ModalAddAlumnoPracticaComponent,
+    ModalAlertaComponent,
   ],
   imports: [
     BrowserModule,

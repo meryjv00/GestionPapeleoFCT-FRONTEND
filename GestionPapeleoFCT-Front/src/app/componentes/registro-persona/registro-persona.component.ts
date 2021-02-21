@@ -58,7 +58,6 @@ export class RegistroPersonaComponent implements OnInit {
     if (this.nuevoRegistro.invalid) {
       return;
     }
-    console.log(this.rolSeleccionado);
     if(!this.rolSeleccionado){
       this.mensaje = "Seleccione un rol, porfavor";
       return;

@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <main class="row">
         <!--**************************************MENU***************************************-->
-        <div id="menu" class="col-md-3 col-lg-2 pr-0 bg-light border-right">
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu></app-menu>
         </div>
         <!--***********************************CONTENIDO***************************************-->
-        <div class="col-md-9 col-lg-10">
+        <div class="col-12 col-lg-10 overflow-hidden">
             <div name="opciones" class="row py-3 shadow-sm">
                 <div id="opciones" class="ml-auto">
                     <app-opciones></app-opciones>
@@ -23,7 +23,7 @@
                                         <h3 class="font-weight-bolder">Información personal alumno</h3>
                                     </div>
                                     <div class="col-2">
-                                        <button (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
+                                        <button type="button" (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +94,15 @@
                             </div>
                             <!--Footer-->
                             <div class="card-footer bg-secondary">
-                                <button *ngIf="this.activados" id="botonConfirmar" type="submit" class="btn btn-success mr-2">
+                                <button *ngIf="this.activados" type="submit" class="btn btn-success mr-2">
                                     Editar
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <button (click)="deleteAlumno()" class="btn btn-danger">
+                                <button type="button" (click)="volver()" class="btn btn-primary mr-2">
+                                    Volver
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <button type="button" (click)="deleteAlumno()" class="btn btn-danger">
                                     Eliminar
                                     <i class="fas fa-times"></i>
                                 </button>

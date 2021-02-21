@@ -4,6 +4,8 @@ import { AdminEmpresasService } from 'src/app/servicios/admin-empresas.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-empresa',
@@ -17,7 +19,8 @@ export class EmpresaComponent implements OnInit {
   activados = false;
   textoBoton: any;
 
-  constructor(private router: Router, private loginService: LoginService, private adminEmpresasService: AdminEmpresasService, private formBuilder: FormBuilder,private CompartirDatos: CompartirDatosService) {
+  constructor(private router: Router, private loginService: LoginService, private adminEmpresasService: AdminEmpresasService, private formBuilder: FormBuilder,
+    private CompartirDatos: CompartirDatosService, private modal: NgbModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
@@ -75,12 +78,14 @@ export class EmpresaComponent implements OnInit {
    * @param empresa 
    */
   eliminarEmpresa(){
-    let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar la empresa de la Base de datos?");
-    if (seguroEliminar) {
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa?';
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
       alert("Empresa eliminada.");
       this.router.navigate(['/listaEmpresas']);
-    }
+    }); 
+
   }
 
   /**

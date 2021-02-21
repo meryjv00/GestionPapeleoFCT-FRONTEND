@@ -1,3 +1,4 @@
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/modal-add-alumno-practica.component';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
     selector: 'app-lista-cursos',
@@ -53,9 +55,8 @@ export class ListaCursosComponent implements OnInit {
         // Si existe recojo el curso modificado para volver a el
         if (this.route.snapshot.paramMap.get('id') != null) {
             this.idUpdate = this.route.snapshot.paramMap.get('id');
-            console.log('update' + this.idUpdate);
-
         }
+
     }
 
     /**
@@ -199,8 +200,6 @@ export class ListaCursosComponent implements OnInit {
         this.empresasCurso = [];
         this.listaCursosService.getEmpresasCurso(this.cursoSeleccionado.id).subscribe(
             (response: any) => {
-                console.log(response);
-
                 let empresas = response.message;
                 empresas.forEach((element: {
                     idEmpresa: any; nombre: any; provincia: any; localidad: any; calle: any;
@@ -260,6 +259,8 @@ export class ListaCursosComponent implements OnInit {
     */
     updateAlumno(alumno: any) {
         this.CompartirDatos.setAlumno(alumno);
+        this.CompartirDatos.setCurso(this.cursoSeleccionado);
+
         this.router.navigate(['/alumno']);
     }
 
@@ -309,23 +310,25 @@ export class ListaCursosComponent implements OnInit {
 
     // Método para eliminar un curso
     deleteCurso() {
-        // Sustituir por un modal en la siguiente versión
-        let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar el curso de la Base de datos?");
-        if (seguroEliminar) {
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar el curso ' + this.cursoSeleccionado.cicloFormativoA + ' de la Base de Datos?';
+        modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+            //Eliminar curso BD
             this.cursosService.deleteCurso(this.cursoSeleccionado.id).subscribe(
                 (response: any) => {
-                    this.cursos = [];
-                    this.getCursos();
-                    console.log(response);
-                    this.onChange(this.cursos[0].id);
+                    this.cursos.forEach((curso, index) => {
+                        if (curso.id == this.cursoSeleccionado.id) {
+                            this.cursos.splice(index, 1);
+                        }
+                    });
+                    this.cursoSeleccionado = this.cursos[0];
+                    alert("Curso eliminado.");
                 },
                 (error) => {
                     console.log(error);
                 }
             );
-            alert("Curso eliminado.");
-            this.router.navigate(['/listaCursos']);
-        }
+        });
     }
 
     // Metodo para añadir una empresa para practicas a un curso
@@ -347,20 +350,19 @@ export class ListaCursosComponent implements OnInit {
     // Metodo para eliminar una empresa para practicas en un curso
     deleteEmpresaCurso(idEmpresa: any) {
         // Lo que paso por parametro es el id de la tabla que relaciona idEmpresa con idCurso
-        let seguroEliminar = confirm("¿Estás seguro de que quieres eliminar esta empresa?");
-        if (seguroEliminar) {
-            this.listaCursosService.deleteEmpresaCurso(idEmpresa,this.cursoSeleccionado.id).subscribe(
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa?';
+        modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+            this.listaCursosService.deleteEmpresaCurso(idEmpresa, this.cursoSeleccionado.id).subscribe(
                 (response: any) => {
-                    console.log(response.message);
-                    //Borra la seleccionada del vector empresas curso
-                    //La añade como disponible
                     this.onChange(this.cursoSeleccionado.id);
                 },
                 (error: any) => {
                     console.log(error);
                 }
             );
-        }  
+        });
+
     }
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
@@ -372,7 +374,7 @@ export class ListaCursosComponent implements OnInit {
         const modalRef = this.modal.open(ModalAddAlumnoPracticaComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.idCur = idCur;
         modalRef.componentInstance.idEmp = idEmp;
-        modalRef.componentInstance["eventOk"].subscribe((event: any) => {
+        modalRef.componentInstance["storeOk"].subscribe((event: any) => {
             //
         });
     }
