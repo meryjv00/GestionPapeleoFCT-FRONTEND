@@ -35,14 +35,16 @@ export class EmpresaComponent implements OnInit {
 
     //Formulario 'editar empresa'
     this.editarEmpresa = this.formBuilder.group({
-      nombre: ['', [Validators.required,Validators.minLength]],
-      provincia: ['', [Validators.required,Validators.minLength]],
-      localidad: ['', [Validators.required,Validators.minLength]],
-      calle: ['', [Validators.required,Validators.minLength]],
-      cp: ['', [Validators.required,Validators.minLength]],
-      cif: ['', [Validators.required,Validators.minLength]],
-      tlf: ['', [Validators.required,Validators.minLength]],
-      email: ['', [Validators.required,Validators.minLength]]
+      nombre: ['', [Validators.required, Validators.minLength]],
+      provincia: ['', [Validators.required, Validators.minLength]],
+      localidad: ['', [Validators.required, Validators.minLength]],
+      calle: ['', [Validators.required, Validators.minLength]],
+      cp: ['', [Validators.required, Validators.minLength]],
+      cif: ['', [Validators.required, Validators.minLength]],
+      tlf: ['', [Validators.required, Validators.minLength]],
+      email: ['', [Validators.required, Validators.minLength]],
+      dniRepresentante: ['', [Validators.required]],
+      nombreRepresentante: ['', [Validators.required]]
     });
 
     this.editarEmpresa?.disable();
@@ -56,15 +58,15 @@ export class EmpresaComponent implements OnInit {
   get formulario() { return this.editarEmpresa.controls; }
 
   //Actualiza la empresa
-  actualizar(){
+  actualizar() {
     this.submitted = true;
     if (this.editarEmpresa.invalid) {
       return
     } else {
       this.adminEmpresasService.updateEmpresa(this.empresa).subscribe(
         (response: any) => {
-          console.log(response);
-          this.router.navigate(['/empresa',this.empresa]);
+          this.router.navigate(['/empresa', this.empresa]);
+          alert('Empresa actualizada correctamente');
         },
         (error) => {
           console.log(error);
@@ -74,17 +76,17 @@ export class EmpresaComponent implements OnInit {
   }
 
   /**
-   * Pide confirmación por confirm() y llama a eliminarla.
+   * Pide confirmación y llama a eliminarla.
    * @param empresa 
    */
-  eliminarEmpresa(){
+  eliminarEmpresa() {
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
     modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
       alert("Empresa eliminada.");
       this.router.navigate(['/listaEmpresas']);
-    }); 
+    });
 
   }
 
@@ -92,16 +94,16 @@ export class EmpresaComponent implements OnInit {
    * Activa los inputs del formulario para editarlos o en caso de que esten 
    * activados los desactiva
    */
- activarEdicion(){
-  if(!this.activados){
-    this.editarEmpresa?.enable();
-    this.activados = true;
-    this.textoBoton = "Cancelar";
-  }else{
-    this.editarEmpresa?.disable();
-    this.activados = false;
-    this.textoBoton = "Editar";
+  activarEdicion() {
+    if (!this.activados) {
+      this.editarEmpresa?.enable();
+      this.activados = true;
+      this.textoBoton = "Cancelar";
+    } else {
+      this.editarEmpresa?.disable();
+      this.activados = false;
+      this.textoBoton = "Editar";
+    }
   }
- }
 
 }
