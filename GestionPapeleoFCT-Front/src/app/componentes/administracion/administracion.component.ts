@@ -182,7 +182,7 @@ export class AdministracionComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.insertProfesores(this.profCSV).subscribe(
         (response: any) => {
-          alert(response.message);
+          //alert(response.message);
         },
         (error) => {
           console.log(error);
@@ -205,7 +205,7 @@ export class AdministracionComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.insertAlumnos(this.alumnCSV, this.cursoSeleccionado).subscribe(
         (response: any) => {
-          alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
+          //alert("Alumnos del curso " + this.cursoSeleccionado.cicloFormativoA + " insertados");
           this.cursosSinAlumnos.forEach((curso, index) => {
             if (curso.id == this.cursoSeleccionado.id) {
               this.cursosSinAlumnos.splice(index, 1);
