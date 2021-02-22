@@ -1,7 +1,11 @@
-#body {
-    height: 100vh;
+input.ng-invalid.ng-touched {
+    border: 1px solid #cf525f;
 }
 
-#formu {
-    border-radius: 20px;
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+.error {
+    color: #cf525f;
 }

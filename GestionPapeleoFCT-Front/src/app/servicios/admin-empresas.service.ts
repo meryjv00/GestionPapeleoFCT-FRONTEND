@@ -22,7 +22,6 @@ export class AdminEmpresasService {
   public getEmpresas = () => {
     const url = "http://localhost:8000/api/empresas";
 
-    console.log(this.loginService.getUser().access_token);
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
     return this.http.get(url, { headers: headers });
@@ -58,7 +57,6 @@ export class AdminEmpresasService {
   public deleteEmpresaSuscription = (id: any) => {
     this.deleteEmpresa(id).subscribe(
       (response: any) => {
-        console.log(response);
         this.message = "Se ha eliminado la empresa";
         this.router.navigate(['listaEmpresas']);
       },
@@ -70,7 +68,6 @@ export class AdminEmpresasService {
 
   //Actualizar empresa
   public updateEmpresa = (empresa: any) => {
-    //console.log(empresa);
     const url = "http://localhost:8000/api/updateEmpresa/" + empresa.id;
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'empresa': empresa }, { headers: headers });

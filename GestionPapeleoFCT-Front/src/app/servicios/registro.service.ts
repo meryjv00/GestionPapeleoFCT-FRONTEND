@@ -30,8 +30,9 @@ export class RegistroService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password , 'activado': 0,'denegado': 0 }, { headers: headers });
+    return this.http.post(url, { 'dni' : dni, 'email': email, 'password': password , 'activado': 0 }, { headers: headers });
   };
+
   /**
    * Subscripción a la petición de Registro, si todo es correcto, la almacena en session storage y
    * vamos a /home. Si se produce un error lo muestra
@@ -39,14 +40,12 @@ export class RegistroService {
   public registroSuscription(dni: string, email: string, password: string) {
     this.Registro(dni, email, password).subscribe(
       (response: any) => {
-        console.log(response);
+        console.log(response.message);
         this.ArrayUsService.setArray(email,dni);
-        this.message = "Registro correcto";
-        this.user.email = response.message.user.email;
         this.router.navigate(['registroPersona']);
       },
       (error) => {
-        this.message = error.error.message;
+        console.log(error.message);
       }
     );
   }

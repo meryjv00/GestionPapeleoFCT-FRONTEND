@@ -1,24 +1,24 @@
-<div id="body" class="container-fluid bg-secondary">
+<div class="container-fluid bg-secondary vh-100">
     <div class="row justify-content-center align-items-center">
         <div class="col-12">
-            <img class="d-block mx-auto my-3" src="https://i0.wp.com/cifpvirgendegracia.com/wp-content/uploads/2019/11/01-LOGO-CIFP-VdG-azul-120-sin-fondo-COLOR-JUNTA.png?resize=300%2C211&ssl=1" alt="imagen" width="150px">
+            <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="imagen" width="150px">
         </div>
-        <div id="formu" class="col-9 col-md-8 col-lg-5 mx-auto border bg-white shadow px-5 py-5">
+        <div class="col-9 col-md-8 col-lg-5 mx-auto border bg-white shadow px-5 py-4 rounded">
             <h1 class="text-center">Login</h1>
             <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email: </label>
                     <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp">
-                    <div *ngIf="submitted && formulario.email.errors">
-                        <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
-                        <div *ngIf="formulario.email.errors.email">Debe ser email valido</div>
+                    <div class="error" *ngIf="submitted && formulario.email.errors">
+                        <div *ngIf="formulario.email.errors.required">Este campo es obligatorio</div>
+                        <div *ngIf="formulario.email.errors.email">Introduce un email valido</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña: </label>
                     <input type="password" class="form-control" formControlName="password" id="password">
-                    <div *ngIf="submitted && formulario.password.errors">
-                        <div *ngIf="formulario.password.errors.required">No puede estar vacío</div>
+                    <div class="error" *ngIf="submitted && formulario.password.errors">
+                        <div *ngIf="formulario.password.errors.required">Este campo es obligatorio</div>
                     </div>
                 </div>
                 <div class="mt-1">{{message}}</div>

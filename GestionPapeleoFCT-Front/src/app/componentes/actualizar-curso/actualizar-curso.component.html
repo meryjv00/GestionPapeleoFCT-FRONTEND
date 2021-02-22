@@ -1,85 +1,80 @@
 <div class="container-fluid">
-  <main class="row">
-    <!--**************************************MENU***************************************-->
-    <div id="menu" class="col-md-3 col-lg-2 pr-0 bg-light border-right">
-      <app-menu></app-menu>
-    </div>
-    <!--***********************************CONTENIDO***************************************-->
-    <div id="contenido" class="col-md-9 col-lg-10 overflow-hidden">
-      <div name="opciones" class="row py-3 shadow-sm">
-        <div id="opciones" class="ml-auto">
-          <app-opciones></app-opciones>
+    <main class="row">
+        <!--**************************************MENU***************************************-->
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
+            <app-menu></app-menu>
         </div>
-      </div>
-      <div class="row justify-content-center mt-4">
-        <form class="col-sm-10 col-lg-6 card p-0" [formGroup]="newCurso" (ngSubmit)="onSubmit()">
-          <div class="card-header bg-primary">
-            <div class="card-title mb-0">
-              <p class="text-white mb-0 font-weight-bold">Modificar curso</p>
+        <!--***********************************CONTENIDO***************************************-->
+        <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
+            <div name="opciones" class="row py-3 shadow-sm">
+                <div id="opciones" class="ml-auto">
+                    <app-opciones></app-opciones>
+                </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div class="form-row mb-3">
-              <div class="col-8">
-                <input type="text" class="form-control" placeholder="Nombre del ciclo" formControlName="cicloFormativo"
-                  id="cicloFormativo" required [(ngModel)]="curso.cicloFormativo">
-                <div class="error" *ngIf="(submitted)">
-                  <div *ngIf="form.cicloFormativo.errors.required" class="text-danger">Este campo es obligatorio</div>
-                </div>
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Acrónimo" formControlName="cicloFormativoA"
-                  id="cicloFormativoA" required [(ngModel)]="curso.cicloFormativoA">
-                <div class="error" *ngIf="(submitted)">
-                  <div *ngIf="form.cicloFormativoA.errors.required" class="text-danger">Este campo es obligatorio</div>
-                </div>
-              </div>
+            <div class="row justify-content-center mt-4">
+                <form class="col-sm-10 col-lg-6 card p-0" [formGroup]="newCurso" (ngSubmit)="onSubmit()">
+                    <div class="card-header bg-primary">
+                        <div class="card-title mb-0">
+                            <p class="text-white mb-0 font-weight-bold">Modificar curso</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row mb-3">
+                            <div class="col-8">
+                                <input type="text" class="form-control" placeholder="Nombre del ciclo" formControlName="cicloFormativo" id="cicloFormativo" [(ngModel)]="curso.cicloFormativo">
+                                <div class="error" *ngIf="(submitted)">
+                                    <div *ngIf="form.cicloFormativo.errors.required" class="text-danger">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Acrónimo" formControlName="cicloFormativoA" id="cicloFormativoA" [(ngModel)]="curso.cicloFormativoA">
+                                <div class="error" *ngIf="(submitted)">
+                                    <div *ngIf="form.cicloFormativoA.errors.required" class="text-danger">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <select class="form-control mb-3" id="familiaProfesional" formControlName="familiaProfesional" [(ngModel)]="curso.familiaProfesional">
+                            <option *ngFor="let family of families" value="{{ family.familiaProfesional }}">
+                                {{ family.familiaProfesional }}</option>
+                            <div class="error" *ngIf="(submitted)">
+                                <div *ngIf="form.familiaProfesional.errors.required" class="text-danger">Este campo es obligatorio</div>
+                            </div>
+                        </select>
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="DNI Tutor" formControlName="dniTutor" id="dniTutor" [(ngModel)]="curso.dniTutor">
+                                <div class="error" *ngIf="(submitted)">
+                                    <div *ngIf="form.dniTutor.errors.required" class="text-danger">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Nº Horas" formControlName="nHoras" id="nHoras" [(ngModel)]="curso.nHoras">
+                                <div class="error" *ngIf="(submitted)">
+                                    <div *ngIf="form.nHoras.errors.required" class="text-danger">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Curso academico" formControlName="cursoAcademico" id="cursoAcademico" [(ngModel)]="curso.cursoAcademico">
+                                <div class="error" *ngIf="(submitted)">
+                                    <div *ngIf="form.cursoAcademico.errors.required" class="text-danger">Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-secondary">
+                        <button type="submit" class="btn btn-success mr-2">
+                            Modificar
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button (click)="onCancel()" class="btn btn-danger">
+                            Cancelar
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
-            <select class="form-control mb-3" id="familiaProfesional" formControlName="familiaProfesional" required [(ngModel)]="curso.familiaProfesional">
-              <option *ngFor="let family of families" value="{{ family.familiaProfesional }}">
-                {{ family.familiaProfesional }}</option>
-              <div class="error" *ngIf="(submitted)">
-                <div *ngIf="form.familiaProfesional.errors.required" class="text-danger">Este campo es obligatorio</div>
-              </div>
-            </select>
-            <div class="form-row mb-3">
-              <div class="col">
-                <input type="text" class="form-control" placeholder="DNI Tutor" formControlName="dniTutor" id="dniTutor"
-                  required [(ngModel)]="curso.dniTutor">
-                <div class="error" *ngIf="(submitted)">
-                  <div *ngIf="form.dniTutor.errors.required" class="text-danger">Este campo es obligatorio</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col">
-                <input type="number" class="form-control" placeholder="Nº Horas" formControlName="nHoras" id="nHoras"
-                  required [(ngModel)]="curso.nHoras">
-                <div class="error" *ngIf="(submitted)">
-                  <div *ngIf="form.nHoras.errors.required" class="text-danger">Este campo es obligatorio</div>
-                </div>
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Curso academico" formControlName="cursoAcademico"
-                  id="cursoAcademico" required [(ngModel)]="curso.cursoAcademico">
-                <div class="error" *ngIf="(submitted)">
-                  <div *ngIf="form.cursoAcademico.errors.required" class="text-danger">Este campo es obligatorio</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer bg-secondary">
-            <button type="submit" class="btn btn-success mr-2">
-              Modificar
-              <i class="fa fa-edit"></i>
-            </button>
-            <button (click)="onCancel()" class="btn btn-danger">
-              Cancelar
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
+        </div>
+    </main>
 </div>

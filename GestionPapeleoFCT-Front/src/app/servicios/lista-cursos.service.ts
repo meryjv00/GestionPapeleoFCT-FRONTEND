@@ -43,7 +43,7 @@ export class ListaCursosService {
         return this.http.get(url, { headers: headers });
     };
 
-    
+
     public getMisCursos = (dni: any) => {
         const url = "http://localhost:8000/api/cursos/" + dni;
 
@@ -96,9 +96,9 @@ export class ListaCursosService {
     };
 
     // Métodopara eliminar una empresa en un curso para realizar las practicas
-    public deleteEmpresaCurso(id: any) {
-        
-        const url = "http://localhost:8000/api/deleteEmpresaCurso/" + id;
+    public deleteEmpresaCurso(idEmpresa: any, idCurso: any) {
+
+        const url = "http://localhost:8000/api/deleteEmpresaCurso/" + idEmpresa + "/" + idCurso;
         let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
         return this.http.delete(url, { headers: headers });
     }

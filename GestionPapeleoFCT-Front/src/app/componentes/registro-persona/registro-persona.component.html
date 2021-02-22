@@ -1,62 +1,71 @@
-<body class="dark">
-    <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
-        <div>
-            <h1>Completa tu perfil</h1>
-            <div>
-                <label>Nombre: </label>
-                <input type="text" formControlName="nombre" [(ngModel)]="persona.nombre" />
-                <div *ngIf="submitted && formulario.nombre.errors">
-                    <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Apellidos: </label>
-                <input type="text" formControlName="apellidos" [(ngModel)]="persona.apellidos" />
-                <div *ngIf="submitted && formulario.apellidos.errors">
-                    <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Localidad: </label>
-                <input type="text" formControlName="localidad" [(ngModel)]="persona.localidad" />
-                <div *ngIf="submitted && formulario.localidad.errors">
-                    <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Residencia: </label>
-                <input type="text" formControlName="residencia" [(ngModel)]="persona.residencia" />
-                <div *ngIf="submitted && formulario.residencia.errors">
-                    <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Correo: </label>
-                <input type="text" formControlName="correo" [(ngModel)]="persona.correo" />
-                <div *ngIf="submitted && formulario.correo.errors">
-                    <div *ngIf="formulario.correo.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Telefono: </label>
-                <input type="tel" formControlName="tlf" id="phone" name="phone" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="persona.tlf">
-                <div *ngIf="submitted && formulario.tlf.errors">
-                    <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
-                </div>
-            </div>
-            <div>
-                <label>Rol: </label>
-                <select #selectRoles (change)="onChange(selectRoles.value)" class="form-select">
-                    <option selected>Elige el rol</option>
-                    <option value="2">Jefe Estudios</option>
-                    <option value="3">Tutor</option>
-                </select>
-                <p *ngIf="mensaje">{{mensaje}}</p>
-            </div>
+<div class="container-fluid bg-secondary min-vh-100">
+    <div class="row">
+        <div class="col-12">
+            <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="imagen" width="150px">
         </div>
-        <div>
-            <button>Enviar</button>
-            <button type="reset" (click)="onReset()">Cancelar</button>
+        <div class="col-11 col-md-9 col-lg-5 mx-auto border bg-white shadow px-5 py-4 mb-5 rounded">
+            <h1 class="text-center">Completa tu perfil</h1>
+            <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+                <div class="mb-3 mt-2">
+                    <label for="nombre" class="form-label">Nombre: </label>
+                    <input type="text" formControlName="nombre" class="form-control" [(ngModel)]="persona.nombre" pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})$" />
+                    <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+                        <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.nombre.errors.pattern">Introduce un nombre válido</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos: </label>
+                    <input type="text" formControlName="apellidos" class="form-control" [(ngModel)]="persona.apellidos" pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})$" />
+                    <div class="error" *ngIf="(submitted || formulario.apellidos.touched) && formulario.apellidos.errors">
+                        <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.apellidos.errors.pattern">Introduce dos apellidos válidos</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="localidad" class="form-label">Localidad: </label>
+                    <input type="text" formControlName="localidad" class="form-control" [(ngModel)]="persona.localidad" minlength="5" />
+                    <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                        <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="residencia" class="form-label">Residencia: </label>
+                    <input type="text" formControlName="residencia" class="form-control" [(ngModel)]="persona.residencia" minlength="5" />
+                    <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
+                        <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo: </label>
+                    <input type="email" formControlName="correo" class="form-control" [(ngModel)]="persona.correo" />
+                    <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors">
+                        <div *ngIf="formulario.correo.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.correo.errors.email">Introduce un email válido</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="tlf" class="form-label">Telefono: </label>
+                    <input type="tel" formControlName="tlf" id="phone" class="form-control" pattern="^[9|8|7|6]\d{8}$" [(ngModel)]="persona.tlf">
+                    <div class="error" *ngIf="(submitted || formulario.tlf.touched) && formulario.tlf.errors">
+                        <div *ngIf="formulario.tlf.errors.required">No puede estar vacío</div>
+                        <div *ngIf="formulario.tlf.errors.pattern">Introduce un teléfono válido</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol: </label>
+                    <select #selectRoles class="form-control" (change)="onChange(selectRoles.value)">
+                        <option selected>Elige el rol</option>
+                        <option value="2">Jefe Estudios</option>
+                        <option value="3">Tutor</option>
+                    </select>
+                    <p class="error" *ngIf="mensaje">{{mensaje}}</p>
+                </div>
+                <button class="btn btn-primary w-25">Confirmar</button>
+                <!--<button class="btn btn-primary w-25 ml-2" type="reset" (click)="onReset()">Reiniciar</button>-->
+            </form>
         </div>
-    </form>
-</body>
+    </div>
+</div>

@@ -14,9 +14,9 @@ export class RegistroUserComponent implements OnInit {
 
   constructor(private registroService: RegistroService, private formBuilder: FormBuilder, private router: Router) {
     this.nuevoRegistro = this.formBuilder.group({
-      dni: ['', [Validators.required]],
+      dni: ['', [Validators.required,Validators.pattern]],
       email: ['', [Validators.required,Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required,Validators.minLength]]
     });
     this.message = "";
   }
@@ -43,10 +43,6 @@ export class RegistroUserComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.nuevoRegistro.reset();
-  }
-
-  cancel() {
-    this.onReset();
   }
 
 }

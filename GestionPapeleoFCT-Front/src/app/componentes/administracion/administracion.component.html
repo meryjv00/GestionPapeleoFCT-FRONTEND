@@ -1,11 +1,11 @@
 <main class="container-fluid">
     <div class="row">
         <!--**************************************MENU***************************************-->
-        <div id="menu" class="col-md-3 col-lg-2 pr-0 bg-light border-right">
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu></app-menu>
         </div>
         <!--***********************************CONTENIDO***************************************-->
-        <div id="contenido" class="col-md-9 col-lg-10 mt-3">
+        <div id="contenido" class="col-12 col-lg-10 overflow-hidden mt-4">
             <!--*****NAV*****-->
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -18,7 +18,7 @@
             <div class="tab-content" id="nav-tabContent">
                 <!--Importación CSV-->
                 <div class="tab-pane fade show active" id="nav-csv" role="tabpanel" aria-labelledby="nav-csv-tab">
-                    <div id="importacionCSV" class="col-10 mx-auto shadow-sm mt-2 bg-light border card my-5">
+                    <div id="importacionCSV" class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <h3 class="font-weight-bolder ml-4">
@@ -47,7 +47,8 @@
                                 <!-- CSV alumnos por curso-->
                                 <div class="mt-4">
                                     <hr>
-                                    <h4>Cursos sin alumnos: {{cursosSinAlumnos.length}}</h4>
+                                    <h4 class="m-0">Elegir curso: </h4>
+                                    <span class="badge badge-primary mb-3">Sin alumnos: {{cursosSinAlumnos.length}}</span>
                                     <!--Select cursos sin alumnos-->
                                     <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control">
                                         <option *ngFor="let curso of cursosSinAlumnos" [value]="curso.id">{{curso.cicloFormativoA}}</option>
@@ -78,15 +79,15 @@
                 <!--Administración cuentas-->
                 <div class="tab-pane fade" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
                     <!--Cuentas inactivas-->
-                    <div *ngIf="cuentasAdministrar.length > 0" #cuentasInactivas class="col-10 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
+                    <div *ngIf="cuentasAdministrar.length > 0" #cuentasInactivas class="col-11 col-md-10  mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <h3 class="font-weight-bolder ml-4">
                                     Cuentas inactivas
                                 </h3>
                             </div>
-                            <div class="card-body col-12 px-5 py-3">
-                                <table class="table">
+                            <div class="card-body col-12 col-lg-10 mx-auto py-3">
+                                <table class="table table-responsive">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">Nombre completo</th>
@@ -129,15 +130,15 @@
                         </div>
                     </div>
                     <!--Cuentas activas-->
-                    <div *ngIf="cuentasActivas.length > 0" #cuentasAct class="col-10 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
+                    <div *ngIf="cuentasActivas.length > 0" #cuentasAct class="col-11 col-md-10  mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <h3 class="font-weight-bolder ml-4">
                                     Cuentas activas
                                 </h3>
                             </div>
-                            <div class="card-body col-12 px-5 py-3">
-                                <table class="table">
+                            <div class="card-body col-12 col-lg-10 mx-auto py-3">
+                                <table class="table table-responsive">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">Nombre completo</th>
@@ -192,7 +193,7 @@
                 </div>
                 <!--Administración tutores-->
                 <div class="tab-pane fade" id="nav-admin2" role="tabpanel" aria-labelledby="nav-admin2-tab">
-                    <div id="adminTutores" class="col-10 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
+                    <div id="adminTutores" class="col-11 col-md-10  mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <div class="row">

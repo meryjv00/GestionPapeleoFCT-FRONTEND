@@ -6,23 +6,23 @@
     </div>
     <div class="row enlaces">
         <div class="col">
-            <button name="cursos" routerLink="/listaCursos" class="col-lg-11 col-3 mx-auto btn active btn-aside">
+            <button name="cursos" routerLink="/listaCursos" routerLinkActive="active" class="col-lg-11 col-3 mx-auto btn btn-aside">
         <i class="fas fa-users"></i>
         <span class="ml-3">Cursos</span>
       </button>
-            <button name="empresas" routerLink="/listaEmpresas" class="col-lg-11 col-3 col-3 mx-auto btn btn-aside">
+            <button name="empresas" routerLink="/listaEmpresas" routerLinkActive="active" class="col-lg-11 col-3 col-3 mx-auto btn btn-aside">
         <i class="fas fa-briefcase"></i>
         <span class="ml-3">Empresas</span>
       </button>
-            <button name="centro" routerLink="/infCentro" class="col-lg-11 col-3 mx-auto btn btn-aside">
+            <button name="centro" routerLink="/infCentro" routerLinkActive="active" class="col-lg-11 col-3 mx-auto btn btn-aside">
         <i class="fas fa-building"></i>
         <span class="ml-3">Centro</span>
       </button>
-            <button name="admin" routerLink="/admin" class="col-lg-11 col-3 mx-auto btn btn-aside">
+            <button name="admin" routerLink="/admin" routerLinkActive="active" class="col-lg-11 col-3 mx-auto btn btn-aside">
         <i class="fas fa-cogs"></i>
         <span class="ml-3">Admin</span>
       </button>
-            <button name="sin_gout" routerLink="/" class="col-lg-11 col-3 mx-auto btn btn-aside" (click)="logOut()">
+            <button name="sin_gout" routerLink="/login" routerLinkActive="active" class="col-lg-11 col-3 mx-auto btn btn-aside" (click)="logOut()">
         <i class="fas fa-sign-out-alt "></i>
         <span class="ml-3">Salir</span>
       </button>

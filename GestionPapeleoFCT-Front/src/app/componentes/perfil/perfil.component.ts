@@ -53,14 +53,13 @@ export class PerfilComponent implements OnInit {
     this.mod_user.Mod_user(email, dni, nombre, apellidos, localidad, residencia, tlf).subscribe(
       (response: any) => {
         console.log(response);
-        console.log("Registro correcto");
         this.user.email=email;
         this.user.dni=dni;
         this.user.nombre=nombre;
         this.user.apellidos=apellidos;
         this.user.localidad=localidad;
         this.user.residencia=residencia;
-        this.user.tlf=tlf;
+        this.user.telefono=tlf;
         this.loginService.saveUser(this.user);
       },
       (error) => {

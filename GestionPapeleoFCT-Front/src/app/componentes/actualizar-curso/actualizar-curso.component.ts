@@ -1,10 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-actualizar-curso',
@@ -18,11 +20,13 @@ export class ActualizarCursoComponent implements OnInit {
   submitted = false;
   curso: any;
 
-  constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private cursosService: CursosService, private compartirDatos: CompartirDatosService) {
+  constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private cursosService: CursosService,
+     private compartirDatos: CompartirDatosService,private modal: NgbModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
     this.families = [];
+    
   }
 
   ngOnInit(): void {
@@ -38,18 +42,23 @@ export class ActualizarCursoComponent implements OnInit {
     this.submitted = true;
     if (this.newCurso.invalid) {
       return;
-    }
+    } 
     // Creo la oferta con los datos necesarios para ser guardados en la base de datos
     let curso = this.newCurso.value;
     curso.id = this.curso.id;
-    this.cursosService.updateCurso(curso).subscribe(
-      (response: any) => {
-        this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    console.log(curso);
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres actualizar el curso ' + curso.cicloFormativoA + ' ?';
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+      this.cursosService.updateCurso(curso).subscribe(
+        (response: any) => {
+          this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }); 
   }
 
   // Limpiamos campos
