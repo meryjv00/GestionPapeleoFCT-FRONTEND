@@ -49,6 +49,16 @@
                             <label for="localidad">Correo electrónico:</label>
                             <input type="text" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
                         </div>
+                        <br>
+                        <h4>Representante de la empresa</h4>
+                        <div>
+                            <label for="dniRepresentante">DNI:</label>
+                            <input type="text" formControlName="dniRepresentante" id="dniRepresentante" class="form-control" [(ngModel)]="empresa.dniRepresentante" />
+                        </div>
+                        <div>
+                            <label for="nombreRepresentante">Nombre:</label>
+                            <input type="text" formControlName="nombreRepresentante" id="nombreRepresentante" class="form-control" [(ngModel)]="empresa.nombreRepresentante" />
+                        </div>
                         <button *ngIf="activados" class="btn btn-primary mt-2 boton-estilo" (click)=actualizar()>Guardar</button>
                     </form>
                 </div>

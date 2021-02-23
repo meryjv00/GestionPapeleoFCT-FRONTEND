@@ -65,7 +65,7 @@ export class ListaEmpresasComponent implements OnInit {
         const empresas = response.message;
 
         empresas.forEach((element: { id: any; nombre: any; provincia: any; localidad: any; calle: any;
-          cp: any; cif: any; tlf: any; email: any; }) => {
+          cp: any; cif: any; tlf: any; email: any; dniRepresentante: any; nombreRepresentante: any; }) => {
           let empresa = {
             'id': element.id,
             'nombre': element.nombre,
@@ -75,7 +75,9 @@ export class ListaEmpresasComponent implements OnInit {
             'cp': element.cp,
             'cif': element.cif,
             'tlf': element.tlf,
-            'email': element.email
+            'email': element.email,
+            'dniRepresentante': element.dniRepresentante,
+            'nombreRepresentante': element.nombreRepresentante,
           };
           this.empresas.push(empresa);
         });
