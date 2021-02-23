@@ -322,7 +322,6 @@ export class ListaCursosComponent implements OnInit {
                         }
                     });
                     this.cursoSeleccionado = this.cursos[0];
-                    alert("Curso eliminado.");
                 },
                 (error) => {
                     console.log(error);
@@ -338,10 +337,18 @@ export class ListaCursosComponent implements OnInit {
             let empresaId = this.selectEmpresasNoCurso.nativeElement.value;
             this.listaCursosService.addEmpresaCurso(this.cursoSeleccionado.id, empresaId).subscribe(
                 (response: any) => {
+                    console.log('eee');
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
+                    modalRef.componentInstance.exito = true;
                     this.onChange(this.cursoSeleccionado.id);
+                    
                 },
                 (error: any) => {
                     console.log(error);
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'No se ha podido añadir la empresa';
+                    modalRef.componentInstance.exito = false;
                 });
         }
     }
@@ -356,9 +363,15 @@ export class ListaCursosComponent implements OnInit {
             this.listaCursosService.deleteEmpresaCurso(idEmpresa, this.cursoSeleccionado.id).subscribe(
                 (response: any) => {
                     this.onChange(this.cursoSeleccionado.id);
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Empresa eliminada con exito';
+                    modalRef.componentInstance.exito = true;
                 },
                 (error: any) => {
                     console.log(error);
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar la empresa';
+                    modalRef.componentInstance.exito = false;
                 }
             );
         });
