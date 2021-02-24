@@ -65,8 +65,10 @@ export class EmpresaComponent implements OnInit {
     } else {
       this.adminEmpresasService.updateEmpresa(this.empresa).subscribe(
         (response: any) => {
-          this.router.navigate(['/empresa', this.empresa]);
-          alert('Empresa actualizada correctamente');
+          this.activarEdicion();
+          alert('Empresa actualizada');
+          this.CompartirDatos.setEmpresa(this.empresa);
+          this.router.navigate(['/empresa']);
         },
         (error) => {
           console.log(error);
@@ -81,7 +83,7 @@ export class EmpresaComponent implements OnInit {
    */
   eliminarEmpresa() {
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa?';
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa de la base de datos?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
       alert("Empresa eliminada.");
