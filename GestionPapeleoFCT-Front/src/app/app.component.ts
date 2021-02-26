@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'GestionPapeleoFCT-Front';
+  theme: string | null = localStorage.getItem('theme');
+
+  ngOnInit(): void {
+  }
+
+  // Modifica el tema
+  setTheme(theme: any){
+    localStorage.setItem('theme', theme);
+    this.theme = localStorage.getItem('theme');
+  }
 }
