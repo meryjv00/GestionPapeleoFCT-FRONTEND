@@ -12,9 +12,9 @@ export class PerfilComponent implements OnInit {
   nuevoRegistro: FormGroup;
   user: any;
   submitted = false;
+  theme: string | null = localStorage.getItem('theme');
 
-
-  constructor(private loginService: LoginService,private formBuilder: FormBuilder, private mod_user: ModUsService) {
+  constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService) {
     this.nuevoRegistro = this.formBuilder.group({
       email: '',
       nombre: '',
@@ -53,13 +53,13 @@ export class PerfilComponent implements OnInit {
     this.mod_user.Mod_user(email, dni, nombre, apellidos, localidad, residencia, tlf).subscribe(
       (response: any) => {
         console.log(response);
-        this.user.email=email;
-        this.user.dni=dni;
-        this.user.nombre=nombre;
-        this.user.apellidos=apellidos;
-        this.user.localidad=localidad;
-        this.user.residencia=residencia;
-        this.user.telefono=tlf;
+        this.user.email = email;
+        this.user.dni = dni;
+        this.user.nombre = nombre;
+        this.user.apellidos = apellidos;
+        this.user.localidad = localidad;
+        this.user.residencia = residencia;
+        this.user.telefono = tlf;
         this.loginService.saveUser(this.user);
       },
       (error) => {
@@ -68,10 +68,15 @@ export class PerfilComponent implements OnInit {
     );
   }
 
-
-
   onReset() {
     this.submitted = false;
     this.user = this.loginService.getUser();
   }
+
+  // Modifica el tema
+  setTheme(theme: any) {
+    localStorage.setItem('theme', theme);
+    this.theme = localStorage.getItem('theme');
+  }
+
 }

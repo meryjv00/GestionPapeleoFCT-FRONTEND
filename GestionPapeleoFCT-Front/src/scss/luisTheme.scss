@@ -1,0 +1,94 @@
+// Colors
+// Aumento el contraste de todas las fuentes para una mayor legibilidad de la web
+$primary-luis: #10191b;
+$secondary-luis: #0980a1;
+$dark-luis: #242323;
+$danger-luis: #9c0817;
+$success-luis: #0ea107;
+$ligth-luis: #f2f2f2;
+
+// Font 
+// Seleccion las mejorers fuentes en legibilidad para sans serif
+$font-family-sans-serif-luis: Arial,
+Calibri,
+Helvetica,
+Tahoma y Verdana sans-serif,
+ !default;
+
+// Aumento el tamaño de la fuente para que tenga un mejor contraste
+$font-size-base-luis: 1.2rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg-luis: $font-size-base * 1.35 !default;
+$font-size-sm-luis: $font-size-base * .95 !default;
+
+// Aumento los bordes de los input, selec, botones, para una mejor legilidad
+$border-width-luis: 3px;
+
+app-root #app.theme.theme-luis {
+
+  font-family: $font-family-sans-serif-luis !important;
+  font-size: $font-size-base-luis !important;
+
+  .bg-primary {
+    background-color: $primary-luis !important;
+  }
+
+  .bg-secondary {
+    background-color: $secondary-luis !important;
+  }
+
+  .bg-danger {
+    background-color: $danger-luis !important;
+  }
+
+  .bg-success {
+    background-color: $success-luis !important;
+  }
+
+  .btn.btn-danger {
+    background-color: $danger-luis !important;
+  }
+
+  .btn.btn-success {
+    background-color: $success-luis !important;
+  }
+
+  .btn.btn-primary {
+    background-color: $primary-luis !important;
+  }
+
+  .btn.btn-primary,
+  .btn.btn-secondary {
+    //background-color: $primary-luis !important;
+    border: 3px solid #fff;
+  }
+
+  .btn {
+    transition: all linear 0.2s;
+  }
+
+  .btn:hover {
+    transform: scale(1.2);
+    box-shadow: 5px 5px 5px $dark-luis;
+  }
+
+  // Color del boton activo del menu
+  // Me veo obligado a usar !importante, no accedo a él por la especificidad de bootstrap, le ponen !important y no puedo cambiarlo sin su uso
+  .btn.btn-aside.active {
+    background-color: #1c282b !important;
+  }
+
+  // Modificaciones puntuales para una mayor legilidad
+  #anexos small {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  #anexos i {
+    color: #fff;
+  }
+
+  *:focus {
+    outline: 7px dotted rgb(9, 224, 9) !important;
+  }
+}
