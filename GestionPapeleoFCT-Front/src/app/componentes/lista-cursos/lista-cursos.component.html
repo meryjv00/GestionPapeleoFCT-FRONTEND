@@ -6,13 +6,13 @@
         </div>
         <!--***********************************CONTENIDO***************************************-->
         <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
-            <h5>{{mensaje}}</h5>
+            <p>{{mensaje}}</p>
             <div *ngIf="haCambiado" class="row">
                 <!------------------------------------------------------------------------------------>
                 <div class="container-fluid border-bottom-0 shadow pb-2">
                     <div class="col-11 d-flex flex-wrap pt-3 mx-auto">
                         <div class="col-12 col-lg-4 form-group-0 mb-2">
-                            <select #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
+                            <select aria-label="cursos" #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
                             <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
                               {{curso.cicloFormativoA}}
                             </option>
@@ -24,18 +24,18 @@
                                 <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
-                        <div class="col-12 col-lg-4 mb-2">
-                            <button class="btn btn-primary mr-2 w-100" (click)="newCurso()"><i class="fas fa-plus mr-2"></i>Nuevo curso</button>
+                        <div class="col-12 col-lg-3 mb-2">
+                            <button class="btn btn-outline-primary mr-2 w-100" (click)="newCurso()"><i class="fas fa-plus mr-2"></i>Nuevo curso</button>
                         </div>
                     </div>
                 </div>
                 <!-- Tarjeta info del curso -->
-                <div id="curso" class="col-11 mx-auto shadow-sm my-3 card">
+                <div id="curso" class="col-11 mx-auto shadow-sm my-3 card pb-0 border">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary">
-                            <h3 class="font-weight-bolder">
+                            <h1 class="font-weight-bolder text-center">
                                 {{cursoSeleccionado.cicloFormativo}} - {{cursoSeleccionado.cursoAcademico}}
-                            </h3>
+                            </h1>
                             <p class="text-center">
                                 <span class="badge badge-light mr">Familia: {{cursoSeleccionado.familiaProfesional}}</span>
                                 <span> | </span>
@@ -50,13 +50,13 @@
                                 </div>
                                 <div class="col-md-6 text-sm-right">
                                     <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-edit fa-xs"></i>
                                   </button>
-                                    <button (click)="addAlumno()" class="btn btn-primary ml-2">
-                                    <i class="fas fa-user-plus"></i>
+                                    <button (click)="addAlumno()" class="btn btn-success ml-2">
+                                    <i class="fas fa-user-plus fa-xs"></i>
                                   </button>
-                                    <button (click)="deleteCurso()" class="btn btn-primary ml-2">
-                                    <i class="fas fa-times"></i>
+                                    <button (click)="deleteCurso()" class="btn btn-danger ml-2">
+                                    <i class="fas fa-times fa-xs"></i>
                                   </button>
                                 </div>
                             </div>
@@ -64,15 +64,15 @@
                     </div>
                 </div>
                 <!-- Tarjeta de empresas -->
-                <div id="empresas" class="col-11 mx-auto shadow-sm my-3 card">
+                <div id="empresas" class="col-11 mx-auto shadow-sm my-3 card border">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary d-flex justify-content-between">
-                            <h3 class="font-weight-bolder">
+                            <h2 class="font-weight-bolder">
                                 Empresas
-                            </h3>
+                            </h2>
                             <form class="form-inline">
                                 <div class="form-group mb-2">
-                                    <select #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
+                                    <select aria-label="empresas" #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
                                     <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
                                       {{empresaN.nombre}}</option>
                                   </select>
@@ -98,7 +98,7 @@
                                         <td class="pt-3">{{ empresaS.nombreRepresentante }}</td>
                                         <td class="pt-3">Nº Alumnos</td>
                                         <td>
-                                            <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-primary py-1">
+                                            <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-success py-1">
                                                 <i class="fas fa-user-plus fa-xs"></i>
                                             </button>
                                             <button (click)="deleteEmpresaCurso(empresaS.id)" class="btn btn-danger ml-2 py-1">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <!-- Tarjetas anexos -->
-                <div id="anexos" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-2 bg-light border card">
+                <div id="anexos" class="col-11 mx-auto shadow-sm mt-2 border card">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary">
                             <h3 class="font-weight-bolder">
@@ -135,7 +135,7 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------>
-                <div id="carousel" class="w-100 mx-5 carousel bg-dark shadow-lg slide my-4" data-ride="carousel">
+                <div id="carousel" class="col-11 mx-auto carousel bg-secondary shadow-lg slide border rounded my-4" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carousel" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel" data-slide-to="1"></li>
@@ -144,64 +144,113 @@
                     <div class="carousel-inner">
                         <div *ngIf="haCambiado">
                             <ng-container *ngFor="let alumno of alumnos; index as i; ">
-                                <div *ngIf="i== 0 && i % 3 == 0" class="carousel-item active">
+                                <!--Sección de 3 en 3 alumnos-->
+                                <div *ngIf="i % 3 == 0" class="carousel-item active" [ngClass]="{'active':i==0}">
                                     <div class="row ml-5 pb-5">
-                                        <div class="col-md-3 offset-md-1">
-                                            <div class="px-2 bg-light shadow pb-4 mb-2 alumno">
-                                                <img src="../../../assets/img/wjpg.jpg" alt="foto_perfil"> {{ alumno.nombre }} {{alumno.apellidos}}
-                                                <button (click)="updateAlumno(alumno)" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button><br>
-                                                <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
+                                        <!--Alumno 1-->
+                                        <div class="col-md-3 col-10 offset-md-1">
+                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                                <div class="row d-flex">
+                                                    <!--Imagen-->
+                                                    <div class="col-md-9 col-9 mx-auto">
+                                                        <div class="mt-3 img">
+                                                            <img src="../../../assets/img/usu1.jpg" alt="foto_{{ alumno.nombre }}" class="w-100 h-100">
+                                                        </div>
+                                                    </div>
+                                                    <!--Información-->
+                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                        <p class="text-center pt-2 text-primary">
+                                                            <strong>{{ alumno.nombre }} {{ alumno.apellidos }}</strong>
+                                                        </p>
+                                                    </div>
+                                                    <!--Botones-->
+                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar">
+                                                        <div class="btn-group mr-2 w-100">
+                                                            <a href="mailto:{{alumno.correo}}" class="w-50">
+                                                                <button class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                    <i class="fas fa-envelope"></i>
+                                                                </button>
+                                                            </a>
+                                                            <button (click)="updateAlumno(alumno)" class="btn btn-primary w-50 mx-auto">
+                                                                <i class="fas fa-user-edit "></i>
+                                                            </button>
+                                                            <button (click)="deleteAlumno(alumno)" class="btn btn-danger rounded-0 btn-gray w-50 mx-auto">
+                                                                <i class="fas fa-user-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="i + 1 < alumnos.length" class="col-md-3">
-                                            <div class="px-2 bg-light shadow pb-4 alumno">
-                                                <img src="../../../assets/img/p.jpg" alt=""> {{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}
-                                                <button (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button>
-                                                <a href="mailto:{{alumnos[i + 1].correo}} ">{{alumnos[i + 1].correo}}</a>
+                                        <!--Alumno 2-->
+                                        <div *ngIf="i + 1 < alumnos.length" class="col-md-3 col-10">
+                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                                <div class="row">
+                                                    <!--Imagen-->
+                                                    <div class="col-md-9 col-9 mx-auto">
+                                                        <div class="mt-3 img">
+                                                            <img src="../../../assets/img/usu2.jpg" alt="foto_{{ alumnos[i+1].nombre }}" class="w-100 h-100">
+                                                        </div>
+                                                    </div>
+                                                    <!--Infor-->
+                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                        <p class="text-center pt-2 text-primary">
+                                                            <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
+                                                        </p>
+                                                    </div>
+
+                                                    <!--Botones-->
+                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                        <div class="btn-group mr-2 w-100">
+                                                            <a href="mailto:{{alumnos[i + 1].correo}}" class="w-50">
+                                                                <button class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                    <i class="fas fa-envelope"></i>
+                                                                </button>
+                                                            </a>
+                                                            <button (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary w-50">
+                                                                <i class="fas fa-user-edit "></i>
+                                                            </button>
+                                                            <button (click)="deleteAlumno(alumnos[i + 1])" class="btn btn-danger w-50 rounded-0">
+                                                                <i class="fas fa-user-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="i + 2 < alumnos.length" class="col-md-3">
-                                            <div class="px-2 bg-light shadow pb-4 alumno">
-                                                <img src="../../../assets/img/q.jpg" alt=""> {{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}
-                                                <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button><br>
-                                                <a href="mailto:{{alumnos[i + 2].correo}} ">{{alumnos[i + 2].correo}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="i >= 3 && i % 3 == 0" class="carousel-item">
-                                    <div class="row ml-5">
-                                        <div class="col-md-3 offset-md-1">
-                                            <div class="px-2 bg-light shadow pb-4 mb-3 alumno">
-                                                <img src="../../../assets/img/wjpg.jpg" alt=""> {{ alumno.nombre }} {{alumno.apellidos}}
-                                                <button (click)="updateAlumno(alumno)" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button>
-                                                <a href="mailto:{{alumno.correo}} ">{{alumno.correo}}</a>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="i + 1 < alumnos.length" class="col-md-3">
-                                            <div class="px-2 bg-light shadow pb-4 alumno">
-                                                <img src="../../../assets/img/p.jpg" alt=""> {{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}
-                                                <button (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button>
-                                                <a href="mailto:{{alumnos[i + 1].correo}} ">{{alumnos[i + 1].correo}}</a>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="i + 2 < alumnos.length" class="col-md-3">
-                                            <div class="px-2 bg-light shadow pb-4 alumno">
-                                                <img src="../../../assets/img/q.jpg" alt=""> {{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}
-                                                <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary ">
-                                                <i class="fas fa-user-edit "></i>
-                                              </button>
-                                                <a href="mailto:{{alumnos[i + 2].correo}} ">{{alumnos[i + 2].correo}}</a>
+                                        <!--Alumno 3-->
+                                        <div *ngIf="i + 2 < alumnos.length" class="col-md-3 col-10">
+                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                                <div class="row">
+                                                    <!--Imagen-->
+                                                    <div class="col-md-9 col-9 mx-auto">
+                                                        <div class="mt-3 img">
+                                                            <img src="../../../assets/img/usu3.jpg" alt="foto_{{ alumnos[i+2].nombre }}" class="w-100 h-100">
+                                                        </div>
+                                                    </div>
+                                                    <!--Información-->
+                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                        <p class="text-center pt-2 text-primary">
+                                                            <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
+                                                        </p>
+                                                    </div>
+                                                    <!--Botones-->
+                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                        <div class="btn-group mr-2 w-100">
+                                                            <a href="mailto:{{alumnos[i + 2].correo}}" class="w-50">
+                                                                <button class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                    <i class="fas fa-envelope"></i>
+                                                                </button>
+                                                            </a>
+                                                            <button (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary w-50">
+                                                                <i class="fas fa-user-edit "></i>
+                                                            </button>
+                                                            <button (click)="deleteAlumno(alumnos[i + 2])" class="btn btn-danger w-50 rounded-0">
+                                                                <i class="fas fa-user-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
