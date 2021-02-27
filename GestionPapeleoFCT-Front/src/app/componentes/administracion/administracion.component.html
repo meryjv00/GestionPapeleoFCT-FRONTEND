@@ -31,13 +31,12 @@
                                         <h2 for="profesoresCSV">Profesores</h2>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <label *ngIf="!profCSV" class=" custom-file-label " for="profesoresCSV">Sube aquí tu archivo</label>
-                                                <label *ngIf="profCSV" class=" custom-file-label " for="profesoresCSV">{{profCSV.name}}</label>
+                                                <label *ngIf="!profCSV" class="custom-file-label" for="profesoresCSV">Sube aquí tu archivo</label>
+                                                <label *ngIf="profCSV" class="custom-file-label" for="profesoresCSV">{{profCSV.name}}</label>
                                                 <input type="file" class="custom-file-input" formControlName="profesoresCSV" id="profesoresCSV" (change)="guardarProfesoresCSV($event)">
-
                                             </div>
-                                            <div class="input-group-append ">
-                                                <button class="btn btn-primary ">Añadir</button>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary">Añadir</button>
                                             </div>
                                         </div>
                                         <div class="error" *ngIf="submittedProfesores && formularioProfesores.profesoresCSV.errors ">
