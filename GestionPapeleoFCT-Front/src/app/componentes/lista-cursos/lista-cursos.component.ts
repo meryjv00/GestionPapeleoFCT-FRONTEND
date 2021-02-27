@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { CursosService } from 'src/app/servicios/cursos.service';
@@ -31,7 +32,8 @@ export class ListaCursosComponent implements OnInit {
     @ViewChild("selectEmpresasNoCurso") selectEmpresasNoCurso: ElementRef | undefined;
 
     constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
-        private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService, private modal: NgbModal) {
+        private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService,
+        private modal: NgbModal, private adminAlumnosService: AdminAlumnosService) {
         if (!loginService.isUserSignedIn()) {
             this.router.navigate(['/login']);
         }
@@ -392,5 +394,23 @@ export class ListaCursosComponent implements OnInit {
         });
     }
 
+    deleteAlumno(alumno: any) {
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar a ' + alumno.nombre + ' ' + alumno.apellidos + ' de la base de datos?';
+        modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+            this.adminAlumnosService.deleteAlumno(alumno).subscribe(
+                (response: any) => {
+                    this.alumnos.forEach((alumnoA, index) => {
+                        if (alumno.id == alumnoA.id) {
+                            this.alumnos.splice(index, 1);
+                        }
+                    });
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        });
+    }
 }
 

@@ -6,11 +6,6 @@
         </div>
         <!--***********************************CONTENIDO***************************************-->
         <div class="col-12 col-lg-10 overflow-hidden">
-            <div name="opciones" class="row py-3 shadow-sm">
-                <div id="opciones" class="ml-auto">
-                    <app-opciones></app-opciones>
-                </div>
-            </div>
             <!--Card Información personal-->
             <div class="row mt-4">
                 <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-3 mb-5">
@@ -20,7 +15,7 @@
                             <div class="card-header text-white bg-primary">
                                 <div class="row">
                                     <div class="col-10">
-                                        <h3 class="font-weight-bolder">Información personal alumno</h3>
+                                        <h1 class="font-weight-bolder">Información personal alumno</h1>
                                     </div>
                                     <div class="col-2">
                                         <button type="button" (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
@@ -48,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <label for="apellidos">Correo:</label>
+                                    <label for="correo">Correo:</label>
                                     <input type="email" id="correo" formControlName="correo" [(ngModel)]="alumno.correo" class="form-control" />
                                     <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors ">
                                         <div *ngIf="formulario.correo.errors.required">Este campo es obligatorio</div>

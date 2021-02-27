@@ -8,14 +8,14 @@
         <div class="col-12 col-lg-10 overflow-hidden">
             <!-- Tarjeta añadir nuevo alumno -->
             <div class="row">
-                <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-5 mb-5">
+                <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-5 mb-5 rounded">
                     <div class="row">
                         <form [formGroup]="nuevoAlumno" (ngSubmit)="onSubmit()" class="col-12 p-0">
                             <!--Header-->
                             <div class="card-header text-white bg-primary">
-                                <h3 class="font-weight-bolder">
+                                <h1 class="font-weight-bolder">
                                     Añadir nuevo alumno
-                                </h3>
+                                </h1>
                                 <span class="badge badge-light">{{curso.cicloFormativo}}</span>
                             </div>
                             <!--Body-->
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="apellidos">Correo:</label>
+                                    <label for="correo">Correo:</label>
                                     <input type="email" id="correo" formControlName="correo" class="form-control" />
                                     <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors ">
                                         <div *ngIf="formulario.correo.errors.required">Este campo es obligatorio</div>

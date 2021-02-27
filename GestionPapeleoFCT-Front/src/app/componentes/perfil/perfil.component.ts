@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
+import { AdministracionService } from 'src/app/servicios/administracion.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { ModUsService } from 'src/app/servicios/mod-us.service';
 
@@ -14,7 +16,14 @@ export class PerfilComponent implements OnInit {
   submitted = false;
   theme: string | null = localStorage.getItem('theme');
 
-  constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService) {
+
+  fotoPerfil: FormGroup;
+  foto: any;
+  submittedFoto = false;
+  fotoRecibida: any;
+  
+  constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
+    private AdminAlumnosService: AdminAlumnosService) {
     this.nuevoRegistro = this.formBuilder.group({
       email: '',
       nombre: '',
@@ -25,11 +34,43 @@ export class PerfilComponent implements OnInit {
       telefono: ''
     });
     this.user = this.loginService.getUser();
+    this.fotoPerfil = this.formBuilder.group({
+      fotoPerfil: ['', [Validators.required]]
+    });
+
   }
 
   get formulario() { return this.nuevoRegistro.controls; }
+  get formularioFoto() { return this.fotoPerfil.controls; }
+
+
 
   ngOnInit(): void {
+  }
+
+  /**
+  * Se guarda la foto
+  * @param event 
+  */
+  guardarFoto(event: any) {
+    this.foto = <File>event.target.files[0];
+  }
+
+  onSubmitFoto() {
+    this.submittedFoto = true;
+    if (this.fotoPerfil.invalid) {
+      return;
+    }
+
+    this.AdminAlumnosService.cambiarFoto(this.foto,this.user.dni).subscribe(
+      (response: any) => {
+        alert(response.message);
+        this.fotoRecibida = response.message;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onSubmit() {

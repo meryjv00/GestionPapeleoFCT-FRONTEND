@@ -62,7 +62,6 @@ export class RegistroPersonaComponent implements OnInit {
       this.mensaje = "Seleccione un rol, porfavor";
       return;
     }
-    
     let datosUsuario = this.nuevoRegistro.value;
     const email = this.ArrayUsService.getEmail();
     const dni = this.ArrayUsService.getDni();

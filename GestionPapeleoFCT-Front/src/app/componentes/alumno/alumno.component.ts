@@ -78,11 +78,11 @@ export class AlumnoComponent implements OnInit {
    */
   deleteAlumno() {
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar este alumno de la base de datos?';
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar a ' + this.alumno.nombre + ' ' + this.alumno.apellidos + ' de la base de datos?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminAlumnosService.deleteAlumno(this.alumno).subscribe(
         (response: any) => {
-          this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
         },
         (error) => {
           console.log(error);
@@ -110,7 +110,7 @@ export class AlumnoComponent implements OnInit {
   /**
    * Vuelve al curso del alumno
    */
-  volver(){
-    this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+  volver() {
+    this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
   }
 }
