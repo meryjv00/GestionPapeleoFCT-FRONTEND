@@ -1,0 +1,120 @@
+//Variables
+$primary: #8865ff;
+$secondary: #ff6fa5;
+$suave: #fb9ec4;
+$claro: #ffdac0;
+$chicha: #ffc7ba;
+$casiBlanco: rgb(255, 238, 238);
+$casiBlancoPeroMasOscuro: rgb(255, 209, 209);
+$dark: #6f43ff;
+
+$white: rgb(209, 209, 209);
+$white2:rgb(190, 190, 190);
+$dark1: rgb(85, 22, 80);
+$dark2: rgb(33, 39, 46);
+//Tema
+app-root #app.theme.theme-daniel {
+    font-size: 18px !important;
+    
+    //Botones
+    .btn-primary, .card-header, .bg-primary {
+        background-color: $primary !important;
+    }
+    .btn-primary:hover{
+        box-shadow: black;
+    }
+    .btn-outline-primary{
+        color: $primary;
+        border-color: $primary;
+    }
+    .btn-outline-primary:hover{
+        color:#fff;
+        background-color: $primary;
+        border-color: $primary;
+    }
+    .btn-outline-primary.focus,.btn-outline-primary:focus{
+        box-shadow:0 0 0 .2rem rgba(0,123,255,.5)
+    }
+
+    .card-footer{
+        background-color: $dark !important;
+    }
+
+    //Fondos
+    #fondo, #fondo2 {
+        background-color: $suave;
+    }
+    .bg-light {
+        background-color: $chicha !important;
+    }
+    .bg-white,
+    #menu, 
+    .tema-dark {
+        background-color: $secondary !important;
+    }
+    .bg-secondary{
+        background-color: $casiBlanco !important;
+    }
+
+    //Textos
+    .text-dark,
+    a,u {
+        color: white;
+    }
+
+
+    table,
+    .text-white2 {
+        color: black !important;
+    }
+    .border {
+        border: 1px solid black !important;
+        border-radius: .25rem;
+    }
+
+
+    .error {
+        color: white;
+    }
+
+    //Formularios
+    input.ng-invalid.ng-touched {
+        border: 1px solid rgb(165, 46, 46);
+    }
+    input.ng-valid.ng-touched {
+        border: 1px solid rgb(55, 109, 55);
+    }
+    input:disabled {
+        background-color: $casiBlancoPeroMasOscuro;
+    }
+    input,
+    select,
+    .input-dark {
+        background-color: $casiBlanco;
+        color: black;
+        border: 2px solid $casiBlancoPeroMasOscuro;
+    }
+    #select-empresas {
+        background-color: $casiBlanco;
+        color: black;
+    }
+    
+    
+    .swith-theme {
+        color: $white2;
+        background-color: $dark2;
+        border-radius: .50rem;
+        border: 2px solid $gris !important;
+    }
+
+    .card,
+    .no-border {
+        border: none !important;
+    }
+    .img {
+        border: 5px solid $primary;
+    }
+    .rounded-circle {
+        border-radius: 5px !important;
+    }
+}
