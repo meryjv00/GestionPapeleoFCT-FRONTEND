@@ -14,6 +14,7 @@ import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 })
 export class EmpresaComponent implements OnInit {
   empresa: any;
+  nuevoResp: any;
   editarEmpresa: FormGroup;
   submitted = false;
   activados = false;
@@ -31,6 +32,12 @@ export class EmpresaComponent implements OnInit {
       this.router.navigate(['/listaEmpresas']);
     } else {
       this.empresa = this.CompartirDatos.getEmpresa();
+      console.log(this.empresa);
+      this.nuevoResp = {
+        'idEmpresa': this.empresa.id,
+        'dni': '',
+        'nombre': ''
+      }
     }
 
     //Formulario 'editar empresa'
@@ -44,7 +51,9 @@ export class EmpresaComponent implements OnInit {
       tlf: ['', [Validators.required, Validators.minLength]],
       email: ['', [Validators.required, Validators.minLength]],
       dniRepresentante: ['', [Validators.required]],
-      nombreRepresentante: ['', [Validators.required]]
+      nombreRepresentante: ['', [Validators.required]],
+      dniNuevo: [''],
+      nombreNuevo: ['']
     });
 
     this.editarEmpresa?.disable();
@@ -56,6 +65,7 @@ export class EmpresaComponent implements OnInit {
   }
 
   get formulario() { return this.editarEmpresa.controls; }
+
 
   //Actualiza la empresa
   actualizar() {
@@ -108,4 +118,11 @@ export class EmpresaComponent implements OnInit {
     }
   }
 
+  /**
+   * Añade un nuevo responsable a la empresa
+   */
+  addResp() {
+    console.log(this.nuevoResp);
+  }
+  
 }

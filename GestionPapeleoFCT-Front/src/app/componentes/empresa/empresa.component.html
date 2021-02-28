@@ -5,89 +5,114 @@
         </div>
         <div class="col-12 col-lg-10 overflow-hidden">
             <div class="row">
-
-
                 <div class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5">
                     <div class="row card-header text-white bg-primary">
                         <h1 class="col-12 ml-4">Empresa: {{empresa.nombre}}</h1>
                     </div>
                     <div class="row mt-2 card-body">
                         <div class="col-12">
-                            <form [formGroup]="editarEmpresa" (ngSubmit)="actualizar()"
-                                class="col-12 p-0 w-100 d-flex flex-wrap">
-                                <h4 class="col-12">Información general</h4>
-                                <div class="col-6">
-                                    <label for="localidad">Nombre:</label>
-                                    <input type="text" formControlName="nombre" id="nombre" class="form-control"
-                                        [(ngModel)]="empresa.nombre" minlength="5" />
+                            <form [formGroup]="editarEmpresa" (ngSubmit)="actualizar()" class="col-12 p-0 w-100 ">
+                                <h4>Información general</h4>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="localidad">Nombre:</label>
+                                        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="empresa.nombre" minlength="5" />
+                                    </div>
+                                    <div class="col">
+                                        <label for="localidad">Provincia:</label>
+                                        <input type="text" formControlName="provincia" id="provincia" class="form-control" [(ngModel)]="empresa.provincia" minlength="5" />
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <label for="localidad">Provincia:</label>
-                                    <input type="text" formControlName="provincia" id="provincia" class="form-control"
-                                        [(ngModel)]="empresa.provincia" minlength="5" />
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="localidad">Localidad:</label>
+                                        <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="empresa.localidad" minlength="5" />
+                                    </div>
+                                    <div class="col">
+                                        <label for="localidad">Dirección:</label>
+                                        <input type="text" formControlName="calle" id="calle" class="form-control" [(ngModel)]="empresa.calle" minlength="5" />
+                                    </div>
                                 </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">Localidad:</label>
-                                    <input type="text" formControlName="localidad" id="localidad" class="form-control"
-                                        [(ngModel)]="empresa.localidad" minlength="5" />
+                                <div class="form-row">
+                                    <div class="col-6 mt-2">
+                                        <label for="localidad">Código postal:</label>
+                                        <input type="text" formControlName="cp" id="cp" class="form-control" [(ngModel)]="empresa.cp" minlength="5" />
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label for="localidad">CIF:</label>
+                                        <input type="text" formControlName="cif" id="cif" class="form-control" [(ngModel)]="empresa.cif" minlength="5" />
+                                    </div>
                                 </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">Dirección:</label>
-                                    <input type="text" formControlName="calle" id="calle" class="form-control"
-                                        [(ngModel)]="empresa.calle" minlength="5" />
-                                </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">Código postal:</label>
-                                    <input type="text" formControlName="cp" id="cp" class="form-control"
-                                        [(ngModel)]="empresa.cp" minlength="5" />
-                                </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">CIF:</label>
-                                    <input type="text" formControlName="cif" id="cif" class="form-control"
-                                        [(ngModel)]="empresa.cif" minlength="5" />
-                                </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">Nº de teléfono:</label>
-                                    <input type="text" formControlName="tlf" id="tlf" class="form-control"
-                                        [(ngModel)]="empresa.tlf" minlength="5" />
-                                </div>
-                                <div class="col-6 mt-2">
-                                    <label for="localidad">Correo electrónico:</label>
-                                    <input type="text" formControlName="email" id="email" class="form-control"
-                                        [(ngModel)]="empresa.email" minlength="5" />
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="localidad">Nº de teléfono:</label>
+                                        <input type="text" formControlName="tlf" id="tlf" class="form-control" [(ngModel)]="empresa.tlf" minlength="5" />
+                                    </div>
+                                    <div class="col">
+                                        <label for="localidad">Correo electrónico:</label>
+                                        <input type="text" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
+                                    </div>
                                 </div>
                                 <br>
                                 <!----------REPRESENTANTE---------->
-                                <h4 class="col-12 mt-3">Representante de la empresa</h4>
-                                <div class="col-6">
-                                    <label for="dniRepresentante">DNI:</label>
-                                    <input type="text" formControlName="dniRepresentante" id="dniRepresentante"
-                                        class="form-control" [(ngModel)]="empresa.dniRepresentante" />
-                                </div>
-                                <div class="col-6">
-                                    <label for="nombreRepresentante">Nombre:</label>
-                                    <input type="text" formControlName="nombreRepresentante" id="nombreRepresentante"
-                                        class="form-control" [(ngModel)]="empresa.nombreRepresentante" />
+                                <h4>Representante</h4>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="dniRepresentante">DNI:</label>
+                                        <input type="text" formControlName="dniRepresentante" id="dniRepresentante" class="form-control" [(ngModel)]="empresa.dniRepresentante" />
+                                    </div>
+                                    <div class="col">
+                                        <label for="nombreRepresentante">Nombre:</label>
+                                        <input type="text" formControlName="nombreRepresentante" id="nombreRepresentante" class="form-control" [(ngModel)]="empresa.nombreRepresentante" />
+                                    </div>
                                 </div>
                                 <br>
-                                <h4 class="col-12 mt-3">Responsables de la empresa</h4>
                                 <!----------RESPONSABLES---------->
-
+                                <h4>Responsables de la empresa</h4>
+                                <div *ngIf="activados">
+                                    <h5>Añadir nuevo</h5>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input type="text" formControlName="dniNuevo" class="form-control" placeholder="DNI" [(ngModel)]="nuevoResp.dni">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" formControlName="nombreNuevo" class="form-control" placeholder="Nombre" [(ngModel)]="nuevoResp.nombre">
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" (click)="addResp()" class="btn btn-primary mx-2">
+                                                <i class="fa fa-plus mr-2" aria-hidden="true"></i> Añadir
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h5>Gestionar</h5>
+                                </div>
+                                <ul>
+                                    <li *ngFor="let responsable of empresa.responsables">
+                                        {{responsable.nombreResponsable}}</li>
+                                </ul>
+                                <!--
+                                <div class="form-row" *ngIf="activados">
+                                    <h5>Eliminar un responsable</h5>
+                                    <select class="col-10 form-control">
+                                            <option *ngFor="let responsable of empresa.responsables" value="{{responsable.dniResponsable}}">{{responsable.nombreResponsable}}</option>
+                                        </select>
+                                    <button class="col-2 btn btn-danger"><i class="fa fa-times mr-1"></i> Eliminar responsable</button>
+                                        </div>
+                                        -->
                             </form>
                         </div>
-
                     </div>
                     <div class="row card-footer bg-secondary justify-content-end">
-                        <button *ngIf="activados" class="btn btn-success"
-                            (click)=actualizar()><i class="fa fa-check" aria-hidden="true"></i> Guardar</button>
+                        <button *ngIf="activados" class="btn btn-success" (click)="actualizar()"><i class="fa fa-check"
+                                aria-hidden="true"></i> Guardar</button>
                         <button (click)="activarEdicion()" class="btn btn-primary mx-2">
                             <i class="fa fa-edit mr-2" aria-hidden="true"></i>{{textoBoton}}
                         </button>
-                        <button (click)="eliminarEmpresa()" class="btn btn-danger mx-2"><i class="fa fa-times mr-1" aria-hidden="true"></i> Eliminar</button>
+                        <button (click)="eliminarEmpresa()" class="btn btn-danger mx-2"><i class="fa fa-times mr-1"
+                                aria-hidden="true"></i> Eliminar</button>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 </div>

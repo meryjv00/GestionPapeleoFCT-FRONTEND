@@ -22,7 +22,8 @@ export class CompartirDatosService {
       'cp': "",
       'cif': "",
       'tlf': "",
-      'email': ""
+      'email': "",
+      'responsables': []
     }
   }
 
