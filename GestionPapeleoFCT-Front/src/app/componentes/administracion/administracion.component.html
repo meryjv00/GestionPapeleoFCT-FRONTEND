@@ -1,4 +1,4 @@
-<main class="container-fluid">
+<main id="fondo" class="container-fluid min-vh-100">
     <div class="row">
         <!--**************************************MENU***************************************-->
         <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
@@ -8,31 +8,31 @@
         <div id="contenido" class="col-12 col-lg-10 overflow-hidden mt-4">
             <!--*****NAV*****-->
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-csv-tab" data-toggle="tab" href="#nav-csv" role="tab" aria-controls="nav-home" aria-selected="true">Importar datos</a>
-                    <a class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin" role="tab" aria-controls="nav-admin" aria-selected="false">Administración</a>
-                    <a class="nav-item nav-link" id="nav-admin2-tab" data-toggle="tab" href="#nav-admin2" role="tab" aria-controls="nav-admin2" aria-selected="false">Tutores</a>
+                <div class="nav nav-tabs border-bottom" id="nav-tab" role="tablist">
+                    <a (click)="activar('csv')" class="nav-item nav-link active bg-white border2" id="nav-csv-tab" data-toggle="tab" href="#nav-csv" role="tab" aria-controls="nav-home" aria-selected="true">Importar datos</a>
+                    <a (click)="activar('admin')" class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin" role="tab" aria-controls="nav-admin" aria-selected="false">Administración</a>
+                    <a (click)="activar('tutores')" class="nav-item nav-link" id="nav-admin2-tab" data-toggle="tab" href="#nav-admin2" role="tab" aria-controls="nav-admin2" aria-selected="false">Tutores</a>
                 </div>
             </nav>
             <!--****CONTENIDO NAV****-->
             <div class="tab-content" id="nav-tabContent">
                 <!--Importación CSV-->
                 <div class="tab-pane fade show active" id="nav-csv" role="tabpanel" aria-labelledby="nav-csv-tab">
-                    <div id="importacionCSV" class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5">
+                    <div id="importacionCSV" class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light  border card my-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <h1 class="font-weight-bolder ml-4">
                                     Importar datos
                                 </h1>
                             </div>
-                            <div class="card-body col-12 px-5 pb-5">
+                            <div class="card-body col-12 px-5 pb-5 tema-dark text-white2 ">
                                 <form [formGroup]="profesoresCSV" (ngSubmit)="onSubmitProfesores()">
                                     <div class="form-row">
                                         <h2 for="profesoresCSV">Profesores</h2>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <label *ngIf="!profCSV" class="custom-file-label" for="profesoresCSV">Sube aquí tu archivo</label>
-                                                <label *ngIf="profCSV" class="custom-file-label" for="profesoresCSV">{{profCSV.name}}</label>
+                                                <label *ngIf="!profCSV" class="custom-file-label input-dark" for="profesoresCSV">Sube aquí tu archivo</label>
+                                                <label *ngIf="profCSV" class="custom-file-label input-dark" for="profesoresCSV">{{profCSV.name}}</label>
                                                 <input type="file" class="custom-file-input" formControlName="profesoresCSV" id="profesoresCSV" (change)="guardarProfesoresCSV($event)">
                                             </div>
                                             <div class="input-group-append">
@@ -62,8 +62,8 @@
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" formControlName="alumnosCSV" id="alumnosCSV" (change)="guardarAlumnosCSV($event)">
-                                                    <label *ngIf="!alumnCSV" class="custom-file-label" for="alumnosCSV">Sube aquí tu archivo</label>
-                                                    <label *ngIf="alumnCSV" class="custom-file-label" for="alumnosCSV">{{alumnCSV.name}}</label>
+                                                    <label *ngIf="!alumnCSV" class="custom-file-label input-dark" for="alumnosCSV">Sube aquí tu archivo</label>
+                                                    <label *ngIf="alumnCSV" class="custom-file-label input-dark" for="alumnosCSV">{{alumnCSV.name}}</label>
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary">Añadir</button>
@@ -82,14 +82,14 @@
                 <!--Administración cuentas-->
                 <div class="tab-pane fade" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
                     <!--Cuentas inactivas-->
-                    <div *ngIf="cuentasAdministrar.length > 0" #cuentasInactivas class="col-11 col-md-10  mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
+                    <div *ngIf="cuentasAdministrar.length > 0" #cuentasInactivas class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card mt-5 mb-5">
                         <div class="row">
                             <div class="col-12 card-header text-white bg-primary">
                                 <h1 class="font-weight-bolder ml-4">
                                     Cuentas inactivas
                                 </h1>
                             </div>
-                            <div class="card-body col-12 col-lg-10 mx-auto py-3">
+                            <div class="card-body tema-dark">
                                 <table class="table table-responsive">
                                     <thead>
                                         <tr class="text-center">
@@ -108,21 +108,23 @@
                                             <td>{{cuenta.tlf}}</td>
                                             <td>
                                                 <!--Rol-->
-                                                <button *ngIf="cuenta.rol == 2" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
+                                                <button ngbTooltip="Cambiar a tutor" *ngIf="cuenta.rol == 2" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
                                                     <i class="fas fa-user-tie"></i>
                                                 </button>
-                                                <button *ngIf="cuenta.rol == 3" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
+                                                <button ngbTooltip="Cambiar a jefe de estudios" *ngIf="cuenta.rol == 3" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
                                                     <i class="fas fa-chalkboard-teacher"></i>
                                                 </button>
                                                 <!--Act/Desact-->
-                                                <button *ngIf="cuenta.activo == 0" class="btn btn-success mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
+                                                <button ngbTooltip="Activar cuenta" *ngIf="cuenta.activo == 0" class="btn btn-success mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
                                                     <i class="fas fa-check"></i>
                                                 </button>
-                                                <button *ngIf="cuenta.activo == 1" class="btn btn-danger mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
+                                                <!--
+                                                <button ngbTooltip="Desactivar cuenta" *ngIf="cuenta.activo == 1" class="btn btn-danger mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
                                                     <i class="fas fa-times"></i>
                                                 </button>
+                                                -->
                                                 <!--Eliminar-->
-                                                <button class="btn btn-danger" (click)="denegarAcceso(cuenta.dni)">
+                                                <button ngbTooltip="Eliminar cuenta" class="btn btn-danger" (click)="denegarAcceso(cuenta.dni)">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </td>
@@ -140,7 +142,7 @@
                                     Cuentas activas
                                 </h1>
                             </div>
-                            <div class="card-body col-12 col-lg-10 mx-auto py-3">
+                            <div class="card-body col-12 tema-dark">
                                 <table class="table table-responsive">
                                     <thead>
                                         <tr class="text-center">
@@ -159,21 +161,23 @@
                                             <td>{{cuenta.tlf}}</td>
                                             <td>
                                                 <!--Rol-->
-                                                <button *ngIf="cuenta.rol == 2" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
+                                                <button ngbTooltip="Cambiar a tutor" *ngIf="cuenta.rol == 2" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
                                                     <i class="fas fa-user-tie"></i>
                                                 </button>
-                                                <button *ngIf="cuenta.rol == 3" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
+                                                <button ngbTooltip="Cambiar a jefe de estudios" *ngIf="cuenta.rol == 3" class="btn btn-primary mr-2" (click)="cambiarRol(cuenta.dni)">
                                                     <i class="fas fa-chalkboard-teacher"></i>
                                                 </button>
                                                 <!--Act/Desact-->
+                                                <!--
                                                 <button *ngIf="cuenta.activo == 0" class="btn btn-success mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
                                                     <i class="fas fa-check"></i>
                                                 </button>
-                                                <button *ngIf="cuenta.activo == 1" class="btn btn-danger mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
+                                                -->
+                                                <button ngbTooltip="Desactivar cuenta" *ngIf="cuenta.activo == 1" class="btn btn-danger mr-2" (click)="activarDesactivarCuenta(cuenta.dni)">
                                                     <i class="fas fa-times"></i>
                                                 </button>
                                                 <!--Eliminar-->
-                                                <button class="btn btn-danger" (click)="denegarAcceso(cuenta.dni)">
+                                                <button ngbTooltip="Eliminar cuenta" class="btn btn-danger" (click)="denegarAcceso(cuenta.dni)">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </td>
@@ -212,7 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body col-12 px-5">
+                            <div class="card-body col-12 px-5 tema-dark text-white2">
                                 <!--Gestión jefes de estudio-->
                                 <h2 *ngIf="cursosSinTutor.length == 0">
                                     <span class="badge badge-primary">¡Todos los cursos tienen tutor asignado!</span>

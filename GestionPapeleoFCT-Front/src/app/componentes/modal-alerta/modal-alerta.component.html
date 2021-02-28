@@ -1,50 +1,48 @@
 <!-- Modal que se muestra para solicitar confimación al usuario -->
 <div *ngIf="showConfirmar">
-  <div class="modal-header bg-primary text-white">
-    <h4 class="modal-title">Confirmación</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
-      <i class="fas fa-times fa-sm text-white"></i>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      <p class="px-1">{{mensaje}}</p>
-      <button (click)="confirmar()" class="btn btn-success">Confirmar
+    <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title">Confirmación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')"><i class="fas fa-times fa-sm text-white"></i></button>
+    </div>
+    <div class="modal-body">
+        <p class="px-1">{{mensaje}}</p>
+        <button (click)="confirmar()" class="btn btn-success">
+        Confirmar
         <i class="fa fa-check" aria-hidden="true"></i>
       </button>
-      <button (click)="cancelar()" class="btn btn-danger ml-2">Cancelar
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
+        <button (click)="cancelar()" class="btn btn-danger ml-2">
+        Cancelar
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
     </div>
-  </div>
 </div>
 
 <!-- Modal de exito de la acción -->
 <div *ngIf="showExito">
-  <div class="modal-header bg-success text-white">
-    <h4 class="modal-title">Exito <i class="fas fa-check text-white"></i></h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+    <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">Exito <i class="fas fa-check text-white"></i></h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
       <i class="fas fa-times fa-sm text-white"></i>
     </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      <p class="px-1">{{mensaje}}</p>
     </div>
-  </div>
+    <div class="modal-body">
+        <div>
+            <p class="px-1">{{mensaje}}</p>
+        </div>
+    </div>
 </div>
 
-  <!-- Modal de fracaso de la acción -->
-  <div *ngIf="showError">
+<!-- Modal de fracaso de la acción -->
+<div *ngIf="showError">
     <div class="modal-header bg-danger text-white">
-      <h4 class="modal-title">Error <i class="fas fa-times text-white"></i></h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+        <h4 class="modal-title">Error <i class="fas fa-times text-white"></i></h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
         <i class="fas fa-times fa-sm text-white"></i>
       </button>
     </div>
     <div class="modal-body">
-      <div>
-        <p class="px-1">{{mensaje}}</p>
-      </div>
+        <div>
+            <p class="px-1">{{mensaje}}</p>
+        </div>
     </div>
 </div>

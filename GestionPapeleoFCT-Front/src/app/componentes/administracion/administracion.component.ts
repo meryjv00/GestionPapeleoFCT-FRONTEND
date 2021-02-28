@@ -640,4 +640,20 @@ export class AdministracionComponent implements OnInit {
       }
     );
   }
+
+  activar(value:any){
+    if(value=='csv'){
+      document.getElementById('nav-csv-tab')?.classList.add('bg-white','border2');
+      document.getElementById('nav-admin-tab')?.classList.remove('bg-white','border2');
+      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white','border2');
+    }else if(value == 'admin'){
+      document.getElementById('nav-admin-tab')?.classList.add('bg-white','border2');
+      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white','border2');
+      document.getElementById('nav-csv-tab')?.classList.remove('bg-white','border2');
+    }else if(value == 'tutores'){
+      document.getElementById('nav-admin2-tab')?.classList.add('bg-white','border2');
+      document.getElementById('nav-admin-tab')?.classList.remove('bg-white','border2');
+      document.getElementById('nav-csv-tab')?.classList.remove('bg-white','border2');
+    }
+  }
 }

@@ -16,13 +16,11 @@ export class ListaEmpresasComponent implements OnInit {
   id: any; nombre: any; provincia: any; localidad: any; calle: any; cp: any; cif: any; tlf: any; email: any;
   empresas: any;
   crearNueva: boolean;
-  mensaje: any;
   textoAddEmpresa: any;
 
   constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
     this.empresas = [];
     this.crearNueva = false;
-    this.mensaje = "";
     this.textoAddEmpresa = "Añadir empresa";
   }
 

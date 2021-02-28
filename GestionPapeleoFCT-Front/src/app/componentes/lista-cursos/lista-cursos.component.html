@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div id="fondo" class="container-fluid">
     <main class="row">
         <!--**************************************MENU***************************************-->
         <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
@@ -10,7 +10,7 @@
             <div *ngIf="haCambiado" class="row">
                 <!------------------------------------------------------------------------------------>
                 <div class="container-fluid border-bottom-0 shadow pb-2">
-                    <div class="col-11 d-flex flex-wrap pt-3 mx-auto">
+                    <div class="col-11 d-flex flex-wrap pt-0 mx-auto">
                         <div class="col-12 col-lg-4 form-group-0 mb-2">
                             <select aria-label="cursos" #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
                             <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <!-- Tarjeta info del curso -->
-                <div id="curso" class="col-11 mx-auto shadow-sm my-3 card pb-0 border">
+                <div id="curso" class="col-11 mx-auto shadow-sm my-3 rounded pb-0 border">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary">
                             <h1 class="font-weight-bolder text-center">
@@ -42,11 +42,11 @@
                                 <span class="badge badge-light">Tutor: {{cursoSeleccionado.tutor}}</span>
                             </p>
                         </div>
-                        <div class="col-12 card-footer">
+                        <div class="col-12 card-footer tema-dark">
                             <div class="row">
                                 <div class="col-md-6 text-left text-dark pt-2">
-                                    <span class="font-weight-bolder mr-2">{{alumnos.length}} <i class="fa fa-users"></i></span>
-                                    <span class="font-weight-bolder mr-2">{{cursoSeleccionado.nHoras}} <i class="fa fa-clock"></i></span>
+                                    <span ngbTooltip="Nº alumnos" class="font-weight-bolder mr-2">{{alumnos.length}} <i class="fa fa-users"></i></span>
+                                    <span ngbTooltip="Nº horas" class="font-weight-bolder mr-2">{{cursoSeleccionado.nHoras}} <i class="fa fa-clock"></i></span>
                                 </div>
                                 <div class="col-md-6 text-sm-right">
                                     <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2" ngbTooltip="Editar curso">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <!-- Tarjeta de empresas -->
-                <div id="empresas" class="col-11 mx-auto shadow-sm my-3 card border">
+                <div id="empresas" class="col-11 mx-auto shadow-sm my-3 border">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary d-flex justify-content-between">
                             <h2 class="font-weight-bolder">
@@ -72,17 +72,17 @@
                             </h2>
                             <form class="form-inline">
                                 <div class="form-group mb-2">
-                                    <select aria-label="empresas" #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
+                                    <select id="select-empresas" aria-label="empresas" #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
                                     <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
                                       {{empresaN.nombre}}</option>
                                   </select>
                                 </div>
-                                <button class="btn btn-secondary mb-2" (click)="addEmpresaCurso()" ngbTooltip="Añadir empresa a prácticas">
+                                <button id="bt-add-empresa" class="btn btn-secondary mb-2" (click)="addEmpresaCurso()" ngbTooltip="Añadir empresa a prácticas">
                                 <i class="fas fa-plus mr-2"></i>Añadir
                               </button>
                             </form>
                         </div>
-                        <div class="col-12 card-body">
+                        <div class="col-12 card-body tema-dark">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -112,14 +112,14 @@
                     </div>
                 </div>
                 <!-- Tarjetas anexos -->
-                <div id="anexos" class="col-11 mx-auto shadow-sm mt-2 border card">
+                <div id="anexos" class="col-11 mx-auto shadow-sm mt-2 border mb-3">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary">
                             <h3 class="font-weight-bolder">
                                 Anexos
                             </h3>
                         </div>
-                        <div class="card-body col-12 d-flex flex-wrap">
+                        <div class="card-body col-12 d-flex flex-wrap tema-dark">
                             <ng-container *ngFor="let anexo of anexos; index as j; ">
                                 <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
                                     <div class="bg-secondary d-flex align-items-center">
@@ -135,128 +135,126 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------>
-                <div id="carousel" class="col-11 mx-auto carousel bg-secondary shadow-lg slide border rounded my-4" data-ride="carousel">
+                <div *ngIf="alumnos.length > 0" id="carousel" class="col-11 mx-auto carousel tema-dark bg-secondary shadow-lg slide border rounded my-4" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carousel" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel" data-slide-to="1"></li>
                         <li data-target="#carousel" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div *ngIf="haCambiado">
-                            <ng-container *ngFor="let alumno of alumnos; index as i; ">
-                                <!--Sección de 3 en 3 alumnos-->
-                                <div *ngIf="i % 3 == 0" class="carousel-item active" [ngClass]="{'active':i==0}">
-                                    <div class="row ml-5 pb-5">
-                                        <!--Alumno 1-->
-                                        <div class="col-md-3 col-10 offset-md-1">
-                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
-                                                <div class="row d-flex">
-                                                    <!--Imagen-->
-                                                    <div class="col-md-9 col-9 mx-auto">
-                                                        <div class="mt-3 img">
-                                                            <img src="../../../assets/img/usu1.jpg" alt="foto_{{ alumno.nombre }}" class="w-100 h-100">
-                                                        </div>
+                        <ng-container *ngFor="let alumno of alumnos; index as i; ">
+                            <!--Sección de 3 en 3 alumnos-->
+                            <div *ngIf="i % 3 == 0" class="carousel-item active" [ngClass]="{'active':i==0}">
+                                <div class="row ml-5 pb-5">
+                                    <!--Alumno 1-->
+                                    <div class="col-md-3 col-10 offset-md-1">
+                                        <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                            <div class="row d-flex">
+                                                <!--Imagen-->
+                                                <div class="col-md-9 col-9 mx-auto">
+                                                    <div class="mt-3 img">
+                                                        <img src="../../../assets/img/usu1.jpg" alt="foto_{{ alumno.nombre }}" class="w-100 h-100">
                                                     </div>
-                                                    <!--Información-->
-                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
-                                                        <p class="text-center pt-2 text-primary">
-                                                            <strong>{{ alumno.nombre }} {{ alumno.apellidos }}</strong>
-                                                        </p>
-                                                    </div>
-                                                    <!--Botones-->
-                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar">
-                                                        <div class="btn-group mr-2 w-100">
-                                                            <a href="mailto:{{alumno.correo}}" class="w-50">
-                                                                <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                </div>
+                                                <!--Información-->
+                                                <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                    <p class="text-center pt-2 text-primary">
+                                                        <strong>{{ alumno.nombre }} {{ alumno.apellidos }}</strong>
+                                                    </p>
+                                                </div>
+                                                <!--Botones-->
+                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar">
+                                                    <div class="btn-group mr-2 w-100">
+                                                        <a href="mailto:{{alumno.correo}}" class="w-50">
+                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
                                                                     <i class="fas fa-envelope"></i>
                                                                 </button>
-                                                            </a>
-                                                            <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumno)" class="btn btn-primary w-50 mx-auto">
+                                                        </a>
+                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumno)" class="btn btn-primary w-50 mx-auto">
                                                                 <i class="fas fa-user-edit "></i>
                                                             </button>
-                                                            <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumno)" class="btn btn-danger rounded-0 btn-gray w-50 mx-auto">
+                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumno)" class="btn btn-danger rounded-0 btn-gray w-50 mx-auto">
                                                                 <i class="fas fa-user-minus"></i>
                                                             </button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--Alumno 2-->
-                                        <div *ngIf="i + 1 < alumnos.length" class="col-md-3 col-10">
-                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
-                                                <div class="row">
-                                                    <!--Imagen-->
-                                                    <div class="col-md-9 col-9 mx-auto">
-                                                        <div class="mt-3 img">
-                                                            <img src="../../../assets/img/usu2.jpg" alt="foto_{{ alumnos[i+1].nombre }}" class="w-100 h-100">
-                                                        </div>
+                                    </div>
+                                    <!--Alumno 2-->
+                                    <div *ngIf="i + 1 < alumnos.length" class="col-md-3 col-10">
+                                        <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                            <div class="row">
+                                                <!--Imagen-->
+                                                <div class="col-md-9 col-9 mx-auto">
+                                                    <div class="mt-3 img">
+                                                        <img src="../../../assets/img/usu2.jpg" alt="foto_{{ alumnos[i+1].nombre }}" class="w-100 h-100">
                                                     </div>
-                                                    <!--Infor-->
-                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
-                                                        <p class="text-center pt-2 text-primary">
-                                                            <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
-                                                        </p>
-                                                    </div>
+                                                </div>
+                                                <!--Infor-->
+                                                <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                    <p class="text-center pt-2 text-primary">
+                                                        <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
+                                                    </p>
+                                                </div>
 
-                                                    <!--Botones-->
-                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
-                                                        <div class="btn-group mr-2 w-100">
-                                                            <a href="mailto:{{alumnos[i + 1].correo}}" class="w-50">
-                                                                <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                <!--Botones-->
+                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                    <div class="btn-group mr-2 w-100">
+                                                        <a href="mailto:{{alumnos[i + 1].correo}}" class="w-50">
+                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
                                                                     <i class="fas fa-envelope"></i>
                                                                 </button>
-                                                            </a>
-                                                            <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary w-50">
+                                                        </a>
+                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary w-50">
                                                                 <i class="fas fa-user-edit "></i>
                                                             </button>
-                                                            <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 1])" class="btn btn-danger w-50 rounded-0">
+                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 1])" class="btn btn-danger w-50 rounded-0">
                                                                 <i class="fas fa-user-minus"></i>
                                                             </button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--Alumno 3-->
-                                        <div *ngIf="i + 2 < alumnos.length" class="col-md-3 col-10">
-                                            <div class="bg-light shadow pb-4 rounded mt-3 alumno">
-                                                <div class="row">
-                                                    <!--Imagen-->
-                                                    <div class="col-md-9 col-9 mx-auto">
-                                                        <div class="mt-3 img">
-                                                            <img src="../../../assets/img/usu3.jpg" alt="foto_{{ alumnos[i+2].nombre }}" class="w-100 h-100">
-                                                        </div>
+                                    </div>
+                                    <!--Alumno 3-->
+                                    <div *ngIf="i + 2 < alumnos.length" class="col-md-3 col-10">
+                                        <div class="bg-light shadow pb-4 rounded mt-3 alumno">
+                                            <div class="row">
+                                                <!--Imagen-->
+                                                <div class="col-md-9 col-9 mx-auto">
+                                                    <div class="mt-3 img">
+                                                        <img src="../../../assets/img/usu3.jpg" alt="foto_{{ alumnos[i+2].nombre }}" class="w-100 h-100">
                                                     </div>
-                                                    <!--Información-->
-                                                    <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
-                                                        <p class="text-center pt-2 text-primary">
-                                                            <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
-                                                        </p>
-                                                    </div>
-                                                    <!--Botones-->
-                                                    <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
-                                                        <div class="btn-group mr-2 w-100">
-                                                            <a href="mailto:{{alumnos[i + 2].correo}}" class="w-50">
-                                                                <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                </div>
+                                                <!--Información-->
+                                                <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
+                                                    <p class="text-center pt-2 text-primary">
+                                                        <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
+                                                    </p>
+                                                </div>
+                                                <!--Botones-->
+                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                    <div class="btn-group mr-2 w-100">
+                                                        <a href="mailto:{{alumnos[i + 2].correo}}" class="w-50">
+                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
                                                                     <i class="fas fa-envelope"></i>
                                                                 </button>
-                                                            </a>
-                                                            <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary w-50">
+                                                        </a>
+                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary w-50">
                                                                 <i class="fas fa-user-edit "></i>
                                                             </button>
-                                                            <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 2])" class="btn btn-danger w-50 rounded-0">
+                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 2])" class="btn btn-danger w-50 rounded-0">
                                                                 <i class="fas fa-user-minus"></i>
                                                             </button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </ng-container>
-                        </div>
+                            </div>
+                        </ng-container>
                     </div>
                     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon " aria-hidden="true"></span>
