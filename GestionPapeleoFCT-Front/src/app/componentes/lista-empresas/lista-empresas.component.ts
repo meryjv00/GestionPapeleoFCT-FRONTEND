@@ -96,7 +96,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo0(empresa).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -112,7 +112,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo1(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -129,7 +129,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo2(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -146,7 +146,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo3(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -163,7 +163,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo4(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -180,7 +180,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo5(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);

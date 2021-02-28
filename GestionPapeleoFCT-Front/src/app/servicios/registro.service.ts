@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { ArrayUsService } from 'src/app/servicios/array-us.service';
 import { LoginService } from './login.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class RegistroService {
    * Petición de registro
    * */
   public Registro = (dni: string, email: string, password: string) => {
-    const url = "http://localhost:8000/api/register";
+    const url = environment.dirBack + "register";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ export class RegistroService {
   }
 
   public RegistroPersona = (email:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any,correo:any, tlf: any, rol:any) => {
-    const url = "http://localhost:8000/api/register_persona";
+    const url = environment.dirBack + "register_persona";
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
