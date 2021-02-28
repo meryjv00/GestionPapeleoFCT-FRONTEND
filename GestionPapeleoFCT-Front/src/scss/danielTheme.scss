@@ -58,8 +58,11 @@ app-root #app.theme.theme-daniel {
 
     //Textos
     .text-dark,
-    a,u {
+    a {
         color: white;
+    }
+    u {
+        color: grey;
     }
 
 
