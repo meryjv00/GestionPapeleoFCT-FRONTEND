@@ -16,13 +16,11 @@ export class ListaEmpresasComponent implements OnInit {
   id: any; nombre: any; provincia: any; localidad: any; calle: any; cp: any; cif: any; tlf: any; email: any;
   empresas: any;
   crearNueva: boolean;
-  mensaje: any;
   textoAddEmpresa: any;
 
   constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
     this.empresas = [];
     this.crearNueva = false;
-    this.mensaje = "";
     this.textoAddEmpresa = "Añadir empresa";
   }
 
@@ -98,7 +96,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo0(empresa).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -114,7 +112,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo1(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -131,7 +129,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo2(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -148,7 +146,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo3(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -165,7 +163,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo4(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);
@@ -182,7 +180,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.anexosService.anexo5(datos).subscribe(
       (response: any) => {
         console.log(response);
-        let enlace = environment.dirBack + 'descargar/' + response.message;
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
         console.log(error);

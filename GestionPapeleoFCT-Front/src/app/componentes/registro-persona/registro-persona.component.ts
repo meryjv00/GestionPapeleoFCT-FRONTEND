@@ -58,7 +58,7 @@ export class RegistroPersonaComponent implements OnInit {
     if (this.nuevoRegistro.invalid) {
       return;
     }
-    if(!this.rolSeleccionado){
+    if(!this.rolSeleccionado || this.rolSeleccionado == 1){
       this.mensaje = "Seleccione un rol, porfavor";
       return;
     }
@@ -79,7 +79,6 @@ export class RegistroPersonaComponent implements OnInit {
   registro(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, correo:any, tlf: any, rol:any) {
     this.RegistroService.RegistroPersona(email, dni, nombre, apellidos, localidad, residencia,correo, tlf,rol).subscribe(
       (response: any) => {
-        console.log(response);
         console.log("Registro correcto");
         this.router.navigate(['/login']);
       },

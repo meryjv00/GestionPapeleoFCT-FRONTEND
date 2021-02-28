@@ -1,10 +1,10 @@
-<div class="container-fluid bg-secondary min-vh-100">
+<div id="fondo2" class="container-fluid bg-secondary min-vh-100">
     <main>
         <div class="row">
             <div class="col-12">
                 <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="logo-cifp-virgendegracia" width="150px">
             </div>
-            <div class="col-11 col-md-9 col-lg-5 mx-auto border bg-white shadow px-5 py-4 mb-5 rounded">
+            <div class="col-11 col-md-9 col-lg-5 mx-auto border bg-white text-white2 shadow px-5 py-4 mb-5 rounded">
                 <h1 class="text-center">Completa tu perfil</h1>
                 <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
                     <div class="form-row mb-3 mt-3">
@@ -63,7 +63,7 @@
                         <div class="col">
                             <label for="selectRoles" class="form-label">Rol: </label>
                             <select #selectRoles id="selectRoles" class="form-control" (change)="onChange(selectRoles.value)">
-                                <option selected>Elige el rol</option>
+                                <option value="1" selected>Elige el rol</option>
                                 <option value="2">Jefe Estudios</option>
                                 <option value="3">Tutor</option>
                             </select>

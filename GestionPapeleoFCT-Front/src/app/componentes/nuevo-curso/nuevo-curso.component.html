@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div id="fondo" class="container-fluid">
     <main class="row">
         <!--**************************************MENU***************************************-->
         <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
@@ -6,19 +6,14 @@
         </div>
         <!--***********************************CONTENIDO***************************************-->
         <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
-            <div name="opciones" class="row py-3 shadow-sm">
-                <div id="opciones" class="ml-auto">
-                    <app-opciones></app-opciones>
-                </div>
-            </div>
-            <div class="row justify-content-center mt-4">
+            <div class="row justify-content-center mt-5">
                 <form class="col-sm-10 col-lg-6 card p-0" [formGroup]="newCurso" (ngSubmit)="onSubmit()">
                     <div class="card-header bg-primary">
                         <div class="card-title mb-0">
                             <p class="text-white mb-0 font-weight-bold">Nuevo curso</p>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body tema-dark">
                         <div class="form-row mb-3">
                             <div class="col-8">
                                 <input type="text" class="form-control" placeholder="Nombre del ciclo" formControlName="cicloFormativo" id="cicloFormativo" required>

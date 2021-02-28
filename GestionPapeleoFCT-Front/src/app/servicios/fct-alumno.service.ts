@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -18,7 +19,7 @@ export class FctAlumnoService {
       Authorization: `Bearer ${this.loginService.getUser().access_token}`
     });
 
-    return this.http.post("http://localhost:8000/api/addAlumnoPracticas", data, { headers: headers });
+    return this.http.post(environment.dirBack + "addAlumnoPracticas", data, { headers: headers });
   }
 
   // Método para eliminar un alumno de las practicas
@@ -29,7 +30,7 @@ export class FctAlumnoService {
       Authorization: `Bearer ${this.loginService.getUser().access_token}`
     });
 
-    return this.http.delete("http://localhost:8000/api/deleteAlumnoPracticas/" +  dniAlumno, { headers: headers });
+    return this.http.delete(environment.dirBack + "deleteAlumnoPracticas/" +  dniAlumno, { headers: headers });
 
   }
 

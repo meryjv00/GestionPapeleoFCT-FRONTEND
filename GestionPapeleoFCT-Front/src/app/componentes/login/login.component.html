@@ -1,6 +1,6 @@
-<div class="container-fluid bg-secondary vh-100">
+<div id="fondo2" class="container-fluid bg-secondary vh-100">
     <main>
-        <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-center text-dark">
             <div class="col-12">
                 <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="logo-cifp-virgendegracia" width="150px">
             </div>
@@ -10,7 +10,7 @@
                     <div class="mb-3">
                         <label lang="en" for="email" class="form-label">Email: </label>
                         <input type="email" class="form-control" formControlName="email" id="email">
-                        <div class="error" *ngIf="submitted && formulario.email.errors">
+                        <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
                             <div *ngIf="formulario.email.errors.required">Este campo es obligatorio</div>
                             <div *ngIf="formulario.email.errors.email">Introduce un email valido</div>
                         </div>
@@ -18,19 +18,23 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña: </label>
                         <input type="password" class="form-control" formControlName="password" id="password">
-                        <div class="error" *ngIf="submitted && formulario.password.errors">
+                        <div class="error" *ngIf="(submitted || formulario.password.touched) && formulario.password.errors">
                             <div *ngIf="formulario.password.errors.required">Este campo es obligatorio</div>
                         </div>
                     </div>
                     <div class="mt-1">{{message}}</div>
                     <p><a href="/">¿Has olvidado la contraseña?</a></p>
-                    <button class="btn btn-primary w-25">Entrar</button>
+                    <div class="row">
+                        <div class="col-12 col-md-9 col-lg-7">
+                            <button class="btn btn-primary w-50">Entrar</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="row">
             <div class="col-9 col-md-8 col-lg-5 mx-auto pt-2">
-                <p>¿Todavía no tienes cuenta? <a href="/registroUsuario" class="text-dark"><u>Registrate aquí</u></a></p>
+                <p class="text-dark">¿Todavía no tienes cuenta? <a href="/registroUsuario" class="text-dark"><u>Registrate aquí</u></a></p>
             </div>
         </div>
     </main>

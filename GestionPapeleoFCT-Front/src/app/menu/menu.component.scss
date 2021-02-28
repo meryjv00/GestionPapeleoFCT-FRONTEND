@@ -37,7 +37,6 @@ aside {
             }
             &:hover {
                 transform: translateY(-3px);
-                //box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
                 box-shadow: 0 10px 34px 0 rgba(54, 8, 23, 0.32);
             }
         }
@@ -92,4 +91,8 @@ aside {
             }
         }
     }
+}
+
+.text-activo {
+    color: white !important;
 }

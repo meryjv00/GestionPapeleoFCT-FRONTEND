@@ -1,18 +1,18 @@
-<div class="container-fluid">
+<div id="fondo" class="container-fluid">
     <main class="row">
         <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu [user]="user"></app-menu>
         </div>
         <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
             <div class="row">
-                <div class="col-lg-11 col-md-11 col-sm-11 col-11 mt-5 mx-auto shadow-sm bg-light border card">
+                <div class="col-lg-11 col-md-11 col-sm-11 col-11 mt-4 mx-auto mb-4 shadow-sm bg-light rounded">
                     <div class="row">
                         <div class="col-12 card-header text-white bg-primary">
                             <h3 class="font-weight-bolder">
                                 Información personal
                             </h3>
                         </div>
-                        <div class="card-body col-12 justify-content-center">
+                        <div class="card-body col-12 justify-content-center tema-dark text-dark">
                             <img *ngIf="fotoRecibida" src="{{fotoRecibida}}" alt="Imágen perfil">
                             <ul class="list-group list-group-flush col-md-5 col-lg-5 row">
                                 <li class="list-group-item col-md-12 col-lg-12">Nombre: {{user.nombre}} {{user.apellidos}}</li>
@@ -24,16 +24,16 @@
                                 <li class="list-group-item col-md-12 col-lg-12">Residencia: {{user.residencia}}</li>
                             </ul>
                             <form class="row" [formGroup]="fotoPerfil" (ngSubmit)="onSubmitFoto()">
-                                <div class="form-row">
+                                <div class="form-row ml-1">
                                     <h5 for="fotoPerfil">Foto de perfil:</h5>
                                     <div class="input-group">
                                         <div class="custom-file mb-3">
                                             <input type="file" class="custom-file-input" formControlName="fotoPerfil" id="fotoPerfil" (change)="guardarFoto($event)">
-                                            <label *ngIf="!foto" class=" custom-file-label" for="fotoPerfil">Sube aquí tu foto</label>
-                                            <label *ngIf="foto" class=" custom-file-label" for="fotoPerfil">{{foto.name}}</label>
+                                            <label *ngIf="!foto" class="custom-file-label input-dark" for="fotoPerfil">Sube aquí tu foto</label>
+                                            <label *ngIf="foto" class="custom-file-label input-dark" for="fotoPerfil">{{foto.name}}</label>
                                         </div>
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary">Añadir</button>
+                                            <button class="btn btn-primary my-2">Añadir</button>
                                         </div>
                                     </div>
                                     <div class="error" *ngIf="submittedFoto && formularioFoto.fotoPerfil.errors">
@@ -43,55 +43,56 @@
                             </form>
                         </div>
                         <div class="card-footer col-12 bg-secondary">
-                            <div class=" justify-content-end row">
+                            <div class="justify-content-end row">
                                 <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fa fa-edit mr-2" aria-hidden="true"></i>Editar
-                                    </button>
+                                    <i class="fa fa-edit mr-2" aria-hidden="true"></i>Editar
+                                </button>
                             </div>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
-                                            <div class="modal-header bg-primary">
-                                                <h3 class="modal-title text-white" id="exampleModalLabel">Editar Perfil</h3>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body row">
-                                                <div class="row m-2">
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Nombre: </label>
-                                                        <input type="text" class="text-black" id="nombre" formControlName="nombre" [(ngModel)]="user.nombre" />
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Apellidos: </label>
-                                                        <input type="text" class="text-black" id="apellidos" formControlName="apellidos" [(ngModel)]="user.apellidos" />
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Email: </label>
-                                                        <input type="email" class="text-black" id="email" formControlName="email" [(ngModel)]="user.email" readonly/>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Teléfono: </label>
-                                                        <input type="text" class="text-black" id="telefono" formControlName="telefono" [(ngModel)]="user.telefono" />
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Localidad: </label>
-                                                        <input type="text" class="text-black" id="localidad" formControlName="localidad" [(ngModel)]="user.localidad" />
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-6">
-                                                        <label>Residencia: </label>
-                                                        <input type="text" class="text-black" id="residencia" formControlName="residencia" [(ngModel)]="user.residencia" />
-                                                    </div>
+                        </div>
+                        <!--modal-->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content no-border">
+                                    <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+                                        <div class="modal-header bg-primary no-border">
+                                            <h3 class="modal-title text-white" id="exampleModalLabel">Editar Perfil</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body tema-dark text-white2">
+                                            <div class="row m-2">
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Nombre: </label>
+                                                    <input type="text" class="text-black" id="nombre" formControlName="nombre" [(ngModel)]="user.nombre" class="pl-2" />
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Apellidos: </label>
+                                                    <input type="text" class="text-black" id="apellidos" formControlName="apellidos" [(ngModel)]="user.apellidos" class="pl-2" />
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Email: </label>
+                                                    <input type="email" class="text-black" id="email" formControlName="email" [(ngModel)]="user.email" readonly class="pl-2" />
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Teléfono: </label>
+                                                    <input type="text" class="text-black" id="telefono" formControlName="telefono" [(ngModel)]="user.telefono" class="pl-2" />
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Localidad: </label>
+                                                    <input type="text" class="text-black" id="localidad" formControlName="localidad" [(ngModel)]="user.localidad" class="pl-2" />
+                                                </div>
+                                                <div class="col-md-6 col-lg-6">
+                                                    <label>Residencia: </label>
+                                                    <input type="text" class="text-black" id="residencia" formControlName="residencia" [(ngModel)]="user.residencia" class="pl-2" />
                                                 </div>
                                             </div>
-                                            <div class="modal-footer bg-secondary">
-                                                <button class="btn btn-success" data-dismiss="modal" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer bg-secondary">
+                                            <button class="btn btn-success" data-dismiss="modal" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

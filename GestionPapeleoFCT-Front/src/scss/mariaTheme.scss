@@ -1,13 +1,89 @@
-$primary: #3b5968;
-$secondary: #71949e;
-$dark: #c2bdbd;
-$danger: #752931;
-$success: #3e823a;
-$light: rgb(22, 27, 33);
-$info: rgb(107, 107, 107);
-$h1-font-size: 2rem;
-$white: rgb(33, 39, 46);
-//Bordes
-$border-color: rgb(47, 53, 58);
-$border-radius: .50rem;
-$border-width: 2px;
+//Variables
+$primary: #446c77;
+$secondary: #b8d4dc;
+$white: rgb(209, 209, 209);
+$white2:rgb(190, 190, 190);
+$dark1: rgb(22, 27, 33);
+$dark2: rgb(33, 39, 46);
+$gris: rgb(47, 53, 58);
+//Tema
+app-root #app.theme.theme-maria {
+    font-size: 18px !important;
+    #fondo {
+        background-color: $dark1;
+    }
+    #fondo2 {
+        background-color: $primary !important;
+    }
+    .bg-light {
+        background-color: $secondary !important;
+    }
+    .bg-white,
+    #menu,
+    .tema-dark {
+        background-color: $dark2 !important;
+    }
+    .text-dark,
+    a,
+    table,
+    .text-white2 {
+        color: $white2 !important;
+    }
+    .border {
+        border: none !important;
+    }
+    .border2,
+    #nav-csv-tab:hover,
+    #nav-admin-tab:hover,
+    #nav-admin2-tab:hover {
+        border: 2px solid $gris;
+    }
+    .border-right {
+        border-right: 2px solid $gris !important;
+    }
+    .border-bottom {
+        border-bottom: 2px solid $gris !important;
+    }
+    .error {
+        color: rgb(165, 46, 46);
+    }
+    input.ng-invalid.ng-touched {
+        border: 1px solid rgb(165, 46, 46);
+    }
+    input.ng-valid.ng-touched {
+        border: 1px solid rgb(55, 109, 55);
+    }
+    input:disabled {
+        background-color: $gris;
+    }
+    input,
+    select,
+    .input-dark {
+        background-color: $dark1;
+        color: $white2;
+        border: 2px solid $dark2;
+    }
+    #select-empresas {
+        background-color: $dark2;
+        color: $white2;
+    }
+    .border-top {
+        border-top: 2px solid $primary !important;
+    }
+    .swith-theme {
+        color: $white2;
+        background-color: $dark2;
+        border-radius: .50rem;
+        border: 2px solid $gris !important;
+    }
+    .card,
+    .no-border {
+        border: none !important;
+    }
+    .img {
+        border: 5px solid $primary;
+    }
+    .rounded-circle {
+        border-radius: 5px !important;
+    }
+}
