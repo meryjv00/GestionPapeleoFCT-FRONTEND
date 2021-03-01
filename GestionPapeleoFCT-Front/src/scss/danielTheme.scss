@@ -120,4 +120,8 @@ app-root #app.theme.theme-daniel {
     .rounded-circle {
         border-radius: 5px !important;
     }
+
+    *:focus {
+        outline: 2px double black !important;
+    }
 }
