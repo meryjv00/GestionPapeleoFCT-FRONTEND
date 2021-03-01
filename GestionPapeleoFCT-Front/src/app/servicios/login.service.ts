@@ -64,5 +64,4 @@ export class LoginService {
   public logout() {
     sessionStorage.removeItem(LoginService.SESSION_STORAGE_KEY);
   }
-
 }

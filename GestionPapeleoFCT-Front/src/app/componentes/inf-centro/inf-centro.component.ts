@@ -52,6 +52,7 @@ export class InfCentroComponent implements OnInit {
   ngOnInit(): void {
     this.IsCentr();
     this.getDirector();
+    console.log(this.director);
   }
 
   IsCentr(){
@@ -68,6 +69,7 @@ export class InfCentroComponent implements OnInit {
   getDirector(){
     this.AdminCentroService.getDirector().subscribe(
       (response: any) => { 
+        console.log(response.message);
         this.director.nombre = response.message.nombre;
         this.director.email = response.message.email;
       },

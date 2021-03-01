@@ -11,12 +11,14 @@ export class RegistroUserComponent implements OnInit {
   nuevoRegistro: FormGroup;
   submitted = false;
   message: string;
+  //salida = true;
 
   constructor(private registroService: RegistroService, private formBuilder: FormBuilder, private router: Router) {
     this.nuevoRegistro = this.formBuilder.group({
       dni: ['', [Validators.required,Validators.pattern]],
       email: ['', [Validators.required,Validators.email]],
-      password: ['', [Validators.required,Validators.minLength]]
+      password: ['', [Validators.required,Validators.minLength]],
+      password2: ['', [Validators.required,Validators.minLength]]
     });
     this.message = "";
   }
@@ -43,6 +45,14 @@ export class RegistroUserComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.nuevoRegistro.reset();
+  }
+
+  validarDistintasPass() {
+    let salida =true;
+    if(this.nuevoRegistro.get('password')?.value === this.nuevoRegistro.get('password2')?.value){
+      salida = false;
+    }
+    return salida;
   }
 
 }

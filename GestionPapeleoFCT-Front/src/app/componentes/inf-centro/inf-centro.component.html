@@ -9,15 +9,15 @@
                     <div class="card">
                         <div class="card-title bg-primary m-0">
                             <img src="../../../assets/img/cifp.png" alt="imagen" width="150px" class="logo">
-                            <h2 class="card-title text-white">{{centro.nombre}}</h2>
+                            <h2 class="card-title text-white font-weight-bolder">{{centro.nombre}}</h2>
                         </div>
                         <div class="card-body tema-dark text-white2">
                             <div class="card-text row justify-content-center">
                                 <div class="row col-lg-6 col-md-6">
                                     <div class="col-lg-12 col-md-12 mb-3">Código: {{centro.codigo}}</div>
                                     <div class="col-lg-12 col-md-12 mb-3">Cif: {{centro.cif}}</div>
-                                    <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-user" aria-hidden="true"></i> Director: {{director.nombre}}
-                                        <i class="fa fa-envelope" aria-hidden="true"></i> {{director.email}}</div>
+                                    <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-user" aria-hidden="true"></i> Director: {{director.nombre}}</div>
+                                    <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-envelope" aria-hidden="true"></i> {{director.email}}</div>
                                     <div class="col-lg-12 col-md-12 mb-3">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i> {{centro.calle}} {{centro.cp}} {{centro.localidad}} ({{centro.provincia}}).</div>
                                     <div class="col-lg-12 col-md-12 mb-3"><i class="fa fa-phone" aria-hidden="true"></i> {{centro.tlf}}</div>
@@ -36,7 +36,7 @@
                                 <div class="modal-content">
                                     <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
                                         <div class="modal-header bg-primary no-border">
-                                            <h3 class="modal-title text-white" id="exampleModalLabel">Editar información</h3>
+                                            <h3 class="modal-title text-white font-weight-bolder" id="exampleModalLabel">Editar información</h3>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
