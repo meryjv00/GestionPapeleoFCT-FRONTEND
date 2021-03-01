@@ -5,11 +5,11 @@
         </div>
         <div class="col-12 col-lg-10 overflow-hidden">
             <div class="row">
-                <div class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5">
+                <div class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5 tema-dark">
                     <div class="row card-header text-white bg-primary">
-                        <h1 class="col-12 ml-4">Empresa: {{empresa.nombre}}</h1>
+                        <h1 class="col-12 ml-2">Empresa: {{empresa.nombre}}</h1>
                     </div>
-                    <div class="row mt-2 card-body">
+                    <div class="row mt-2 card-body tema-dark text-white2">
                         <div class="col-12">
                             <form [formGroup]="editarEmpresa" (ngSubmit)="actualizar()" class="col-12 p-0 w-100 ">
                                 <h4>Información general</h4>
