@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { EmpresaComponent } from '../componentes/empresa/empresa.component';
 import { LoginService } from './login.service';
 
 
@@ -73,4 +73,19 @@ export class AdminEmpresasService {
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.put(url, { 'empresa': empresa }, { headers: headers });
   };
+
+  //Añade un responsable de una empresa
+  public addResponsable = (responsable: any) => {
+    const url = "http://localhost:8000/api/addResponsableEmpresa/";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, { 'responsable': responsable }, { headers: headers });
+  }
+
+  //Elimina el responsable de una empresa. Recibe su DNI
+  deleteResponsable = (responsable: any) => {
+    const url = "http://localhost:8000/api/deleteResponsableEmpresa/";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, { 'dniResponsable': responsable }, { headers: headers });
+  }
+
 }

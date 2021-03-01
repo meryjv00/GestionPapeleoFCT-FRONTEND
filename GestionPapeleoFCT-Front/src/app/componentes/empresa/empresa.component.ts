@@ -14,6 +14,7 @@ import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 })
 export class EmpresaComponent implements OnInit {
   empresa: any;
+  nuevoResp: any;
   editarEmpresa: FormGroup;
   submitted = false;
   activados = false;
@@ -31,20 +32,28 @@ export class EmpresaComponent implements OnInit {
       this.router.navigate(['/listaEmpresas']);
     } else {
       this.empresa = this.CompartirDatos.getEmpresa();
+      console.log(this.empresa);
+      this.nuevoResp = {
+        'idEmpresa': this.empresa.id,
+        'dni': '',
+        'nombre': ''
+      }
     }
 
     //Formulario 'editar empresa'
     this.editarEmpresa = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.minLength]],
-      provincia: ['', [Validators.required, Validators.minLength]],
-      localidad: ['', [Validators.required, Validators.minLength]],
-      calle: ['', [Validators.required, Validators.minLength]],
-      cp: ['', [Validators.required, Validators.minLength]],
-      cif: ['', [Validators.required, Validators.minLength]],
-      tlf: ['', [Validators.required, Validators.minLength]],
-      email: ['', [Validators.required, Validators.minLength]],
+      nombre: ['', [Validators.required]],
+      provincia: ['', [Validators.required]],
+      localidad: ['', [Validators.required]],
+      calle: ['', [Validators.required]],
+      cp: ['', [Validators.required]],
+      cif: ['', [Validators.required]],
+      tlf: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       dniRepresentante: ['', [Validators.required]],
-      nombreRepresentante: ['', [Validators.required]]
+      nombreRepresentante: ['', [Validators.required]],
+      dniNuevo: [''],
+      nombreNuevo: ['']
     });
 
     this.editarEmpresa?.disable();
@@ -57,6 +66,7 @@ export class EmpresaComponent implements OnInit {
 
   get formulario() { return this.editarEmpresa.controls; }
 
+
   //Actualiza la empresa
   actualizar() {
     this.submitted = true;
@@ -65,8 +75,10 @@ export class EmpresaComponent implements OnInit {
     } else {
       this.adminEmpresasService.updateEmpresa(this.empresa).subscribe(
         (response: any) => {
-          this.router.navigate(['/empresa', this.empresa]);
-          alert('Empresa actualizada correctamente');
+          this.activarEdicion();
+          alert('Empresa actualizada');
+          this.CompartirDatos.setEmpresa(this.empresa);
+          this.router.navigate(['/empresa']);
         },
         (error) => {
           console.log(error);
@@ -81,7 +93,7 @@ export class EmpresaComponent implements OnInit {
    */
   eliminarEmpresa() {
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa?';
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa de la base de datos?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
       alert("Empresa eliminada.");
@@ -98,12 +110,63 @@ export class EmpresaComponent implements OnInit {
     if (!this.activados) {
       this.editarEmpresa?.enable();
       this.activados = true;
-      this.textoBoton = "Cancelar";
+      this.textoBoton = "Dejar de editar";
     } else {
       this.editarEmpresa?.disable();
       this.activados = false;
       this.textoBoton = "Editar";
     }
+  }
+
+  /**
+   * Añade un nuevo responsable a la empresa
+   */
+  addResp() {
+    this.adminEmpresasService.addResponsable(this.nuevoResp).subscribe(
+      (response: any) => {
+        alert('Responsable añadido');
+
+        //Actualiza la lista
+        let responsable = {
+          'dniResponsable': this.nuevoResp.dni,
+          'nombreResponsable': this.nuevoResp.nombre
+        }
+
+        //"Limpia" los campos de nuevo responsable
+        this.nuevoResp.dni = '';
+        this.nuevoResp.nombre = '';
+
+        //Actualiza la empresa
+        this.empresa.responsables.push(responsable);
+        this.CompartirDatos.setEmpresa(this.empresa);
+        this.router.navigate(['/empresa']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /**
+   * Elimina un responsable de empresa
+   * @param responsable 
+   */
+  eliminarResponsable(dniResponsable: any) {
+    this.adminEmpresasService.deleteResponsable(dniResponsable).subscribe(
+      (response: any) => {
+        alert('Responsable eliminado');
+
+        //Elimina el responsable de la lista
+        for (let index = 0; index < this.empresa.responsables.length; index++) {
+          if (this.empresa.responsables[index].dniResponsable == dniResponsable) {
+            this.empresa.responsables.splice(index, 1);
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }
