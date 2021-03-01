@@ -22,11 +22,11 @@ export class ModUsService {
    /**
    * Petición de modificacion de usuario
    * */
-  public Mod_user = (correo:any, dni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any) => {
+  public Mod_user = (correo:any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any) => {
     const url = "http://localhost:8000/api/mod_user";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(url, {'correo' : correo, 'dni': dni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf}, { headers: headers });
+    return this.http.post(url, {'correo' : correo, 'dni': dni, 'olddni': olddni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf}, { headers: headers });
   };
 }
