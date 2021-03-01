@@ -15,42 +15,66 @@
                                 <h4>Información general</h4>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="localidad">Nombre:</label>
-                                        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="empresa.nombre" minlength="5" />
+                                        <label for="nombre">Nombre:</label>
+                                        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="empresa.nombre" />
+                                        <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+                                            <div *ngIf="formulario.nombre.errors.required">Debes especificar un nombre</div>
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <label for="localidad">Provincia:</label>
+                                        <label for="provincia">Provincia:</label>
                                         <input type="text" formControlName="provincia" id="provincia" class="form-control" [(ngModel)]="empresa.provincia" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.provincia.touched) && formulario.provincia.errors">
+                                            <div *ngIf="formulario.provincia.errors.required">Debes especificar una provincia</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
                                         <label for="localidad">Localidad:</label>
                                         <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="empresa.localidad" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                                            <div *ngIf="formulario.localidad.errors.required">Debes especificar una localidad</div>
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <label for="localidad">Dirección:</label>
+                                        <label for="calle">Dirección:</label>
                                         <input type="text" formControlName="calle" id="calle" class="form-control" [(ngModel)]="empresa.calle" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.calle.touched) && formulario.calle.errors">
+                                            <div *ngIf="formulario.calle.errors.required">Debes especificar una dirección</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-6 mt-2">
-                                        <label for="localidad">Código postal:</label>
+                                        <label for="cp">Código postal:</label>
                                         <input type="text" formControlName="cp" id="cp" class="form-control" [(ngModel)]="empresa.cp" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.cp.touched) && formulario.cp.errors">
+                                            <div *ngIf="formulario.cp.errors.required">Debes especificar un código postal</div>
+                                        </div>
                                     </div>
                                     <div class="col-6 mt-2">
-                                        <label for="localidad">CIF:</label>
+                                        <label for="cif">CIF:</label>
                                         <input type="text" formControlName="cif" id="cif" class="form-control" [(ngModel)]="empresa.cif" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.cif.touched) && formulario.cif.errors">
+                                            <div *ngIf="formulario.cif.errors.required">Debes especificar un CIF</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <label for="localidad">Nº de teléfono:</label>
+                                        <label for="tlf">Nº de teléfono:</label>
                                         <input type="text" formControlName="tlf" id="tlf" class="form-control" [(ngModel)]="empresa.tlf" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.tlf.touched) && formulario.tlf.errors">
+                                            <div *ngIf="formulario.tlf.errors.required">Debes especificar un número de teléfono</div>
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <label for="localidad">Correo electrónico:</label>
-                                        <input type="text" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
+                                        <label for="email">Correo electrónico:</label>
+                                        <input type="email" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
+                                        <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
+                                            <div *ngIf="formulario.email.errors.required">Debes especificar un correo electrónico</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -88,17 +112,8 @@
                                 </div>
                                 <ul>
                                     <li *ngFor="let responsable of empresa.responsables">
-                                        {{responsable.nombreResponsable}}</li>
+                                        {{responsable.nombreResponsable}} <button type="button" *ngIf="activados" (click)="eliminarResponsable(responsable.dniResponsable)" class="btn btn-danger"><i class="fa fa-times"></i></button></li>
                                 </ul>
-                                <!--
-                                <div class="form-row" *ngIf="activados">
-                                    <h5>Eliminar un responsable</h5>
-                                    <select class="col-10 form-control">
-                                            <option *ngFor="let responsable of empresa.responsables" value="{{responsable.dniResponsable}}">{{responsable.nombreResponsable}}</option>
-                                        </select>
-                                    <button class="col-2 btn btn-danger"><i class="fa fa-times mr-1"></i> Eliminar responsable</button>
-                                        </div>
-                                        -->
                             </form>
                         </div>
                     </div>

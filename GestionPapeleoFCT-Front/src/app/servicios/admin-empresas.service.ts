@@ -76,8 +76,16 @@ export class AdminEmpresasService {
 
   //Añade un responsable de una empresa
   public addResponsable = (responsable: any) => {
-    const url = "http://localhost:8000/api/addResponsableEmpresa/" + responsable.idEmpresa;
+    const url = "http://localhost:8000/api/addResponsableEmpresa/";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, {'responsable':responsable}, {headers: headers});
+    return this.http.post(url, { 'responsable': responsable }, { headers: headers });
   }
+
+  //Elimina el responsable de una empresa. Recibe su DNI
+  deleteResponsable = (responsable: any) => {
+    const url = "http://localhost:8000/api/deleteResponsableEmpresa/";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, { 'dniResponsable': responsable }, { headers: headers });
+  }
+
 }

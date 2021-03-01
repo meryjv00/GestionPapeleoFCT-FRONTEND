@@ -42,14 +42,14 @@ export class EmpresaComponent implements OnInit {
 
     //Formulario 'editar empresa'
     this.editarEmpresa = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.minLength]],
-      provincia: ['', [Validators.required, Validators.minLength]],
-      localidad: ['', [Validators.required, Validators.minLength]],
-      calle: ['', [Validators.required, Validators.minLength]],
-      cp: ['', [Validators.required, Validators.minLength]],
-      cif: ['', [Validators.required, Validators.minLength]],
-      tlf: ['', [Validators.required, Validators.minLength]],
-      email: ['', [Validators.required, Validators.minLength]],
+      nombre: ['', [Validators.required]],
+      provincia: ['', [Validators.required]],
+      localidad: ['', [Validators.required]],
+      calle: ['', [Validators.required]],
+      cp: ['', [Validators.required]],
+      cif: ['', [Validators.required]],
+      tlf: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       dniRepresentante: ['', [Validators.required]],
       nombreRepresentante: ['', [Validators.required]],
       dniNuevo: [''],
@@ -110,7 +110,7 @@ export class EmpresaComponent implements OnInit {
     if (!this.activados) {
       this.editarEmpresa?.enable();
       this.activados = true;
-      this.textoBoton = "Cancelar";
+      this.textoBoton = "Dejar de editar";
     } else {
       this.editarEmpresa?.disable();
       this.activados = false;
@@ -122,7 +122,51 @@ export class EmpresaComponent implements OnInit {
    * Añade un nuevo responsable a la empresa
    */
   addResp() {
-    console.log(this.nuevoResp);
+    this.adminEmpresasService.addResponsable(this.nuevoResp).subscribe(
+      (response: any) => {
+        alert('Responsable añadido');
+
+        //Actualiza la lista
+        let responsable = {
+          'dniResponsable': this.nuevoResp.dni,
+          'nombreResponsable': this.nuevoResp.nombre
+        }
+
+        //"Limpia" los campos de nuevo responsable
+        this.nuevoResp.dni = '';
+        this.nuevoResp.nombre = '';
+
+        //Actualiza la empresa
+        this.empresa.responsables.push(responsable);
+        this.CompartirDatos.setEmpresa(this.empresa);
+        this.router.navigate(['/empresa']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-  
+
+  /**
+   * Elimina un responsable de empresa
+   * @param responsable 
+   */
+  eliminarResponsable(dniResponsable: any) {
+    this.adminEmpresasService.deleteResponsable(dniResponsable).subscribe(
+      (response: any) => {
+        alert('Responsable eliminado');
+
+        //Elimina el responsable de la lista
+        for (let index = 0; index < this.empresa.responsables.length; index++) {
+          if (this.empresa.responsables[index].dniResponsable == dniResponsable) {
+            this.empresa.responsables.splice(index, 1);
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 }
