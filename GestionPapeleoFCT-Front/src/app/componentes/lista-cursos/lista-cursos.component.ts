@@ -339,12 +339,10 @@ export class ListaCursosComponent implements OnInit {
             let empresaId = this.selectEmpresasNoCurso.nativeElement.value;
             this.listaCursosService.addEmpresaCurso(this.cursoSeleccionado.id, empresaId).subscribe(
                 (response: any) => {
-                    console.log('eee');
                     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
                     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
                     modalRef.componentInstance.exito = true;
                     this.onChange(this.cursoSeleccionado.id);
-                    
                 },
                 (error: any) => {
                     console.log(error);

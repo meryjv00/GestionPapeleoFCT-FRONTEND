@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { FctAlumnoService } from 'src/app/servicios/fct-alumno.service';
+import { ResponsablesEmpresaService } from 'src/app/servicios/responsables-empresa.service';
 
 @Component({
     selector: 'app-modal-add-alumno-practica',
@@ -17,19 +18,22 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     alumnosPracticas: any[];
     alumnosCurso: any[];
+    responsablesCurso: any[];
     idCurso: any;
     idEmpresa: any;
     addAlumnoPracitas: FormGroup | any;
-    submitted =  false;
+    submitted = false;
 
-    constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private fctAlumnoService: FctAlumnoService) {
+    constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private fctAlumnoService: FctAlumnoService, private responsablesEmpresaService: ResponsablesEmpresaService) {
         this.alumnosPracticas = [];
         this.alumnosCurso = [];
+        this.responsablesCurso = [];
     }
 
     ngOnInit(): void {
         this.idCurso = this.idCur;
         this.idEmpresa = this.idEmp;
+        this.getResponsablesEmpresa(this.idEmpresa);
         this.getAlumnosCurso(this.idCurso);
         this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
         this.initForm();
@@ -64,8 +68,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                     };
                     this.alumnosCurso.push(alumno);
                 });
-                console.log(this.alumnosCurso);
-
+                //console.log(this.alumnosCurso);
             },
             (error: any) => {
                 console.log(error);
@@ -94,6 +97,29 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
     }
 
+    // Método para obtener los alumnos en practicas de una empresa
+    getResponsablesEmpresa(idEmpresa: any) {
+        this.responsablesCurso = [];
+        this.responsablesEmpresaService.getResponsablesEmpresa(idEmpresa).subscribe(
+            (response: any) => {
+                console.log(response);
+                const responsables = response.message;
+                responsables.forEach((element: { idEmpresa: any; nombreResponsable: any, dniResponsable: any }) => {
+                    let responsable = {
+                        'idEmpresa': element.idEmpresa,
+                        'nombreResponsable': element.nombreResponsable,
+                        'dniResponsable': element.dniResponsable
+                    };
+                    this.responsablesCurso.push(responsable);
+                });
+                console.log(this.responsablesCurso);
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
     // Inicia el formulario
     private initForm(): void {
         this.addAlumnoPracitas = this.formBuilder.group({
@@ -102,6 +128,9 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
             dniAlumno: [null, [Validators.required]],
             fechaComienzo: ['', [Validators.required]],
             fechaFin: ['', [Validators.required]],
+            semiPresencial: [''],
+            desplazamiento: [null, [Validators.required]],
+            dniResponsable: [null, [Validators.required]],
         })
     }
 
@@ -111,10 +140,24 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         if (this.addAlumnoPracitas.invalid) {
             return;
         }
+        // Crea los datos que enviaremos
         let data = this.addAlumnoPracitas.value;
+        // Leemos el desplazamiento para enviarlo        
+        if(data.desplazamiento == 'Si'){
+            data.desplazamiento = 1;
+        } else {
+            data.desplazamiento = 0;
+        }        
+        // Leemos semipresencial
+        if(data.semiPresencial){
+            data.semiPresencial = 1;
+        } else {
+            data.semiPresencial = 0;
+        }        
+        // Añade mas datos necesarios
         data.idCurso = this.idCurso;
         data.idEmpresa = this.idEmpresa;
-
+        
         this.fctAlumnoService.storeAlumnoPracticas(data).subscribe(
             (response: any) => {
                 this.storeOk.emit(true);
@@ -136,7 +179,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
             (response: any) => {
                 console.log(response);
-                
+
                 this.storeOk.emit(true);
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
@@ -150,7 +193,6 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
 
     }
-
 
 
 }

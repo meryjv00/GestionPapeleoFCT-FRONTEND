@@ -1,12 +1,12 @@
 <div class="modal-header bg-primary text-white">
-    <h4 class="modal-title" id="modal-basic-title">Añadir alumno</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+  <h4 class="modal-title" id="modal-basic-title">Añadir alumno</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
     <i class="fas fa-times fa-sm text-white"></i>
   </button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
-        <select class="form-control" name="dniAlumno" formControlName="dniAlumno">
+  <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
+    <select class="form-control" name="dniAlumno" formControlName="dniAlumno">
       <option [ngValue]="null" disabled>Selecciona un alumno</option>
       <option *ngFor="let alumno of alumnosCurso" value="{{alumno.dniAlumno}}">
         {{alumno.apellidos}},
@@ -14,50 +14,101 @@
         {{alumno.dniAlumno}}
       </option>
     </select>
-        <div class="row mt-2">
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="number" class="form-control" value="horarioDiario" name="horarioDiario" placeholder="Horario diario" formControlName="horarioDiario">
-            </div>
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="number" class="form-control" value="nHoras" name="nHoras" placeholder="Horas" formControlName="nHoras">
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="date" class="form-control" value="fechaComienzo" name="fechaComienzo" placeholder="Horario diario" formControlName="fechaComienzo">
-            </div>
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="date" class="form-control" value="fechaFin" name="fechaFin" placeholder="fechaFin" formControlName="fechaFin">
-            </div>
-            <div class="form-group ml-3">
-                <button type="submit" class="btn btn-primary">Añadir</button>
-            </div>
-        </div>
-    </form>
-    <div class="col-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Dni</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let alumnoP of alumnosPracticas">
-                    <td>{{ alumnoP.nombre }}</td>
-                    <td>{{ alumnoP.dni }}</td>
-                    <td>
-                        <button class="btn btn-primary ml-2 py-1">
-                          <i class="fas fa-edit fa-xs"></i>
-                        </button>
-                        <button class="btn btn-danger ml-2 py-1" (click)="deleteAlumnoPractica(alumnoP.dni)">
-                          <i class="fas fa-times fa-xs"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="error text-danger" *ngIf="(submitted || form.dniAlumno.touched) && form.dniAlumno.errors">
+      <div *ngIf="form.dniAlumno.errors.required">Este campo es obligatorio</div>
     </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="number" class="form-control" value="horarioDiario" name="horarioDiario"
+          placeholder="Horario diario" formControlName="horarioDiario">
+        <div class="error text-danger" *ngIf="(submitted || form.horarioDiario.touched) && form.horarioDiario.errors">
+          <div *ngIf="form.horarioDiario.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="number" class="form-control" value="nHoras" name="nHoras" placeholder="Horas"
+          formControlName="nHoras">
+        <div class="error text-danger" *ngIf="(submitted || form.nHoras.touched) && form.nHoras.errors">
+          <div *ngIf="form.nHoras.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="date" class="form-control" value="fechaComienzo" name="fechaComienzo" placeholder="Horario diario"
+          formControlName="fechaComienzo">
+        <div class="error text-danger" *ngIf="(submitted || form.fechaComienzo.touched) && form.fechaComienzo.errors">
+          <div *ngIf="form.fechaComienzo.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="date" class="form-control" value="fechaFin" name="fechaFin" placeholder="fechaFin"
+          formControlName="fechaFin">
+        <div class="error text-danger" *ngIf="(submitted || form.nHoras.touched) && form.nHoras.errors">
+          <div *ngIf="form.nHoras.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <select class="form-control" name="desplazamiento" placeholder="desplazamiento"
+          formControlName="desplazamiento">
+          <option [ngValue]="null" disabled>Desplazamiento</option>
+          <option value="No">No</option>
+          <option value="Si">Si</option>
+        </select>
+        <div class="error text-danger" *ngIf="(submitted || form.desplazamiento.touched) && form.desplazamiento.errors">
+          <div *ngIf="form.desplazamiento.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <select class="form-control" name="nombreResponsable" formControlName="dniResponsable">
+          <option [ngValue]="null" disabled>Responsable</option>
+          <option *ngFor="let responsable of responsablesCurso" value="{{responsable.dniResponsable}}">
+            {{responsable.nombreResponsable}}
+          </option>
+        </select>
+        <div class="error text-danger" *ngIf="(submitted || form.dniResponsable.touched) && form.dniResponsable.errors">
+          <div *ngIf="form.dniResponsable.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="semiPresencial" formControlName="semiPresencial">
+          <label class="form-check-label" for="semiPresencial">
+            Semipresencial
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <button type="submit" class="btn btn-primary">Añadir</button>
+      </div>
+    </div>
+  </form>
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Dni</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumnoP of alumnosPracticas">
+          <td>{{ alumnoP.nombre }}</td>
+          <td>{{ alumnoP.dni }}</td>
+          <td>
+            <button class="btn btn-primary ml-2 py-1">
+              <i class="fas fa-edit fa-xs"></i>
+            </button>
+            <button class="btn btn-danger ml-2 py-1" (click)="deleteAlumnoPractica(alumnoP.dni)">
+              <i class="fas fa-times fa-xs"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
