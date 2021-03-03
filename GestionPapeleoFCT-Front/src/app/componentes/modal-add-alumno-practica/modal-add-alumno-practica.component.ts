@@ -23,6 +23,10 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     idEmpresa: any;
     addAlumnoPracitas: FormGroup | any;
     submitted = false;
+    showAdd = true;
+    showUpdate = false;
+    updateAlumno: any;
+    datosAlumnoUpdate: any;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private fctAlumnoService: FctAlumnoService, private responsablesEmpresaService: ResponsablesEmpresaService) {
         this.alumnosPracticas = [];
@@ -37,20 +41,20 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.getAlumnosCurso(this.idCurso);
         this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
         this.initForm();
+        this.updateAlumno = {
+            'dniAlumno': null,
+            'dniResponsable': null,
+            'fechaComienzo': '',
+            'fechaFin': '',
+            'horarioDiario': '',
+            'nHoras': '',
+            'desplazamiento': null,
+            'idEmpresa': ''
+        }
     }
 
     get form() { return this.addAlumnoPracitas.controls; }
 
-
-    // Método para añadir un alumno de las practicas de una empresa
-    addAlumnoPracticas() {
-
-    }
-
-    // Método para eliminar un alumno de las practicas
-    deleteAlumnoPracticas() {
-
-    }
 
     // Método para obtener los alumnos de un curso que aun no tienen empresa para las practicas
     getAlumnosCurso(idCurso: any) {
@@ -82,10 +86,11 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.adminAlumnosService.getAlumnosPraticas(idCurso, idEmpresa).subscribe(
             (response: any) => {
                 const alumnos = response.message;
-                alumnos.forEach((element: { id: any; nombre: any, dni: any }) => {
+                alumnos.forEach((element: { id: any; nombre: any, dni: any, apellidos: any }) => {
                     let alumno = {
                         'id': element.id,
                         'nombre': element.nombre,
+                        'apellidos': element.apellidos,
                         'dni': element.dni
                     };
                     this.alumnosPracticas.push(alumno);
@@ -120,6 +125,39 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
     }
 
+    // Método para obtener los datos de las practicas de un alumno
+    getAlumnoFct(dniAlumno: any) {
+        this.updateAlumno = [];
+        this.fctAlumnoService.getAlumnoFct(dniAlumno).subscribe(
+            (response: any) => {
+                const res = response.message;
+                res.forEach((element: { dniAlumno: any; dniResponsable: any; fechaComienzo: any; fechaFin: any; horarioDiario: any; nHoras: any; desplazamiento: any; semiPresencial: any; idEmpresa: any }) => {
+                    let alumno = {
+                        'dniAlumno': element.dniAlumno,
+                        'dniResponsable': element.dniResponsable,
+                        'fechaComienzo': element.fechaComienzo,
+                        'fechaFin': element.fechaFin,
+                        'horarioDiario': element.horarioDiario,
+                        'nHoras': element.nHoras,
+                        'desplazamiento': element.desplazamiento,
+                        'semiPresencial': element.semiPresencial,
+                        'idEmpresa': element.idEmpresa
+                    };
+                    this.updateAlumno = alumno;
+                });
+                // Modifico el valor de desplazamiento
+                if (this.updateAlumno.desplazamiento == 0) {
+                    this.updateAlumno.desplazamiento = 'No'
+                } else {
+                    this.updateAlumno.desplazamiento = 'Si'
+                }
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
     // Inicia el formulario
     private initForm(): void {
         this.addAlumnoPracitas = this.formBuilder.group({
@@ -143,21 +181,21 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         // Crea los datos que enviaremos
         let data = this.addAlumnoPracitas.value;
         // Leemos el desplazamiento para enviarlo        
-        if(data.desplazamiento == 'Si'){
+        if (data.desplazamiento == 'Si') {
             data.desplazamiento = 1;
         } else {
             data.desplazamiento = 0;
-        }        
+        }
         // Leemos semipresencial
-        if(data.semiPresencial){
+        if (data.semiPresencial) {
             data.semiPresencial = 1;
         } else {
             data.semiPresencial = 0;
-        }        
+        }
         // Añade mas datos necesarios
         data.idCurso = this.idCurso;
         data.idEmpresa = this.idEmpresa;
-        
+
         this.fctAlumnoService.storeAlumnoPracticas(data).subscribe(
             (response: any) => {
                 this.storeOk.emit(true);
@@ -175,11 +213,8 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     // Método para eliminar a un alumno de las practicas
     deleteAlumnoPractica(dniAlumno: any) {
-
         this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
             (response: any) => {
-                console.log(response);
-
                 this.storeOk.emit(true);
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
@@ -191,9 +226,65 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 //this.activeModal.close();
             }
         );
+    }
+
+    // Método que lanza los datos a la parte superior del modal para poder modificarlos posteriomente
+    // en el siguiente paso
+    updateAlumnoPracticaUno(alumno: any, $event: { preventDefault: () => void; }) {
+        this.showAdd = false;
+        this.showUpdate = true;
+        this.getAlumnoFct(alumno.dni);
+        this.datosAlumnoUpdate = alumno.apellidos + ', ' + alumno.nombre + ': ';
+
+        // Modifico el formulario para los datos a modificar
+        this.addAlumnoPracitas = this.formBuilder.group({
+            horarioDiario: ['', [Validators.required]],
+            nHoras: ['', [Validators.required]],
+            dniAlumno: [null],
+            fechaComienzo: ['', [Validators.required]],
+            fechaFin: ['', [Validators.required]],
+            semiPresencial: [''],
+            desplazamiento: [''],
+            dniResponsable: [''],
+        })
+    }
+
+    // Método que lanza la actualización en la base de datos
+    updateAlumnoPracticaDos() {
+        this.submitted = true;
+        if (this.addAlumnoPracitas.invalid) {
+            return;
+        }
+        // Crea los datos que enviaremos
+        let data = this.addAlumnoPracitas.value;
+        data.dniAlumno = this.updateAlumno.dniAlumno;
+        data.idEmpresa = this.updateAlumno.idEmpresa;
+        // Leemos el desplazamiento para enviarlo        
+        if (data.desplazamiento == 'Si') {
+            data.desplazamiento = 1;
+        } else {
+            data.desplazamiento = 0;
+        }
+
+        this.fctAlumnoService.updateAlumnoFct(data).subscribe(
+            (response: any) => {
+                console.log(response);
+                this.onReset()
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
 
     }
 
+    // Método para cancelar la modificación de unas practicas
+    onReset() {
+        this.showAdd = true;
+        this.showUpdate = false;
+        // Reinicio el formulario
+        this.initForm();
+    }
 
 }
 
