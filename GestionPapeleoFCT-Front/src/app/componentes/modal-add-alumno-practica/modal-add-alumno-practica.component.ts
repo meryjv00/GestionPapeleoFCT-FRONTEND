@@ -269,17 +269,18 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.fctAlumnoService.updateAlumnoFct(data).subscribe(
             (response: any) => {
                 console.log(response);
-                this.onReset()
             },
             (error: any) => {
                 console.log(error);
             }
         );
+        this.onReset()
 
     }
 
     // Método para cancelar la modificación de unas practicas
     onReset() {
+        this.submitted = false;
         this.showAdd = true;
         this.showUpdate = false;
         // Reinicio el formulario
