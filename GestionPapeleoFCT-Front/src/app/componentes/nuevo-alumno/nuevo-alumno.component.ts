@@ -18,9 +18,9 @@ export class NuevoAlumnoComponent implements OnInit {
   curso: any;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private adminAlumnosService: AdminAlumnosService,private loginService: LoginService,
-    private CompartirDatos: CompartirDatosService,private modal: NgbModal) {
-    if (!loginService.isUserSignedIn()){
+  constructor(private formBuilder: FormBuilder, private router: Router, private adminAlumnosService: AdminAlumnosService, private loginService: LoginService,
+    private CompartirDatos: CompartirDatosService, private modal: NgbModal) {
+    if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
     //Obtiene los datos del curso seleccionado
@@ -37,7 +37,7 @@ export class NuevoAlumnoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
   }
 
   get formulario() { return this.nuevoAlumno.controls; }
@@ -54,15 +54,23 @@ export class NuevoAlumnoComponent implements OnInit {
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
     modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres añadir este alumno a el curso ' + this.curso.cicloFormativoA + ' ?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-        //Añade el alumno
-        this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.curso).subscribe(
-          (response: any) => {
-            this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      //Añade el alumno
+      this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.curso).subscribe(
+        (response: any) => {
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = this.nuevoAlumno.value.nombre + ' ' + this.nuevoAlumno.value.apellidos +
+            ' añadido a correctamente al curso ' + this.curso.cicloFormativoA;
+          modalRef.componentInstance.exito = true;
+          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
+        },
+        (error) => {
+          console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al añadir a ' + this.nuevoAlumno.value.nombre +
+          ' ' + this.nuevoAlumno.value.apellidos + ' a el curso ' + this.curso.cicloFormativoA;
+          modalRef.componentInstance.exito = false;
+        }
+      );
     });
   }
 
@@ -77,8 +85,8 @@ export class NuevoAlumnoComponent implements OnInit {
   /**
    * Vuelve a la lista de cursos cargando el curso seleccionado
    */
-  cancelar(){
-    this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+  cancelar() {
+    this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
   }
 }
 

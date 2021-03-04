@@ -76,12 +76,18 @@ export class EmpresaComponent implements OnInit {
       this.adminEmpresasService.updateEmpresa(this.empresa).subscribe(
         (response: any) => {
           this.activarEdicion();
-          alert('Empresa actualizada');
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = this.empresa.nombre + ' actualizada correctamente';
+          modalRef.componentInstance.exito = true;
+
           this.CompartirDatos.setEmpresa(this.empresa);
           this.router.navigate(['/empresa']);
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al actualizar la empresa ' + this.empresa.nombre;
+          modalRef.componentInstance.exito = false;
         }
       );
     }
@@ -96,7 +102,9 @@ export class EmpresaComponent implements OnInit {
     modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta empresa de la base de datos?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminEmpresasService.deleteEmpresaSuscription(this.empresa.id);
-      alert("Empresa eliminada.");
+      const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+      modalRef.componentInstance.mensaje = 'Empresa ' + this.empresa.nombre + ' eliminada correctamente';
+      modalRef.componentInstance.exito = true;
       this.router.navigate(['/listaEmpresas']);
     });
 
@@ -124,7 +132,9 @@ export class EmpresaComponent implements OnInit {
   addResp() {
     this.adminEmpresasService.addResponsable(this.nuevoResp).subscribe(
       (response: any) => {
-        alert('Responsable añadido');
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = this.nuevoResp.nombre + ' añadido correctamente';
+        modalRef.componentInstance.exito = true;
 
         //Actualiza la lista
         let responsable = {
@@ -143,6 +153,9 @@ export class EmpresaComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al añadir a ' + this.nuevoResp.nombre + ' como responsable';
+        modalRef.componentInstance.exito = false;
       }
     );
   }
@@ -154,7 +167,9 @@ export class EmpresaComponent implements OnInit {
   eliminarResponsable(dniResponsable: any) {
     this.adminEmpresasService.deleteResponsable(dniResponsable).subscribe(
       (response: any) => {
-        alert('Responsable eliminado');
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Responsable eliminado correctamente';
+        modalRef.componentInstance.exito = true;
 
         //Elimina el responsable de la lista
         for (let index = 0; index < this.empresa.responsables.length; index++) {
@@ -165,6 +180,9 @@ export class EmpresaComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar el responsable seleccionado';
+        modalRef.componentInstance.exito = false;
       }
     );
   }

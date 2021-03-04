@@ -63,10 +63,16 @@ export class AlumnoComponent implements OnInit {
       this.adminAlumnosService.updateAlumno(this.alumno).subscribe(
         (response: any) => {
           console.log(response);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = this.alumno.nombre + ' ' + this.alumno.apellidos + ' actualizado correctamente';
+          modalRef.componentInstance.exito = true;
           this.router.navigate(['/alumno', this.alumno]);
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al actualizar el alumno';
+          modalRef.componentInstance.exito = false;
         }
       );
     });
@@ -82,10 +88,16 @@ export class AlumnoComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminAlumnosService.deleteAlumno(this.alumno).subscribe(
         (response: any) => {
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = this.alumno.nombre + ' ' + this.alumno.apellidos + ' eliminado correctamente';
+          modalRef.componentInstance.exito = true;
           this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar el alumno';
+          modalRef.componentInstance.exito = false;
         }
       );
     });

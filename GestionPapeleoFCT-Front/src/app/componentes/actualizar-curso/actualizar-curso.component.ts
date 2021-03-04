@@ -21,12 +21,12 @@ export class ActualizarCursoComponent implements OnInit {
   curso: any;
 
   constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private cursosService: CursosService,
-     private compartirDatos: CompartirDatosService,private modal: NgbModal) {
+    private compartirDatos: CompartirDatosService, private modal: NgbModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
     this.families = [];
-    
+
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class ActualizarCursoComponent implements OnInit {
     this.submitted = true;
     if (this.newCurso.invalid) {
       return;
-    } 
+    }
     // Creo la oferta con los datos necesarios para ser guardados en la base de datos
     let curso = this.newCurso.value;
     curso.id = this.curso.id;
@@ -52,13 +52,16 @@ export class ActualizarCursoComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.cursosService.updateCurso(curso).subscribe(
         (response: any) => {
-          this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje =  curso.cicloFormativoA + ' actualizado correctamente';
+          modalRef.componentInstance.exito = true;
         },
         (error: any) => {
           console.log(error);
         }
       );
-    }); 
+    });
   }
 
   // Limpiamos campos
@@ -71,7 +74,7 @@ export class ActualizarCursoComponent implements OnInit {
   onCancel() {
     this.submitted = false;
     this.newCurso.reset();
-    this.router.navigate(['/listaCursos', {id:JSON.stringify(this.curso.id)}]);
+    this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
   }
 
   // Cogemos las familias formativas

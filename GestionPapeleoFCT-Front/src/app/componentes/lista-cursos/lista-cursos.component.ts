@@ -324,9 +324,15 @@ export class ListaCursosComponent implements OnInit {
                         }
                     });
                     this.cursoSeleccionado = this.cursos[0];
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Curso eliminado correctamente';
+                    modalRef.componentInstance.exito = true;
                 },
                 (error) => {
                     console.log(error);
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar el curso';
+                    modalRef.componentInstance.exito = false;
                 }
             );
         });
@@ -339,7 +345,6 @@ export class ListaCursosComponent implements OnInit {
             let empresaId = this.selectEmpresasNoCurso.nativeElement.value;
             this.listaCursosService.addEmpresaCurso(this.cursoSeleccionado.id, empresaId).subscribe(
                 (response: any) => {
-                    console.log('eee');
                     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
                     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
                     modalRef.componentInstance.exito = true;
@@ -405,9 +410,15 @@ export class ListaCursosComponent implements OnInit {
                             this.alumnos.splice(index, 1);
                         }
                     });
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Alumno eliminado correctamente';
+                    modalRef.componentInstance.exito = true;
                 },
                 (error) => {
                     console.log(error);
+                    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                    modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar el alumno';
+                    modalRef.componentInstance.exito = false;
                 }
             );
         });

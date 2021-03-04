@@ -2,9 +2,11 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 
 @Component({
@@ -18,7 +20,8 @@ export class NuevoCursoComponent implements OnInit {
     newCurso: FormGroup | any;
     submitted = false;
 
-    constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private cursosService: CursosService) {
+    constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService,
+        private formBuilder: FormBuilder, private cursosService: CursosService, private modal: NgbModal) {
         if (!loginService.isUserSignedIn()) {
             this.router.navigate(['/login']);
         }
@@ -40,13 +43,18 @@ export class NuevoCursoComponent implements OnInit {
         }
         // Creo la oferta con los datos necesarios para ser guardados en la base de datos
         let curso = this.newCurso.value;
-        console.log(curso);
         this.cursosService.storeCurso(curso).subscribe(
             (response: any) => {
                 this.router.navigate(['/listaCursos']);
+                const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                modalRef.componentInstance.mensaje = this.newCurso.value.cicloFormativoA + ' añadido correctamente';
+                modalRef.componentInstance.exito = true;
             },
             (error: any) => {
                 console.log(error);
+                const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                modalRef.componentInstance.mensaje = 'Ha ocurrido un error al añadir el curso';
+                modalRef.componentInstance.exito = false;
             }
         );
     }

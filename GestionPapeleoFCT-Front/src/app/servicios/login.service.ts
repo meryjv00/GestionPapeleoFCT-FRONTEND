@@ -51,7 +51,8 @@ export class LoginService {
       nombre: "",
       residencia: "",
       rol: "",
-      telefono: ""
+      telefono: "",
+      foto: ""
     };
     if (this.isUserSignedIn()) {
       user = sessionStorage.getItem(LoginService.SESSION_STORAGE_KEY);
