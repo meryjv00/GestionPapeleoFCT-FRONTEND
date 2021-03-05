@@ -1,81 +1,145 @@
 <div class="modal-header bg-primary text-white">
-    <h4 class="modal-title" id="modal-basic-title">Añadir alumno</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+  <h4 class="modal-title" id="modal-basic-title">Añadir alumno</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
     <i class="fas fa-times fa-sm text-white"></i>
   </button>
 </div>
-<div class="modal-body tema-dark text-white2">
-    <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
-        <select class="form-control" name="dniAlumno" formControlName="dniAlumno">
+<div class="modal-body">
+  <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
+    <select class="form-control" name="dniAlumno" formControlName="dniAlumno" *ngIf="showAdd">
       <option [ngValue]="null" disabled>Selecciona un alumno</option>
-      <option *ngFor="let alumno of alumnosCurso" value="{{alumno.dniAlumno}}">
+      <option *ngFor="let alumno of alumnosCurso" value="{{alumno.dniAlumno}}"
+        [selected]="alumno.dniAlumno === updateAlumno.dniAlumno">
         {{alumno.apellidos}},
         {{alumno.nombre}}:
         {{alumno.dniAlumno}}
       </option>
     </select>
-        <div class="row mt-2">
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="number" class="form-control" value="horarioDiario" name="horarioDiario" placeholder="Horario diario" formControlName="horarioDiario">
-            </div>
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="number" class="form-control" value="nHoras" name="nHoras" placeholder="Horas" formControlName="nHoras">
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="date" class="form-control" value="fechaComienzo" name="fechaComienzo" placeholder="Horario diario" formControlName="fechaComienzo">
-            </div>
-            <div class="form-group mb-2 col-12 col-lg-6">
-                <input type="date" class="form-control" value="fechaFin" name="fechaFin" placeholder="fechaFin" formControlName="fechaFin">
-            </div>
-            <div class="form-group ml-3">
-                <button type="submit" class="btn btn-primary">Añadir</button>
-            </div>
-        </div>
-    </form>
-    <div class="col-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Dni</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let alumnoP of alumnosPracticas">
-                    <td>{{ alumnoP.nombre }}</td>
-                    <td>{{ alumnoP.dni }}</td>
-                    <td>
-                        <button class="btn btn-primary ml-2 py-1">
-                          <i class="fas fa-edit fa-xs"></i>
-                        </button>
-                        <button class="btn btn-danger ml-2 py-1" (click)="deleteAlumnoPractica(alumnoP.dni)">
-                          <i class="fas fa-times fa-xs"></i>
-                        </button>
-                        <div ngbDropdown class="d-inline-block ml-2 py-1">
-                            <button class="btn btn-secondary" id="dropdownBasic1"
-                                ngbDropdownToggle>Descargar anexos</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                <button ngbDropdownItem (click)="anexo3(alumnoP)" ngbTooltip="Descargar hoja semanal {{alumnoP.nombre}}">
-                                    <i class="fas fa-file-word mr-2"></i>Anexo 3
-                                </button>
-                                <button ngbDropdownItem (click)="anexo4(alumnoP)" ngbTooltip="Descargar informe {{alumnoP.nombre}}">
-                                    <i class="fas fa-file-word mr-2"></i>Anexo 4
-                                </button>
-                                <button ngbDropdownItem (click)="anexo5(alumnoP)" ngbTooltip="Descargar recibí {{alumnoP.nombre}}">
-                                    <i class="fas fa-file-word mr-2"></i>Anexo 5
-                                </button>
-                                <button ngbDropdownItem (click)="anexo7(alumnoP)" ngbTooltip="Descargar autorización desplazamiento {{alumnoP.nombre}}">
-                                    <i class="fas fa-file-word mr-2"></i>Anexo 7
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="error text-danger" *ngIf="(submitted || form.dniAlumno.touched) && form.dniAlumno.errors">
+      <div *ngIf="form.dniAlumno.errors.required">Este campo es obligatorio</div>
     </div>
+    <div class="row mt-2" *ngIf="showUpdate">
+      <div class="form-group mb-2 col-12 border-bottom display-5 text-primary font-weight-bolder"
+        [innerHTML]="datosAlumnoUpdate">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="number" class="form-control" value="horarioDiario" name="horarioDiario"
+          placeholder="Horario diario" formControlName="horarioDiario" [(ngModel)]="updateAlumno.horarioDiario">
+        <div class="error text-danger" *ngIf="(submitted || form.horarioDiario.touched) && form.horarioDiario.errors">
+          <div *ngIf="form.horarioDiario.errors?.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="number" class="form-control" value="nHoras" name="nHoras" placeholder="Horas"
+          formControlName="nHoras" [(ngModel)]="updateAlumno.nHoras">
+        <div class="error text-danger" *ngIf="(submitted || form.nHoras.touched) && form.nHoras.errors">
+          <div *ngIf="form.nHoras.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="date" class="form-control" value="fechaComienzo" name="fechaComienzo" placeholder="Horario diario"
+          formControlName="fechaComienzo" [(ngModel)]="updateAlumno.fechaComienzo">
+        <div class="error text-danger" *ngIf="(submitted || form.fechaComienzo.touched) && form.fechaComienzo.errors">
+          <div *ngIf="form.fechaComienzo.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <input type="date" class="form-control" value="fechaFin" name="fechaFin" placeholder="fechaFin"
+          formControlName="fechaFin" [(ngModel)]="updateAlumno.fechaFin">
+        <div class="error text-danger" *ngIf="(submitted || form.nHoras.touched) && form.nHoras.errors">
+          <div *ngIf="form.nHoras.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <select class="form-control" name="desplazamiento" placeholder="desplazamiento" formControlName="desplazamiento"
+          [(ngModel)]="updateAlumno.desplazamiento">
+          <option [ngValue]="null" disabled>Desplazamiento</option>
+          <option value="No" [selected]="updateAlumno.desplazamiento == 'No'">No</option>
+          <option value="Si" [selected]="updateAlumno.desplazamiento == 'Si'">Si</option>
+        </select>
+        <div class="error text-danger" *ngIf="(submitted || form.desplazamiento.touched) && form.desplazamiento.errors">
+          <div *ngIf="form.desplazamiento.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <select class="form-control" name="nombreResponsable" formControlName="dniResponsable"
+          [(ngModel)]="updateAlumno.dniResponsable">
+          <option [ngValue]="null" disabled>Responsable</option>
+          <option *ngFor="let responsable of responsablesCurso" value="{{responsable.dniResponsable}}"
+            [selected]="responsable.dniResponsable === updateAlumno.dniResponsable">
+            {{responsable.nombreResponsable}}
+          </option>
+        </select>
+        <div class="error text-danger" *ngIf="(submitted || form.dniResponsable.touched) && form.dniResponsable.errors">
+          <div *ngIf="form.dniResponsable.errors.required">Este campo es obligatorio</div>
+        </div>
+      </div>
+      <div class="form-group mb-2 col-12 col-lg-6">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="semiPresencial" formControlName="semiPresencial"
+            [(ngModel)]="updateAlumno.semiPresencial">
+          <label class="form-check-label" for="semiPresencial">
+            Semipresencial
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <button type="submit" class="btn btn-primary" *ngIf="showAdd">Añadir</button>
+        <button type="buttom" class="btn btn-primary" *ngIf="showUpdate"
+          (click)="updateAlumnoPracticaDos()">Modificar</button>
+        <button type="button" class="btn btn-danger ml-2" *ngIf="showUpdate" (click)="onReset()">Cancelar</button>
+      </div>
+    </div>
+  </form>
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Apellidos, Nombre</th>
+          <th scope="col">Dni</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumnoP of alumnosPracticas">
+          <td>{{ alumnoP.apellidos }}, {{ alumnoP.nombre }}</td>
+          <td>{{ alumnoP.dni }}</td>
+          <td>
+            <button class="btn btn-primary ml-2 py-1" (click)="updateAlumnoPracticaUno(alumnoP, $event)">
+              <i class="fas fa-edit fa-xs"></i>
+            </button>
+            <button class="btn btn-danger ml-2 py-1" (click)="deleteAlumnoPractica(alumnoP.dni)">
+              <i class="fas fa-times fa-xs"></i>
+            </button>
+            <div ngbDropdown class="d-inline-block ml-2 py-1">
+              <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>Descargar anexos</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem (click)="anexo3(alumnoP)"
+                  ngbTooltip="Descargar hoja semanal {{alumnoP.nombre}}">
+                  <i class="fas fa-file-word mr-2"></i>Anexo 3
+                </button>
+                <button ngbDropdownItem (click)="anexo4(alumnoP)" ngbTooltip="Descargar informe {{alumnoP.nombre}}">
+                  <i class="fas fa-file-word mr-2"></i>Anexo 4
+                </button>
+                <button ngbDropdownItem (click)="anexo5(alumnoP)" ngbTooltip="Descargar recibí {{alumnoP.nombre}}">
+                  <i class="fas fa-file-word mr-2"></i>Anexo 5
+                </button>
+                <button ngbDropdownItem (click)="anexo7(alumnoP)"
+                  ngbTooltip="Descargar autorización desplazamiento {{alumnoP.nombre}}">
+                  <i class="fas fa-file-word mr-2"></i>Anexo 7
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>

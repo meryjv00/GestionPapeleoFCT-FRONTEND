@@ -360,7 +360,6 @@ export class ListaCursosComponent implements OnInit {
                     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
                     modalRef.componentInstance.exito = true;
                     this.onChange(this.cursoSeleccionado.id);
-
                 },
                 (error: any) => {
                     console.log(error);
