@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
       residencia: "",
       correo: "",
       telefono: "",
-      rol: ""
+      rol: "",
+      foto: ""
     }
   }
 
@@ -72,6 +74,12 @@ export class LoginComponent implements OnInit {
         this.user.correo = response.message.datos_user.correo
         this.user.telefono = response.message.datos_user.tlf;
         this.user.rol = response.message.rol;
+        //Comprobamos si tiene foto o no
+        if(response.message.datos_user.foto == 0){
+          this.user.foto = environment.dirBack2 + "IMG/generico.jpg" ;
+        }else{
+          this.user.foto = environment.dirBack2 + "IMG/" + this.user.dni + ".png";
+        }
         //Guardamos el usuario en session storage
         this.loginService.saveUser(this.user);
         this.router.navigate(['/listaCursos']);

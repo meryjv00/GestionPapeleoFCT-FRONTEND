@@ -4,7 +4,7 @@
     <i class="fas fa-times fa-sm text-white"></i>
   </button>
 </div>
-<div class="modal-body">
+<div class="modal-body tema-dark text-white2">
     <form [formGroup]="addAlumnoPracitas" (ngSubmit)="onSubmit()">
         <select class="form-control" name="dniAlumno" formControlName="dniAlumno">
       <option [ngValue]="null" disabled>Selecciona un alumno</option>
@@ -54,6 +54,24 @@
                         <button class="btn btn-danger ml-2 py-1" (click)="deleteAlumnoPractica(alumnoP.dni)">
                           <i class="fas fa-times fa-xs"></i>
                         </button>
+                        <div ngbDropdown class="d-inline-block ml-2 py-1">
+                            <button class="btn btn-secondary" id="dropdownBasic1"
+                                ngbDropdownToggle>Descargar anexos</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem (click)="anexo3(alumnoP)" ngbTooltip="Descargar hoja semanal {{alumnoP.nombre}}">
+                                    <i class="fas fa-file-word mr-2"></i>Anexo 3
+                                </button>
+                                <button ngbDropdownItem (click)="anexo4(alumnoP)" ngbTooltip="Descargar informe {{alumnoP.nombre}}">
+                                    <i class="fas fa-file-word mr-2"></i>Anexo 4
+                                </button>
+                                <button ngbDropdownItem (click)="anexo5(alumnoP)" ngbTooltip="Descargar recibí {{alumnoP.nombre}}">
+                                    <i class="fas fa-file-word mr-2"></i>Anexo 5
+                                </button>
+                                <button ngbDropdownItem (click)="anexo7(alumnoP)" ngbTooltip="Descargar autorización desplazamiento {{alumnoP.nombre}}">
+                                    <i class="fas fa-file-word mr-2"></i>Anexo 7
+                                </button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>

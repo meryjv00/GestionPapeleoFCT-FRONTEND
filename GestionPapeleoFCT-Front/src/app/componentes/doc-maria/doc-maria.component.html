@@ -1,0 +1,44 @@
+<main id="fondo" class="container-fluid min-vh-100">
+    <div class="row">
+        <!--**************************************MENU***************************************-->
+        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
+            <app-menu></app-menu>
+        </div>
+        <!--***********************************CONTENIDO***************************************-->
+        <div id="contenido" class="col-12 col-lg-10 overflow-hidden mt-4">
+            <!--*****NAV*****-->
+            <nav>
+                <div class="nav nav-tabs border-bottom" id="nav-tab" role="tablist">
+                    <a id="apart1-tab" (click)="activar(1)" class="nav-item nav-link active bg-white border2"
+                        data-toggle="tab" href="#apart-1" role="tab" aria-controls="apart1-tab"
+                        aria-selected="true">Inicialización
+                    </a>
+                    <a id="apart2-tab" (click)="activar(2)" class="nav-item nav-link" data-toggle="tab"
+                        href="#apart-2" role="tab" aria-controls="apart2-tab" aria-selected="false">1
+                    </a>
+                    <a id="apart3-tab" (click)="activar(3)" class="nav-item nav-link" data-toggle="tab"
+                        href="#apart-3" role="tab" aria-controls="apart3-tab" aria-selected="false">2
+                    </a>
+                </div>
+            </nav>
+            <!--*****CONTENIDO NAV*****-->
+            <div class="tab-content text-white2" id="nav-tabContent">
+                <!--1-->
+                <div class="tab-pane fade show active" id="apart-1" role="tabpanel" aria-labelledby="apart1-tab">
+                    <div>
+                        <h1>Bienvenido/a</h1>
+                    </div>
+                </div>
+                <!--2-->
+                <div class="tab-pane fade" id="apart-2" role="tabpanel" aria-labelledby="apart2-tab">
+                    <h1>2</h1>
+                </div>
+                <!--3-->
+                <div class="tab-pane fade" id="apart-3" role="tabpanel" aria-labelledby="apart3-tab">
+                    <h1>3</h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

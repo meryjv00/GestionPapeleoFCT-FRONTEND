@@ -7,6 +7,7 @@ import { ModUsService } from 'src/app/servicios/mod-us.service';
 import { ModUsLogService } from 'src/app/servicios/mod-us-log.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -26,7 +27,7 @@ export class PerfilComponent implements OnInit {
   fotoPerfil: FormGroup;
   foto: any;
   submittedFoto = false;
-  fotoRecibida: any;
+  
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
     private AdminAlumnosService: AdminAlumnosService, private mod_user_pass: ModUsLogService, private modal: NgbModal) {
     this.user = this.loginService.getUser();
@@ -58,8 +59,6 @@ export class PerfilComponent implements OnInit {
   get formulario3() { return this.registroNewEmail.controls; }
   get formularioFoto() { return this.fotoPerfil.controls; }
 
-
-
   ngOnInit(): void {
   }
 
@@ -70,6 +69,7 @@ export class PerfilComponent implements OnInit {
   guardarFoto(event: any) {
     this.foto = <File>event.target.files[0];
   }
+
   onSubmitFoto() {
     this.submittedFoto = true;
     if (this.fotoPerfil.invalid) {
@@ -77,14 +77,16 @@ export class PerfilComponent implements OnInit {
     }
     this.AdminAlumnosService.cambiarFoto(this.foto, this.user.dni).subscribe(
       (response: any) => {
-        alert(response.message);
-        this.fotoRecibida = response.message;
+        if(response.message.foto == 1){
+          this.user.foto = environment.dirBack2 + "IMG/" + this.user.dni + ".png";
+        }
       },
       (error) => {
         console.log(error);
       }
     );
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.nuevoRegistro.touched) {
@@ -101,6 +103,7 @@ export class PerfilComponent implements OnInit {
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
       this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
+      
     } else if (this.registroPass.touched) {
       if (this.registroPass.invalid || this.validarDistintasPass()) {
         return;
@@ -140,7 +143,7 @@ export class PerfilComponent implements OnInit {
         this.user.localidad = localidad;
         this.user.residencia = residencia;
         this.user.telefono = tlf;
-        this.loginService.saveUser(this.user);
+        //this.loginService.saveUser(this.user);
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = 'Datos actualizados correctamente';
         modalRef.componentInstance.exito = true;

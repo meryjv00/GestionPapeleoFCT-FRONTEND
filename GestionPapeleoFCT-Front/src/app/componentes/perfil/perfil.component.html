@@ -13,7 +13,7 @@
                             </h3>
                         </div>
                         <div class="card-body col-12 justify-content-center tema-dark text-dark">
-                            <img *ngIf="fotoRecibida" src="{{fotoRecibida}}" alt="Imágen perfil">
+                            <img *ngIf="user.foto" src="{{user.foto}}" alt="Imágen perfil">
                             <ul class="col-md-5 col-lg-5">
                                 <li>Nombre: {{user.nombre}} {{user.apellidos}}</li>
                                 <li>Email: {{user.correo}}</li>
