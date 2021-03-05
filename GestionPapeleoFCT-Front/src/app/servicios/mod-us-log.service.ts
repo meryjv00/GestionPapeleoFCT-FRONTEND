@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { environment } from 'src/environments/environment';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ModUsLogService {
   message: string;
   user: any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient,private loginService: LoginService ) {
     this.user = {
       email: "",
       oldpassword:"",
@@ -28,17 +29,19 @@ export class ModUsLogService {
     const url = environment.dirBack+"mod_user_pass";
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
+       Authorization: `Bearer ${this.loginService.getUser().access_token}`
     });
-    return this.http.post(url, {'email' : email, 'password': password, 'newpassword': newpassword}, { headers: headers });
+    return this.http.put(url, {'email' : email, 'password': password, 'newpassword': newpassword}, { headers: headers });
   };
   /**
   * Petición de modificacion de usuario email
   * */
- public Mod_user_email = (email:any, newemail: any) => {
-   const url = environment.dirBack+"mod_user_email";
-   let headers = new HttpHeaders({
-     'Content-Type': 'application/json',
-   });
-   return this.http.post(url, {'email' : email, 'newemail': newemail}, { headers: headers });
- };
+  public Mod_user_email = (email:any, newemail: any) => {
+    const url = environment.dirBack+"mod_user_email";
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.loginService.getUser().access_token}`
+    });
+    return this.http.put(url, {'email' : email, 'newemail': newemail}, { headers: headers });
+  };
 }

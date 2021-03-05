@@ -90,6 +90,7 @@ export class PerfilComponent implements OnInit {
         return;
       }
       let datosUsuario = this.nuevoRegistro.value;
+      const token =this.user.access_token;
       const email = datosUsuario.email;
       const olddni =this.user.dni;
       const dni = datosUsuario.dni;
@@ -98,7 +99,7 @@ export class PerfilComponent implements OnInit {
       const localidad = datosUsuario.localidad;
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
-      this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
+      this.update(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
     }else if (this.registroPass.touched){
       if (this.registroPass.invalid || this.validarDistintasPass()) {
         return;
@@ -127,8 +128,8 @@ export class PerfilComponent implements OnInit {
     this.onReset();
   }
 
-  update(email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
-    this.mod_user.Mod_user(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+  update(token:any,email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
+    this.mod_user.Mod_user(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
       (response: any) => {
         console.log(response);
         this.user.email = email;

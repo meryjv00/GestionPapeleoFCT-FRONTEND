@@ -44,7 +44,7 @@ export class AdministracionService {
   public getCuentasAdministrar = () => {
     const url = environment.dirBack + "getCuentasAdministrar";
     //console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 
@@ -52,7 +52,7 @@ export class AdministracionService {
   public getCuentasActivas = () => {
     const url = environment.dirBack + "getCuentasActivas";
     //console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 
@@ -83,7 +83,7 @@ export class AdministracionService {
   public getTutores = () => {
     const url = environment.dirBack + "getTutores";
     //console.log(this.loginService.user.access_token);
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 
@@ -96,7 +96,7 @@ export class AdministracionService {
 
   public reiniciarAlumnos = () => {
     const url = environment.dirBack + "reiniciarAlumnos";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 
