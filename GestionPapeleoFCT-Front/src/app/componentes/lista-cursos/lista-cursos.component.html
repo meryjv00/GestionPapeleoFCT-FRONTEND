@@ -12,20 +12,17 @@
                 <div class="container-fluid border-bottom-0 shadow pb-2">
                     <div class="col-11 d-flex flex-wrap pt-0 mx-auto">
                         <div class="col-12 col-lg-4 form-group-0 mb-2">
-                            <select aria-label="cursos" #selectCursos (change)="onChange(selectCursos.value)" class="form-control" name="cicloFormativo">
-                            <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id" [value]="curso.id">
-                              {{curso.cicloFormativoA}}
-                            </option>
-                          </select>
-                        </div>
-                        <div id="buscador" class="col-12 col-lg-4 mb-2 mt-0">
-                            <form class="d-flex align-items-center">
-                                <input class="form-control" type="search" placeholder="Busca aquí..." name="searchbar">
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                            </form>
+                            <select aria-label="cursos" #selectCursos (change)="onChange(selectCursos.value)"
+                                class="form-control" name="cicloFormativo">
+                                <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id"
+                                    [value]="curso.id">
+                                    {{curso.cicloFormativoA}}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-12 col-lg-3 mb-2">
-                            <button ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100" (click)="newCurso()"><i class="fas fa-plus mr-2"></i>Nuevo curso</button>
+                            <button ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100"
+                                (click)="newCurso()"><i class="fas fa-plus mr-2"></i>Nuevo curso</button>
                         </div>
                     </div>
                 </div>
@@ -37,7 +34,8 @@
                                 {{cursoSeleccionado.cicloFormativo}} - {{cursoSeleccionado.cursoAcademico}}
                             </h1>
                             <p class="text-center">
-                                <span class="badge badge-light mr">Familia: {{cursoSeleccionado.familiaProfesional}}</span>
+                                <span class="badge badge-light mr">Familia:
+                                    {{cursoSeleccionado.familiaProfesional}}</span>
                                 <span> | </span>
                                 <span class="badge badge-light">Tutor: {{cursoSeleccionado.tutor}}</span>
                             </p>
@@ -45,19 +43,29 @@
                         <div class="col-12 card-footer tema-dark">
                             <div class="row">
                                 <div class="col-md-6 text-left text-dark pt-2">
-                                    <span ngbTooltip="Nº alumnos" class="font-weight-bolder mr-2">{{alumnos.length}} <i class="fa fa-users"></i></span>
-                                    <span ngbTooltip="Nº horas" class="font-weight-bolder mr-2">{{cursoSeleccionado.nHoras}} <i class="fa fa-clock"></i></span>
+                                    <span ngbTooltip="Nº alumnos" class="font-weight-bolder mr-2">{{alumnos.length}} <i
+                                            class="fa fa-users"></i></span>
+                                    <span ngbTooltip="Nº horas"
+                                        class="font-weight-bolder mr-2">{{cursoSeleccionado.nHoras}} <i
+                                            class="fa fa-clock"></i></span>
                                 </div>
                                 <div class="col-md-6 text-sm-right">
-                                    <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2" ngbTooltip="Editar curso">
-                                    <i class="fas fa-edit fa-xs"></i>
-                                  </button>
-                                    <button (click)="addAlumno()" class="btn btn-success ml-2" ngbTooltip="Añadir alumno">
-                                    <i class="fas fa-user-plus fa-xs"></i>
-                                  </button>
-                                    <button (click)="deleteCurso()" class="btn btn-danger ml-2" ngbTooltip="Eliminar curso">
-                                    <i class="fas fa-times fa-xs"></i>
-                                  </button>
+                                    <button class="btn btn-secondary ml-2" (click)="anexo6()"
+                                    ngbTooltip="Descargar gastos de alumnos">
+                                        <i class="fas fa-file-word mr-2 "></i>Anexo 6
+                                    </button>
+                                    <button (click)="updateCurso(cursoSeleccionado)" class="btn btn-primary ml-2"
+                                        ngbTooltip="Editar curso">
+                                        <i class="fas fa-edit fa-xs"></i>
+                                    </button>
+                                    <button (click)="addAlumno()" class="btn btn-success ml-2"
+                                        ngbTooltip="Añadir alumno">
+                                        <i class="fas fa-user-plus fa-xs"></i>
+                                    </button>
+                                    <button (click)="deleteCurso()" class="btn btn-danger ml-2"
+                                        ngbTooltip="Eliminar curso">
+                                        <i class="fas fa-times fa-xs"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -72,23 +80,26 @@
                             </h2>
                             <form class="form-inline">
                                 <div class="form-group mb-2">
-                                    <select id="select-empresas" aria-label="empresas" #selectEmpresasNoCurso class="form-control mr-2" name="empresaNoCurso">
-                                    <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
-                                      {{empresaN.nombre}}</option>
-                                  </select>
+                                    <select id="select-empresas" aria-label="empresas" #selectEmpresasNoCurso
+                                        class="form-control mr-2" name="empresaNoCurso">
+                                        <option *ngFor="let empresaN of empresasNoCurso " [value]="empresaN.id">
+                                            {{empresaN.nombre}}</option>
+                                    </select>
                                 </div>
-                                <button id="bt-add-empresa" class="btn btn-secondary mb-2" (click)="addEmpresaCurso()" ngbTooltip="Añadir empresa a prácticas">
-                                <i class="fas fa-plus mr-2"></i>Añadir
-                              </button>
+                                <button id="bt-add-empresa" class="btn btn-secondary mb-2" (click)="addEmpresaCurso()"
+                                    ngbTooltip="Añadir empresa a prácticas">
+                                    <i class="fas fa-plus mr-2"></i>Añadir
+                                </button>
                             </form>
                         </div>
                         <div class="col-12 card-body tema-dark">
-                            <table class="table table-responsive-sm">
+                            <table class="table table-responsive-md">
                                 <thead>
                                     <tr>
                                         <th scope="col">Empresa</th>
                                         <th scope="col">Representante</th>
                                         <th scope="col">Alumnos</th>
+                                        <th scope="col">Anexos</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -98,10 +109,30 @@
                                         <td class="pt-3">{{ empresaS.nombreRepresentante }}</td>
                                         <td class="pt-3">Nº Alumnos</td>
                                         <td>
-                                            <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-success py-1" ngbTooltip="Añadir alumnos">
+                                            <div ngbDropdown class="d-inline-block">
+                                                <button class="btn btn-secondary" id="dropdownBasic1"
+                                                    ngbDropdownToggle>Descargar anexos</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                    <button ngbDropdownItem  ngbTooltip="Descargar convenio {{empresaS.nombre}}" (click)="anexo0(empresaS)">
+                                                        <i class="fas fa-file-word mr-2"></i>Anexo 0
+                                                    </button>
+                                                    <button ngbDropdownItem (click)="anexo1()" ngbTooltip="Descargar relación alumnos {{empresaS.nombre}}">
+                                                        <i class="fas fa-file-word mr-2"></i>Anexo 1
+                                                    </button>
+                                                    <button ngbDropdownItem (click)="anexo2(empresaS)" ngbTooltip="Descargar programa formativo {{empresaS.nombre}}">
+                                                        <i class="fas fa-file-word mr-2"></i>Anexo 2
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button (click)="addAlumnoCurso(empresaS.id)" class="btn btn-success py-1"
+                                                ngbTooltip="Añadir alumnos">
                                                 <i class="fas fa-user-plus fa-xs"></i>
                                             </button>
-                                            <button (click)="deleteEmpresaCurso(empresaS.id)" class="btn btn-danger ml-2 py-1" ngbTooltip="Eliminar empresa">
+                                            <button (click)="deleteEmpresaCurso(empresaS.id)"
+                                                class="btn btn-danger ml-2 py-1"
+                                                ngbTooltip="Eliminar {{empresaS.nombre}}">
                                                 <i class="fas fa-times fa-xs"></i>
                                             </button>
                                         </td>
@@ -124,9 +155,9 @@
                                 <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
                                     <div class="bg-secondary d-flex align-items-center">
                                         <button class="btn">
-                                        <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
-                                        <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
-                                      </button>
+                                            <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
+                                            <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
+                                        </button>
                                         <small> {{anexo.nombre}}</small>
                                     </div>
                                 </div>
@@ -135,7 +166,9 @@
                     </div>
                 </div>
                 <!------------------------------------------------------------------------------------>
-                <div *ngIf="alumnos.length > 0" id="carousel" class="col-11 mx-auto carousel tema-dark bg-secondary shadow-lg slide border rounded my-4" data-ride="carousel">
+                <div *ngIf="alumnos.length > 0" id="carousel"
+                    class="col-11 mx-auto carousel tema-dark bg-secondary shadow-lg slide border rounded my-4"
+                    data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carousel" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel" data-slide-to="1"></li>
@@ -153,7 +186,8 @@
                                                 <!--Imagen-->
                                                 <div class="col-md-9 col-9 mx-auto">
                                                     <div class="mt-3 img">
-                                                        <img src="../../../assets/img/usu1.jpg" alt="foto_{{ alumno.nombre }}" class="w-100 h-100">
+                                                        <img src="{{alumno.foto}}" alt="foto_{{ alumno.nombre }}"
+                                                            class="w-100 h-100">
                                                     </div>
                                                 </div>
                                                 <!--Información-->
@@ -166,16 +200,25 @@
                                                 <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar">
                                                     <div class="btn-group mr-2 w-100">
                                                         <a href="mailto:{{alumno.correo}}" class="w-50">
-                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
-                                                                    <i class="fas fa-envelope"></i>
-                                                                </button>
+                                                            <button ngbTooltip="Enviar correo"
+                                                                class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                <i class="fas fa-envelope"></i>
+                                                            </button>
                                                         </a>
-                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumno)" class="btn btn-primary w-50 mx-auto">
-                                                                <i class="fas fa-user-edit "></i>
-                                                            </button>
-                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumno)" class="btn btn-danger rounded-0 btn-gray w-50 mx-auto">
-                                                                <i class="fas fa-user-minus"></i>
-                                                            </button>
+                                                        <button ngbTooltip="Cambiar foto" (click)="updateFoto(alumno)"
+                                                            class="btn btn-warning rounded-0 w-50 mx-auto">
+                                                            <i class="fas fa-camera text-white"></i>
+                                                        </button>
+                                                        <button ngbTooltip="Editar alumno"
+                                                            (click)="updateAlumno(alumno)"
+                                                            class="btn btn-primary w-50 mx-auto">
+                                                            <i class="fas fa-user-edit "></i>
+                                                        </button>
+                                                        <button ngbTooltip="Eliminar alumno"
+                                                            (click)="deleteAlumno(alumno)"
+                                                            class="btn btn-danger rounded-0 w-50 mx-auto">
+                                                            <i class="fas fa-user-minus"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,30 +231,43 @@
                                                 <!--Imagen-->
                                                 <div class="col-md-9 col-9 mx-auto">
                                                     <div class="mt-3 img">
-                                                        <img src="../../../assets/img/usu2.jpg" alt="foto_{{ alumnos[i+1].nombre }}" class="w-100 h-100">
+                                                        <img src="{{alumnos[i+1].foto}}"
+                                                            alt="foto_{{ alumnos[i+1].nombre }}" class="w-100 h-100">
                                                     </div>
                                                 </div>
                                                 <!--Infor-->
                                                 <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
                                                     <p class="text-center pt-2 text-primary">
-                                                        <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i + 1].apellidos }}</strong>
+                                                        <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i +
+                                                            1].apellidos}}</strong>
                                                     </p>
                                                 </div>
 
                                                 <!--Botones-->
-                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar"
+                                                    aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2 w-100">
                                                         <a href="mailto:{{alumnos[i + 1].correo}}" class="w-50">
-                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
-                                                                    <i class="fas fa-envelope"></i>
-                                                                </button>
+                                                            <button ngbTooltip="Enviar correo"
+                                                                class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                <i class="fas fa-envelope"></i>
+                                                            </button>
                                                         </a>
-                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 1])" class="btn btn-primary w-50">
-                                                                <i class="fas fa-user-edit "></i>
-                                                            </button>
-                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 1])" class="btn btn-danger w-50 rounded-0">
-                                                                <i class="fas fa-user-minus"></i>
-                                                            </button>
+                                                        <button ngbTooltip="Cambiar foto"
+                                                            (click)="updateFoto(alumnos[i + 1])"
+                                                            class="btn btn-warning rounded-0 w-50 mx-auto">
+                                                            <i class="fas fa-camera text-white"></i>
+                                                        </button>
+                                                        <button ngbTooltip="Editar alumno"
+                                                            (click)="updateAlumno(alumnos[i + 1])"
+                                                            class="btn btn-primary w-50">
+                                                            <i class="fas fa-user-edit "></i>
+                                                        </button>
+                                                        <button ngbTooltip="Eliminar alumno"
+                                                            (click)="deleteAlumno(alumnos[i + 1])"
+                                                            class="btn btn-danger w-50 rounded-0">
+                                                            <i class="fas fa-user-minus"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,29 +280,42 @@
                                                 <!--Imagen-->
                                                 <div class="col-md-9 col-9 mx-auto">
                                                     <div class="mt-3 img">
-                                                        <img src="../../../assets/img/usu3.jpg" alt="foto_{{ alumnos[i+2].nombre }}" class="w-100 h-100">
+                                                        <img src="{{alumnos[i+2].foto}}"
+                                                            alt="foto_{{ alumnos[i+2].nombre }}" class="w-100 h-100">
                                                     </div>
                                                 </div>
                                                 <!--Información-->
                                                 <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
                                                     <p class="text-center pt-2 text-primary">
-                                                        <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i + 2].apellidos }}</strong>
+                                                        <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i +
+                                                            2].apellidos}}</strong>
                                                     </p>
                                                 </div>
                                                 <!--Botones-->
-                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div name="botones" class="btn-toolbar col-12 mx-auto" role="toolbar"
+                                                    aria-label="Toolbar with button groups">
                                                     <div class="btn-group mr-2 w-100">
                                                         <a href="mailto:{{alumnos[i + 2].correo}}" class="w-50">
-                                                            <button ngbTooltip="Enviar correo" class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
-                                                                    <i class="fas fa-envelope"></i>
-                                                                </button>
+                                                            <button ngbTooltip="Enviar correo"
+                                                                class="btn btn-info mx-auto w-100 rounded-0 rounded-left">
+                                                                <i class="fas fa-envelope"></i>
+                                                            </button>
                                                         </a>
-                                                        <button ngbTooltip="Editar alumno" (click)="updateAlumno(alumnos[i + 2])" class="btn btn-primary w-50">
-                                                                <i class="fas fa-user-edit "></i>
-                                                            </button>
-                                                        <button ngbTooltip="Eliminar alumno" (click)="deleteAlumno(alumnos[i + 2])" class="btn btn-danger w-50 rounded-0">
-                                                                <i class="fas fa-user-minus"></i>
-                                                            </button>
+                                                        <button ngbTooltip="Cambiar foto"
+                                                            (click)="updateFoto(alumnos[i + 2])"
+                                                            class="btn btn-warning rounded-0 w-50 mx-auto">
+                                                            <i class="fas fa-camera text-white"></i>
+                                                        </button>
+                                                        <button ngbTooltip="Editar alumno"
+                                                            (click)="updateAlumno(alumnos[i + 2])"
+                                                            class="btn btn-primary w-50">
+                                                            <i class="fas fa-user-edit "></i>
+                                                        </button>
+                                                        <button ngbTooltip="Eliminar alumno"
+                                                            (click)="deleteAlumno(alumnos[i + 2])"
+                                                            class="btn btn-danger w-50 rounded-0">
+                                                            <i class="fas fa-user-minus"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

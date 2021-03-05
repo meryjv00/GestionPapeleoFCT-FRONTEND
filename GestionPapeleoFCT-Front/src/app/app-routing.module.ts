@@ -13,6 +13,7 @@ import { AdministracionComponent } from './componentes/administracion/administra
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
+import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
   // Rutas para cursos
   {path: 'listaCursos', component: ListaCursosComponent},
   {path: 'nuevoCurso', component: NuevoCursoComponent},
-  {path: 'actualizarCurso', component: ActualizarCursoComponent}
+  {path: 'actualizarCurso', component: ActualizarCursoComponent},
+  {path: 'docMaria', component: DocMariaComponent},
 ];
 
 @NgModule({

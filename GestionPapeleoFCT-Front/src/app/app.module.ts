@@ -25,6 +25,8 @@ import { AdministracionComponent } from './componentes/administracion/administra
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddAlumnoPracticaComponent } from './componentes/modal-add-alumno-practica/modal-add-alumno-practica.component';
 import { ModalAlertaComponent } from './componentes/modal-alerta/modal-alerta.component';
+import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
+import { ModalFotoAlumnoComponent } from './componentes/modal-foto-alumno/modal-foto-alumno.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { ModalAlertaComponent } from './componentes/modal-alerta/modal-alerta.co
     AdministracionComponent,
     ModalAddAlumnoPracticaComponent,
     ModalAlertaComponent,
+    DocMariaComponent,
+    ModalFotoAlumnoComponent,
   ],
   imports: [
     BrowserModule,

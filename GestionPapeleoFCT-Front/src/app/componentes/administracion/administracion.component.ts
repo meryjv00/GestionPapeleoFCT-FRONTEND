@@ -183,9 +183,15 @@ export class AdministracionComponent implements OnInit {
       this.administracionService.insertProfesores(this.profCSV).subscribe(
         (response: any) => {
           //alert(response.message);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Profesores insertados correctamente';
+          modalRef.componentInstance.exito = true;
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido al insertar los profesores';
+          modalRef.componentInstance.exito = false;
         }
       );
     });
@@ -211,26 +217,35 @@ export class AdministracionComponent implements OnInit {
               this.cursosSinAlumnos.splice(index, 1);
             }
           });
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Alumnos del curso ' + this.cursoSeleccionado.cicloFormativoA + ' insertados correctamente';
+          modalRef.componentInstance.exito = true;
           this.onChange(this.cursosSinAlumnos[0].id);
         },
         (error) => {
-          let reiniciar = confirm("No se han podido insertar los alumnos, asegurese de que el csv introducido es correcto, puede que los hayas insertado en otro curso por equivocación \n" +
-            "En ese caso ¿Quieres reiniciar los cursos y empezar de nuevo? Esto borrará todos los alumnos de la base de datos");
-          if (reiniciar) {
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = "No se han podido insertar los alumnos del curso " + this.cursoSeleccionado.cicloFormativoA +
+            ".Asegurese de que el CSV introducido es correcto. En ese caso, ¿Quieres reiniciar los cursos y empezar de nuevo? Esto borrará todos los alumnos de la base de datos.";
+          modalRef.componentInstance["storeOk"].subscribe((event: any) => {
             this.administracionService.reiniciarAlumnos().subscribe(
               (response: any) => {
-                alert(response.message);
+                const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                modalRef.componentInstance.mensaje = response.message;
+                modalRef.componentInstance.exito = true;
               },
               (error) => {
                 console.log(error);
+                const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+                modalRef.componentInstance.mensaje = 'Ha ocurrido un error al reiniciar los alumnos';
+                modalRef.componentInstance.exito = false;
               }
             );
             this.cursosSinAlumnos = [];
             this.getCursosSinAlumnos();
-          }
+          });
         }
       );
-    }); 
+    });
 
   }
 
@@ -306,7 +321,9 @@ export class AdministracionComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.administracionService.addTutorCurso(this.tutorSeleccionado, this.cursoSeleccionado2).subscribe(
         (response: any) => {
-          alert('Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ahora ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' es tutor de ' + this.cursoSeleccionado2.cicloFormativoA;
+          modalRef.componentInstance.exito = true;
 
           //Elimina el curso asignado de la lista de cursos sin tutor
           this.cursosSinTutor.forEach((curso, index) => {
@@ -317,11 +334,13 @@ export class AdministracionComponent implements OnInit {
           });
         },
         (error) => {
-          alert('No se ha podido asignar a ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA);
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'No se ha podido asignar a ' + this.tutorSeleccionado.nombre + ' ' + this.tutorSeleccionado.apellidos + ' como tutor de ' + this.cursoSeleccionado2.cicloFormativoA;
+          modalRef.componentInstance.exito = false;
         }
       );
-    }); 
+    });
 
   }
 
@@ -422,7 +441,7 @@ export class AdministracionComponent implements OnInit {
    */
   cambiarRol(dni: any) {
     this.buscaPersonaPorDni(dni);
-    var rol;
+    var rol: string;
     if (this.personaSeleccionada.rol == 2) {
       rol = "tutor";
     } else {
@@ -445,6 +464,7 @@ export class AdministracionComponent implements OnInit {
                 }
               }
             });
+
           } else {
             this.cuentasActivas.forEach((profesor, index) => {
               if (profesor.dni == dni) {
@@ -452,7 +472,7 @@ export class AdministracionComponent implements OnInit {
                   profesor.rol = 3;
                   //Añadir como tutor
                   this.tutores.push(profesor);
-                  if(this.tutores.length == 1){
+                  if (this.tutores.length == 1) {
                     this.tutorSeleccionado = profesor;
                   }
                 } else {
@@ -467,12 +487,18 @@ export class AdministracionComponent implements OnInit {
               }
             });
           }
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + ' es ahora ' + rol;
+          modalRef.componentInstance.exito = true;
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al cambiar el rol de ' + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos;
+          modalRef.componentInstance.exito = false;
         }
       );
-    }); 
+    });
 
   }
 
@@ -483,17 +509,20 @@ export class AdministracionComponent implements OnInit {
   activarDesactivarCuenta(dni: any) {
     this.buscaPersonaPorDni(dni);
     console.log(this.personaSeleccionada.activo);
-    var accion;
+    var accion: string;
+    var accion2: string;
     if (this.personaSeleccionada.activo == 0) {
       accion = "activar";
+      accion2 = "activada";
     } else {
       accion = "desactivar";
+      accion2 = "desactivada";
     }
 
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
     modalRef.componentInstance.mensaje = "¿Estás seguro de que quieres " + accion + "  la cuenta de " + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + "?";
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-      
+
       this.administracionService.activarDesactivarCuenta(dni).subscribe(
         (response: any) => {
           //Activar cuentas
@@ -529,13 +558,19 @@ export class AdministracionComponent implements OnInit {
               }
             });
           }
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Cuenta ' + accion2 + ' correctamente';
+          modalRef.componentInstance.exito = true;
 
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al' + accion + ' la cuenta';
+          modalRef.componentInstance.exito = false;
         }
       );
-    }); 
+    });
 
   }
 
@@ -563,12 +598,19 @@ export class AdministracionComponent implements OnInit {
               }
             });
           }
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Usuario ' + this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos + ' eliminado correctamente';
+          modalRef.componentInstance.exito = true;
+
         },
         (error) => {
           console.log(error);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar a '+ this.personaSeleccionada.nombre + ' ' + this.personaSeleccionada.apellidos;
+          modalRef.componentInstance.exito = false;
         }
       );
-    }); 
+    });
   }
 
   buscaPersonaPorDni(dni: any) {
@@ -641,19 +683,19 @@ export class AdministracionComponent implements OnInit {
     );
   }
 
-  activar(value:any){
-    if(value=='csv'){
-      document.getElementById('nav-csv-tab')?.classList.add('bg-white','border2');
-      document.getElementById('nav-admin-tab')?.classList.remove('bg-white','border2');
-      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white','border2');
-    }else if(value == 'admin'){
-      document.getElementById('nav-admin-tab')?.classList.add('bg-white','border2');
-      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white','border2');
-      document.getElementById('nav-csv-tab')?.classList.remove('bg-white','border2');
-    }else if(value == 'tutores'){
-      document.getElementById('nav-admin2-tab')?.classList.add('bg-white','border2');
-      document.getElementById('nav-admin-tab')?.classList.remove('bg-white','border2');
-      document.getElementById('nav-csv-tab')?.classList.remove('bg-white','border2');
+  activar(value: any) {
+    if (value == 'csv') {
+      document.getElementById('nav-csv-tab')?.classList.add('bg-white', 'border2');
+      document.getElementById('nav-admin-tab')?.classList.remove('bg-white', 'border2');
+      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white', 'border2');
+    } else if (value == 'admin') {
+      document.getElementById('nav-admin-tab')?.classList.add('bg-white', 'border2');
+      document.getElementById('nav-admin2-tab')?.classList.remove('bg-white', 'border2');
+      document.getElementById('nav-csv-tab')?.classList.remove('bg-white', 'border2');
+    } else if (value == 'tutores') {
+      document.getElementById('nav-admin2-tab')?.classList.add('bg-white', 'border2');
+      document.getElementById('nav-admin-tab')?.classList.remove('bg-white', 'border2');
+      document.getElementById('nav-csv-tab')?.classList.remove('bg-white', 'border2');
     }
   }
 }

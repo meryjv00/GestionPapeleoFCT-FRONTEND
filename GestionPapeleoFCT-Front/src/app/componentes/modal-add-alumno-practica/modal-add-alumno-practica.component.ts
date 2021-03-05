@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
+import { AnexosService } from 'src/app/servicios/anexos.service';
 import { FctAlumnoService } from 'src/app/servicios/fct-alumno.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-modal-add-alumno-practica',
@@ -20,9 +22,10 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     idCurso: any;
     idEmpresa: any;
     addAlumnoPracitas: FormGroup | any;
-    submitted =  false;
+    submitted = false;
 
-    constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder, private fctAlumnoService: FctAlumnoService) {
+    constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,
+        private fctAlumnoService: FctAlumnoService, private AnexosService: AnexosService) {
         this.alumnosPracticas = [];
         this.alumnosCurso = [];
     }
@@ -136,7 +139,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
             (response: any) => {
                 console.log(response);
-                
+
                 this.storeOk.emit(true);
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
@@ -152,6 +155,71 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     }
 
 
+    //--ANEXOS
+    anexo3(alumno: any) {
+        var datos = {
+            'idAlumno': alumno.id,
+            'idEmpresa': this.idEmpresa,
+            'idCurso': this.idCurso
+        }
+        this.AnexosService.anexo3(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        ); 
+    }
+
+    anexo4(alumno:any) {
+        var datos = {
+            'idAlumno': alumno.id,
+            'idEmpresa': this.idEmpresa,
+            'idCurso': this.idCurso
+        }
+        this.AnexosService.anexo4(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+    anexo5(alumno:any) {
+        var datos = {
+            'idAlumno': alumno.id,
+            'idEmpresa': this.idEmpresa,
+            'idCurso': this.idCurso
+        }
+        this.AnexosService.anexo5(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+    anexo7(alumno:any) {
+        /* var datos = {
+        }
+        this.AnexosService.anexo7(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        ); */
+    }
 
 }
 

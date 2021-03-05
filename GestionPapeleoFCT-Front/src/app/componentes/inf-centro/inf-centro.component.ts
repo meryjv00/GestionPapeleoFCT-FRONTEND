@@ -2,8 +2,10 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminCentroService } from 'src/app/servicios/admin-centro.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-inf-centro',
@@ -18,7 +20,8 @@ export class InfCentroComponent implements OnInit {
   director: any;
   user: any;
 
-  constructor(private LoginService:LoginService, private AdminCentroService: AdminCentroService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private LoginService: LoginService, private AdminCentroService: AdminCentroService, private formBuilder: FormBuilder,
+    private router: Router, private modal: NgbModal) {
     this.user = this.LoginService.getUser();
     this.nuevoRegistro = this.formBuilder.group({
       codigo: ['', [Validators.required]],
@@ -31,19 +34,19 @@ export class InfCentroComponent implements OnInit {
       email: ['', [Validators.required]],
       tlf: ['', [Validators.required]],
     });
-    this.centro =({
-      codigo:'',
+    this.centro = ({
+      codigo: '',
       nombre: '',
-      provincia:'',
-      localidad:'',
-      calle:'',
-      cp:'',
-      cif:'',
-      tlf:'',
-      email:''
+      provincia: '',
+      localidad: '',
+      calle: '',
+      cp: '',
+      cif: '',
+      tlf: '',
+      email: ''
     });
 
-    this.director=({
+    this.director = ({
       nombre: '',
       email: ''
     });
@@ -52,12 +55,11 @@ export class InfCentroComponent implements OnInit {
   ngOnInit(): void {
     this.IsCentr();
     this.getDirector();
-    console.log(this.director);
   }
 
-  IsCentr(){
+  IsCentr() {
     this.AdminCentroService.getCentro().subscribe(
-      (response: any) => { 
+      (response: any) => {
         this.centro = response.message.centro;
       },
       (error) => {
@@ -65,11 +67,10 @@ export class InfCentroComponent implements OnInit {
       }
     );
   }
-  
-  getDirector(){
+
+  getDirector() {
     this.AdminCentroService.getDirector().subscribe(
-      (response: any) => { 
-        console.log(response.message);
+      (response: any) => {
         this.director.nombre = response.message.nombre;
         this.director.email = response.message.email;
       },
@@ -99,9 +100,15 @@ export class InfCentroComponent implements OnInit {
     const tlf = datosCentro.tlf;
     this.AdminCentroService.updateCentro(codigo, cif, nombre, provincia, localidad, cp, calle, email, tlf).subscribe(
       (response: any) => {
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Datos del centro actualizados correctamente';
+        modalRef.componentInstance.exito = true;
       },
       (error) => {
         console.log(error.message);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al actualizar el centro';
+        modalRef.componentInstance.exito = false;
       }
     );
     this.onReset();

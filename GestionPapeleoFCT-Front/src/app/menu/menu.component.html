@@ -1,31 +1,41 @@
 <aside>
-    <div class="user text-dark">
-        <img routerLink="/perfil" class="rounded-circle" alt="foto_perfil" src="../../assets/img/avatar1.png" />
-        <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
-        <p name="rol">{{user.rol}}</p>
+  <div class="user text-dark">
+    <img routerLink="/perfil" class="rounded-circle" alt="foto_perfil" src="{{user.foto}}" />
+    <h4 class="m-0 mt-2" name="nombre">{{user.nombre}}</h4>
+    <p name="rol">{{user.rol}}</p>
+  </div>
+  <div class="row enlaces">
+    <div class="col">
+      <!-- Si no tiene asignada la clase text-light le añade la clase text-dark-->
+      <button id="cursos" name="cursos" routerLink="/listaCursos" routerLinkActive="bg-primary text-activo"
+        class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
+        <i class=" fas fa-users "></i><span class="ml-3 ">Cursos</span>
+      </button>
+      <button id="empresa" name="empresas" routerLinkActive="bg-primary text-activo" routerLink="/listaEmpresas"
+        class="col-lg-11 col-3 col-3 mx-auto btn btn-aside text-dark">
+        <i class="fas fa-briefcase "></i>
+        <span class="ml-3 ">Empresas</span>
+      </button>
+      <button id="centro" name="centro" routerLinkActive="bg-primary text-activo" routerLink="/infCentro"
+        class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
+        <i class="fas fa-building "></i>
+        <span class="ml-3 ">Centro</span>
+      </button>
+      <button id="admin" name="admin" routerLinkActive="bg-primary text-activo" routerLink="/admin"
+        class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
+        <i class="fas fa-cogs "></i>
+        <span class="ml-3 ">Admin</span>
+      </button>
+      <button id="doc" name="doc" routerLinkActive="bg-primary text-activo" routerLink="/docMaria"
+        class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
+        <i class="fas fa-question"></i>
+        <span class="ml-3 ">Manual</span>
+      </button>
+      <button id="log_out" name="log_out " routerLinkActive="bg-primary text-activo" routerLink="/login"
+        class="col-lg-11 col-3 mx-auto btn btn-aside text-dark" (click)="logOut()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="ml-3 ">Salir</span>
+      </button>
     </div>
-    <div class="row enlaces">
-        <div class="col">
-            <!-- Si no tiene asignada la clase text-light le añade la clase text-dark-->
-            <button id="cursos" name="cursos" routerLink="/listaCursos" routerLinkActive="bg-primary text-activo" class="col-lg-11 col-3 mx-auto btn btn-aside text-dark"> 
-            <i class=" fas fa-users "></i><span class="ml-3 ">Cursos</span>
-          </button>
-            <button id="empresa" name="empresas" routerLinkActive="bg-primary text-activo" routerLink="/listaEmpresas" class="col-lg-11 col-3 col-3 mx-auto btn btn-aside text-dark">
-            <i class="fas fa-briefcase "></i>
-            <span class="ml-3 ">Empresas</span>
-          </button>
-            <button id="centro" name="centro" routerLinkActive="bg-primary text-activo" routerLink="/infCentro" class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
-            <i class="fas fa-building "></i>
-            <span class="ml-3 ">Centro</span>
-          </button>
-            <button id="admin" name="admin" routerLinkActive="bg-primary text-activo" routerLink="/admin" class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
-            <i class="fas fa-cogs "></i>
-            <span class="ml-3 ">Admin</span>
-          </button>
-            <button id="log_out" name="log_out " routerLinkActive="bg-primary text-activo" routerLink="/login" class="col-lg-11 col-3 mx-auto btn btn-aside text-dark" (click)="logOut()">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="ml-3 ">Salir</span>
-          </button>
-        </div>
-    </div>
+  </div>
 </aside>

@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
   selector: 'app-nueva-empresa',
@@ -18,7 +20,8 @@ export class NuevaEmpresaComponent implements OnInit {
   @Input() correo: any;
   @Output() accionRealizada: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,private router: Router,private adminEmpresasService: AdminEmpresasService,private loginService: LoginService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+    private adminEmpresasService: AdminEmpresasService, private loginService: LoginService, private modal: NgbModal) {
     this.empresa = {
       'nombre': this.route.snapshot.paramMap.get('nombre'),
       'provincia': this.route.snapshot.paramMap.get('provincia'),
@@ -40,7 +43,7 @@ export class NuevaEmpresaComponent implements OnInit {
       tlf: ['', [Validators.required]],
       email: ['', [Validators.required]]
     });
-    
+
   }
 
   ngOnInit(): void {
@@ -56,18 +59,20 @@ export class NuevaEmpresaComponent implements OnInit {
     }
 
     this.adminEmpresasService.insertEmpresaSuscription(this.nuevaEmpresa.value);
-    
-    alert("Empresa añadida");
+
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
+    modalRef.componentInstance.exito = true;
     this.onReset();
     this.router.navigate(['/listaEmpresas']);
   }
-  
+
   onReset() {
     this.submitted = false;
     this.nuevaEmpresa.reset();
   }
 
-  cancel(){
+  cancel() {
     this.onReset();
   }
 
