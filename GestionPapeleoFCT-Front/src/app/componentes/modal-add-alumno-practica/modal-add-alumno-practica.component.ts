@@ -30,12 +30,16 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     updateAlumno: any;
     datosAlumnoUpdate: any;
     habilitado = false;
+    fbAlumnoOk: String;
+    fbAlumnoError: String;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,
         private fctAlumnoService: FctAlumnoService, private AnexosService: AnexosService, private responsablesEmpresaService: ResponsablesEmpresaService) {
         this.alumnosPracticas = [];
         this.alumnosCurso = [];
         this.responsablesCurso = [];
+        this.fbAlumnoOk = "";
+        this.fbAlumnoError = "";
     }
 
     ngOnInit(): void {
@@ -54,7 +58,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
             'nHoras': '',
             'desplazamiento': null,
             'idEmpresa': ''
-        }
+        };
     }
 
     get form() { return this.addAlumnoPracitas.controls; }
@@ -211,6 +215,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 //this.activeModal.close();
                 // habilito el botton
                 this.habilitado = false;
+                this.feedBackAlumno('Alumno añadido correctamente', 'ok');
             },
             (error: any) => {
                 console.log(error);
@@ -218,6 +223,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 //this.activeModal.close();
                 // habilito el botton
                 this.habilitado = false;
+                this.feedBackAlumno('Ha ocurrido un error al añadir el alumno', 'error');
             }
         );
     }
@@ -234,6 +240,8 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 //this.activeModal.close();
                 // habilito el botton
                 this.habilitado = false;
+                // Muestro mensaje
+                this.feedBackAlumno('Alumno eliminado correctamente', 'ok');
             },
             (error: any) => {
                 console.log(error);
@@ -241,6 +249,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 //this.activeModal.close();
                 // habilito el botton
                 this.habilitado = false;
+                this.feedBackAlumno('Ha ocurrido un error al borrar el alumno', 'error');
             }
         );
     }
@@ -290,14 +299,31 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(response);
                 // habilito el botton
                 this.habilitado = false;
+                this.feedBackAlumno('Alumno modificado correctamente', 'ok');
             },
             (error: any) => {
                 console.log(error);
                 // habilito el botton
                 this.habilitado = false;
+                this.feedBackAlumno('Ha ocurrido un erro al modificar el alumno', 'error');
             }
         );
         this.onReset();
+    }
+
+    // Método para ver un mensaje al añadir, modificar o eliminar alumno
+    feedBackAlumno(mensaje: any, status: any) {
+        if (status == 'ok') {
+            this.fbAlumnoOk = mensaje;
+            setTimeout(() => {
+                this.fbAlumnoOk = '';
+            }, 2000);
+        } else {
+            this.fbAlumnoError = mensaje;
+            setTimeout(() => {
+                this.fbAlumnoError = '';
+            }, 2000);
+        }
     }
 
     //--ANEXOS
