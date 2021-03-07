@@ -200,7 +200,7 @@ export class ListaCursosComponent implements OnInit {
                         'dniRepresentante': element.dniRepresentante,
                         'nombreRepresentante': element.nombreRepresentante
                     };
-                    this.empresasNoCurso.push(empresa);
+                    this.empresasNoCurso.push(empresa);                    
                 });
             },
             (error: any) => {

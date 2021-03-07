@@ -78,7 +78,7 @@
                             <h2 class="font-weight-bolder">
                                 Empresas
                             </h2>
-                            <form class="form-inline">
+                            <form class="form-inline" *ngIf="empresasNoCurso.length > 0">
                                 <div class="form-group mb-2">
                                     <select id="select-empresas" aria-label="empresas" #selectEmpresasNoCurso
                                         class="form-control mr-2" name="empresaNoCurso">
