@@ -37,7 +37,5 @@ export class AdminCentroService {
     const url = environment.dirBack + "getDirector";
     let headers = new HttpHeaders({Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url,{ headers: headers });
-    });
-    return this.http.post(url, { headers: headers });
   };
 }

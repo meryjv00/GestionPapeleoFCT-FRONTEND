@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ArrayUsService } from 'src/app/servicios/array-us.service';
 import { IsPersonaService } from 'src/app/servicios/is-persona.service'
 import { RegistroService } from 'src/app/servicios/registro.service';
+import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 
 @Component({
   selector: 'app-registro-persona',
@@ -16,7 +16,7 @@ export class RegistroPersonaComponent implements OnInit {
   persona: any;
   rolSeleccionado: any;
   mensaje: any;
-  constructor(private ArrayUsService: ArrayUsService,private IsPersonaService: IsPersonaService, private formBuilder: FormBuilder, private router: Router,private RegistroService: RegistroService) {
+  constructor(private IsPersonaService: IsPersonaService, private formBuilder: FormBuilder, private router: Router,private RegistroService: RegistroService,private CompartirDatosService: CompartirDatosService) {
     this.nuevoRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required,Validators.pattern]],
       apellidos: ['', [Validators.required,Validators.pattern]],
@@ -35,7 +35,7 @@ export class RegistroPersonaComponent implements OnInit {
     };
   }
   ngOnInit(): void {
-    this.IsPer(this.ArrayUsService.getDni());
+    this.IsPer(this.CompartirDatosService.getDni());
   }
 
   IsPer(dni: string) {
@@ -63,8 +63,8 @@ export class RegistroPersonaComponent implements OnInit {
       return;
     }
     let datosUsuario = this.nuevoRegistro.value;
-    const email = this.ArrayUsService.getEmail();
-    const dni = this.ArrayUsService.getDni();
+    const email = this.CompartirDatosService.getEmail();
+    const dni = this.CompartirDatosService.getDni();
     const nombre = datosUsuario.nombre;
     const apellidos = datosUsuario.apellidos;
     const localidad = datosUsuario.localidad;
