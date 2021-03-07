@@ -80,7 +80,7 @@
           <div *ngIf="form.dniResponsable.errors.required">Este campo es obligatorio</div>
         </div>
       </div>
-      <div class="form-group mb-2 col-12 col-lg-6">
+      <div class="form-group mb-2 col-12">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="semiPresencial" formControlName="semiPresencial"
             [(ngModel)]="updateAlumno.semiPresencial">
@@ -90,10 +90,12 @@
         </div>
       </div>
       <div class="form-group col-12">
-        <button type="submit" class="btn btn-primary" *ngIf="showAdd">Añadir</button>
-        <button type="buttom" class="btn btn-primary" *ngIf="showUpdate"
-          (click)="updateAlumnoPracticaDos()">Modificar</button>
+        <button type="submit" class="btn btn-primary" *ngIf="showAdd" [disabled]="habilitado">Añadir</button>
+        <button type="buttom" class="btn btn-primary" *ngIf="showUpdate" (click)="updateAlumnoPracticaDos()"
+          [disabled]="habilitado">Modificar</button>
         <button type="button" class="btn btn-danger ml-2" *ngIf="showUpdate" (click)="onReset()">Cancelar</button>
+        <span class="text-success ml-2" [innerHTML]="fbAlumnoOk"></span>
+        <span class="text-danger ml-2" [innerHTML]="fbAlumnoError"></span>
       </div>
     </div>
   </form>
