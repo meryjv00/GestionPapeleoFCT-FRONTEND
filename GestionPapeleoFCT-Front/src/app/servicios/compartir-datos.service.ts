@@ -8,6 +8,8 @@ export class CompartirDatosService {
   empresa: any;
   curso: any;
   alumno: any;
+  email:string;
+  dni:string;
   //Almacenará mediante esta key los datos de login en session storage
   public static readonly SESSION_STORAGE_KEY_AL: string = "alumnoSeleccionado";
   public static readonly SESSION_STORAGE_KEY_CUR: string = "cursoSeleccionado";
@@ -25,8 +27,22 @@ export class CompartirDatosService {
       'email': "",
       'responsables': []
     }
+    this.email = '';
+    this.dni = '';
   }
 
+  setArray(email: string,dni: string) {
+    this.email = email;
+    this.dni = dni;
+  }
+  
+  getEmail() {
+    return this.email;
+  }
+  getDni() {
+    return this.dni;
+  }
+  
   setCurso(curso: any) {
     sessionStorage.setItem(CompartirDatosService.SESSION_STORAGE_KEY_CUR, JSON.stringify(curso));
   }

@@ -5,6 +5,7 @@ import { AdministracionService } from 'src/app/servicios/administracion.service'
 import { LoginService } from 'src/app/servicios/login.service';
 import { ModUsService } from 'src/app/servicios/mod-us.service';
 import { ModUsLogService } from 'src/app/servicios/mod-us-log.service';
+import { EnvEmailService } from 'src/app/servicios/env-email.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { environment } from 'src/environments/environment';
@@ -29,6 +30,7 @@ export class PerfilComponent implements OnInit {
   submittedFoto = false;
 
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
+    private AdminAlumnosService: AdminAlumnosService,private mod_user_pass: ModUsLogService,private EnvEmailService: EnvEmailService) {
     private AdminAlumnosService: AdminAlumnosService, private mod_user_pass: ModUsLogService, private modal: NgbModal) {
     this.user = this.loginService.getUser();
     this.nuevoRegistro = this.formBuilder.group({
@@ -101,6 +103,7 @@ export class PerfilComponent implements OnInit {
         return;
       }
       let datosUsuario = this.nuevoRegistro.value;
+      const token =this.user.access_token;
       const email = datosUsuario.email;
       const olddni = this.user.dni;
       const dni = datosUsuario.dni;
@@ -109,6 +112,14 @@ export class PerfilComponent implements OnInit {
       const localidad = datosUsuario.localidad;
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
+      this.update(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
+    }
+    this.onReset();
+  }
+
+  onSubmitPass() {
+    this.submitted = true;
+    if (this.registroPass.touched){
       this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
 
     } else if (this.registroPass.touched) {
@@ -125,6 +136,16 @@ export class PerfilComponent implements OnInit {
       const email = this.user.email;
       const oldpassword = datosPass.password;
       const newpassword = datosPass.newpassword;
+      this.updatePass(email,oldpassword,newpassword);
+      const nombre=this.user.nombre + ' ' + this.user.apellidos;
+      this.envEmail(nombre,'contraseña modificada',this.user.email);
+    }
+    this.onReset();
+  }
+
+  onSubmitEmail() {
+    this.submitted = true;
+     if (this.registroNewEmail.touched){
       this.updatePass(email, oldpassword, newpassword);
 
     } else if (this.registroNewEmail.touched) {
@@ -135,13 +156,16 @@ export class PerfilComponent implements OnInit {
       let datosEmail = this.registroNewEmail.value;
       const email = this.user.email;
       const newemail = datosEmail.nemail;
+      this.updateEmail(email,newemail);
+      const nombre=this.user.nombre + ' ' + this.user.apellidos;
+      this.envEmail(nombre,'email usuario actualizado',this.user.email);
       this.updateEmail(email, newemail);
     }
     this.onReset();
   }
 
-  update(email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
-    this.mod_user.Mod_user(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+  update(token:any,email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
+    this.mod_user.Mod_user(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
       (response: any) => {
         this.user.email = email;
         this.user.dni = dni;
@@ -164,6 +188,16 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  envEmail(nombreUsuario: any, asunto: any, email: any) {
+    this.EnvEmailService.EnvEmail(nombreUsuario, asunto, email).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
+    );
+  }
   updatePass(email: any, oldpassword: any, newpassword: any) {
     this.mod_user_pass.Mod_user_pass(email, oldpassword, newpassword).subscribe(
       (response: any) => {

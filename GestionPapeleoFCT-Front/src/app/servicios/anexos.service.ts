@@ -15,7 +15,7 @@ export class AnexosService {
    */
   getAnexos() {
     const url = environment.dirBack + "anexos";
-    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.get(url, { headers: headers });
   }
 

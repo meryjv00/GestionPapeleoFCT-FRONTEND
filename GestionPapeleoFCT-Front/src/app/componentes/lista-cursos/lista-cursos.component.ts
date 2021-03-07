@@ -72,6 +72,7 @@ export class ListaCursosComponent implements OnInit {
         this.listaCursosService.getCursos().subscribe(
             (response: any) => {
                 let cursos = response.message;
+                console.log(cursos);
                 cursos.forEach((element: {
                     id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
                     cursoAcademico: any; nHoras: any; cursos: any;

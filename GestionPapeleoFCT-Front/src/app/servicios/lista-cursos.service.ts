@@ -17,9 +17,9 @@ export class ListaCursosService {
     public getCursos = () => {
         const url = environment.dirBack + "cursos";
 
-        //console.log(this.loginService.user.access_token);
+        //console.log(this.loginService.getUser().access_token);
 
-        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
         return this.http.get(url, { headers: headers });
     };
@@ -29,7 +29,7 @@ export class ListaCursosService {
 
         //console.log(this.loginService.user.access_token);
 
-        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
         return this.http.get(url, { headers: headers });
     };
@@ -39,7 +39,7 @@ export class ListaCursosService {
 
         //console.log(this.loginService.user.access_token);
 
-        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
         return this.http.get(url, { headers: headers });
     };
@@ -50,7 +50,7 @@ export class ListaCursosService {
 
         //console.log(this.loginService.user.access_token);
 
-        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token.access_token}` });
+        let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
 
         return this.http.get(url, { headers: headers });
     };
