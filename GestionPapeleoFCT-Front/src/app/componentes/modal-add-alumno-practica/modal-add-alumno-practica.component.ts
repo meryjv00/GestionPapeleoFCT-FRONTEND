@@ -29,6 +29,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     showUpdate = false;
     updateAlumno: any;
     datosAlumnoUpdate: any;
+    habilitado = false;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,
         private fctAlumnoService: FctAlumnoService, private AnexosService: AnexosService, private responsablesEmpresaService: ResponsablesEmpresaService) {
@@ -177,6 +178,8 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     // Recogemos los datos del formulario
     onSubmit() {
+        // Deshabilito el boton
+        this.habilitado = true;
         this.submitted = true;
         if (this.addAlumnoPracitas.invalid) {
             return;
@@ -205,30 +208,39 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
                 console.log(response);
-                
                 //this.activeModal.close();
+                // habilito el botton
+                this.habilitado = false;
             },
             (error: any) => {
                 console.log(error);
                 this.storeOk.emit(false);
                 //this.activeModal.close();
+                // habilito el botton
+                this.habilitado = false;
             }
         );
     }
 
     // Método para eliminar a un alumno de las practicas
     deleteAlumnoPractica(dniAlumno: any) {
+        // deshabilito el boton
+        this.habilitado = true;
         this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
             (response: any) => {
                 this.storeOk.emit(true);
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
                 //this.activeModal.close();
+                // habilito el botton
+                this.habilitado = false;
             },
             (error: any) => {
                 console.log(error);
                 this.storeOk.emit(false);
                 //this.activeModal.close();
+                // habilito el botton
+                this.habilitado = false;
             }
         );
     }
@@ -256,6 +268,8 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     // Método que lanza la actualización en la base de datos
     updateAlumnoPracticaDos() {
+        // Deshabilito el boton
+        this.habilitado = true;
         this.submitted = true;
         if (this.addAlumnoPracitas.invalid) {
             return;
@@ -274,9 +288,13 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.fctAlumnoService.updateAlumnoFct(data).subscribe(
             (response: any) => {
                 console.log(response);
+                // habilito el botton
+                this.habilitado = false;
             },
             (error: any) => {
                 console.log(error);
+                // habilito el botton
+                this.habilitado = false;
             }
         );
         this.onReset();
@@ -297,7 +315,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
             }, (error) => {
                 console.log(error);
             }
-        ); 
+        );
     }
 
     // Método para cancelar la modificación de unas practicas
@@ -310,7 +328,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     }
 
 
-    anexo4(alumno:any) {
+    anexo4(alumno: any) {
         var datos = {
             'idAlumno': alumno.id,
             'idEmpresa': this.idEmpresa,
@@ -327,7 +345,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
     }
 
-    anexo5(alumno:any) {
+    anexo5(alumno: any) {
         var datos = {
             'idAlumno': alumno.id,
             'idEmpresa': this.idEmpresa,
@@ -344,7 +362,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
     }
 
-    anexo7(alumno:any) {
+    anexo7(alumno: any) {
         /* var datos = {
         }
         this.AnexosService.anexo7(datos).subscribe(

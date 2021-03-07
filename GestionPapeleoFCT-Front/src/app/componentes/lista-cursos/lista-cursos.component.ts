@@ -32,6 +32,7 @@ export class ListaCursosComponent implements OnInit {
     idUpdate: any;
     cicloFormativoSelect = new FormControl('');
     @ViewChild("selectEmpresasNoCurso") selectEmpresasNoCurso: ElementRef | undefined;
+    habilitado = false;
 
     constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
         private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService,
@@ -360,12 +361,16 @@ export class ListaCursosComponent implements OnInit {
                     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
                     modalRef.componentInstance.exito = true;
                     this.onChange(this.cursoSeleccionado.id);
+                    // habilito el botton
+                    this.habilitado = false;
                 },
                 (error: any) => {
                     console.log(error);
                     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
                     modalRef.componentInstance.mensaje = 'No se ha podido añadir la empresa';
                     modalRef.componentInstance.exito = false;
+                    // habilito el botton
+                    this.habilitado = false;
                 });
         }
     }

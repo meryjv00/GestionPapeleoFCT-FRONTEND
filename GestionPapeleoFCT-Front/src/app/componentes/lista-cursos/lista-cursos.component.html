@@ -86,8 +86,7 @@
                                             {{empresaN.nombre}}</option>
                                     </select>
                                 </div>
-                                <button id="bt-add-empresa" class="btn btn-secondary mb-2" (click)="addEmpresaCurso()"
-                                    ngbTooltip="Añadir empresa a prácticas">
+                                <button id="bt-add-empresa" class="btn btn-secondary mb-2" [disabled]="habilitado" (click)="addEmpresaCurso(); habilitado = true" ngbTooltip="Añadir empresa a prácticas">
                                     <i class="fas fa-plus mr-2"></i>Añadir
                                 </button>
                             </form>
