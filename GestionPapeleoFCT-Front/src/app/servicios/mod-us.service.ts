@@ -24,9 +24,9 @@ export class ModUsService {
    /**
    * Petición de modificacion de usuario
    * */
-  public Mod_user = (token:any, correo:any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any) => {
+  public Mod_user = ( correo:any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any,residencia: any, tlf: any) => {
     const url = environment.dirBack+"mod_user";
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
-    return this.http.post(url, {'token' : token,'correo' : correo, 'dni': dni, 'olddni': olddni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf}, { headers: headers });
+    return this.http.post(url, {'correo' : correo, 'dni': dni, 'olddni': olddni, 'nombre' : nombre, 'apellidos': apellidos, 'localidad': localidad, 'residencia': residencia , 'tlf': tlf}, { headers: headers });
   };
 }

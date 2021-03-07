@@ -30,8 +30,7 @@ export class PerfilComponent implements OnInit {
   submittedFoto = false;
 
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
-    private AdminAlumnosService: AdminAlumnosService,private mod_user_pass: ModUsLogService,private EnvEmailService: EnvEmailService) {
-    private AdminAlumnosService: AdminAlumnosService, private mod_user_pass: ModUsLogService, private modal: NgbModal) {
+    private AdminAlumnosService: AdminAlumnosService,private mod_user_pass: ModUsLogService,private EnvEmailService: EnvEmailService, private modal: NgbModal) {
     this.user = this.loginService.getUser();
     this.nuevoRegistro = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -103,7 +102,6 @@ export class PerfilComponent implements OnInit {
         return;
       }
       let datosUsuario = this.nuevoRegistro.value;
-      const token =this.user.access_token;
       const email = datosUsuario.email;
       const olddni = this.user.dni;
       const dni = datosUsuario.dni;
@@ -112,17 +110,14 @@ export class PerfilComponent implements OnInit {
       const localidad = datosUsuario.localidad;
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
-      this.update(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
+      this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
     }
     this.onReset();
   }
 
   onSubmitPass() {
     this.submitted = true;
-    if (this.registroPass.touched){
-      this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
-
-    } else if (this.registroPass.touched) {
+    if (this.registroPass.touched) {
       if (this.registroPass.invalid || this.validarDistintasPass()) {
         return;
       }
@@ -145,10 +140,7 @@ export class PerfilComponent implements OnInit {
 
   onSubmitEmail() {
     this.submitted = true;
-     if (this.registroNewEmail.touched){
-      this.updatePass(email, oldpassword, newpassword);
-
-    } else if (this.registroNewEmail.touched) {
+    if (this.registroNewEmail.touched) {
       if (this.registroNewEmail.invalid) {
         return;
       }
@@ -164,8 +156,8 @@ export class PerfilComponent implements OnInit {
     this.onReset();
   }
 
-  update(token:any,email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
-    this.mod_user.Mod_user(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
+  update(email: any, dni: any, olddni: any, nombre: any, apellidos: any, localidad: any, residencia: any, tlf: any) {
+    this.mod_user.Mod_user( email, dni, olddni, nombre, apellidos, localidad, residencia, tlf).subscribe(
       (response: any) => {
         this.user.email = email;
         this.user.dni = dni;
