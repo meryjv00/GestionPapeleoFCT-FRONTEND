@@ -28,6 +28,7 @@ import { ModalAlertaComponent } from './componentes/modal-alerta/modal-alerta.co
 import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
 import { ModalFotoAlumnoComponent } from './componentes/modal-foto-alumno/modal-foto-alumno.component';
 import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
+import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
     DocMariaComponent,
     ModalFotoAlumnoComponent,
     DocLuisComponent,
+    DocDanielComponent,
   ],
   imports: [
     BrowserModule,
