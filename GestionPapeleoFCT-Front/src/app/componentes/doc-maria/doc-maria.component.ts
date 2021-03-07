@@ -13,7 +13,7 @@ export class DocMariaComponent implements OnInit {
   }
 
   activar(value: any) {
-    for (var i = 1; i <= 3; i++) {
+    for (var i = 1; i <= 7; i++) {
       if (i == value) {
         document.getElementById(`apart${i}-tab`)?.classList.add('bg-white', 'border2');
       } else {

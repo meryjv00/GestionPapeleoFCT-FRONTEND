@@ -47,10 +47,9 @@ export class ModalFotoAlumnoComponent implements OnInit {
       (response: any) => {
         if (response.message.foto == 1) {
           this.alumno.foto = environment.dirBack2 + "IMG/" + this.alumno.dni + ".png";
-
-          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-          modalRef.componentInstance.mensaje = `Foto de ${this.alumno.nombre}  ${this.alumno.apellidos} actualizada correctamente`;
-          modalRef.componentInstance.exito = true;
+       
+          this.activeModal.close();
+          this.storeOk.emit(true);
         }
       },
       (error) => {
@@ -61,8 +60,6 @@ export class ModalFotoAlumnoComponent implements OnInit {
       }
     );
 
-    //this.activeModal.close();
-    //this.storeOk.emit(true);
   }
 
 

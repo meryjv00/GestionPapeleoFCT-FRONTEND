@@ -434,79 +434,81 @@ export class ListaCursosComponent implements OnInit {
         });
     }
 
-    updateFoto(alumno: any){
+    updateFoto(alumno: any) {
         const modalRef = this.modal.open(ModalFotoAlumnoComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.alumno = alumno;
         modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-            alert('Confirmar');
-        }); 
+            const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+            modalRef.componentInstance.mensaje = `Foto de ${alumno.nombre}  ${alumno.apellidos} actualizada correctamente`;
+            modalRef.componentInstance.exito = true;
+        });
     }
 
 
     //--ANEXOS
-      /**
-   * Manda generar el anexo 0 con el servicio 'anexos' y lo manda descargar
-   * redirigiendo a la url donde se encuentra el archivo
-   * @param empresa 
-   */
-  anexo0(empresa: any) {
-    this.AnexosService.anexo0(empresa).subscribe(
-      (response: any) => {
-        console.log(response);
-        let enlace = environment.dirBack2 + 'descargar/' + response.message;
-        window.open(enlace,'_blank');
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  anexo1() {
-    var datos = {
-      'numConvenio': '4433434',
-      'idCurso': this.cursoSeleccionado.id
+    /**
+ * Manda generar el anexo 0 con el servicio 'anexos' y lo manda descargar
+ * redirigiendo a la url donde se encuentra el archivo
+ * @param empresa 
+ */
+    anexo0(empresa: any) {
+        this.AnexosService.anexo0(empresa).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
     }
-    this.AnexosService.anexo1(datos).subscribe(
-      (response: any) => {
-        console.log(response);
-        let enlace = environment.dirBack2 + 'descargar/' + response.message;
-        window.open(enlace,'_blank');
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  }
 
-  anexo2(empresa:any) {
-    var datos = {
-      'idEmpresa': empresa.id,
-      'idCurso': this.cursoSeleccionado.id
+    anexo1() {
+        var datos = {
+            'numConvenio': '4433434',
+            'idCurso': this.cursoSeleccionado.id
+        }
+        this.AnexosService.anexo1(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
     }
-    this.AnexosService.anexo2(datos).subscribe(
-      (response: any) => {
-        console.log(response);
-        let enlace = environment.dirBack2 + 'descargar/' + response.message;
-        window.open(enlace,'_blank');
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  }
 
-  anexo6() {
-    /* var datos = {
-      'idCurso': this.cursoSeleccionado.id
+    anexo2(empresa: any) {
+        var datos = {
+            'idEmpresa': empresa.id,
+            'idCurso': this.cursoSeleccionado.id
+        }
+        this.AnexosService.anexo2(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
     }
-    this.AnexosService.anexo6(datos).subscribe(
-      (response: any) => {
-        console.log(response);
-        let enlace = environment.dirBack2 + 'descargar/' + response.message;
-        window.open(enlace,'_blank');
-      }, (error) => {
-        console.log(error);
-      }
-    ); */
-  }
+
+    anexo6() {
+        /* var datos = {
+          'idCurso': this.cursoSeleccionado.id
+        }
+        this.AnexosService.anexo6(datos).subscribe(
+          (response: any) => {
+            console.log(response);
+            let enlace = environment.dirBack2 + 'descargar/' + response.message;
+            window.open(enlace,'_blank');
+          }, (error) => {
+            console.log(error);
+          }
+        ); */
+    }
 
 }
 
