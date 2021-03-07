@@ -14,6 +14,7 @@ import { InfCentroComponent } from './componentes/inf-centro/inf-centro.componen
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
+import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -33,6 +34,8 @@ const routes: Routes = [
   {path: 'nuevoCurso', component: NuevoCursoComponent},
   {path: 'actualizarCurso', component: ActualizarCursoComponent},
   {path: 'docMaria', component: DocMariaComponent},
+  {path: 'docLuis', component: DocLuisComponent},
+
 ];
 
 @NgModule({
