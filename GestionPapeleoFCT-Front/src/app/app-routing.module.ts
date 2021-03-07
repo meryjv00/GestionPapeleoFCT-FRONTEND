@@ -15,6 +15,7 @@ import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.compo
 import { ActualizarCursoComponent } from './componentes/actualizar-curso/actualizar-curso.component';
 import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
 import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
+import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -35,7 +36,7 @@ const routes: Routes = [
   {path: 'actualizarCurso', component: ActualizarCursoComponent},
   {path: 'docMaria', component: DocMariaComponent},
   {path: 'docLuis', component: DocLuisComponent},
-
+  {path: 'docDaniel', component: DocDanielComponent}
 ];
 
 @NgModule({
