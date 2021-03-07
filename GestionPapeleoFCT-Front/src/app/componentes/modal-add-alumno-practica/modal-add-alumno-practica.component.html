@@ -90,9 +90,9 @@
         </div>
       </div>
       <div class="form-group col-12">
-        <button type="submit" class="btn btn-primary" *ngIf="showAdd">Añadir</button>
+        <button type="submit" class="btn btn-primary" *ngIf="showAdd" [disabled]="habilitado">Añadir</button>
         <button type="buttom" class="btn btn-primary" *ngIf="showUpdate"
-          (click)="updateAlumnoPracticaDos()">Modificar</button>
+          (click)="updateAlumnoPracticaDos()" [disabled]="habilitado">Modificar</button>
         <button type="button" class="btn btn-danger ml-2" *ngIf="showUpdate" (click)="onReset()">Cancelar</button>
       </div>
     </div>
