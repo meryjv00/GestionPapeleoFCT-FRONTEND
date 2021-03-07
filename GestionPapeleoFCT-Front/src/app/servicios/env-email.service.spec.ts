@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ArrayUsService } from './array-us.service';
+import { EnvEmailService } from './env-email.service';
 
-describe('ArrayUsService', () => {
-  let service: ArrayUsService;
+describe('EnvEmailService', () => {
+  let service: EnvEmailService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ArrayUsService);
+    service = TestBed.inject(EnvEmailService);
   });
 
   it('should be created', () => {

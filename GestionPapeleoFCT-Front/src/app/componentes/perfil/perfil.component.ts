@@ -5,6 +5,7 @@ import { AdministracionService } from 'src/app/servicios/administracion.service'
 import { LoginService } from 'src/app/servicios/login.service';
 import { ModUsService } from 'src/app/servicios/mod-us.service';
 import { ModUsLogService } from 'src/app/servicios/mod-us-log.service';
+import { EnvEmailService } from 'src/app/servicios/env-email.service';
 
 @Component({
   selector: 'app-perfil',
@@ -26,7 +27,7 @@ export class PerfilComponent implements OnInit {
   submittedFoto = false;
   fotoRecibida: any;
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
-    private AdminAlumnosService: AdminAlumnosService,private mod_user_pass: ModUsLogService ) {
+    private AdminAlumnosService: AdminAlumnosService,private mod_user_pass: ModUsLogService,private EnvEmailService: EnvEmailService) {
     this.user = this.loginService.getUser();
       this.nuevoRegistro = this.formBuilder.group({
         email: ['', [Validators.required,Validators.email]],
@@ -100,7 +101,13 @@ export class PerfilComponent implements OnInit {
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
       this.update(token, email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
-    }else if (this.registroPass.touched){
+    }
+    this.onReset();
+  }
+
+  onSubmitPass() {
+    this.submitted = true;
+    if (this.registroPass.touched){
       if (this.registroPass.invalid || this.validarDistintasPass()) {
         return;
       }
@@ -115,7 +122,15 @@ export class PerfilComponent implements OnInit {
       const oldpassword = datosPass.password;
       const newpassword = datosPass.newpassword;
       this.updatePass(email,oldpassword,newpassword);
-    }else if (this.registroNewEmail.touched){
+      const nombre=this.user.nombre + ' ' + this.user.apellidos;
+      this.envEmail(nombre,'contraseña modificada',this.user.email);
+    }
+    this.onReset();
+  }
+
+  onSubmitEmail() {
+    this.submitted = true;
+     if (this.registroNewEmail.touched){
       if (this.registroNewEmail.invalid) {
         return;
       }
@@ -124,6 +139,8 @@ export class PerfilComponent implements OnInit {
       const email = this.user.email;
       const newemail = datosEmail.nemail;
       this.updateEmail(email,newemail);
+      const nombre=this.user.nombre + ' ' + this.user.apellidos;
+      this.envEmail(nombre,'email usuario actualizado',this.user.email);
     }
     this.onReset();
   }
@@ -147,6 +164,16 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  envEmail(nombreUsuario: any, asunto: any, email: any) {
+    this.EnvEmailService.EnvEmail(nombreUsuario, asunto, email).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
+    );
+  }
   updatePass(email: any, oldpassword: any, newpassword: any) {
     this.mod_user_pass.Mod_user_pass(email, oldpassword, newpassword).subscribe(
       (response: any) => {
