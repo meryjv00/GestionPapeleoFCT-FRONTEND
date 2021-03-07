@@ -27,7 +27,7 @@ export class PerfilComponent implements OnInit {
   fotoPerfil: FormGroup;
   foto: any;
   submittedFoto = false;
-  
+
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private mod_user: ModUsService,
     private AdminAlumnosService: AdminAlumnosService, private mod_user_pass: ModUsLogService, private modal: NgbModal) {
     this.user = this.loginService.getUser();
@@ -77,12 +77,19 @@ export class PerfilComponent implements OnInit {
     }
     this.AdminAlumnosService.cambiarFoto(this.foto, this.user.dni).subscribe(
       (response: any) => {
-        if(response.message.foto == 1){
+        if (response.message.foto == 1) {
           this.user.foto = environment.dirBack2 + "IMG/" + this.user.dni + ".png";
+          this.loginService.saveUser(this.user);
+          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+          modalRef.componentInstance.mensaje = 'Foto actualizada correctamente';
+          modalRef.componentInstance.exito = true;
         }
       },
       (error) => {
         console.log(error);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al actualizar la foto';
+        modalRef.componentInstance.exito = false;
       }
     );
   }
@@ -103,7 +110,7 @@ export class PerfilComponent implements OnInit {
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
       this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
-      
+
     } else if (this.registroPass.touched) {
       if (this.registroPass.invalid || this.validarDistintasPass()) {
         return;
@@ -119,7 +126,7 @@ export class PerfilComponent implements OnInit {
       const oldpassword = datosPass.password;
       const newpassword = datosPass.newpassword;
       this.updatePass(email, oldpassword, newpassword);
-      
+
     } else if (this.registroNewEmail.touched) {
       if (this.registroNewEmail.invalid) {
         return;
@@ -143,7 +150,7 @@ export class PerfilComponent implements OnInit {
         this.user.localidad = localidad;
         this.user.residencia = residencia;
         this.user.telefono = tlf;
-        //this.loginService.saveUser(this.user);
+        this.loginService.saveUser(this.user);
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = 'Datos actualizados correctamente';
         modalRef.componentInstance.exito = true;
