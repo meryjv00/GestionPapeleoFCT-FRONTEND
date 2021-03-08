@@ -48,12 +48,12 @@ export class EmpresaComponent implements OnInit {
       calle: ['', [Validators.required]],
       cp: ['', [Validators.required]],
       cif: ['', [Validators.required]],
-      tlf: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      dniRepresentante: ['', [Validators.required]],
+      tlf: ['', [Validators.required, Validators.pattern]],
+      email: ['', [Validators.required, Validators.email]],
+      dniRepresentante: ['', [Validators.required, Validators.pattern]],
       nombreRepresentante: ['', [Validators.required]],
-      dniNuevo: [''],
-      nombreNuevo: ['']
+      dniNuevo: ['', [Validators.required, Validators.pattern]],
+      nombreNuevo: ['', [Validators.required]]
     });
 
     this.editarEmpresa?.disable();
@@ -69,6 +69,8 @@ export class EmpresaComponent implements OnInit {
 
   //Actualiza la empresa
   actualizar() {
+    this.editarEmpresa.get('dniNuevo')?.disable();
+    this.editarEmpresa.get('nombreNuevo')?.disable();
     this.submitted = true;
     if (this.editarEmpresa.invalid) {
       return
@@ -81,6 +83,9 @@ export class EmpresaComponent implements OnInit {
           modalRef.componentInstance.exito = true;
 
           this.CompartirDatos.setEmpresa(this.empresa);
+          this.submitted = false;
+          this.editarEmpresa.get('dniNuevo')?.markAsUntouched();  //Evita errores de validación cuando no hacen falta
+          this.editarEmpresa.get('nombreNuevo')?.markAsUntouched(); //Evita errores de validación cuando no hacen falta
           this.router.navigate(['/empresa']);
         },
         (error) => {
@@ -107,7 +112,6 @@ export class EmpresaComponent implements OnInit {
       modalRef.componentInstance.exito = true;
       this.router.navigate(['/listaEmpresas']);
     });
-
   }
 
   /**
@@ -130,8 +134,10 @@ export class EmpresaComponent implements OnInit {
    * Añade un nuevo responsable a la empresa
    */
   addResp() {
+    this.submitted = true;
     this.adminEmpresasService.addResponsable(this.nuevoResp).subscribe(
       (response: any) => {
+        this.submitted = false;
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = this.nuevoResp.nombre + ' añadido correctamente';
         modalRef.componentInstance.exito = true;
@@ -149,6 +155,8 @@ export class EmpresaComponent implements OnInit {
         //Actualiza la empresa
         this.empresa.responsables.push(responsable);
         this.CompartirDatos.setEmpresa(this.empresa);
+        this.editarEmpresa.get('dniNuevo')?.markAsUntouched();  //Evita errores de validación cuando no hacen falta
+        this.editarEmpresa.get('nombreNuevo')?.markAsUntouched(); //Evita errores de validación cuando no hacen falta
         this.router.navigate(['/empresa']);
       },
       (error) => {
@@ -165,26 +173,28 @@ export class EmpresaComponent implements OnInit {
    * @param responsable 
    */
   eliminarResponsable(dniResponsable: any) {
-    this.adminEmpresasService.deleteResponsable(dniResponsable).subscribe(
-      (response: any) => {
-        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-        modalRef.componentInstance.mensaje = 'Responsable eliminado correctamente';
-        modalRef.componentInstance.exito = true;
 
-        //Elimina el responsable de la lista
-        for (let index = 0; index < this.empresa.responsables.length; index++) {
-          if (this.empresa.responsables[index].dniResponsable == dniResponsable) {
-            this.empresa.responsables.splice(index, 1);
+    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar este responsable de la base de datos?';
+    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+      this.adminEmpresasService.deleteResponsable(dniResponsable).subscribe(
+        (response: any) => {
+          alert('Responsable eliminado');
+  
+          //Elimina el responsable de la lista
+          for (let index = 0; index < this.empresa.responsables.length; index++) {
+            if (this.empresa.responsables[index].dniResponsable == dniResponsable) {
+              this.empresa.responsables.splice(index, 1);
+            }
           }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al eliminar el responsable seleccionado';
-        modalRef.componentInstance.exito = false;
-      }
-    );
+      );
+    });
+
+    
   }
 
 }

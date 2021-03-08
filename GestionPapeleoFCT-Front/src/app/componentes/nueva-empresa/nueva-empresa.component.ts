@@ -30,7 +30,9 @@ export class NuevaEmpresaComponent implements OnInit {
       'cp': this.route.snapshot.paramMap.get('cp'),
       'cif': this.route.snapshot.paramMap.get('cif'),
       'tlf': this.route.snapshot.paramMap.get('tlf'),
-      'email': this.route.snapshot.paramMap.get('email')
+      'email': this.route.snapshot.paramMap.get('email'),
+      'dniRepresentante': this.route.snapshot.paramMap.get('dniRepresentante'),
+      'nombreRepresentante': this.route.snapshot.paramMap.get('nombreRepresentante')
     };
 
     this.nuevaEmpresa = this.formBuilder.group({
@@ -40,8 +42,10 @@ export class NuevaEmpresaComponent implements OnInit {
       calle: ['', [Validators.required]],
       cp: ['', [Validators.required]],
       cif: ['', [Validators.required]],
-      tlf: ['', [Validators.required]],
-      email: ['', [Validators.required]]
+      tlf: ['', [Validators.required, Validators.pattern]],
+      email: ['', [Validators.required, Validators.email]],
+      dniRepresentante: ['', [Validators.required, Validators.pattern]],
+      nombreRepresentante: ['', [Validators.required]]
     });
 
   }
@@ -52,6 +56,7 @@ export class NuevaEmpresaComponent implements OnInit {
 
   get formulario() { return this.nuevaEmpresa.controls; }
 
+  //Manda crear una nueva empresa
   onSubmit() {
     this.submitted = true;
     if (this.nuevaEmpresa.invalid) {
@@ -64,9 +69,10 @@ export class NuevaEmpresaComponent implements OnInit {
     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
     modalRef.componentInstance.exito = true;
     this.onReset();
-    this.router.navigate(['/listaEmpresas']);
+    window.location.reload();
   }
-
+  
+  //Resetea el formulario
   onReset() {
     this.submitted = false;
     this.nuevaEmpresa.reset();
@@ -74,6 +80,12 @@ export class NuevaEmpresaComponent implements OnInit {
 
   cancel() {
     this.onReset();
+  }
+
+  //Actualiza la página para cancelar la creación de una empresa
+  refresh(){
+    this.submitted = false;
+    window.location.reload();
   }
 
 }

@@ -7,7 +7,6 @@ $chicha: #ffc7ba;
 $casiBlanco: rgb(255, 238, 238);
 $casiBlancoPeroMasOscuro: rgb(255, 209, 209);
 $dark: #6f43ff;
-
 $white: rgb(209, 209, 209);
 $white2:rgb(190, 190, 190);
 $dark1: rgb(85, 22, 80);
@@ -15,47 +14,50 @@ $dark2: rgb(33, 39, 46);
 //Tema
 app-root #app.theme.theme-daniel {
     font-size: 18px !important;
-    
+    .border-right {
+        border-right: 1px solid black !important;
+    }
     //Botones
-    .btn-primary, .card-header, .bg-primary {
+    .btn-primary,
+    .card-header,
+    .bg-primary {
         background-color: $primary !important;
     }
-    .btn-primary:hover{
+    .btn-primary:hover {
         box-shadow: black;
     }
-    .btn-outline-primary{
+    .btn-outline-primary {
         color: $primary;
         border-color: $primary;
     }
-    .btn-outline-primary:hover{
-        color:#fff;
+    .btn-outline-primary:hover {
+        color: #fff;
         background-color: $primary;
         border-color: $primary;
     }
-    .btn-outline-primary.focus,.btn-outline-primary:focus{
-        box-shadow:0 0 0 .2rem rgba(0,123,255,.5)
+    .btn-outline-primary.focus,
+    .btn-outline-primary:focus {
+        box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
     }
-
-    .card-footer{
+    .card-footer {
         background-color: $dark !important;
     }
-
     //Fondos
-    #fondo, #fondo2 {
+    #fondo,
+    #fondo2 {
         background-color: $suave;
     }
     .bg-light {
         background-color: $chicha !important;
     }
     .bg-white,
-    #menu, 
+    #menu,
     .tema-dark {
         background-color: $secondary !important;
     }
-    .bg-secondary{
+    .bg-secondary {
         background-color: $casiBlanco !important;
     }
-
     //Textos
     .text-dark,
     a {
@@ -64,22 +66,17 @@ app-root #app.theme.theme-daniel {
     u {
         color: grey;
     }
-
-
     table,
     .text-white2 {
         color: black !important;
     }
     .border {
         border: 1px solid black !important;
-        border-radius: .25rem;
+        border-radius: .25rem !important;
     }
-
-
     .error {
         color: white;
     }
-
     //Formularios
     input.ng-invalid.ng-touched {
         border: 1px solid rgb(165, 46, 46);
@@ -101,16 +98,12 @@ app-root #app.theme.theme-daniel {
         background-color: $casiBlanco;
         color: black;
     }
-    
-    
     .swith-theme {
         color: $white2;
         background-color: $dark2;
         border-radius: .50rem;
         border: 2px solid $gris !important;
     }
-
-    .card,
     .no-border {
         border: none !important;
     }
@@ -120,7 +113,6 @@ app-root #app.theme.theme-daniel {
     .rounded-circle {
         border-radius: 5px !important;
     }
-
     *:focus {
         outline: 2px double black !important;
     }

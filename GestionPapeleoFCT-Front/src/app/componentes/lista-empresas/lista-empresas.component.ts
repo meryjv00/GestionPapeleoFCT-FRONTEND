@@ -16,12 +16,14 @@ export class ListaEmpresasComponent implements OnInit {
   id: any; nombre: any; provincia: any; localidad: any; calle: any; cp: any; cif: any; tlf: any; email: any;
   empresas: any;
   crearNueva: boolean;
-  textoAddEmpresa: any;
+  textoAddEmpresa: any; claseAddEmpresa: any; tituloSeccion: any;
 
   constructor(private anexosService: AnexosService, private CompartirDatos: CompartirDatosService, private adminEmpresasService: AdminEmpresasService, private route: ActivatedRoute, private router: Router) {
     this.empresas = [];
     this.crearNueva = false;
     this.textoAddEmpresa = "Añadir empresa";
+    this.claseAddEmpresa = "fa-plus";
+    this.tituloSeccion = "Todas las empresas";
   }
 
   /**
@@ -37,8 +39,12 @@ export class ListaEmpresasComponent implements OnInit {
   clickCrearNueva() {
     if (this.crearNueva) {
       this.textoAddEmpresa = "Añadir empresa";
+      this.claseAddEmpresa = "fa-plus";
+      this.tituloSeccion = "Todas las empresas";
     } else {
       this.textoAddEmpresa = "Cancelar";
+      this.claseAddEmpresa = "fa-times";
+      this.tituloSeccion = "Añadir empresa";
     }
     this.crearNueva = !this.crearNueva;
   }

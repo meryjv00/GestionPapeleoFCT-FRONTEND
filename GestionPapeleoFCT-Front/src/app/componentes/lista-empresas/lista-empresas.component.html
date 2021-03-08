@@ -1,43 +1,49 @@
-<div id="fondo" class="container-fluid min-vh-100">
+<div id="fondo" class="container-fluid">
     <main class="row">
         <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
             <app-menu></app-menu>
         </div>
-        <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
+        <div class="col-12 col-lg-10 overflow-hidden">
             <div class="row">
                 <div class="col-11 mt-2 mx-auto">
-                    <button (click)="clickCrearNueva()" id="nuevaEmpresa" class="btn btn-primary">{{textoAddEmpresa}}</button>
                     <div *ngIf="crearNueva">
-                        <app-nueva-empresa></app-nueva-empresa>
                     </div>
                 </div>
-                <div id="empresas" class="col-lg-11 col-md-11 col-sm-11 col-11 mx-auto shadow-sm mt-4 tema-dark rounded">
-                    <div class="row py-3">
+                <div class="col-11 col-md-10 mx-auto shadow-sm bg-light border card my-5 tema-dark">
+                    <div class="row card-header text-white bg-primary d-flex justify-content-between">
+                        <h1>{{tituloSeccion}}</h1>
+                        <button (click)="clickCrearNueva()" id="nuevaEmpresa" class="btn btn-secondary"><i class="fa {{claseAddEmpresa}}"></i> {{textoAddEmpresa}}</button>
+                    </div>
+                    <div class="row w-100 d-block mx-auto" *ngIf="crearNueva">
+                        <app-nueva-empresa></app-nueva-empresa>
+                    </div>
+                    <!--Lista de empresas-->
+                    <div class="row py-3" *ngIf="!crearNueva">
                         <ng-container *ngFor="let empresa of empresas; index as i;">
                             <!--Empresa-->
-                            <div class="col-10">
-                                <div class="bg-secondary p-4 mb-3 ml-2">
+                            <div class="col-12 col-md-10">
+                                <div class="bg-secondary p-4 mb-3 ml-2 rounded">
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-6 col-lg-4 text-center">
                                             <p id="nombreEmpresa"><b>{{empresa.nombre}}</b></p>
                                         </div>
-                                        <div class="col-2 mt-1">
+                                        <div class="col-12 mt-1 col-md-6 col-lg-2 text-center">
                                             <p>{{empresa.localidad}}</p>
                                         </div>
-                                        <div class="col-2 mt-1">
+                                        <div class="col-12 mt-1 col-md-6 col-lg-2 text-center">
                                             <p>{{empresa.email}}</p>
                                         </div>
-                                        <div class="col-4 mt-1 ver">
-                                            <button class="btn btn-primary" (click)=clickEditar(empresa)>Ver</button>
+                                        <div class="col-12 mt-1 ver col-md-6 col-lg-4">
+                                            <button class="btn btn-primary w-75" (click)=clickEditar(empresa)>Ver</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <!--Archivo-->
-                                <button class="btn btn-primary w-100 mt-4" (click)="anexo0(empresa)">
-                                    <i class="fas fa-file-word mr-2"></i>Anexo 0 
-                                </button>
+                            <div class="col-12 col-md-2">
+                                <!--Botón para anexo 0-->
+                                <button class="btn btn-primary w-100 mb-4" (click)="anexo0(empresa)">
+                                    <i class="fas fa-file-word mr-2"></i>Anexo 0 {{empresa.nombre}}
+                                    </button>
                             </div>
                         </ng-container>
                     </div>

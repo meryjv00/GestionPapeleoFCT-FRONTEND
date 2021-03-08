@@ -1,32 +1,99 @@
-<div class="col-lg-7 col-md-7 col-sm-7 col-7  mx-auto shadow-sm mt-2 bg-white rounded p-4">
-    <p class="text-white2" style="text-align: center;"><b>Añadir una nueva empresa</b></p>
-    <form [formGroup]="nuevaEmpresa" (ngSubmit)="onSubmit()">
-        <div class="form-group text-white2">
-            <label>Nombre</label>
-            <input type="text" class="form-control" formControlName="nombre" />
-            <br>
-            <label>Provincia</label>
-            <input type="text" class="form-control" formControlName="provincia" />
-            <br>
-            <label>Localidad</label>
-            <input type="text" class="form-control" formControlName="localidad" />
-            <br>
-            <label>Dirección</label>
-            <input type="text" class="form-control" formControlName="calle" />
-            <br>
-            <label>Código postal</label>
-            <input type="text" class="form-control" formControlName="cp" />
-            <br>
-            <label>CIF</label>
-            <input type="text" class="form-control" formControlName="cif" />
-            <br>
-            <label>Nº de teléfono</label>
-            <input type="text" class="form-control" formControlName="tlf" />
-            <br>
-            <label>Correo electrónico</label>
-            <input type="email" class="form-control" formControlName="email" />
-            <br>
-            <button class="btn btn-primary">Guardar</button>
+<form [formGroup]="nuevaEmpresa" (ngSubmit)="onSubmit()">
+    <!--FORMULARIO-->
+    <div class="row card-body">
+        <div class="col-12">
+            <div class="form-row">
+                <div class="col">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" formControlName="nombre" />
+                    <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+                        <div *ngIf="formulario.nombre.errors.required">Debes especificar un nombre</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Provincia</label>
+                    <input type="text" class="form-control" formControlName="provincia" />
+                    <div class="error" *ngIf="(submitted || formulario.provincia.touched) && formulario.provincia.errors">
+                        <div *ngIf="formulario.provincia.errors.required">Debes especificar una provincia</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label>Localidad</label>
+                    <input type="text" class="form-control" formControlName="localidad" />
+                    <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                        <div *ngIf="formulario.localidad.errors.required">Debes especificar una localidad</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Dirección</label>
+                    <input type="text" class="form-control" formControlName="calle" />
+                    <div class="error" *ngIf="(submitted || formulario.calle.touched) && formulario.calle.errors">
+                        <div *ngIf="formulario.calle.errors.required">Debes especificar una dirección</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label>Código postal</label>
+                    <input type="text" class="form-control" formControlName="cp" />
+                    <div class="error" *ngIf="(submitted || formulario.cp.touched) && formulario.cp.errors">
+                        <div *ngIf="formulario.cp.errors.required">Debes especificar un código postal</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>CIF</label>
+                    <input type="text" class="form-control" formControlName="cif" />
+                    <div class="error" *ngIf="(submitted || formulario.cif.touched) && formulario.cif.errors">
+                        <div *ngIf="formulario.cif.errors.required">Debes especificar un CIF</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label>Nº de teléfono</label>
+                    <input type="text" class="form-control" formControlName="tlf" pattern="^[9|8|7|6]\d{8}$" />
+                    <div class="error" *ngIf="(submitted || formulario.tlf.touched) && formulario.tlf.errors">
+                        <div *ngIf="formulario.tlf.errors.required">Debes especificar un número de teléfono</div>
+                        <div *ngIf="formulario.tlf.errors.pattern">Introduce un número de teléfono válido</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Correo electrónico</label>
+                    <input type="email" class="form-control" formControlName="email" />
+                    <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
+                        <div *ngIf="formulario.email.errors.required">Debes especificar una dirección de correo electrónico</div>
+                        <div *ngIf="formulario.email.errors.email">Debes especificar una dirección de correo electrónico válida</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col">
+                    <label>DNI del representante</label>
+                    <input type="text" class="form-control" formControlName="dniRepresentante" pattern="^[0-9]{8}[A-Za-z]{1}$" />
+                    <div class="error" *ngIf="(submitted || formulario.dniRepresentante.touched) && formulario.dniRepresentante.errors">
+                        <div *ngIf="formulario.dniRepresentante.errors.required">Debes especificar un DNI para el representante</div>
+                        <div *ngIf="formulario.dniRepresentante.errors.pattern">Introduce un DNI válido</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Nombre del representante</label>
+                    <input type="text" class="form-control" formControlName="nombreRepresentante" />
+                    <div class="error" *ngIf="(submitted || formulario.nombreRepresentante.touched) && formulario.nombreRepresentante.errors">
+                        <div *ngIf="formulario.nombreRepresentante.errors.required">Debes especificar un nombre para el representante</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+    <!--BOTONES GUARDAR/CANCELAR-->
+    <div class="row card-footer bg-secondary justify-content-end">
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-success"><i class="fa fa-check"
+                aria-hidden="true"></i> Guardar</button>
+            <button type="button" class="btn btn-primary mx-2" (click)="refresh()"><i class="fa fa-times mr-2"></i> Cancelar</button>
+        </div>
+    </div>
+
+</form>
