@@ -1,7 +1,7 @@
 {
   "name": "gestion-papeleo-fct-front",
   "version": "0.0.0",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron .",
+    "electron": "electron src/main.js",
     "electron-build": "ng build --prod"
   },
   "private": true,
