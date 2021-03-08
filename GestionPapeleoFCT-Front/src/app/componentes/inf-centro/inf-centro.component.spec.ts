@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {RouterTestingModule} from "@angular/router/testing";
 import { InfCentroComponent } from './inf-centro.component';
 import { FormBuilder } from '@angular/forms';
+import { LoginComponent } from '../login/login.component';
 
 describe('InfCentroComponent', () => {
   let component: InfCentroComponent;
@@ -13,7 +14,10 @@ describe('InfCentroComponent', () => {
       declarations: [ InfCentroComponent ],
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         FormBuilder

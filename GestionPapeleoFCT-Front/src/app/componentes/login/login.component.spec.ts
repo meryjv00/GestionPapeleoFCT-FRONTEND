@@ -12,7 +12,10 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         FormBuilder,

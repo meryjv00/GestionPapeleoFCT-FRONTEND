@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LoginComponent } from '../login/login.component';
 
 import { NuevoCursoComponent } from './nuevo-curso.component';
 
@@ -14,7 +15,10 @@ describe('NuevoCursoComponent', () => {
       declarations: [ NuevoCursoComponent ],
       imports: [
         RouterTestingModule,
-        HttpClientModule
+        HttpClientModule,  
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         FormBuilder

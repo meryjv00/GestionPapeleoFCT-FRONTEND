@@ -5,6 +5,7 @@ import { ListaEmpresasComponent } from './lista-empresas.component';
 import { AdminEmpresasService } from "src/app/servicios/admin-empresas.service";
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { AnexosService } from 'src/app/servicios/anexos.service';
+import { LoginComponent } from '../login/login.component';
 
 
 describe('ListaEmpresasComponent', () => {
@@ -15,7 +16,10 @@ describe('ListaEmpresasComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         //FormBuilder,
