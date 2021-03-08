@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NuevaEmpresaComponent } from './nueva-empresa.component';
 
@@ -8,7 +11,14 @@ describe('NuevaEmpresaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NuevaEmpresaComponent ]
+      declarations: [ NuevaEmpresaComponent ],
+      imports: [
+        RouterTestingModule,
+        HttpClientModule
+      ],
+      providers: [ 
+        FormBuilder
+      ],
     })
     .compileComponents();
   });
