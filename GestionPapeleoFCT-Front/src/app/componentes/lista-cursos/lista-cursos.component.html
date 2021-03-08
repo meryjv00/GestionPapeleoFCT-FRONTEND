@@ -12,7 +12,7 @@
                 <div class="container-fluid border-bottom-0 shadow pb-2">
                     <div class="col-11 d-flex flex-wrap pt-0 mx-auto">
                         <div class="col-12 col-lg-4 form-group-0 mb-2">
-                            <select aria-label="cursos" #selectCursos (change)="onChange(selectCursos.value)"
+                            <select aria-label="cursos" #selectCursos id="select-cursos" (change)="onChange(selectCursos.value)"
                                 class="form-control" name="cicloFormativo">
                                 <option *ngFor="let curso of cursos " [selected]="curso.id === cursoSeleccionado.id"
                                     [value]="curso.id">
@@ -92,7 +92,7 @@
                             </form>
                         </div>
                         <div class="col-12 card-body tema-dark">
-                            <table class="table table-responsive-md">
+                            <table id="empresas-practicas" class="table table-responsive-md">
                                 <thead>
                                     <tr>
                                         <th scope="col">Empresa</th>
