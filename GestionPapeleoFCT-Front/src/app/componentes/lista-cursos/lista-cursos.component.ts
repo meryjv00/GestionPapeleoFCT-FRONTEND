@@ -14,6 +14,7 @@ import { ActualizarCursoComponent } from '../actualizar-curso/actualizar-curso.c
 import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/modal-add-alumno-practica.component';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { ModalFotoAlumnoComponent } from '../modal-foto-alumno/modal-foto-alumno.component';
+import { NuevoAlumnoComponent } from '../nuevo-alumno/nuevo-alumno.component';
 
 @Component({
     selector: 'app-lista-cursos',
@@ -264,8 +265,9 @@ export class ListaCursosComponent implements OnInit {
      * mediante un servicio para recuperarla en el componente nuevo alumno
      */
     addAlumno() {
-        this.CompartirDatos.setCurso(this.cursoSeleccionado);
-        this.router.navigate(['/nuevoAlumno']);
+        const modalRef = this.modal.open(NuevoAlumnoComponent, { size: 'lg' });
+        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
+        modalRef.componentInstance.alumnos = this.alumnos;
     }
 
     /**
@@ -275,10 +277,8 @@ export class ListaCursosComponent implements OnInit {
     updateAlumno(alumno: any) {
         this.CompartirDatos.setAlumno(alumno);
         this.CompartirDatos.setCurso(this.cursoSeleccionado);
-
         this.router.navigate(['/alumno']);
     }
-
 
     /**
      * Obtiene todos los anexos disponibles
@@ -321,7 +321,7 @@ export class ListaCursosComponent implements OnInit {
     updateCurso(curso: any) {
         const modalRef = this.modal.open(ActualizarCursoComponent, { size: 'lg' });
         modalRef.componentInstance.curso = curso;
-        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;    
+        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
     }
 
     // Método para eliminar un curso
@@ -377,7 +377,6 @@ export class ListaCursosComponent implements OnInit {
         }
     }
 
-
     // Metodo para eliminar una empresa para practicas en un curso
     deleteEmpresaCurso(idEmpresa: any) {
         // Lo que paso por parametro es el id de la tabla que relaciona idEmpresa con idCurso
@@ -399,7 +398,6 @@ export class ListaCursosComponent implements OnInit {
                 }
             );
         });
-
     }
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
