@@ -111,4 +111,8 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
+  anexo1(){
+    
+  }
+
 }
