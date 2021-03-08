@@ -16,7 +16,6 @@ import { NuevaEmpresaComponent } from './componentes/nueva-empresa/nueva-empresa
 import { EmpresaComponent } from './componentes/empresa/empresa.component';
 import { RegistroUserComponent } from './componentes/registro-user/registro-user.component';
 import { RegistroPersonaComponent } from './componentes/registro-persona/registro-persona.component';
-import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { InfCentroComponent } from './componentes/inf-centro/inf-centro.component';
 import { NuevoCursoComponent } from './componentes/nuevo-curso/nuevo-curso.component';
@@ -43,7 +42,6 @@ import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.componen
     EmpresaComponent,
     RegistroUserComponent,
     RegistroPersonaComponent,
-    OpcionesComponent,
     PerfilComponent,
     InfCentroComponent,
     PerfilComponent,
