@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
@@ -15,13 +15,15 @@ import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 })
 export class ActualizarCursoComponent implements OnInit {
 
+  @Input() public curso: any;
+  @Input() public cursoSeleccionado: any;
   families: any[];
   newCurso: FormGroup | any;
   submitted = false;
-  curso: any;
+  cursoU: any;
 
   constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService, private formBuilder: FormBuilder, private cursosService: CursosService,
-    private compartirDatos: CompartirDatosService, private modal: NgbModal) {
+    private compartirDatos: CompartirDatosService, private modal: NgbModal, public activeModal: NgbActiveModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
@@ -32,7 +34,8 @@ export class ActualizarCursoComponent implements OnInit {
   ngOnInit(): void {
     this.getFamilies();
     this.initForm();
-    this.curso = this.compartirDatos.getCurso();
+    this.cursoU = { ...this.curso };
+
   }
 
   get form() { return this.newCurso.controls; }
@@ -47,21 +50,24 @@ export class ActualizarCursoComponent implements OnInit {
     let curso = this.newCurso.value;
     curso.id = this.curso.id;
     console.log(curso);
-    const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-    modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres actualizar el curso ' + curso.cicloFormativoA + ' ?';
-    modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-      this.cursosService.updateCurso(curso).subscribe(
-        (response: any) => {
-          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
-          const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
-          modalRef.componentInstance.mensaje =  curso.cicloFormativoA + ' actualizado correctamente';
-          modalRef.componentInstance.exito = true;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    });
+    this.cursosService.updateCurso(curso).subscribe(
+      (response: any) => {
+        // Actualizo el curso en local
+        this.cursoSeleccionado.familiaProfesional = curso.familiaProfesional;
+        this.cursoSeleccionado.cicloFormativo = curso.cicloFormativo;
+        this.cursoSeleccionado.cicloFormativoA = curso.cicloFormativoA;
+        this.cursoSeleccionado.cursoAcademico = curso.cursoAcademico;
+        this.cursoSeleccionado.nHoras = curso.nHoras;
+
+        this.activeModal.close();
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = curso.cicloFormativoA + ' actualizado correctamente';
+        modalRef.componentInstance.exito = true;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 
   // Limpiamos campos
@@ -74,7 +80,7 @@ export class ActualizarCursoComponent implements OnInit {
   onCancel() {
     this.submitted = false;
     this.newCurso.reset();
-    this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
+    this.activeModal.close();
   }
 
   // Cogemos las familias formativas
@@ -106,7 +112,6 @@ export class ActualizarCursoComponent implements OnInit {
       cicloFormativoA: ['', [Validators.required]],
       familiaProfesional: ['', [Validators.required]],
       nHoras: ['', [Validators.required]],
-      dniTutor: ['', [Validators.required]],
       cursoAcademico: ['', [Validators.required]],
     })
   }

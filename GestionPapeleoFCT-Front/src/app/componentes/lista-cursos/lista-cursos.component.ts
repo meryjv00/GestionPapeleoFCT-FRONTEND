@@ -10,6 +10,7 @@ import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { environment } from 'src/environments/environment';
+import { ActualizarCursoComponent } from '../actualizar-curso/actualizar-curso.component';
 import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/modal-add-alumno-practica.component';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { ModalFotoAlumnoComponent } from '../modal-foto-alumno/modal-foto-alumno.component';
@@ -72,9 +73,8 @@ export class ListaCursosComponent implements OnInit {
         this.listaCursosService.getCursos().subscribe(
             (response: any) => {
                 let cursos = response.message;
-                console.log(cursos);
                 cursos.forEach((element: {
-                    id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+                    id: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
                     cursoAcademico: any; nHoras: any; cursos: any;
                 }) => {
                     let curso = {
@@ -114,7 +114,7 @@ export class ListaCursosComponent implements OnInit {
                     this.mensaje = "No tienes ningún curso asignado todavía";
                 } else {
                     cursos.forEach((element: {
-                        id: any; dniTutor: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
+                        id: any; familiaProfesional: any; cicloFormativo: any; cicloFormativoA: any;
                         cursoAcademico: any; nHoras: any; cursos: any;
                     }) => {
                         let curso = {
@@ -201,7 +201,7 @@ export class ListaCursosComponent implements OnInit {
                         'dniRepresentante': element.dniRepresentante,
                         'nombreRepresentante': element.nombreRepresentante
                     };
-                    this.empresasNoCurso.push(empresa);                    
+                    this.empresasNoCurso.push(empresa);
                 });
             },
             (error: any) => {
@@ -319,8 +319,9 @@ export class ListaCursosComponent implements OnInit {
 
     // Método para modificar un curso
     updateCurso(curso: any) {
-        this.CompartirDatos.setCurso(curso);
-        this.router.navigate(['/actualizarCurso']);
+        const modalRef = this.modal.open(ActualizarCursoComponent, { size: 'lg' });
+        modalRef.componentInstance.curso = curso;
+        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;    
     }
 
     // Método para eliminar un curso
