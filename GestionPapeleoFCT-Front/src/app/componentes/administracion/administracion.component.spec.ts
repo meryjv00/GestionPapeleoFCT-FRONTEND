@@ -4,6 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import { FormBuilder } from '@angular/forms';
 
 import { AdministracionComponent } from './administracion.component';
+import { LoginComponent } from '../login/login.component';
 
 describe('AdministracionComponent', () => {
   let component: AdministracionComponent;
@@ -14,7 +15,10 @@ describe('AdministracionComponent', () => {
       declarations: [ AdministracionComponent ],
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         FormBuilder

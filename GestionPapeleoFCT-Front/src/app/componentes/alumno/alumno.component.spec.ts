@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from "@angular/router/testing";
 import { AlumnoComponent } from './alumno.component';
 import { FormBuilder } from '@angular/forms';
+import { LoginComponent } from '../login/login.component';
 
 describe('AlumnoComponent', () => {
   let component: AlumnoComponent;
@@ -12,7 +13,10 @@ describe('AlumnoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
       ],
       providers: [ 
         FormBuilder,
