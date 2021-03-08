@@ -235,6 +235,8 @@ export class PerfilComponent implements OnInit {
   setTheme(theme: any) {
     localStorage.setItem('theme', theme);
     this.theme = localStorage.getItem('theme');
+        window.location.reload()
+
   }
 
   validarDistintasPass() {

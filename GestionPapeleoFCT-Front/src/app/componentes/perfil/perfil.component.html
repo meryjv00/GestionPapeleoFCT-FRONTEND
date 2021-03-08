@@ -1,202 +1,249 @@
 <div id="fondo" class="container-fluid min-vh-100">
-    <main class="row">
-        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
-            <app-menu [user]="user"></app-menu>
-        </div>
-        <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
-            <div class="row">
-                <div class="col-lg-11 col-md-11 col-sm-11 col-11 mt-4 mx-auto mb-4 shadow-sm bg-light rounded">
-                    <div class="row">
-                        <div class="col-12 card-header text-white bg-primary">
-                            <h3 class="font-weight-bolder">
-                                Información personal
-                            </h3>
-                        </div>
-                        <div class="card-body col-12 justify-content-center tema-dark text-dark">
-                            <img *ngIf="user.foto" src="{{user.foto}}" alt="Imágen perfil">
-                            <ul class="col-md-5 col-lg-5">
-                                <li>Nombre: {{user.nombre}} {{user.apellidos}}</li>
-                                <li>Email: {{user.correo}}</li>
-                                <li>DNI: {{user.dni}}</li>
-                                <li>Teléfono: {{user.telefono}}</li>
-                                <li>Puesto: {{user.rol}}</li>
-                                <li>Localidad: {{user.localidad}}</li>
-                                <li>Residencia: {{user.residencia}}</li>
-                            </ul>
-                            <form class="row" [formGroup]="fotoPerfil" (ngSubmit)="onSubmitFoto()">
-                                <div class="form-row ml-1">
-                                    <h5 for="fotoPerfil">Foto de perfil:</h5>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" formControlName="fotoPerfil" id="fotoPerfil" (change)="guardarFoto($event)">
-                                            <label *ngIf="!foto" class="custom-file-label input-dark" for="fotoPerfil">Sube aquí tu foto</label>
-                                            <label *ngIf="foto" class="custom-file-label input-dark" for="fotoPerfil">{{foto.name}}</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary">Añadir</button>
-                                        </div>
-                                    </div>
-                                    <div class="error" *ngIf="submittedFoto && formularioFoto.fotoPerfil.errors">
-                                        <div *ngIf="formularioFoto.fotoPerfil.errors.required">Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer col-12 bg-secondary">
-                            <div class=" justify-content-end row">
-                                <button type="button" class="btn btn-danger mr-3" data-toggle="modal" data-target="#ModalPasswrd">
-                                    <i class="fa fa-lock" aria-hidden="true"></i> Modificar datos login
-                                </button>
-                                <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fa fa-edit mr-2" aria-hidden="true"></i>Editar
-                                </button>
-                            </div>
-                        </div>
-                        <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
-                                        <div class="modal-header bg-primary no-border">
-                                            <h3 class="modal-title text-white font-weight-bolder" id="exampleModalLabel">Editar Perfil</h3>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true" class="fas fa-times fa-sm text-white"></span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body tema-dark text-white2">
-                                            <div class="row m-2">
-                                                <div class="col-md-12 col-lg-12">
-                                                    <label>Email: </label>
-                                                    <input type="email" class="form-control" id="email" formControlName="email" [(ngModel)]="mod.correo"/>
-                                                    <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
-                                                        <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.email.errors.email">Introduce un email válido</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Nombre: </label>
-                                                    <input type="text" class="form-control" id="nombre" formControlName="nombre" [(ngModel)]="mod.nombre"  pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})$" />
-                                                    <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
-                                                        <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.nombre.errors.pattern">Introduce un nombre válido</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Apellidos: </label>
-                                                    <input type="text" class="form-control" id="apellidos" formControlName="apellidos" [(ngModel)]="mod.apellidos"  pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})$" />
-                                                    <div class="error" *ngIf="(submitted || formulario.apellidos.touched) && formulario.apellidos.errors">
-                                                        <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.apellidos.errors.pattern">Introduce dos apellidos válidos</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Dni: </label>
-                                                    <input type="text" class="form-control" id="dni" formControlName="dni" [(ngModel)]="mod.dni" pattern="^[0-9]{8}[A-Za-z]{1}$" />
-                                                    <div class="error" *ngIf="(submitted || formulario.dni.touched) && formulario.dni.errors">
-                                                        <div *ngIf="formulario.dni.errors.required">Este campo es obligatorio</div>
-                                                        <div *ngIf="formulario.dni.errors.pattern">Introduce un dni válido</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Teléfono: </label>
-                                                    <input type="text" class="form-control" id="telefono" formControlName="telefono" [(ngModel)]="mod.telefono" pattern="^[9|8|7|6]\d{8}$"/>
-                                                    <div class="error" *ngIf="(submitted || formulario.telefono.touched) && formulario.telefono.errors">
-                                                        <div *ngIf="formulario.telefono.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.telefono.errors.pattern">Introduce un teléfono válido</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Localidad: </label>
-                                                    <input type="text" class="form-control" id="localidad" formControlName="localidad" [(ngModel)]="mod.localidad" minlength="5"/>
-                                                    <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
-                                                        <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mt-2">
-                                                    <label>Residencia: </label>
-                                                    <input type="text" class="form-control" id="residencia" formControlName="residencia" [(ngModel)]="mod.residencia" minlength="5"/>
-                                                    <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
-                                                        <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
-                                                        <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer bg-secondary">
-                                            <button class="btn btn-success" (click)='onSubmit()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="ModalPasswrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                        <div class="modal-header bg-primary no-border">
-                                            <h3 class="modal-title text-white font-weight-bolder" id="exampleModalLabel">Datos inicio de sesión</h3>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true" class="fas fa-times fa-sm text-white"></span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body tema-dark text-white2 justify-content-center">
-                                            <div class="col-md-10 col-lg-10 mb-2">
-                                                <form [formGroup]="registroNewEmail" (ngSubmit)="onSubmitEmail()"  class="row">
-                                                    <div class="col-md-12 col-lg-12">
-                                                        <label>Email: </label>
-                                                        <input type="email" class="form-control" id="nemail" formControlName="nemail" [(ngModel)]="mod.email" value=""/>
-                                                        <div class="error" *ngIf="(submitted || formulario3.nemail.touched) && formulario3.nemail.errors">
-                                                            <div *ngIf="formulario3.nemail.errors.required">No puede estar vacío</div>
-                                                            <div *ngIf="formulario3.nemail.errors.email">Introduce un email válido</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-12 mt-3">
-                                                        <button class="btn btn-success" (click)='onSubmitEmail()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-10 col-lg-10 mt-4">
-                                                <form [formGroup]="registroPass" (ngSubmit)="onSubmitPass()" class="row">
-                                                    <div class="col-md-12 col-lg-12 mb-4">
-                                                        <label>* Contraseña actual:</label>
-                                                        <input type="password" class="form-control" id="password" formControlName="password" minlength="5" value=""/>
-                                                        <div class="error" *ngIf="(submitted || formulario2.password.touched) && formulario2.password.errors">
-                                                            <div *ngIf="formulario2.password.errors.required">Este campo es obligatorio</div>
-                                                            <div *ngIf="formulario2.password.errors.minlength">La contraseña debe contener más de {{formulario2.password.errors.minlength.requiredLength}} carácteres</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-12 mb-2">
-                                                        <label>* Nueva contraseña:</label>
-                                                        <input type="password" class="form-control" id="newpassword" formControlName="newpassword" minlength="5" value=""/>
-                                                        <div class="error" *ngIf="(submitted || formulario2.newpassword.touched) && formulario2.newpassword.errors">
-                                                            <div *ngIf="formulario2.newpassword.errors.required">Este campo es obligatorio</div>
-                                                            <div *ngIf="formulario2.newpassword.errors.minlength">La contraseña debe contener más de {{formulario2.newpassword.errors.minlength.requiredLength}} carácteres</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-12">
-                                                        <label>* Repite la contraseña:</label>
-                                                        <input type="password" class="form-control" id="renewpassword" formControlName="renewpassword" minlength="5" value=""/>
-                                                        <div class="error" *ngIf="(submitted || formulario2.renewpassword.touched) && formulario2.renewpassword.errors">
-                                                            <div *ngIf="formulario2.renewpassword.errors.required">Este campo es obligatorio</div>
-                                                            <div *ngIf="formulario2.renewpassword.errors.minlength">La contraseña debe contener más de {{formulario2.renewpassword.errors.minlength.requiredLength}} carácteres</div> 
-                                                        </div>
-                                                        <div class="error" *ngIf="validarDistintasPass()">Las contraseñas no son iguales</div>
-                                                    </div>
-                                                    <div class="col-md-12 col-lg-12 pt-3">
-                                                        <button class="btn btn-success" (click)='onSubmitPass()'><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer bg-secondary">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <main class="row">
+    <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
+      <app-menu [user]="user"></app-menu>
+    </div>
+    <div id="contenido" class="col-12 col-lg-10 overflow-hidden">
+      <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-11 mt-4 mx-auto mb-4 shadow-sm bg-light rounded">
+          <div class="row">
+            <div class="col-12 card-header text-white bg-primary">
+              <h3 class="font-weight-bolder">
+                Información personal
+              </h3>
             </div>
+            <div class="card-body col-12 justify-content-center tema-dark text-dark">
+              <img *ngIf="user.foto" src="{{user.foto}}" alt="Imágen perfil">
+              <ul class="col-md-5 col-lg-5">
+                <li>Nombre: {{user.nombre}} {{user.apellidos}}</li>
+                <li>Email: {{user.correo}}</li>
+                <li>DNI: {{user.dni}}</li>
+                <li>Teléfono: {{user.telefono}}</li>
+                <li>Puesto: {{user.rol}}</li>
+                <li>Localidad: {{user.localidad}}</li>
+                <li>Residencia: {{user.residencia}}</li>
+              </ul>
+              <form class="row" [formGroup]="fotoPerfil" (ngSubmit)="onSubmitFoto()">
+                <div class="form-row ml-1">
+                  <h5 for="fotoPerfil">Foto de perfil:</h5>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" formControlName="fotoPerfil" id="fotoPerfil"
+                        (change)="guardarFoto($event)">
+                      <label *ngIf="!foto" class="custom-file-label input-dark" for="fotoPerfil">Sube aquí tu
+                        foto</label>
+                      <label *ngIf="foto" class="custom-file-label input-dark" for="fotoPerfil">{{foto.name}}</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button class="btn btn-primary">Añadir</button>
+                    </div>
+                  </div>
+                  <div class="error" *ngIf="submittedFoto && formularioFoto.fotoPerfil.errors">
+                    <div *ngIf="formularioFoto.fotoPerfil.errors.required">Este campo es obligatorio</div>
+                  </div>
+                </div>
+              </form>
+              <div class="row mt-2">
+                <div class="swith-theme p-2 border rounded-top">
+                  <p>Cambio de tema</p>
+                  <button id="theme-default" class="btn btn-primary" (click)="setTheme('')">Normal</button>
+                  <button id="theme-luis" class="btn btn-primary ml-2" (click)="setTheme('theme-luis')">Luis</button>
+                  <button id="theme-luis" class="btn btn-primary ml-2" (click)="setTheme('theme-maria')">María</button>
+                  <button id="theme-daniel" class="btn btn-primary ml-2"
+                    (click)="setTheme('theme-daniel')">Daniel</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer col-12 bg-secondary">
+              <div class=" justify-content-end row">
+                <button type="button" class="btn btn-danger mr-3" data-toggle="modal" data-target="#ModalPasswrd">
+                  <i class="fa fa-lock" aria-hidden="true"></i> Modificar datos login
+                </button>
+                <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#exampleModal">
+                  <i class="fa fa-edit mr-2" aria-hidden="true"></i>Editar
+                </button>
+              </div>
+            </div>
+            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <form [formGroup]="nuevoRegistro" (ngSubmit)="onSubmit()">
+                    <div class="modal-header bg-primary no-border">
+                      <h3 class="modal-title text-white font-weight-bolder" id="exampleModalLabel">Editar Perfil</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fas fa-times fa-sm text-white"></span>
+                      </button>
+                    </div>
+                    <div class="modal-body tema-dark text-white2">
+                      <div class="row m-2">
+                        <div class="col-md-12 col-lg-12">
+                          <label>Email: </label>
+                          <input type="email" class="form-control" id="email" formControlName="email"
+                            [(ngModel)]="mod.correo" />
+                          <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
+                            <div *ngIf="formulario.email.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.email.errors.email">Introduce un email válido</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Nombre: </label>
+                          <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                            [(ngModel)]="mod.nombre"
+                            pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})$" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+                            <div *ngIf="formulario.nombre.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.nombre.errors.pattern">Introduce un nombre válido</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Apellidos: </label>
+                          <input type="text" class="form-control" id="apellidos" formControlName="apellidos"
+                            [(ngModel)]="mod.apellidos"
+                            pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})$" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario.apellidos.touched) && formulario.apellidos.errors">
+                            <div *ngIf="formulario.apellidos.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.apellidos.errors.pattern">Introduce dos apellidos válidos</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Dni: </label>
+                          <input type="text" class="form-control" id="dni" formControlName="dni" [(ngModel)]="mod.dni"
+                            pattern="^[0-9]{8}[A-Za-z]{1}$" />
+                          <div class="error" *ngIf="(submitted || formulario.dni.touched) && formulario.dni.errors">
+                            <div *ngIf="formulario.dni.errors.required">Este campo es obligatorio</div>
+                            <div *ngIf="formulario.dni.errors.pattern">Introduce un dni válido</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Teléfono: </label>
+                          <input type="text" class="form-control" id="telefono" formControlName="telefono"
+                            [(ngModel)]="mod.telefono" pattern="^[9|8|7|6]\d{8}$" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario.telefono.touched) && formulario.telefono.errors">
+                            <div *ngIf="formulario.telefono.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.telefono.errors.pattern">Introduce un teléfono válido</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Localidad: </label>
+                          <input type="text" class="form-control" id="localidad" formControlName="localidad"
+                            [(ngModel)]="mod.localidad" minlength="5" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                            <div *ngIf="formulario.localidad.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de
+                              {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 mt-2">
+                          <label>Residencia: </label>
+                          <input type="text" class="form-control" id="residencia" formControlName="residencia"
+                            [(ngModel)]="mod.residencia" minlength="5" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
+                            <div *ngIf="formulario.residencia.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de
+                              {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer bg-secondary">
+                      <button class="btn btn-success" (click)='onSubmit()'><i class="fa fa-check"
+                          aria-hidden="true"></i> Aceptar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"
+                          aria-hidden="true"></i> Cerrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="ModalPasswrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary no-border">
+                    <h3 class="modal-title text-white font-weight-bolder" id="exampleModalLabel">Datos inicio de sesión
+                    </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true" class="fas fa-times fa-sm text-white"></span>
+                    </button>
+                  </div>
+                  <div class="modal-body tema-dark text-white2 justify-content-center">
+                    <div class="col-md-10 col-lg-10 mb-2">
+                      <form [formGroup]="registroNewEmail" (ngSubmit)="onSubmitEmail()" class="row">
+                        <div class="col-md-12 col-lg-12">
+                          <label>Email: </label>
+                          <input type="email" class="form-control" id="nemail" formControlName="nemail"
+                            [(ngModel)]="mod.email" value="" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario3.nemail.touched) && formulario3.nemail.errors">
+                            <div *ngIf="formulario3.nemail.errors.required">No puede estar vacío</div>
+                            <div *ngIf="formulario3.nemail.errors.email">Introduce un email válido</div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 mt-3">
+                          <button class="btn btn-success" (click)='onSubmitEmail()'><i class="fa fa-check"
+                              aria-hidden="true"></i> Aceptar</button>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-10 col-lg-10 mt-4">
+                      <form [formGroup]="registroPass" (ngSubmit)="onSubmitPass()" class="row">
+                        <div class="col-md-12 col-lg-12 mb-4">
+                          <label>* Contraseña actual:</label>
+                          <input type="password" class="form-control" id="password" formControlName="password"
+                            minlength="5" value="" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario2.password.touched) && formulario2.password.errors">
+                            <div *ngIf="formulario2.password.errors.required">Este campo es obligatorio</div>
+                            <div *ngIf="formulario2.password.errors.minlength">La contraseña debe contener más de
+                              {{formulario2.password.errors.minlength.requiredLength}} carácteres</div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 mb-2">
+                          <label>* Nueva contraseña:</label>
+                          <input type="password" class="form-control" id="newpassword" formControlName="newpassword"
+                            minlength="5" value="" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario2.newpassword.touched) && formulario2.newpassword.errors">
+                            <div *ngIf="formulario2.newpassword.errors.required">Este campo es obligatorio</div>
+                            <div *ngIf="formulario2.newpassword.errors.minlength">La contraseña debe contener más de
+                              {{formulario2.newpassword.errors.minlength.requiredLength}} carácteres</div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                          <label>* Repite la contraseña:</label>
+                          <input type="password" class="form-control" id="renewpassword" formControlName="renewpassword"
+                            minlength="5" value="" />
+                          <div class="error"
+                            *ngIf="(submitted || formulario2.renewpassword.touched) && formulario2.renewpassword.errors">
+                            <div *ngIf="formulario2.renewpassword.errors.required">Este campo es obligatorio</div>
+                            <div *ngIf="formulario2.renewpassword.errors.minlength">La contraseña debe contener más de
+                              {{formulario2.renewpassword.errors.minlength.requiredLength}} carácteres</div>
+                          </div>
+                          <div class="error" *ngIf="validarDistintasPass()">Las contraseñas no son iguales</div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 pt-3">
+                          <button class="btn btn-success" (click)='onSubmitPass()'><i class="fa fa-check"
+                              aria-hidden="true"></i> Aceptar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer bg-secondary">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"
+                        aria-hidden="true"></i> Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 </div>
