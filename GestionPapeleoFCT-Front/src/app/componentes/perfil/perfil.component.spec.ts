@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from "@angular/router/testing";
 import { PerfilComponent } from './perfil.component';
+import { FormBuilder } from '@angular/forms';
 
 describe('PerfilComponent', () => {
   let component: PerfilComponent;
@@ -8,6 +10,14 @@ describe('PerfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        RouterTestingModule
+      ],
+      providers: [ 
+        //NgbActiveModal,
+        FormBuilder
+      ],
       declarations: [ PerfilComponent ]
     })
     .compileComponents();
