@@ -34,7 +34,7 @@ export class AnexosService {
 
   /**
    * Manda generar el anexo 1
-   * Requiere un OBJETO 'datos' con 2 valores: numConvenio (array) e idCurso (int)
+   * Requiere un OBJETO 'datos' con 2 valores: idEmpresa e idCurso
    * @param datos 
    */
   public anexo1 = (datos: any) => {
