@@ -7,6 +7,7 @@ import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { CursosService } from 'src/app/servicios/cursos.service';
+import { FctAlumnoService } from 'src/app/servicios/fct-alumno.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { environment } from 'src/environments/environment';
@@ -28,6 +29,7 @@ export class ListaCursosComponent implements OnInit {
     anexos: any[];
     empresasNoCurso: any[];
     empresasCurso: any[];
+    countAlumnosPracticas: any[];
     cursoSeleccionado: any;
     haCambiado = false;
     user: any;
@@ -39,7 +41,7 @@ export class ListaCursosComponent implements OnInit {
 
     constructor(private listaCursosService: ListaCursosService, private loginService: LoginService, private router: Router, private route: ActivatedRoute,
         private CompartirDatos: CompartirDatosService, private AnexosService: AnexosService, private cursosService: CursosService,
-        private modal: NgbModal, private adminAlumnosService: AdminAlumnosService) {
+        private modal: NgbModal, private adminAlumnosService: AdminAlumnosService, private fctAlumnoService: FctAlumnoService) {
         if (!loginService.isUserSignedIn()) {
             this.router.navigate(['/login']);
         }
@@ -48,6 +50,7 @@ export class ListaCursosComponent implements OnInit {
         this.anexos = [];
         this.empresasNoCurso = [];
         this.empresasCurso = [];
+        this.countAlumnosPracticas = [];
         this.mensaje = "";
         this.user = this.loginService.getUser();
     }
@@ -64,7 +67,6 @@ export class ListaCursosComponent implements OnInit {
         if (this.route.snapshot.paramMap.get('id') != null) {
             this.idUpdate = this.route.snapshot.paramMap.get('id');
         }
-
     }
 
     /**
@@ -243,6 +245,19 @@ export class ListaCursosComponent implements OnInit {
         );
     }
 
+    // Método para obtener los alumnos en practicas por empresas dentro de un curso
+    getCountAlumnosPracticas(){
+        
+        this.fctAlumnoService.getCountAlumnosPracticas(this.cursoSeleccionado.id).subscribe(            
+            (response: any) => {
+                console.log(response);
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
+    }
+
     /**
      * Evento del select que obtiene el curso seleccionado
      * @param value 
@@ -259,6 +274,7 @@ export class ListaCursosComponent implements OnInit {
         this.getAlumnos(this.cursoSeleccionado.id);
         this.getEmpresasNoCurso();
         this.getEmpresasCurso();
+        this.getCountAlumnosPracticas();
     }
 
     /**
