@@ -86,4 +86,26 @@ export class AnexosService {
     let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url, { 'datos': datos }, { headers: headers });
   }
+
+  /**
+   * Manda generar el anexo 6
+   * Requiere un OBJETO 'datos' con los valores: idEmpresa, idCurso
+   * @param datos 
+   */
+   public anexo6 = (datos: any) => {
+    const url = environment.dirBack + "getAnexo6";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, { 'datos': datos }, { headers: headers });
+  }
+
+  /**
+   * Manda generar el anexo 7
+   * Requiere un OBJETO 'datos' con los valores: idEmpresa, idCurso
+   * @param datos 
+   */
+   public anexo7 = (datos: any) => {
+    const url = environment.dirBack + "getAnexo7";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.post(url, { 'datos': datos }, { headers: headers });
+  }
 }
