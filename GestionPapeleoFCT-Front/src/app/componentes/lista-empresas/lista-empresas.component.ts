@@ -111,8 +111,29 @@ export class ListaEmpresasComponent implements OnInit {
     );
   }
 
+<<<<<<< HEAD
   anexo1(){
     
+=======
+  /**
+   * Descarga de anexos - pruebas
+   */
+  prueba(){
+    var datos = {
+      'idAlumno': 1,
+      'idEmpresa': 1,
+      'idCurso': 8
+    }
+    this.anexosService.anexo2(datos).subscribe(
+      (response: any) => {
+        console.log(response);
+        let enlace = environment.dirBack2 + 'descargar/' + response.message;
+        window.open(enlace, '_blank');
+      }, (error) => {
+        console.log(error);
+      }
+    );
+>>>>>>> arregloAnexos
   }
 
 }

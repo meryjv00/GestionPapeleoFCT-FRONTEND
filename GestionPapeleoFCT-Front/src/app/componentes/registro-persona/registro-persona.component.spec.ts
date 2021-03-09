@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LoginComponent } from '../login/login.component';
 
 import { RegistroPersonaComponent } from './registro-persona.component';
 
@@ -8,7 +12,17 @@ describe('RegistroPersonaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistroPersonaComponent ]
+      declarations: [ RegistroPersonaComponent ],
+      imports: [
+        RouterTestingModule,
+        HttpClientModule,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent}
+        ])
+      ],
+      providers: [ 
+        FormBuilder
+      ],
     })
     .compileComponents();
   });
