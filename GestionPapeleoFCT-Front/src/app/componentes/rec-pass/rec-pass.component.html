@@ -5,8 +5,8 @@
                 <img class="d-block mx-auto my-3" src="../../../assets/img/cifp.png" alt="logo-cifp-virgendegracia" width="150px">
             </div>
             <div class="col-11 col-md-9 col-lg-5  mx-auto border bg-white shadow px-5 py-4 rounded">
-                <h1 class="text-center">Login</h1>
-                <form [formGroup]="nuevoLogin" (ngSubmit)="onSubmit()">
+                <h1 class="text-center">Recuperar contraseña.</h1>
+                <form [formGroup]="nuevoRec" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label lang="en" for="email" class="form-label">Email: </label>
                         <input type="email" class="form-control" formControlName="email" id="email">
@@ -15,26 +15,13 @@
                             <div *ngIf="formulario.email.errors.email">Introduce un email valido</div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña: </label>
-                        <input type="password" class="form-control" formControlName="password" id="password">
-                        <div class="error" *ngIf="(submitted || formulario.password.touched) && formulario.password.errors">
-                            <div *ngIf="formulario.password.errors.required">Este campo es obligatorio</div>
-                        </div>
-                    </div>
                     <div class="mt-1">{{message}}</div>
-                    <p><a href="/req">¿Has olvidado la contraseña?</a></p>
                     <div class="row">
                         <div class="col-12 col-md-9 col-lg-7">
-                            <button class="btn btn-primary w-50">Entrar</button>
+                            <button class="btn btn-primary w-50">Recuperar</button>
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-9 col-md-8 col-lg-5 mx-auto pt-2">
-                <p class="text-dark">¿Todavía no tienes cuenta? <a href="/registroUsuario" class="text-dark"><u>Registrate aquí</u></a></p>
             </div>
         </div>
     </main>

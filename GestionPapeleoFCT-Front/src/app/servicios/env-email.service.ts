@@ -22,14 +22,22 @@ export class EnvEmailService {
     this.message = "";
   }
    /**
-   * Petición de registro
+   * Petición de enviar email
    * */
   public EnvEmail = (nombreUsuario: string, asunto: string, email: string) => {
     const url = environment.dirBack + "env";
-
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.loginService.getUser().access_token}`
     });
     return this.http.post(url, { 'nombreUsuario' : nombreUsuario, 'asunto': asunto, 'email': email }, { headers: headers });
   };
+  /**
+  * Petición de enviar email para recuperar contraseña
+  * */
+  public RecPass = (email: string) => {
+    const url = environment.dirBack + "RecPass";
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(url, { 'email': email,'link':'http://localhost:4200/recPass' }, { headers: headers });
+ };
 }
