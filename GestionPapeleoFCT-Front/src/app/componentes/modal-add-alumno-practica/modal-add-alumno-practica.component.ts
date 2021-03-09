@@ -402,5 +402,10 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         ); */
     }
 
+    cerrarModal(){
+        this.storeOk.emit(true);
+        this.activeModal.close();
+    }
+
 }
 

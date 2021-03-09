@@ -431,7 +431,6 @@ export class ListaCursosComponent implements OnInit {
 
     // Método que lanza un modal para añadir alumnos a las practicas en un empresa
     addAlumnoCurso(idEmpresa: any) {
-
         let idEmp = idEmpresa;
         let idCur = this.cursoSeleccionado.id;
         let nombreRes = this.cursoSeleccionado.nombreRepresentante;
@@ -439,7 +438,7 @@ export class ListaCursosComponent implements OnInit {
         modalRef.componentInstance.idCur = idCur;
         modalRef.componentInstance.idEmp = idEmp;
         modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-            //
+            this.getCountAlumnosPracticas();
         });
     }
 
