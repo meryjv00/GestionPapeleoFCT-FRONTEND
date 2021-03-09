@@ -501,7 +501,7 @@ export class ListaCursosComponent implements OnInit {
     }
 
     anexo6() {
-        /* var datos = {
+         var datos = {
           'idCurso': this.cursoSeleccionado.id
         }
         this.AnexosService.anexo6(datos).subscribe(
@@ -512,8 +512,23 @@ export class ListaCursosComponent implements OnInit {
           }, (error) => {
             console.log(error);
           }
-        ); */
+        ); 
     }
+
+    anexo7() {
+        var datos = {
+         'idCurso': this.cursoSeleccionado.id
+       }
+       this.AnexosService.anexo7(datos).subscribe(
+         (response: any) => {
+           console.log(response);
+           let enlace = environment.dirBack2 + 'descargar/' + response.message;
+           window.open(enlace,'_blank');
+         }, (error) => {
+           console.log(error);
+         }
+       ); 
+   }
 
 }
 

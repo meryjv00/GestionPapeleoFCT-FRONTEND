@@ -89,7 +89,7 @@ export class AnexosService {
 
   /**
    * Manda generar el anexo 6
-   * Requiere un OBJETO 'datos' con los valores: idEmpresa, idCurso
+   * Requiere un OBJETO 'datos' con el valor: idCurso
    * @param datos 
    */
    public anexo6 = (datos: any) => {
@@ -100,7 +100,7 @@ export class AnexosService {
 
   /**
    * Manda generar el anexo 7
-   * Requiere un OBJETO 'datos' con los valores: idEmpresa, idCurso
+   * Requiere un OBJETO 'datos' con el valor: idCurso
    * @param datos 
    */
    public anexo7 = (datos: any) => {
