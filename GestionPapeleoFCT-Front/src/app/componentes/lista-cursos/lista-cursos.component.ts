@@ -11,6 +11,7 @@ import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { environment } from 'src/environments/environment';
 import { ActualizarCursoComponent } from '../actualizar-curso/actualizar-curso.component';
+import { AlumnoComponent } from '../alumno/alumno.component';
 import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/modal-add-alumno-practica.component';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { ModalFotoAlumnoComponent } from '../modal-foto-alumno/modal-foto-alumno.component';
@@ -275,9 +276,10 @@ export class ListaCursosComponent implements OnInit {
     * mediante un servicio para recuperarla en el componente alumno
     */
     updateAlumno(alumno: any) {
-        this.CompartirDatos.setAlumno(alumno);
-        this.CompartirDatos.setCurso(this.cursoSeleccionado);
-        this.router.navigate(['/alumno']);
+        const modalRef = this.modal.open(AlumnoComponent, { size: 'lg' });
+        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
+        modalRef.componentInstance.alumno = alumno;
+        modalRef.componentInstance.alumnos = this.alumnos;
     }
 
     /**
