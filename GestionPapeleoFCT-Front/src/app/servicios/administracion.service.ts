@@ -100,4 +100,10 @@ export class AdministracionService {
     return this.http.get(url, { headers: headers });
   }
 
+  public updateAnio = (anio: any) => {
+    const url = environment.dirBack + "updateAnio";
+    let headers = new HttpHeaders({ Authorization: `Bearer ${this.loginService.getUser().access_token}` });
+    return this.http.put(url, { 'anio': anio }, { headers: headers });
+  };
+  
 }
