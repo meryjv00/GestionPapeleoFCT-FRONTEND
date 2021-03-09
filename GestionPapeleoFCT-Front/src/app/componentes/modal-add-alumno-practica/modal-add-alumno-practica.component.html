@@ -120,7 +120,7 @@
               <i class="fas fa-times fa-xs"></i>
             </button>
             <div ngbDropdown class="d-inline-block ml-2 py-1">
-              <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>Descargar anexos</button>
+              <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>Descargar anexos 3-5</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button ngbDropdownItem (click)="anexo3(alumnoP)"
                   ngbTooltip="Descargar hoja semanal {{alumnoP.nombre}}">
@@ -129,12 +129,8 @@
                 <button ngbDropdownItem (click)="anexo4(alumnoP)" ngbTooltip="Descargar informe {{alumnoP.nombre}}">
                   <i class="fas fa-file-word mr-2"></i>Anexo 4
                 </button>
-                <button ngbDropdownItem (click)="anexo5(alumnoP)" ngbTooltip="Descargar recibí {{alumnoP.nombre}}">
+                <button *ngIf="alumnoP.desplazamiento" ngbDropdownItem (click)="anexo5(alumnoP)" ngbTooltip="Descargar recibí {{alumnoP.nombre}}">
                   <i class="fas fa-file-word mr-2"></i>Anexo 5
-                </button>
-                <button ngbDropdownItem (click)="anexo7(alumnoP)"
-                  ngbTooltip="Descargar autorización desplazamiento {{alumnoP.nombre}}">
-                  <i class="fas fa-file-word mr-2"></i>Anexo 7
                 </button>
               </div>
             </div>

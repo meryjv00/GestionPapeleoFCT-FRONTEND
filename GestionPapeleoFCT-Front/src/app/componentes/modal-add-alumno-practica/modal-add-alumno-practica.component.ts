@@ -93,13 +93,15 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.alumnosPracticas = [];
         this.adminAlumnosService.getAlumnosPraticas(idCurso, idEmpresa).subscribe(
             (response: any) => {
+                console.log(response.message);
                 const alumnos = response.message;
-                alumnos.forEach((element: { id: any; nombre: any, dni: any, apellidos: any }) => {
+                alumnos.forEach((element: { id: any; nombre: any, dni: any, apellidos: any, desplazamiento: any }) => {
                     let alumno = {
                         'id': element.id,
                         'nombre': element.nombre,
                         'apellidos': element.apellidos,
-                        'dni': element.dni
+                        'dni': element.dni,
+                        'desplazamiento': element.desplazamiento,
                     };
                     this.alumnosPracticas.push(alumno);
                 });
@@ -108,6 +110,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(error);
             }
         );
+        console.log(this.alumnosPracticas);
     }
 
     // Método para obtener los alumnos en practicas de una empresa
@@ -164,6 +167,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(error);
             }
         );
+        
     }
 
     // Inicia el formulario

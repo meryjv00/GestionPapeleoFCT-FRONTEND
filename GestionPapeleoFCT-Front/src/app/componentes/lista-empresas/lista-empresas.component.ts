@@ -110,9 +110,4 @@ export class ListaEmpresasComponent implements OnInit {
       }
     );
   }
-
-  prueba(){
-    
-  }
-
 }
