@@ -472,7 +472,7 @@ export class ListaCursosComponent implements OnInit {
 
     anexo1() {
         var datos = {
-            'numConvenio': '4433434',
+            'numConvenio': '12345',
             'idCurso': this.cursoSeleccionado.id
         }
         this.AnexosService.anexo1(datos).subscribe(
