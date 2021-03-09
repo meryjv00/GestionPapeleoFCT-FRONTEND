@@ -246,11 +246,22 @@ export class ListaCursosComponent implements OnInit {
     }
 
     // Método para obtener los alumnos en practicas por empresas dentro de un curso
-    getCountAlumnosPracticas(){
-        
-        this.fctAlumnoService.getCountAlumnosPracticas(this.cursoSeleccionado.id).subscribe(            
+    getCountAlumnosPracticas() {
+        this.countAlumnosPracticas = [];
+        this.fctAlumnoService.getCountAlumnosPracticas(this.cursoSeleccionado.id).subscribe(
             (response: any) => {
-                console.log(response);
+                let alumnos = response.message;
+                alumnos.forEach((element: {
+                    idEmpresa: any; alumnos: any;
+                }) => {
+                    let alumno = {
+                        'id': element.idEmpresa,
+                        'alumnos': element.alumnos
+                    };
+                    this.countAlumnosPracticas.push(alumno);
+                });
+                console.log(this.countAlumnosPracticas);
+                
             },
             (error: any) => {
                 console.log(error);
