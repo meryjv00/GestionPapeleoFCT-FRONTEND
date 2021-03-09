@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
@@ -13,22 +13,20 @@ import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
   styleUrls: ['./alumno.component.scss']
 })
 export class AlumnoComponent implements OnInit {
-  alumno: any;
-  curso: any;
+  @Input() public alumno: any;
+  @Input() public alumnos: any;
+  @Input() public cursoSeleccionado: any;
   modificarAlumno: FormGroup;
   submitted = false;
   activados = false;
   textoBoton: any;
+  alumnoU: any;
 
   constructor(private router: Router, private loginService: LoginService, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,
-    private CompartirDatos: CompartirDatosService, private modal: NgbModal) {
+    private CompartirDatos: CompartirDatosService, private modal: NgbModal, public activeModal: NgbActiveModal) {
     if (!loginService.isUserSignedIn()) {
       this.router.navigate(['/login']);
     }
-    //Obtiene los datos del alumno seleccionado
-    this.alumno = this.CompartirDatos.getAlumno();
-    //Obtiene el curso del alumno
-    this.curso = this.CompartirDatos.getCurso();
 
     this.modificarAlumno = this.formBuilder.group({
       dni: ['', [Validators.required, Validators.pattern]],
@@ -44,6 +42,7 @@ export class AlumnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.alumnoU = { ...this.alumno };    
   }
 
   get formulario() { return this.modificarAlumno.controls; }
@@ -56,17 +55,29 @@ export class AlumnoComponent implements OnInit {
     if (this.modificarAlumno.invalid) {
       return;
     }
-
+    this.activeModal.close();
+    
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
     modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres actualizar los datos de este alumno?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
-      this.adminAlumnosService.updateAlumno(this.alumno).subscribe(
+      this.adminAlumnosService.updateAlumno(this.alumnoU).subscribe(
         (response: any) => {
           console.log(response);
           const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
           modalRef.componentInstance.mensaje = this.alumno.nombre + ' ' + this.alumno.apellidos + ' actualizado correctamente';
           modalRef.componentInstance.exito = true;
-          this.router.navigate(['/alumno', this.alumno]);
+          // Actualizo los datos del alumnos en local
+          this.alumnos.forEach((alum: any, index: any) => {
+            if (alum.id == this.alumnoU.id) {              
+              alum.nombre = this.alumnoU.nombre;
+              alum.apellidos = this.alumnoU.apellidos;
+              alum.correo = this.alumnoU.correo;
+              alum.residencia = this.alumnoU.residencia;
+              alum.localidad = this.alumnoU.localidad;
+              alum.dni = this.alumnoU.dni;
+              alum.telefono = this.alumnoU.telefono;
+            }
+          });
         },
         (error) => {
           console.log(error);
@@ -83,6 +94,7 @@ export class AlumnoComponent implements OnInit {
    * Eliminar alumno
    */
   deleteAlumno() {
+    this.activeModal.close();
     const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
     modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar a ' + this.alumno.nombre + ' ' + this.alumno.apellidos + ' de la base de datos?';
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
@@ -91,7 +103,13 @@ export class AlumnoComponent implements OnInit {
           const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
           modalRef.componentInstance.mensaje = this.alumno.nombre + ' ' + this.alumno.apellidos + ' eliminado correctamente';
           modalRef.componentInstance.exito = true;
-          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
+          this.router.navigate(['/listaCursos', { id: JSON.stringify(this.cursoSeleccionado.id) }]);
+          // Borro el alumno del array local
+          this.alumnos.forEach((alum: any, index: any) => {
+            if (alum.id == this.alumno.id) {
+              this.alumnos.splice(index, 1);
+            }
+          });
         },
         (error) => {
           console.log(error);
@@ -123,6 +141,6 @@ export class AlumnoComponent implements OnInit {
    * Vuelve al curso del alumno
    */
   volver() {
-    this.router.navigate(['/listaCursos', { id: JSON.stringify(this.curso.id) }]);
+    this.activeModal.close();
   }
 }

@@ -1,112 +1,94 @@
-<div id="fondo" class="container-fluid min-vh-100">
-    <main class="row">
-        <!--**************************************MENU***************************************-->
-        <div id="menu" class="col-12 col-lg-2 pr-0 bg-light border-right">
-            <app-menu></app-menu>
+<div class="modal-header bg-primary text-white">
+  <h4 class="modal-title" id="modal-basic-title">Modificar alumno</h4>
+  <button type="button" (click)="activarEdicion()" class="btn btn-secondary ml-2 btn-sm">{{textoBoton}}</button>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+    <i class="fas fa-times fa-sm text-white"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()" class="col-12 p-0">
+    <div class="form-row">
+      <div class="col">
+        <label for="nombre">Nombre:</label>
+        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="alumnoU.nombre"
+          pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})$" />
+        <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+          <div *ngIf="formulario.nombre.errors.required">Este campo es obligatorio</div>
+          <div *ngIf="formulario.nombre.errors.pattern">Introduce un nombre válido</div>
         </div>
-        <!--***********************************CONTENIDO***************************************-->
-        <div class="col-12 col-lg-10 overflow-hidden">
-            <!--Card Información personal-->
-            <div class="row mt-4">
-                <div class="col-lg-7 col-md-10 col-11 mx-auto shadow-sm card mt-3 mb-5">
-                    <div class="row">
-                        <form [formGroup]="modificarAlumno" (ngSubmit)="updateAlumno()" class="col-12 p-0">
-                            <!--Header-->
-                            <div class="card-header text-white bg-primary">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <h1 class="font-weight-bolder">Información personal alumno</h1>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" (click)="activarEdicion()" class="btn btn-secondary">{{textoBoton}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Body-->
-                            <div class="card-body tema-dark text-white2">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label for="nombre">Nombre:</label>
-                                        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="alumno.nombre" pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})+([\s]*)+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{1,25})$" />
-                                        <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
-                                            <div *ngIf="formulario.nombre.errors.required">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.nombre.errors.pattern">Introduce un nombre válido</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="apellidos">Apellidos:</label>
-                                        <input type="text" id="apellidos" formControlName="apellidos" class="form-control" [(ngModel)]="alumno.apellidos" pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})$" />
-                                        <div class="error" *ngIf="(submitted || formulario.apellidos.touched) && formulario.apellidos.errors">
-                                            <div *ngIf="formulario.apellidos.errors.required">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.apellidos.errors.pattern">Introduce dos apellidos válidos</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label for="correo">Correo:</label>
-                                    <input type="email" id="correo" formControlName="correo" [(ngModel)]="alumno.correo" class="form-control" />
-                                    <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors ">
-                                        <div *ngIf="formulario.correo.errors.required">Este campo es obligatorio</div>
-                                        <div *ngIf="formulario.correo.errors.email">Introduce un email válido</div>
-                                    </div>
-                                </div>
-                                <div class="form-row mt-2">
-                                    <div class="col">
-                                        <label for="localidad">Localidad:</label>
-                                        <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="alumno.localidad" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
-                                            <div *ngIf="formulario.localidad.errors.required ">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="residencia">Residencia:</label>
-                                        <input type="text" formControlName="residencia" id="residencia" [(ngModel)]="alumno.residencia" class="form-control" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
-                                            <div *ngIf="formulario.residencia.errors.required ">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row mt-2">
-                                    <div class="col">
-                                        <label for="dni">Dni:</label>
-                                        <input type="text" formControlName="dni" id="dni" class="form-control" [(ngModel)]="alumno.dni" pattern="^[0-9]{8}[A-Za-z]{1}$" />
-                                        <div class="error" *ngIf="(submitted || formulario.dni.touched) && formulario.dni.errors">
-                                            <div *ngIf="formulario.dni.errors.required">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.dni.errors.pattern">Introduce un dni válido</div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="telefono">Telefono:</label>
-                                        <input type="text" formControlName="telefono" id="telefono" class="form-control" [(ngModel)]="alumno.telefono" pattern="^[9|8|7|6]\d{8}$" />
-                                        <div class="error" *ngIf="(submitted || formulario.telefono.touched) && formulario.telefono.errors">
-                                            <div *ngIf="formulario.telefono.errors.required">Este campo es obligatorio</div>
-                                            <div *ngIf="formulario.telefono.errors.pattern">Introduce un teléfono válido</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Footer-->
-                            <div class="card-footer bg-secondary">
-                                <button *ngIf="this.activados" type="submit" class="btn btn-success mr-2">
-                                    Editar
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" (click)="volver()" class="btn btn-primary mr-2">
-                                    Volver
-                                    <i class="fas fa-arrow-left"></i>
-                                </button>
-                                <button type="button" (click)="deleteAlumno()" class="btn btn-danger">
-                                    Eliminar
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            
-                        </form>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" formControlName="apellidos" class="form-control"
+          [(ngModel)]="alumnoU.apellidos"
+          pattern="^([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ']{2,25})+([\s]{1})+([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ']{2,25})$" />
+        <div class="error" *ngIf="(submitted || formulario.apellidos.touched) && formulario.apellidos.errors">
+          <div *ngIf="formulario.apellidos.errors.required">Este campo es obligatorio</div>
+          <div *ngIf="formulario.apellidos.errors.pattern">Introduce dos apellidos válidos</div>
         </div>
-    </main>
+      </div>
+    </div>
+    <div class="form-group mt-2">
+      <label for="correo">Correo:</label>
+      <input type="email" id="correo" formControlName="correo" [(ngModel)]="alumnoU.correo" class="form-control" />
+      <div class="error" *ngIf="(submitted || formulario.correo.touched) && formulario.correo.errors ">
+        <div *ngIf="formulario.correo.errors.required">Este campo es obligatorio</div>
+        <div *ngIf="formulario.correo.errors.email">Introduce un email válido</div>
+      </div>
+    </div>
+    <div class="form-row mt-2">
+      <div class="col">
+        <label for="localidad">Localidad:</label>
+        <input type="text" formControlName="localidad" id="localidad" class="form-control"
+          [(ngModel)]="alumnoU.localidad" minlength="5" />
+        <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+          <div *ngIf="formulario.localidad.errors.required ">Este campo es obligatorio</div>
+          <div *ngIf="formulario.localidad.errors.minlength">La localidad debe contener más de
+            {{formulario.localidad.errors.minlength.requiredLength}} caracteres</div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="residencia">Residencia:</label>
+        <input type="text" formControlName="residencia" id="residencia" [(ngModel)]="alumnoU.residencia"
+          class="form-control" minlength="5" />
+        <div class="error" *ngIf="(submitted || formulario.residencia.touched) && formulario.residencia.errors">
+          <div *ngIf="formulario.residencia.errors.required ">Este campo es obligatorio</div>
+          <div *ngIf="formulario.residencia.errors.minlength">La residencia debe contener más de
+            {{formulario.residencia.errors.minlength.requiredLength}} caracteres</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row my-2 pb-2 border-bottom">
+      <div class="col">
+        <label for="dni">Dni:</label>
+        <input type="text" formControlName="dni" id="dni" class="form-control" [(ngModel)]="alumnoU.dni"
+          pattern="^[0-9]{8}[A-Za-z]{1}$" />
+        <div class="error" *ngIf="(submitted || formulario.dni.touched) && formulario.dni.errors">
+          <div *ngIf="formulario.dni.errors.required">Este campo es obligatorio</div>
+          <div *ngIf="formulario.dni.errors.pattern">Introduce un dni válido</div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="telefono">Telefono:</label>
+        <input type="text" formControlName="telefono" id="telefono" class="form-control" [(ngModel)]="alumnoU.telefono"
+          pattern="^[9|8|7|6]\d{8}$" />
+        <div class="error" *ngIf="(submitted || formulario.telefono.touched) && formulario.telefono.errors">
+          <div *ngIf="formulario.telefono.errors.required">Este campo es obligatorio</div>
+          <div *ngIf="formulario.telefono.errors.pattern">Introduce un teléfono válido</div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="this.activados" type="submit" class="btn btn-success mr-2">
+      Editar
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+    <button type="button" (click)="volver()" class="btn btn-primary mr-2">
+      Volver
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <button type="button" (click)="deleteAlumno()" class="btn btn-danger">
+      Eliminar
+      <i class="fas fa-times"></i>
+    </button>
+  </form>
 </div>
