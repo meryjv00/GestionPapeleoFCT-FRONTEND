@@ -15,18 +15,25 @@ describe('Descarga anexos', () => {
         // Comprobamos url
         cy.url().should('equal', 'http://localhost:4200/listaCursos');
 
+        // 3s
+        cy.wait(3000);
+
         // Pulsamos apartado "Empresas" del menú
         cy.get('#empresa').click();
 
         // Comprobamos url
         cy.url().should('equal', 'http://localhost:4200/listaEmpresas');
 
+        // 3s
+        cy.wait(3000);
+
         // Comprobamos que ha cargado la empresa Indra
         cy.contains('Indra');
 
-        // Pulsamos en el botón para descargar anexo
-        cy.get(':nth-child(2) > .btn').click();
-
+        // Comprobamos que el texto del botón es Indra
+        cy.get(':nth-child(2) > .btn')
+            .contains('Anexo 0 Indra');
+        
     });
 
 });

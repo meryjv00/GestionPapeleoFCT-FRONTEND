@@ -25,4 +25,15 @@ describe('LoginService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  
+  it('should run login', (done) => {
+    (async () => {
+      await service.login('director@gmail.com','12345678');
+      // your assertions here
+      
+      done();
+
+    })().catch(done.fail);
+  });
 });
