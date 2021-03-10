@@ -118,7 +118,6 @@
                     <td class="pt-3">{{ empresaS.nombre }}</td>
                     <td class="pt-3">{{ empresaS.nombreRepresentante }}</td>
                     <td class="pt-3">
-                      <!--
                       <ng-container *ngFor="let count of countAlumnosPracticas">
                         <ng-container *ngIf="count.id == empresaS.id">
                           <ng-template [ngIf]="count.alumnos != null" [ngIfElse]="vacio">
@@ -133,9 +132,8 @@
                           </ng-template>
                         </ng-container>
                       </ng-container>
-                      -->
-                     <span *ngIf="countAlumnosPracticas.length > 0">{{countAlumnosPracticas.length}}</span>
-                     <span *ngIf="countAlumnosPracticas.length == 0">0</span>
+                    <!--  <span *ngIf="countAlumnosPracticas.length > 0">{{countAlumnosPracticas.length}}</span>
+                     <span *ngIf="countAlumnosPracticas.length == 0">0</span> -->
                     </td>
                     <td>
                       <div ngbDropdown class="d-inline-block">
