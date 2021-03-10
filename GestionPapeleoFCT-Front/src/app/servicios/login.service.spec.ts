@@ -45,8 +45,6 @@ describe('LoginService', () => {
       }
       // Act
       service.login(usuario.email, usuario.pass).subscribe((response: any) => {
-        console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
-        
         // Ass
         // Comprobamos código devuelto
         expect(response['code']).toBe(200);
@@ -59,21 +57,13 @@ describe('LoginService', () => {
 
         // Indicamos que la función asíncrona ha terminado
         done();
-      },
-      (error: any) => {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-        console.log(error);
-
-        // Indicamos que la función asíncrona ha terminado
-        done();
-      }
-      );
+      });
     });
 
     //---------------------------------------------------------------------------------
     //----------------------------- Cuenta incorrecta ---------------------------------
     //---------------------------------------------------------------------------------
-    /* it('Cuenta inccorrecta login', (done: DoneFn) => {
+    it('Cuenta inccorrecta login', (done: DoneFn) => {
       // Arr
       const usuario = {
         email: 'directorr@gmail.com',
@@ -125,7 +115,7 @@ describe('LoginService', () => {
         }
       );
     });
- */
+
   });
 
 });

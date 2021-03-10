@@ -102,7 +102,8 @@
               </form>
             </div>
             <div class="col-12 card-body tema-dark">
-              <table id="empresas-practicas" class="table table-responsive-md">
+              <h1 class="text-white2" *ngIf="empresasCurso.length == 0">¡No tienes ninguna empresa asignada a este curso todavía!</h1>
+              <table *ngIf="empresasCurso.length > 0" id="empresas-practicas" class="table table-responsive-md">
                 <thead>
                   <tr>
                     <th scope="col">Empresa</th>
@@ -117,6 +118,7 @@
                     <td class="pt-3">{{ empresaS.nombre }}</td>
                     <td class="pt-3">{{ empresaS.nombreRepresentante }}</td>
                     <td class="pt-3">
+                      <!--
                       <ng-container *ngFor="let count of countAlumnosPracticas">
                         <ng-container *ngIf="count.id == empresaS.id">
                           <ng-template [ngIf]="count.alumnos != null" [ngIfElse]="vacio">
@@ -131,6 +133,9 @@
                           </ng-template>
                         </ng-container>
                       </ng-container>
+                      -->
+                     <span *ngIf="countAlumnosPracticas.length > 0">{{countAlumnosPracticas.length}}</span>
+                     <span *ngIf="countAlumnosPracticas.length == 0">0</span>
                     </td>
                     <td>
                       <div ngbDropdown class="d-inline-block">
@@ -169,28 +174,32 @@
           </div>
         </div>
         <!-- Tarjetas anexos -->
-        <div id="anexos" class="col-11 mx-auto shadow-sm mt-2 border mb-3">
-          <div class="row">
-            <div class="col-12 card-header text-white bg-primary">
-              <h3 class="font-weight-bolder">
-                Anexos
-              </h3>
-            </div>
-            <div class="card-body col-12 d-flex flex-wrap tema-dark">
-              <ng-container *ngFor="let anexo of anexos; index as j; ">
-                <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
-                  <div class="bg-secondary d-flex align-items-center">
-                    <button class="btn">
-                      <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
-                      <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
-                    </button>
-                    <small> {{anexo.nombre}}</small>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
+
+        <!--
+<div id="anexos" class="col-11 mx-auto shadow-sm mt-2 border mb-3">
+  <div class="row">
+    <div class="col-12 card-header text-white bg-primary">
+      <h3 class="font-weight-bolder">
+        Anexos
+      </h3>
+    </div>
+    <div class="card-body col-12 d-flex flex-wrap tema-dark">
+      <ng-container *ngFor="let anexo of anexos; index as j; ">
+        <div (click)="descargarAnexo(j)" class="col-lg-4 col-md-6 animacion mb-2">
+          <div class="bg-secondary d-flex align-items-center">
+            <button class="btn">
+              <i *ngIf="anexo.tipo == 0" class="fas fa-file-word "></i>
+              <i *ngIf="anexo.tipo == 1" class="fas fa-file-excel "></i>
+            </button>
+            <small> {{anexo.nombre}}</small>
           </div>
         </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+        -->
+
         <!------------------------------------------------------------------------------------>
         <div *ngIf="alumnos.length > 0" id="carousel"
           class="col-11 mx-auto carousel tema-dark bg-secondary shadow-lg slide border rounded my-4"
@@ -261,7 +270,7 @@
                         <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
                           <p class="text-center pt-2 text-primary">
                             <strong>{{ alumnos[i + 1].nombre }} {{ alumnos[i +
-                                                            1].apellidos}}</strong>
+                              1].apellidos}}</strong>
                           </p>
                         </div>
 
@@ -306,7 +315,7 @@
                         <div class="col-md-9 col-9 mx-auto border-top mt-3 pb-1">
                           <p class="text-center pt-2 text-primary">
                             <strong>{{ alumnos[i + 2].nombre }} {{ alumnos[i +
-                                                            2].apellidos}}</strong>
+                              2].apellidos}}</strong>
                           </p>
                         </div>
                         <!--Botones-->

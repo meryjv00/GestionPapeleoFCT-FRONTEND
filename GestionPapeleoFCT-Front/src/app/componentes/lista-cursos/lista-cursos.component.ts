@@ -267,6 +267,8 @@ export class ListaCursosComponent implements OnInit {
                 console.log(error);
             }
         );
+        console.log(this.countAlumnosPracticas);
+        
     }
 
     /**
