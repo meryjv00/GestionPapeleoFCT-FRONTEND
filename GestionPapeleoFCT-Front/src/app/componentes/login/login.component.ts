@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login.service';
 import { environment } from 'src/environments/environment';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,11 +15,13 @@ export class LoginComponent implements OnInit {
   submitted = false;
   message: string;
   user: any;
+  subs: any;
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private router: Router) {
     this.nuevoLogin = this.formBuilder.group({
       email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required]]
     });
+    this.subs = false;
     this.message = "";
     this.user = {
       access_token: "",
@@ -59,9 +62,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(email: string, password: string){
+    this.showMessageTime();
     this.loginService.login(email, password).subscribe(
       (response: any) => {
         //console.log(response.message);
+        this.subs = true;
         this.message = "Login correcto";
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
@@ -87,10 +92,22 @@ export class LoginComponent implements OnInit {
       (error) => {
         console.log(error.error.message);
         this.message = error.error.message;
+        this.subs = false;
       }
-    );
+    ), 5000;
   }
-  
+
+  showMessageTime(){
+    this.message = "Loading ...";
+    setTimeout(()=>{     
+      if (!this.subs){
+        //console.log('Ups. Parece que el servidor ha tardando demasiado.');
+        this.message = "Ups. Parece que el servidor ha tardando demasiado.";
+      }
+    },5001);
+    this.subs = false;
+  }
+
   onReset() {
     this.submitted = false;
     this.nuevoLogin.reset();

@@ -111,6 +111,8 @@ export class PerfilComponent implements OnInit {
       const residencia = datosUsuario.residencia;
       const tlf = datosUsuario.telefono;
       this.update(email, dni, olddni, nombre, apellidos, localidad, residencia, tlf);
+      const nombre2=this.user.nombre + ' ' + this.user.apellidos;
+      this.envEmail(nombre2,'tus datos se han actualizado correctamente',this.user.email);
     }
     this.onReset();
   }
@@ -133,7 +135,7 @@ export class PerfilComponent implements OnInit {
       const newpassword = datosPass.newpassword;
       this.updatePass(email,oldpassword,newpassword);
       const nombre=this.user.nombre + ' ' + this.user.apellidos;
-      this.envEmail(nombre,'contraseña modificada',this.user.email);
+      this.envEmail(nombre,'tu contraseña ha sido modificada',this.user.email);
     }
     this.onReset();
   }
@@ -150,8 +152,7 @@ export class PerfilComponent implements OnInit {
       const newemail = datosEmail.nemail;
       this.updateEmail(email,newemail);
       const nombre=this.user.nombre + ' ' + this.user.apellidos;
-      this.envEmail(nombre,'email usuario actualizado',this.user.email);
-      this.updateEmail(email, newemail);
+      this.envEmail(nombre,'tu email ha sido actualizado',this.user.email);
     }
     this.onReset();
   }
@@ -228,8 +229,8 @@ export class PerfilComponent implements OnInit {
   }
 
   onReset() {
-    this.submitted = false;
     this.user = this.loginService.getUser();
+    this.submitted = false;
   }
   // Modifica el tema
   setTheme(theme: any) {

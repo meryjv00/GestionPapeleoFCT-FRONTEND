@@ -16,8 +16,12 @@ import { ActualizarCursoComponent } from './componentes/actualizar-curso/actuali
 import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
 import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
 import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.component';
+import { RecPassComponent } from './componentes/rec-pass/rec-pass.component';
+import { RecPassLinkComponent } from './componentes/rec-pass-link/rec-pass-link.component';
 
 const routes: Routes = [
+  {path: 'recPass', component: RecPassLinkComponent},
+  {path: 'req', component: RecPassComponent},
   {path: 'login', component: LoginComponent},
   {path: 'nuevoAlumno', component: NuevoAlumnoComponent},
   {path: 'alumno', component: AlumnoComponent},

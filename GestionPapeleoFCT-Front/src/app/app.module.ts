@@ -28,6 +28,8 @@ import { DocMariaComponent } from './componentes/doc-maria/doc-maria.component';
 import { ModalFotoAlumnoComponent } from './componentes/modal-foto-alumno/modal-foto-alumno.component';
 import { DocLuisComponent } from './componentes/doc-luis/doc-luis.component';
 import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.component';
+import { RecPassComponent } from './componentes/rec-pass/rec-pass.component';
+import { RecPassLinkComponent } from './componentes/rec-pass-link/rec-pass-link.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { DocDanielComponent } from './componentes/doc-daniel/doc-daniel.componen
     ModalFotoAlumnoComponent,
     DocLuisComponent,
     DocDanielComponent,
+    RecPassComponent,
+    RecPassLinkComponent,
   ],
   imports: [
     BrowserModule,
