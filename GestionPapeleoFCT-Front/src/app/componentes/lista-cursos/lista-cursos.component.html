@@ -20,7 +20,7 @@
               </select>
             </div>
             <div class="col-12 col-lg-3 mb-2">
-              <button ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100" (click)="newCurso()"><i
+              <button *ngIf="user.rol != 'Tutor'" ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100" (click)="newCurso()"><i
                   class="fas fa-plus mr-2"></i>Nuevo curso</button>
             </div>
           </div>
