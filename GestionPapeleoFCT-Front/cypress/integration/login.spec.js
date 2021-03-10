@@ -3,8 +3,8 @@ describe('Login', () => {
 
     it('Validación login correcta ', () => {
         // Abrimos la web
-        cy.visit('http://localhost:4200');
-        // cy.visit('https://gestionpapeleofct.netlify.app');
+        //cy.visit('http://localhost:4200');
+        cy.visit('https://gestionpapeleofct.netlify.app');
 
         // Submit del formulario
         cy.get('#form-login').submit();
@@ -19,8 +19,8 @@ describe('Login', () => {
 
     it('Realiza login correctamente', () => {
         // Abrimos la web
-        cy.visit('http://localhost:4200');
-        // cy.visit('https://gestionpapeleofct.netlify.app');
+        //cy.visit('http://localhost:4200');
+        cy.visit('https://gestionpapeleofct.netlify.app');
 
         // Rellenamos el formulario
         // Datos email

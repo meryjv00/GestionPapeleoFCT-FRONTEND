@@ -3,7 +3,8 @@ describe('Gestión empresas prácticas', () => {
 
     it('Añadir empresas prácticas', () => {
         // Realizamos login
-        cy.visit('http://localhost:4200');
+        cy.visit('https://gestionpapeleofct.netlify.app');
+        //cy.visit('http://localhost:4200');
         cy.get('#email')
             .type('director@gmail.com')
             .should('have.value', 'director@gmail.com');
@@ -13,7 +14,8 @@ describe('Gestión empresas prácticas', () => {
         cy.get('#form-login').submit();
 
         // Comprobamos url
-        cy.url().should('equal', 'http://localhost:4200/listaCursos');
+        //cy.url().should('equal', 'http://localhost:4200/listaCursos');
+        cy.url().should('equal', 'https://gestionpapeleofct.netlify.app/listaCursos');
 
         // Nos movemos al curso 2DAW comprobando que el id que tiene asignado es el correcto,
         // en este caso 2DAW tiene asignado el id 8

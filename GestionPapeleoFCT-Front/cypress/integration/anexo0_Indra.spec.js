@@ -3,7 +3,9 @@ describe('Descarga anexos', () => {
 
     it('Descarga correcta del anexo 0 Indra', () => {
         // Realizamos login
-        cy.visit('http://localhost:4200');
+        
+        //cy.visit('http://localhost:4200');
+        cy.visit('https://gestionpapeleofct.netlify.app');
         cy.get('#email')
             .type('director@gmail.com')
             .should('have.value', 'director@gmail.com');
@@ -13,7 +15,8 @@ describe('Descarga anexos', () => {
         cy.get('#form-login').submit();
 
         // Comprobamos url
-        cy.url().should('equal', 'http://localhost:4200/listaCursos');
+        // cy.url().should('equal', 'http://localhost:4200/listaCursos');
+        cy.url().should('equal', 'https://gestionpapeleofct.netlify.app/listaCursos');
 
         // 3s
         cy.wait(3000);
@@ -22,7 +25,8 @@ describe('Descarga anexos', () => {
         cy.get('#empresa').click();
 
         // Comprobamos url
-        cy.url().should('equal', 'http://localhost:4200/listaEmpresas');
+        // cy.url().should('equal', 'http://localhost:4200/listaEmpresas');
+        cy.url().should('equal', 'https://gestionpapeleofct.netlify.app/listaEmpresas');
 
         // 3s
         cy.wait(3000);
