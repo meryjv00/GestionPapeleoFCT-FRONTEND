@@ -1,8 +1,8 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CursosService } from 'src/app/servicios/cursos.service';
 import { ListaCursosService } from 'src/app/servicios/lista-cursos.service';
 import { LoginService } from 'src/app/servicios/login.service';
@@ -16,12 +16,13 @@ import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 })
 export class NuevoCursoComponent implements OnInit {
 
+    @Input() public cursos: any;
     families: any[];
     newCurso: FormGroup | any;
     submitted = false;
 
     constructor(private loginService: LoginService, private router: Router, private listaCursosService: ListaCursosService,
-        private formBuilder: FormBuilder, private cursosService: CursosService, private modal: NgbModal) {
+        private formBuilder: FormBuilder, private cursosService: CursosService, private modal: NgbModal, public activeModal: NgbActiveModal) {
         if (!loginService.isUserSignedIn()) {
             this.router.navigate(['/login']);
         }
@@ -45,12 +46,14 @@ export class NuevoCursoComponent implements OnInit {
         let curso = this.newCurso.value;
         this.cursosService.storeCurso(curso).subscribe(
             (response: any) => {
-                this.router.navigate(['/listaCursos']);
+                this.cursos.push(curso);
+                this.activeModal.close();
                 const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
                 modalRef.componentInstance.mensaje = this.newCurso.value.cicloFormativoA + ' añadido correctamente';
                 modalRef.componentInstance.exito = true;
             },
             (error: any) => {
+                this.activeModal.close();
                 console.log(error);
                 const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
                 modalRef.componentInstance.mensaje = 'Ha ocurrido un error al añadir el curso';
@@ -69,7 +72,7 @@ export class NuevoCursoComponent implements OnInit {
     onCancel() {
         this.submitted = false;
         this.newCurso.reset();
-        this.router.navigate(['/listaCursos']);
+        this.activeModal.close();
     }
 
     // Cogemos las familias formativas

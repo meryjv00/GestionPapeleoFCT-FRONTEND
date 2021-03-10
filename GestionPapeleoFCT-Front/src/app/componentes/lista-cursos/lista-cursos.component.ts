@@ -17,6 +17,7 @@ import { ModalAddAlumnoPracticaComponent } from '../modal-add-alumno-practica/mo
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { ModalFotoAlumnoComponent } from '../modal-foto-alumno/modal-foto-alumno.component';
 import { NuevoAlumnoComponent } from '../nuevo-alumno/nuevo-alumno.component';
+import { NuevoCursoComponent } from '../nuevo-curso/nuevo-curso.component';
 
 @Component({
     selector: 'app-lista-cursos',
@@ -261,14 +262,14 @@ export class ListaCursosComponent implements OnInit {
                     this.countAlumnosPracticas.push(alumno);
                 });
                 console.log(this.countAlumnosPracticas);
-                
+
             },
             (error: any) => {
                 console.log(error);
             }
         );
         console.log(this.countAlumnosPracticas);
-        
+
     }
 
     /**
@@ -345,7 +346,9 @@ export class ListaCursosComponent implements OnInit {
 
     // Método para añadir un nuevo curso
     newCurso() {
-        this.router.navigate(['/nuevoCurso']);
+        const modalRef = this.modal.open(NuevoCursoComponent, { size: 'lg' });
+        modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
+        modalRef.componentInstance.cursos = this.cursos;
     }
 
     // Método para modificar un curso
@@ -531,34 +534,33 @@ export class ListaCursosComponent implements OnInit {
     }
 
     anexo6() {
-         var datos = {
-          'idCurso': this.cursoSeleccionado.id
+        var datos = {
+            'idCurso': this.cursoSeleccionado.id
         }
         this.AnexosService.anexo6(datos).subscribe(
-          (response: any) => {
-            console.log(response);
-            let enlace = environment.dirBack2 + 'descargar/' + response.message;
-            window.open(enlace,'_blank');
-          }, (error) => {
-            console.log(error);
-          }
-        ); 
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
     }
 
     anexo7() {
         var datos = {
-         'idCurso': this.cursoSeleccionado.id
-       }
-       this.AnexosService.anexo7(datos).subscribe(
-         (response: any) => {
-           console.log(response);
-           let enlace = environment.dirBack2 + 'descargar/' + response.message;
-           window.open(enlace,'_blank');
-         }, (error) => {
-           console.log(error);
-         }
-       ); 
-   }
+            'idCurso': this.cursoSeleccionado.id
+        }
+        this.AnexosService.anexo7(datos).subscribe(
+            (response: any) => {
+                console.log(response);
+                let enlace = environment.dirBack2 + 'descargar/' + response.message;
+                window.open(enlace, '_blank');
+            }, (error) => {
+                console.log(error);
+            }
+        );
+    }
 
 }
-
