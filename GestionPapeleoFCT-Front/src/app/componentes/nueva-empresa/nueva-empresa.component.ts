@@ -69,7 +69,8 @@ export class NuevaEmpresaComponent implements OnInit {
     modalRef.componentInstance.mensaje = 'Empresa añadida correctamente';
     modalRef.componentInstance.exito = true;
     this.onReset();
-    window.location.reload();
+
+    setTimeout(function(){ window.location.reload(); }, 2000);
   }
   
   //Resetea el formulario
