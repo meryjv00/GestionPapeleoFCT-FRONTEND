@@ -38,6 +38,6 @@ export class EnvEmailService {
   public RecPass = (email: string) => {
     const url = environment.dirBack + "RecPass";
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(url, { 'email': email,'link':'http://localhost:4200/recPass' }, { headers: headers });
+    return this.http.post(url, { 'email': email,'link': environment.dirFront +'recPass'}, { headers: headers });
  };
 }
