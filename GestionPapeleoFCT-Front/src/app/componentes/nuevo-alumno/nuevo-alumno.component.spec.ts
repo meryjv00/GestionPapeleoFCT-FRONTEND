@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { NuevoAlumnoComponent } from './nuevo-alumno.component';
 
@@ -20,19 +21,12 @@ describe('NuevoAlumnoComponent', () => {
         ])
       ],
       providers: [ 
-        FormBuilder
+        FormBuilder,
+        NgbActiveModal
       ]
     })
     .compileComponents();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NuevoAlumnoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

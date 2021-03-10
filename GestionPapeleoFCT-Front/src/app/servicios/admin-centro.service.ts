@@ -27,9 +27,7 @@ export class AdminCentroService {
   
   public updateCentro = (codigo : any, cif : any, nombre : any, provincia : any, localidad : any, cp : any, calle : any, email : any, tlf : any) => {
     const url = environment.dirBack + "updateCentro";
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    let headers = new HttpHeaders({Authorization: `Bearer ${this.loginService.getUser().access_token}` });
     return this.http.post(url,{'codigo' : codigo, 'cif' : cif, 'nombre' : nombre, 'provincia' : provincia, 'localidad' : localidad, 'cp' : cp, 'calle' : calle, 'email' : email, 'tlf' : tlf},{ headers: headers });
   };
 

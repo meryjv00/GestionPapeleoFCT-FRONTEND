@@ -7,8 +7,12 @@
             <div class="row">
                 <!---------------TARJETA--------------->
                 <div class="col-11 col-md-10 mx-auto shadow-sm mt-2 bg-light border card my-5 tema-dark">
-                    <div class="row card-header text-white bg-primary">
-                        <h1 class="col-12 ml-2">Empresa: {{empresa.nombre}}</h1>
+                    <div class="row card-header text-white bg-primary d-flex justify-content-between">
+                        <h1>Empresa: {{empresa.nombre}}</h1>
+                        <button type="button" routerLink="/listaEmpresas" class="btn btn-secondary mr-2">
+                            Volver
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
                     </div>
                     <div class="row mt-2 card-body tema-dark text-white2">
                         <div class="col-12">
@@ -17,47 +21,64 @@
                                 <div class="form-row">
                                     <div class="col-12 col-sm-6">
                                         <label for="nombre">Nombre:</label>
-                                        <input type="text" formControlName="nombre" id="nombre" class="form-control" [(ngModel)]="empresa.nombre" />
-                                        <div class="error" *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
-                                            <div *ngIf="formulario.nombre.errors.required">Debes especificar un nombre</div>
+                                        <input type="text" formControlName="nombre" id="nombre" class="form-control"
+                                            [(ngModel)]="empresa.nombre" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.nombre.touched) && formulario.nombre.errors">
+                                            <div *ngIf="formulario.nombre.errors.required">Debes especificar un nombre
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label for="provincia">Provincia:</label>
-                                        <input type="text" formControlName="provincia" id="provincia" class="form-control" [(ngModel)]="empresa.provincia" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.provincia.touched) && formulario.provincia.errors">
-                                            <div *ngIf="formulario.provincia.errors.required">Debes especificar una provincia</div>
+                                        <input type="text" formControlName="provincia" id="provincia"
+                                            class="form-control" [(ngModel)]="empresa.provincia" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.provincia.touched) && formulario.provincia.errors">
+                                            <div *ngIf="formulario.provincia.errors.required">Debes especificar una
+                                                provincia</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label for="localidad">Localidad:</label>
-                                        <input type="text" formControlName="localidad" id="localidad" class="form-control" [(ngModel)]="empresa.localidad" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
-                                            <div *ngIf="formulario.localidad.errors.required">Debes especificar una localidad</div>
+                                        <input type="text" formControlName="localidad" id="localidad"
+                                            class="form-control" [(ngModel)]="empresa.localidad" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.localidad.touched) && formulario.localidad.errors">
+                                            <div *ngIf="formulario.localidad.errors.required">Debes especificar una
+                                                localidad</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label for="calle">Dirección:</label>
-                                        <input type="text" formControlName="calle" id="calle" class="form-control" [(ngModel)]="empresa.calle" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.calle.touched) && formulario.calle.errors">
-                                            <div *ngIf="formulario.calle.errors.required">Debes especificar una dirección</div>
+                                        <input type="text" formControlName="calle" id="calle" class="form-control"
+                                            [(ngModel)]="empresa.calle" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.calle.touched) && formulario.calle.errors">
+                                            <div *ngIf="formulario.calle.errors.required">Debes especificar una
+                                                dirección</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label for="cp">Código postal:</label>
-                                        <input type="text" formControlName="cp" id="cp" class="form-control" [(ngModel)]="empresa.cp" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.cp.touched) && formulario.cp.errors">
-                                            <div *ngIf="formulario.cp.errors.required">Debes especificar un código postal</div>
+                                        <input type="text" formControlName="cp" id="cp" class="form-control"
+                                            [(ngModel)]="empresa.cp" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.cp.touched) && formulario.cp.errors">
+                                            <div *ngIf="formulario.cp.errors.required">Debes especificar un código
+                                                postal</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label for="cif">CIF:</label>
-                                        <input type="text" formControlName="cif" id="cif" class="form-control" [(ngModel)]="empresa.cif" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.cif.touched) && formulario.cif.errors">
+                                        <input type="text" formControlName="cif" id="cif" class="form-control"
+                                            [(ngModel)]="empresa.cif" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.cif.touched) && formulario.cif.errors">
                                             <div *ngIf="formulario.cif.errors.required">Debes especificar un CIF</div>
                                         </div>
                                     </div>
@@ -65,18 +86,26 @@
                                 <div class="form-row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label for="tlf">Nº de teléfono:</label>
-                                        <input type="text" formControlName="tlf" id="tlf" class="form-control" [(ngModel)]="empresa.tlf" pattern="^[9|8|7|6]\d{8}$" />
-                                        <div class="error" *ngIf="(submitted || formulario.tlf.touched) && formulario.tlf.errors">
-                                            <div *ngIf="formulario.tlf.errors.required">Debes especificar un número de teléfono</div>
-                                            <div *ngIf="formulario.tlf.errors.pattern">Introduce un número de teléfono válido</div>
+                                        <input type="text" formControlName="tlf" id="tlf" class="form-control"
+                                            [(ngModel)]="empresa.tlf" pattern="^[9|8|7|6]\d{8}$" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.tlf.touched) && formulario.tlf.errors">
+                                            <div *ngIf="formulario.tlf.errors.required">Debes especificar un número de
+                                                teléfono</div>
+                                            <div *ngIf="formulario.tlf.errors.pattern">Introduce un número de teléfono
+                                                válido</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label for="email">Correo electrónico:</label>
-                                        <input type="email" formControlName="email" id="email" class="form-control" [(ngModel)]="empresa.email" minlength="5" />
-                                        <div class="error" *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
-                                            <div *ngIf="formulario.email.errors.required">Debes especificar un correo electrónico</div>
-                                            <div *ngIf="formulario.email.errors.email">Introduce un correo elecrtónico válido</div>
+                                        <input type="email" formControlName="email" id="email" class="form-control"
+                                            [(ngModel)]="empresa.email" minlength="5" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.email.touched) && formulario.email.errors">
+                                            <div *ngIf="formulario.email.errors.required">Debes especificar un correo
+                                                electrónico</div>
+                                            <div *ngIf="formulario.email.errors.email">Introduce un correo elecrtónico
+                                                válido</div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,17 +115,26 @@
                                 <div class="form-row">
                                     <div class="col-12 col-sm-6">
                                         <label for="dniRepresentante">DNI:</label>
-                                        <input type="text" formControlName="dniRepresentante" id="dniRepresentante" pattern="^[0-9]{8}[A-Za-z]{1}$" class="form-control" [(ngModel)]="empresa.dniRepresentante" />
-                                        <div class="error" *ngIf="(submitted || formulario.dniRepresentante.touched) && formulario.dniRepresentante.errors">
-                                            <div *ngIf="formulario.dniRepresentante.errors.required">Debes especificar el DNI del representante</div>
-                                            <div *ngIf="formulario.dniRepresentante.errors.pattern">Introduce un DNI válido</div>
+                                        <input type="text" formControlName="dniRepresentante" id="dniRepresentante"
+                                            pattern="^[0-9]{8}[A-Za-z]{1}$" class="form-control"
+                                            [(ngModel)]="empresa.dniRepresentante" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.dniRepresentante.touched) && formulario.dniRepresentante.errors">
+                                            <div *ngIf="formulario.dniRepresentante.errors.required">Debes especificar
+                                                el DNI del representante</div>
+                                            <div *ngIf="formulario.dniRepresentante.errors.pattern">Introduce un DNI
+                                                válido</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label for="nombreRepresentante">Nombre:</label>
-                                        <input type="text" formControlName="nombreRepresentante" id="nombreRepresentante" class="form-control" [(ngModel)]="empresa.nombreRepresentante" />
-                                        <div class="error" *ngIf="(submitted || formulario.nombreRepresentante.touched) && formulario.nombreRepresentante.errors">
-                                            <div *ngIf="formulario.nombreRepresentante.errors.required">Debes especificar el nombre del representante</div>
+                                        <input type="text" formControlName="nombreRepresentante"
+                                            id="nombreRepresentante" class="form-control"
+                                            [(ngModel)]="empresa.nombreRepresentante" />
+                                        <div class="error"
+                                            *ngIf="(submitted || formulario.nombreRepresentante.touched) && formulario.nombreRepresentante.errors">
+                                            <div *ngIf="formulario.nombreRepresentante.errors.required">Debes
+                                                especificar el nombre del representante</div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,20 +145,29 @@
                                     <h5>Añadir nuevo</h5>
                                     <div class="form-row">
                                         <div class="col-12 col-sm-4">
-                                            <input type="text" formControlName="dniNuevo" class="form-control" pattern="^[0-9]{8}[A-Za-z]{1}$" placeholder="DNI" [(ngModel)]="nuevoResp.dni">
-                                            <div class="error" *ngIf="(submitted || formulario.dniNuevo.touched) && formulario.dniNuevo.errors">
-                                                <div *ngIf="formulario.dniNuevo.errors.required">Debes especificar un DNI para el nuevo responsable</div>
-                                                <div *ngIf="formulario.dniNuevo.errors.pattern">Introduce un DNI válido</div>
+                                            <input type="text" formControlName="dniNuevo" class="form-control"
+                                                pattern="^[0-9]{8}[A-Za-z]{1}$" placeholder="DNI"
+                                                [(ngModel)]="nuevoResp.dni">
+                                            <div class="error"
+                                                *ngIf="(submitted || formulario.dniNuevo.touched) && formulario.dniNuevo.errors">
+                                                <div *ngIf="formulario.dniNuevo.errors.required">Debes especificar un
+                                                    DNI para el nuevo responsable</div>
+                                                <div *ngIf="formulario.dniNuevo.errors.pattern">Introduce un DNI válido
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
-                                            <input type="text" formControlName="nombreNuevo" class="form-control" placeholder="Nombre" [(ngModel)]="nuevoResp.nombre">
-                                            <div class="error" *ngIf="(submitted || formulario.nombreNuevo.touched) && formulario.nombreNuevo.errors">
-                                                <div *ngIf="formulario.nombreNuevo.errors.required">Debes especificar un nombre para el nuevo responsable</div>
+                                            <input type="text" formControlName="nombreNuevo" class="form-control"
+                                                placeholder="Nombre" [(ngModel)]="nuevoResp.nombre">
+                                            <div class="error"
+                                                *ngIf="(submitted || formulario.nombreNuevo.touched) && formulario.nombreNuevo.errors">
+                                                <div *ngIf="formulario.nombreNuevo.errors.required">Debes especificar un
+                                                    nombre para el nuevo responsable</div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
-                                            <button type="button" (click)="addResp()" class="btn btn-primary mx-auto w-100">
+                                            <button type="button" (click)="addResp()"
+                                                class="btn btn-primary mx-auto w-100">
                                                 <i class="fa fa-plus mr-2" aria-hidden="true"></i> Añadir
                                             </button>
                                         </div>
@@ -131,10 +178,13 @@
                                     <li *ngFor="let responsable of empresa.responsables">
                                         <div class="row">
                                             <div class="col-8 col-md-4">
-                                                <p>{{responsable.nombreResponsable}} (DNI: {{responsable.dniResponsable}})</p>
+                                                <p>{{responsable.nombreResponsable}} (DNI:
+                                                    {{responsable.dniResponsable}})</p>
                                             </div>
                                             <div class="col-4 col-md-8">
-                                                <button type="button" *ngIf="activados" (click)="eliminarResponsable(responsable.dniResponsable)" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                                <button type="button" *ngIf="activados"
+                                                    (click)="eliminarResponsable(responsable.dniResponsable)"
+                                                    class="btn btn-danger"><i class="fa fa-times"></i></button>
                                             </div>
                                         </div>
                                     </li>

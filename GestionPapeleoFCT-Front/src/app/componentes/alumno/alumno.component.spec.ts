@@ -4,6 +4,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AlumnoComponent } from './alumno.component';
 import { FormBuilder } from '@angular/forms';
 import { LoginComponent } from '../login/login.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AlumnoComponent', () => {
   let component: AlumnoComponent;
@@ -20,6 +21,7 @@ describe('AlumnoComponent', () => {
       ],
       providers: [ 
         FormBuilder,
+        NgbActiveModal
       ],
       declarations: [ AlumnoComponent ]
     })

@@ -6,6 +6,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { CompartirDatosService } from 'src/app/servicios/compartir-datos.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { environment } from 'src/environments/environment';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
@@ -58,8 +59,11 @@ export class NuevoAlumnoComponent implements OnInit {
         
         // Añade el nuevo alumno al array local
         response.alumno.telefono = response.alumno.tlf;
+        response.alumno.foto = environment.dirBack2 + "IMG/generico.jpg";
+
         this.alumnos.push(response.alumno);
-        
+
+
         this.activeModal.close();
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = this.nuevoAlumno.value.nombre + ' ' + this.nuevoAlumno.value.apellidos +
