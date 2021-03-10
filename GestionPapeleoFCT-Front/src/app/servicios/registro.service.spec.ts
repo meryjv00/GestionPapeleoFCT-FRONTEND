@@ -14,7 +14,7 @@ describe('RegistroService', () => {
         RouterTestingModule,
         HttpClientModule,
         RouterTestingModule.withRoutes([
-          { path: 'login', component: LoginComponent}
+          { path: 'login', component: LoginComponent }
         ])
       ],
     });
@@ -24,4 +24,6 @@ describe('RegistroService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  
 });
