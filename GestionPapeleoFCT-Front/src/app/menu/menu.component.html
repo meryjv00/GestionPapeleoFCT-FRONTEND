@@ -21,7 +21,7 @@
         <i class="fas fa-building "></i>
         <span class="ml-3 ">Centro</span>
       </button>
-      <button id="admin" name="admin" routerLinkActive="bg-primary text-activo" routerLink="/admin"
+      <button *ngIf="user.rol != 'Tutor'" id="admin" name="admin" routerLinkActive="bg-primary text-activo" routerLink="/admin"
         class="col-lg-11 col-3 mx-auto btn btn-aside text-dark">
         <i class="fas fa-cogs "></i>
         <span class="ml-3 ">Admin</span>
