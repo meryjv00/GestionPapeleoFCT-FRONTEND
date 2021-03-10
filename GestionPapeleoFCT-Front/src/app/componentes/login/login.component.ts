@@ -18,10 +18,10 @@ export class LoginComponent implements OnInit {
   subs: any;
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, private router: Router) {
     this.nuevoLogin = this.formBuilder.group({
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
-    this.subs = false;
+    this.subs = true;
     this.message = "";
     this.user = {
       access_token: "",
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
 
   get formulario() { return this.nuevoLogin.controls; }
 
-  
+
   onSubmit() {
     this.submitted = true;
     if (this.nuevoLogin.invalid) {
@@ -61,12 +61,12 @@ export class LoginComponent implements OnInit {
     this.login(email, password);
   }
 
-  login(email: string, password: string){
+  login(email: string, password: string) {
     this.showMessageTime();
     this.loginService.login(email, password).subscribe(
       (response: any) => {
         //console.log(response.message);
-        this.subs = true;
+        this.subs = false;
         this.message = "Login correcto";
         this.user.access_token = response['message']['access_token'];
         this.user.email = response.message.user.email;
@@ -80,9 +80,9 @@ export class LoginComponent implements OnInit {
         this.user.telefono = response.message.datos_user.tlf;
         this.user.rol = response.message.rol;
         //Comprobamos si tiene foto o no
-        if(response.message.datos_user.foto == 0){
-          this.user.foto = environment.dirBack2 + "IMG/generico.jpg" ;
-        }else{
+        if (response.message.datos_user.foto == 0) {
+          this.user.foto = environment.dirBack2 + "IMG/generico.jpg";
+        } else {
           this.user.foto = environment.dirBack2 + "IMG/" + this.user.dni + ".png";
         }
         //Guardamos el usuario en session storage
@@ -92,20 +92,22 @@ export class LoginComponent implements OnInit {
       (error) => {
         console.log(error.error.message);
         this.message = error.error.message;
-        this.subs = true;
+        if (error.error.message != null) {
+          this.subs = false;
+        }
       }
     ), 5000;
   }
 
-  showMessageTime(){
+  showMessageTime() {
     this.message = "Loading ...";
-    setTimeout(()=>{     
-      if (!this.subs){
+    setTimeout(() => {
+      console.log(this.subs);
+      if (this.subs) {
         //console.log('Ups. Parece que el servidor ha tardando demasiado.');
         this.message = "Ups. Parece que el servidor ha tardando demasiado.";
       }
-    },5001);
-    this.subs = false;
+    }, 5001);
   }
 
   onReset() {

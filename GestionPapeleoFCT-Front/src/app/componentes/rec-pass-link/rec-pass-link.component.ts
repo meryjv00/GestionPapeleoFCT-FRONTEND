@@ -61,7 +61,7 @@ export class RecPassLinkComponent implements OnInit {
     this.RecPassContolService.IsUser(email,token).subscribe(
       (response: any) => {
         //console.log(response);
-        if (response.menssage.res===false){
+        if (response.menssage.res===false || this.user.email==null || this.user.token==null){
           this.router.navigate(['/login']);
         }
       },
