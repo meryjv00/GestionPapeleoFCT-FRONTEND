@@ -22,6 +22,9 @@ export class AdministracionComponent implements OnInit {
   profCSV: any;
   alumnCSV: any;
 
+  anio: FormGroup;
+  submittedAnio = false;
+
   //--Arrays
   cursos: any[];  //Todos los cursos
   cursosSinAlumnos: any[]; //Cursos sin alumnos todavía
@@ -52,6 +55,9 @@ export class AdministracionComponent implements OnInit {
     this.alumnosCSV = this.formBuilder.group({
       alumnosCSV: ['', [Validators.required]]
     });
+    this.anio = this.formBuilder.group({
+      anio: ['', [Validators.required]]
+    });
     this.cursosSinAlumnos = [];
     this.cursos = [];
     this.cuentasAdministrar = [];
@@ -73,7 +79,32 @@ export class AdministracionComponent implements OnInit {
   //----------------------------------------------------------
   get formularioProfesores() { return this.profesoresCSV.controls; }
   get formularioAlumnos() { return this.alumnosCSV.controls; }
+  get formularioAnio() { return this.anio.controls; }
 
+  //----------------------------------------------------------
+  //----------------------AÑO ACADEMICO-----------------------
+  //----------------------------------------------------------
+  onSubmitAnio(){
+    this.submittedAnio = true;
+    if (this.anio.invalid) {
+      return;
+    }
+    this.administracionService.updateAnio(this.anio.value.anio).subscribe(
+      (response: any) => {
+        console.log(response.message);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Año académico actualizado con éxito';
+        modalRef.componentInstance.exito = true;
+      },
+      (error) => {
+        console.log(error);
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = 'Ha ocurrido un error al actualizar el año académico';
+        modalRef.componentInstance.exito = false;
+      }
+    );
+  }
+  
   //----------------------------------------------------------
   //-------------------------CURSOS---------------------------
   //----------------------------------------------------------
