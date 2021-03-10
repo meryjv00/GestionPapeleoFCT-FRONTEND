@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
       (error) => {
         console.log(error.error.message);
         this.message = error.error.message;
-        this.subs = false;
+        this.subs = true;
       }
     ), 5000;
   }
