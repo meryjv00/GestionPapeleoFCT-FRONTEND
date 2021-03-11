@@ -20,8 +20,8 @@
               </select>
             </div>
             <div class="col-12 col-lg-3 mb-2">
-              <button *ngIf="user.rol != 'Tutor'" ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100" (click)="newCurso()"><i
-                  class="fas fa-plus mr-2"></i>Nuevo curso</button>
+              <button *ngIf="user.rol != 'Tutor'" ngbTooltip="Añadir curso" class="btn btn-outline-primary mr-2 w-100"
+                (click)="newCurso()"><i class="fas fa-plus mr-2"></i>Nuevo curso</button>
             </div>
           </div>
         </div>
@@ -102,7 +102,8 @@
               </form>
             </div>
             <div class="col-12 card-body tema-dark">
-              <h1 class="text-white2" *ngIf="empresasCurso.length == 0">¡No tienes ninguna empresa asignada a este curso todavía!</h1>
+              <h1 class="text-white2" *ngIf="empresasCurso.length == 0">¡No tienes ninguna empresa asignada a este curso
+                todavía!</h1>
               <table *ngIf="empresasCurso.length > 0" id="empresas-practicas" class="table table-responsive-md">
                 <thead>
                   <tr>
@@ -118,22 +119,15 @@
                     <td class="pt-3">{{ empresaS.nombre }}</td>
                     <td class="pt-3">{{ empresaS.nombreRepresentante }}</td>
                     <td class="pt-3">
-                      <ng-container *ngFor="let count of countAlumnosPracticas">
+                      <ng-container *ngFor="let count of countAlumnosPracticas; index as i">
                         <ng-container *ngIf="count.id == empresaS.id">
-                          <ng-template [ngIf]="count.alumnos != null" [ngIfElse]="vacio">
+                          <ng-template [ngIf]="count.alumnos"> 
                             <span>
                               {{ count.alumnos }}
                             </span>
                           </ng-template>
-                          <ng-template #vacio>
-                            <span>
-                              0
-                            </span>
-                          </ng-template>
                         </ng-container>
                       </ng-container>
-                    <!--  <span *ngIf="countAlumnosPracticas.length > 0">{{countAlumnosPracticas.length}}</span>
-                     <span *ngIf="countAlumnosPracticas.length == 0">0</span> -->
                     </td>
                     <td>
                       <div ngbDropdown class="d-inline-block">

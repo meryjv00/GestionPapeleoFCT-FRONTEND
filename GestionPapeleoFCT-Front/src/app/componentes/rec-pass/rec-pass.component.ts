@@ -39,7 +39,7 @@ export class RecPassComponent implements OnInit {
   envEmail(email: any) {
     this.EnvEmailService.RecPass(email).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.router.navigate(['/login']);
       },
       (error) => {

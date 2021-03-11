@@ -62,7 +62,7 @@ export class AlumnoComponent implements OnInit {
     modalRef.componentInstance["storeOk"].subscribe((event: any) => {
       this.adminAlumnosService.updateAlumno(this.alumnoU).subscribe(
         (response: any) => {
-          console.log(response);
+          //console.log(response);
           const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
           modalRef.componentInstance.mensaje = this.alumno.nombre + ' ' + this.alumno.apellidos + ' actualizado correctamente';
           modalRef.componentInstance.exito = true;

@@ -65,7 +65,7 @@ export class ListaEmpresasComponent implements OnInit {
     this.adminEmpresasService.getEmpresas().subscribe(
       (response: any) => {
         this.empresas = [];
-        console.log(response);
+        //console.log(response);
         const empresas = response.message;
 
         empresas.forEach((element: { id: any; nombre: any; provincia: any; localidad: any; calle: any;
@@ -102,7 +102,7 @@ export class ListaEmpresasComponent implements OnInit {
   anexo0(empresa: any) {
     this.anexosService.anexo0(empresa).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         let enlace = environment.dirBack2 + 'descargar/' + response.message;
         window.open(enlace,'_blank');
       }, (error) => {
