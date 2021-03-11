@@ -89,7 +89,7 @@ export class NuevoCursoComponent implements OnInit {
                     };
                     this.families.push(family);
                 });
-                console.log(this.families);
+                //console.log(this.families);
             },
             (error: any) => {
                 console.log(error);

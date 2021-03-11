@@ -55,7 +55,7 @@ export class NuevoAlumnoComponent implements OnInit {
     //Añade el alumno
     this.adminAlumnosService.insertAlumno(this.nuevoAlumno.value, this.cursoSeleccionado).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         
         // Añade el nuevo alumno al array local
         response.alumno.telefono = response.alumno.tlf;

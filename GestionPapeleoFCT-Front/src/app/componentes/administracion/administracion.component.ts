@@ -91,7 +91,7 @@ export class AdministracionComponent implements OnInit {
     }
     this.administracionService.updateAnio(this.anio.value.anio).subscribe(
       (response: any) => {
-        console.log(response.message);
+        //console.log(response.message);
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = 'Año académico actualizado con éxito';
         modalRef.componentInstance.exito = true;

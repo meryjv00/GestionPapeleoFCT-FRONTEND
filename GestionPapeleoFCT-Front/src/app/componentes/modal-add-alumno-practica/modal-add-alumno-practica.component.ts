@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAlumnosService } from 'src/app/servicios/admin-alumnos.service';
 import { AnexosService } from 'src/app/servicios/anexos.service';
 import { FctAlumnoService } from 'src/app/servicios/fct-alumno.service';
 import { ResponsablesEmpresaService } from 'src/app/servicios/responsables-empresa.service';
 import { environment } from 'src/environments/environment';
+import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 
 @Component({
     selector: 'app-modal-add-alumno-practica',
@@ -34,7 +35,8 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
     fbAlumnoError: String;
 
     constructor(public activeModal: NgbActiveModal, private adminAlumnosService: AdminAlumnosService, private formBuilder: FormBuilder,
-        private fctAlumnoService: FctAlumnoService, private AnexosService: AnexosService, private responsablesEmpresaService: ResponsablesEmpresaService) {
+        private fctAlumnoService: FctAlumnoService, private AnexosService: AnexosService, private responsablesEmpresaService: ResponsablesEmpresaService,
+        private modal: NgbModal) {
         this.alumnosPracticas = [];
         this.alumnosCurso = [];
         this.responsablesCurso = [];
@@ -93,7 +95,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.alumnosPracticas = [];
         this.adminAlumnosService.getAlumnosPraticas(idCurso, idEmpresa).subscribe(
             (response: any) => {
-                console.log(response.message);
+                //console.log(response.message);
                 const alumnos = response.message;
                 alumnos.forEach((element: { id: any; nombre: any, dni: any, apellidos: any, desplazamiento: any }) => {
                     let alumno = {
@@ -110,7 +112,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(error);
             }
         );
-        console.log(this.alumnosPracticas);
+       //console.log(this.alumnosPracticas);
     }
 
     // Método para obtener los alumnos en practicas de una empresa
@@ -118,7 +120,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         this.responsablesCurso = [];
         this.responsablesEmpresaService.getResponsablesEmpresa(idEmpresa).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 const responsables = response.message;
                 responsables.forEach((element: { idEmpresa: any; nombreResponsable: any, dniResponsable: any }) => {
                     let responsable = {
@@ -128,7 +130,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                     };
                     this.responsablesCurso.push(responsable);
                 });
-                console.log(this.responsablesCurso);
+                //console.log(this.responsablesCurso);
             },
             (error: any) => {
                 console.log(error);
@@ -167,7 +169,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(error);
             }
         );
-        
+
     }
 
     // Inicia el formulario
@@ -215,7 +217,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 this.storeOk.emit(true);
                 this.getAlumnosCurso(this.idCurso);
                 this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
-                console.log(response);
+                //console.log(response);
                 //this.activeModal.close();
                 // habilito el botton
                 this.habilitado = false;
@@ -234,28 +236,33 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
     // Método para eliminar a un alumno de las practicas
     deleteAlumnoPractica(dniAlumno: any) {
-        // deshabilito el boton
-        this.habilitado = true;
-        this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
-            (response: any) => {
-                this.storeOk.emit(true);
-                this.getAlumnosCurso(this.idCurso);
-                this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
-                //this.activeModal.close();
-                // habilito el botton
-                this.habilitado = false;
-                // Muestro mensaje
-                this.feedBackAlumno('Alumno eliminado correctamente', 'ok');
-            },
-            (error: any) => {
-                console.log(error);
-                this.storeOk.emit(false);
-                //this.activeModal.close();
-                // habilito el botton
-                this.habilitado = false;
-                this.feedBackAlumno('Ha ocurrido un error al borrar el alumno', 'error');
-            }
-        );
+        const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
+        modalRef.componentInstance.mensaje = '¿Estás seguro de que quieres eliminar esta alumno?';
+        modalRef.componentInstance["storeOk"].subscribe((event: any) => {
+            // deshabilito el boton
+            this.habilitado = true;
+            this.fctAlumnoService.deleteAlumnoPractica(dniAlumno).subscribe(
+                (response: any) => {
+                    this.storeOk.emit(true);
+                    this.getAlumnosCurso(this.idCurso);
+                    this.getAlumnosPracticas(this.idCurso, this.idEmpresa);
+                    //this.activeModal.close();
+                    // habilito el botton
+                    this.habilitado = false;
+                    // Muestro mensaje
+                    this.feedBackAlumno('Alumno eliminado correctamente', 'ok');
+                },
+                (error: any) => {
+                    console.log(error);
+                    this.storeOk.emit(false);
+                    //this.activeModal.close();
+                    // habilito el botton
+                    this.habilitado = false;
+                    this.feedBackAlumno('Ha ocurrido un error al borrar el alumno', 'error');
+                }
+            );
+        });
+
     }
 
     // Método que lanza los datos a la parte superior del modal para poder modificarlos posteriomente
@@ -300,7 +307,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
 
         this.fctAlumnoService.updateAlumnoFct(data).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 // habilito el botton
                 this.habilitado = false;
                 this.feedBackAlumno('Alumno modificado correctamente', 'ok');
@@ -309,7 +316,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
                 console.log(error);
                 // habilito el botton
                 this.habilitado = false;
-                this.feedBackAlumno('Ha ocurrido un erro al modificar el alumno', 'error');
+                this.feedBackAlumno('Ha ocurrido un error al modificar el alumno', 'error');
             }
         );
         this.onReset();
@@ -339,7 +346,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         }
         this.AnexosService.anexo3(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -366,7 +373,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         }
         this.AnexosService.anexo4(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -383,7 +390,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         }
         this.AnexosService.anexo5(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -392,21 +399,7 @@ export class ModalAddAlumnoPracticaComponent implements OnInit {
         );
     }
 
-    anexo7(alumno: any) {
-        /* var datos = {
-        }
-        this.AnexosService.anexo7(datos).subscribe(
-            (response: any) => {
-                console.log(response);
-                let enlace = environment.dirBack2 + 'descargar/' + response.message;
-                window.open(enlace, '_blank');
-            }, (error) => {
-                console.log(error);
-            }
-        ); */
-    }
-
-    cerrarModal(){
+    cerrarModal() {
         this.storeOk.emit(true);
         this.activeModal.close();
     }

@@ -296,7 +296,7 @@ export class ListaCursosComponent implements OnInit {
      * mediante un servicio para recuperarla en el componente nuevo alumno
      */
     addAlumno() {
-        const modalRef = this.modal.open(NuevoAlumnoComponent, { size: 'lg' });
+        const modalRef = this.modal.open(NuevoAlumnoComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
         modalRef.componentInstance.alumnos = this.alumnos;
     }
@@ -306,7 +306,7 @@ export class ListaCursosComponent implements OnInit {
     * mediante un servicio para recuperarla en el componente alumno
     */
     updateAlumno(alumno: any) {
-        const modalRef = this.modal.open(AlumnoComponent, { size: 'lg' });
+        const modalRef = this.modal.open(AlumnoComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
         modalRef.componentInstance.alumno = alumno;
         modalRef.componentInstance.alumnos = this.alumnos;
@@ -346,14 +346,14 @@ export class ListaCursosComponent implements OnInit {
 
     // Método para añadir un nuevo curso
     newCurso() {
-        const modalRef = this.modal.open(NuevoCursoComponent, { size: 'lg' });
+        const modalRef = this.modal.open(NuevoCursoComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
         modalRef.componentInstance.cursos = this.cursos;
     }
 
     // Método para modificar un curso
     updateCurso(curso: any) {
-        const modalRef = this.modal.open(ActualizarCursoComponent, { size: 'lg' });
+        const modalRef = this.modal.open(ActualizarCursoComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.curso = curso;
         modalRef.componentInstance.cursoSeleccionado = this.cursoSeleccionado;
     }
@@ -492,7 +492,7 @@ export class ListaCursosComponent implements OnInit {
     anexo0(empresa: any) {
         this.AnexosService.anexo0(empresa).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -508,7 +508,7 @@ export class ListaCursosComponent implements OnInit {
         }
         this.AnexosService.anexo1(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -524,7 +524,7 @@ export class ListaCursosComponent implements OnInit {
         }
         this.AnexosService.anexo2(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -539,7 +539,7 @@ export class ListaCursosComponent implements OnInit {
         }
         this.AnexosService.anexo6(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {
@@ -554,7 +554,7 @@ export class ListaCursosComponent implements OnInit {
         }
         this.AnexosService.anexo7(datos).subscribe(
             (response: any) => {
-                console.log(response);
+                //console.log(response);
                 let enlace = environment.dirBack2 + 'descargar/' + response.message;
                 window.open(enlace, '_blank');
             }, (error) => {

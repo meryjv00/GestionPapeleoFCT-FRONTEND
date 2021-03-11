@@ -41,7 +41,7 @@ export class RegistroPersonaComponent implements OnInit {
   IsPer(dni: string) {
     this.IsPersonaService.existePersona(dni).subscribe(
       (response: any) => { 
-        console.log(response.message);
+        //console.log(response.message);
         if(response.message.persona != null){
           this.persona = response.message.persona;
         } 
@@ -79,7 +79,7 @@ export class RegistroPersonaComponent implements OnInit {
   registro(email: any, dni: any, nombre: any, apellidos: any, localidad: any, residencia: any, correo:any, tlf: any, rol:any) {
     this.RegistroService.RegistroPersona(email, dni, nombre, apellidos, localidad, residencia,correo, tlf,rol).subscribe(
       (response: any) => {
-        console.log("Registro correcto");
+        //console.log("Registro correcto");
         this.router.navigate(['/login']);
       },
       (error) => {
@@ -98,7 +98,7 @@ export class RegistroPersonaComponent implements OnInit {
   }
 
   onChange(idRol: any){
-    console.log(idRol);
+    //console.log(idRol);
     this.rolSeleccionado = idRol;
   }
 }

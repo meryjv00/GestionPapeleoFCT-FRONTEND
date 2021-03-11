@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
   showMessageTime() {
     this.message = "Loading ...";
     setTimeout(() => {
-      console.log(this.subs);
+      //console.log(this.subs);
       if (this.subs) {
         //console.log('Ups. Parece que el servidor ha tardando demasiado.');
         this.message = "Ups. Parece que el servidor ha tardando demasiado.";

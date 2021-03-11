@@ -18,12 +18,12 @@ export class ModalAlertaComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    console.log(this.exito);
+    //console.log(this.exito);
 
     // Evaluamos si vamos a la pregunta de confirmacion o al exito o fracaso de la acción
 
     if (this.exito) {
-      console.log('entro true');
+      //console.log('entro true');
       
       this.showConfirmar = false;
       this.showExito = true;
@@ -31,7 +31,7 @@ export class ModalAlertaComponent implements OnInit {
         this.activeModal.close();
       }, 1700);
     } else if (this.exito == false) {
-      console.log('entro false');
+      //console.log('entro false');
       
       this.showConfirmar = false;
       this.showError = true;

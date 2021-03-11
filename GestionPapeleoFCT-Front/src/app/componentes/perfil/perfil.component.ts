@@ -184,7 +184,7 @@ export class PerfilComponent implements OnInit {
   envEmail(nombreUsuario: any, asunto: any, email: any) {
     this.EnvEmailService.EnvEmail(nombreUsuario, asunto, email).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
       },
       (error) => {
         console.log(error.error.message);
@@ -194,7 +194,7 @@ export class PerfilComponent implements OnInit {
   updatePass(email: any, oldpassword: any, newpassword: any) {
     this.mod_user_pass.Mod_user_pass(email, oldpassword, newpassword).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         const modalRef = this.modal.open(ModalAlertaComponent, { size: 'xs', backdrop: 'static' });
         modalRef.componentInstance.mensaje = 'Contraseña actualizada correctamente';
         modalRef.componentInstance.exito = true;
@@ -211,7 +211,7 @@ export class PerfilComponent implements OnInit {
   updateEmail(email: any, newemail: any) {
     this.mod_user_pass.Mod_user_email(email, newemail).subscribe(
       (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.user = this.loginService.getUser();
         this.user.email = newemail;
         this.loginService.saveUser(this.user);

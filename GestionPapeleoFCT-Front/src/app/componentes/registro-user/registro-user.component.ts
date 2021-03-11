@@ -55,7 +55,7 @@ export class RegistroUserComponent implements OnInit {
   public registroSuscription(dni: string, email: string, password: string) {
     this.registroService.Registro(dni, email, password).subscribe(
       (response: any) => {
-        console.log(response.message);
+        //console.log(response.message);
         this.CompartirDatosService.setArray(email,dni);
         this.router.navigate(['registroPersona']);
       },
