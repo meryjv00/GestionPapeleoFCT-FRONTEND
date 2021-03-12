@@ -5,7 +5,7 @@
 export const environment = {
   dirBack: 'http://localhost:8091/api/',
   dirBack2: 'http://localhost:8091/',
-  dirFront: 'http://localhost:8081/',
+  dirFront: 'http://coworkingdaw2.ddns.net:8081/',
   production: false
 };
 
